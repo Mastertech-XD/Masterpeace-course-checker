@@ -7,6 +7,8 @@
   <img src="https://i.ibb.co/jvTFhLwF/IMG-20250215-140630.jpg" width="700" height="900">
 </p>🚀 Features
 
+<img src="https://i.imgur.com/dBaSKWF.gif" height="90" width="100%">
+
 ✅ Check KUCCPS course eligibility based on KCSE grades
 ✅ Cluster points calculation
 ✅ User-friendly UI with modern colors
