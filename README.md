@@ -4,7 +4,7 @@
 
 
 <p align="center">
-  <img src="https://i.ibb.co/jvTFhLwF/IMG-20250215-140630.jpg" width="700" height="400">
+  <img src="https://i.ibb.co/jvTFhLwF/IMG-20250215-140630.jpg" width="700" height="900">
 </p>🚀 Features
 
 ✅ Check KUCCPS course eligibility based on KCSE grades
