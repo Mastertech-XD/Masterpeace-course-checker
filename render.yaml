@@ -1,9 +1,9 @@
 services:
-  - name: kuccps-course-checker
-    type: web
-    env: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "python app.py"
-    envVars:
-      - key: PORT
-        value: 5000
+
+type: web name: kuccps-course-checker runtime: python env: python buildCommand: "pip install -r requirements.txt" startCommand: "gunicorn app:app" envVars:
+
+key: FLASK_ENV value: production
+
+key: SECRET_KEY value: "your_secret_key_here" plan: free region: oregon disk: name: data mountPath: /data sizeGB: 1
+
+
