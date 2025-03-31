@@ -1,9 +1,8 @@
 services:
-
-type: web name: kuccps-course-checker runtime: python env: python buildCommand: "pip install -r requirements.txt" startCommand: "gunicorn app:app" envVars:
-
-key: FLASK_ENV value: production
-
-key: SECRET_KEY value: "your_secret_key_here" plan: free region: oregon disk: name: data mountPath: /data sizeGB: 1
-
-
+  - type: web
+    name: Masterpeace-course-checker
+    env: node
+    buildCommand: npm install
+    startCommand: node server.js
+    plan: free
+    region: oregon
