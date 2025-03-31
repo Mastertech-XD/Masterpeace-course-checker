@@ -2,7 +2,7 @@
   "name": "masterpeace-course-checker",
   "version": "1.0.0",
   "description": "KUCCPS Course and University Checker",
-  "main": "server.js",
+  "main": "index.html",
   "scripts": {
     "start": "node server.js"
   },
