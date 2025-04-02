@@ -1,13 +1,12 @@
 {
   "name": "masterpeace-course-checker",
   "version": "1.0.0",
-  "description": "KUCCPS Course and University Checker",
+  "description": "A course qualification checker for KUCCPS requirements",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "cors": "^2.8.5"
+    "express": "^4.18.2"
   }
 }
