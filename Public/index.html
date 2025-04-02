@@ -4,37 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KUCCPS Course Checker</title>
-    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="static/styles.css">
 </head>
 <body>
     <h1>KUCCPS Course & University Qualification Checker</h1>
-    
-    <form id="gradesForm">
-        <label for="courseCluster">Select Course Cluster:</label>
-        <select id="courseCluster" name="courseCluster">
-            <option value="1">Engineering & Technology</option>
-            <option value="2">Medicine & Health Sciences</option>
-            <option value="3">Business & Commerce</option>
-            <option value="4">Education & Arts</option>
-            <option value="5">Law</option>
-            <option value="6">Agriculture & Environmental Studies</option>
-        </select>
 
-        <div id="subjectInputs">
-            <!-- Subjects will be dynamically inserted here -->
-        </div>
+    <form id="gradesForm">
+        <label for="math">Mathematics:</label>
+        <input type="number" id="math" name="math" required><br>
+
+        <label for="eng">English:</label>
+        <input type="number" id="eng" name="eng" required><br>
+
+        <label for="kis">Kiswahili:</label>
+        <input type="number" id="kis" name="kis" required><br>
+
+        <label for="sci">Science:</label>
+        <input type="number" id="sci" name="sci" required><br>
+
+        <label for="hum">Humanities:</label>
+        <input type="number" id="hum" name="hum" required><br>
+
+        <label>Select at least 4 Clusters:</label><br>
+        <select id="clusters" multiple required>
+            <option value="1">Law</option>
+            <option value="2">Business, Hospitality & Related</option>
+            <option value="3">Social Sciences, Media Studies, Fine Arts, Film, Animation, Graphics & Related</option>
+            <option value="4">Geosciences & Related</option>
+            <option value="5">Engineering, Engineering Technology & Related</option>
+            <option value="6">Architecture, Building Construction & Related</option>
+            <option value="7">Computing, IT & Related</option>
+            <option value="8">Agribusiness & Related</option>
+            <option value="9">General Science, Biological Sciences, Physics, Chemistry & Related</option>
+            <option value="10">Actuarial Science, Accountancy, Mathematics, Economics, Statistics & Related</option>
+            <option value="11">Interior Design, Fashion Design, Textiles & Related</option>
+            <option value="12">Sport Science & Related</option>
+            <option value="13">Medicine, Health, Veterinary Medicine & Related</option>
+            <option value="14">History, Archeology & Related</option>
+            <option value="15">Agriculture, Animal Health, Food Science, Nutrition Dietetics, Environmental Sciences, Natural Resources & Related</option>
+            <option value="16">Geography & Related</option>
+            <option value="17">French & German</option>
+            <option value="18">Music & Related</option>
+            <option value="19">Education & Related</option>
+            <option value="20">Religious Studies, Theology, Islamic Studies & Related</option>
+        </select><br>
 
         <button type="submit">Check Qualification</button>
     </form>
 
-    <div id="loadingMessage" style="display: none;">Processing...</div>
     <div id="results"></div>
+    
+    <footer>Designed by <span class="highlight">Masterpeace</span></footer>
 
-    <!-- Stylish Footer -->
-    <div class="footer">
-        Designed by <span class="designer-name">Masterpeace Elite</span>
-    </div>
-
-    <script src="/static/script.js"></script>
+    <script src="static/script.js"></script>
 </body>
 </html>
