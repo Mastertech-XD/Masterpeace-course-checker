@@ -7,8 +7,6 @@ body {
 
 h1 {
     color: #0275d8;
-    font-size: 24px;
-    margin-bottom: 20px;
 }
 
 form {
@@ -17,22 +15,11 @@ form {
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     display: inline-block;
-    width: 90%;
-    max-width: 400px;
 }
 
-label {
-    font-weight: bold;
+label, input, select, button {
     display: block;
-    text-align: left;
-    margin: 5px 0;
-}
-
-input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    margin: 10px 0;
 }
 
 button {
@@ -41,45 +28,21 @@ button {
     padding: 10px;
     border: none;
     cursor: pointer;
-    width: 100%;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: 0.3s;
 }
 
-button:hover {
-    background-color: #025aa5;
-}
-
-/* Beautiful Footer Section */
 .footer {
     margin-top: 20px;
-    font-size: 16px;
-    font-weight: bold;
     padding: 10px;
-    text-transform: uppercase;
-    background: linear-gradient(to right, #ff416c, #ff4b2b);
+    background: linear-gradient(to right, #0275d8, #00c6ff);
     color: white;
-    display: inline-block;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    animation: fadeIn 1.5s ease-in-out;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+    border-radius: 5px;
 }
 
-/* Fade-in animation */
-@keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(10px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-
-/* Responsive Design */
-@media (max-width: 600px) {
-    form {
-        width: 100%;
-        padding: 15px;
-    }
-
-    h1 {
-        font-size: 20px;
-    }
+.designer-name {
+    font-style: italic;
+    font-size: 20px;
+    color: yellow;
 }
