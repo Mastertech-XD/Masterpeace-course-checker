@@ -1,28 +1,56 @@
-document.getElementById('gradesForm').addEventListener('submit', async function(event) {
-    event.preventDefault();
-    
-    const grades = {
-        math: parseInt(document.getElementById('math').value),
-        eng: parseInt(document.getElementById('eng').value),
-        kis: parseInt(document.getElementById('kis').value),
-        sci: parseInt(document.getElementById('sci').value),
-        hum: parseInt(document.getElementById('hum').value)
+document.addEventListener("DOMContentLoaded", function () {
+    const courseClusterSelect = document.getElementById("courseCluster");
+    const subjectInputsDiv = document.getElementById("subjectInputs");
+    const gradesForm = document.getElementById("gradesForm");
+    const resultsDiv = document.getElementById("results");
+
+    const clusterSubjects = {
+        "1": ["Mathematics", "Physics", "Chemistry", "Any Group III/IV/V"], // Engineering
+        "2": ["Biology", "Chemistry", "Physics/Mathematics", "English/Kiswahili"], // Medicine
+        "3": ["Mathematics", "English", "Business Studies/Economics", "Any Group III/IV/V"], // Business
+        "4": ["English", "Kiswahili", "Mathematics", "Any Group III/IV/V"], // Education
+        "5": ["English", "Kiswahili", "History/CRE/IRE", "Any Group III/IV/V"], // Law
+        "6": ["Biology", "Agriculture/Geography", "Mathematics", "Any Group III/IV/V"] // Agriculture
     };
 
-    const response = await fetch('/check_qualification', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ grades: grades })
-    });
+    function updateSubjectInputs() {
+        const selectedCluster = courseClusterSelect.value;
+        const subjects = clusterSubjects[selectedCluster];
 
-    const data = await response.json();
-    
-    let resultHTML = `<h2>Cluster Points: ${data.user_cluster.toFixed(2)}</h2>`;
-    resultHTML += '<h3>Qualified Courses:</h3><ul>';
-    data.qualified_courses.forEach(course => {
-        resultHTML += `<li>${course.Course} - ${course.University} (${course.Type})</li>`;
+        subjectInputsDiv.innerHTML = "";
+        subjects.forEach(subject => {
+            subjectInputsDiv.innerHTML += `
+                <label for="${subject}">${subject}:</label>
+                <input type="number" id="${subject}" name="${subject}" required><br>
+            `;
+        });
+    }
+
+    courseClusterSelect.addEventListener("change", updateSubjectInputs);
+    updateSubjectInputs(); // Load subjects initially
+
+    gradesForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const formData = new FormData(gradesForm);
+        const jsonData = {};
+        formData.forEach((value, key) => {
+            jsonData[key] = value;
+        });
+
+        fetch("/check-qualification", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(jsonData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            resultsDiv.innerHTML = `<h3>Results:</h3><p>${data.message}</p>`;
+        })
+        .catch(error => {
+            resultsDiv.innerHTML = `<p style="color: red;">Error: ${error}</p>`;
+        });
     });
-    resultHTML += '</ul>';
-    
-    document.getElementById('results').innerHTML = resultHTML;
 });
