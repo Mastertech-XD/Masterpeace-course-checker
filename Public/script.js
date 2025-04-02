@@ -1,56 +1,72 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const courseClusterSelect = document.getElementById("courseCluster");
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById("gradesForm");
+    const clusterSelect = document.getElementById("courseCluster");
     const subjectInputsDiv = document.getElementById("subjectInputs");
-    const gradesForm = document.getElementById("gradesForm");
     const resultsDiv = document.getElementById("results");
+    const loadingMessage = document.getElementById("loadingMessage");
 
+    // Cluster Subjects Mapping
     const clusterSubjects = {
-        "1": ["Mathematics", "Physics", "Chemistry", "Any Group III/IV/V"], // Engineering
-        "2": ["Biology", "Chemistry", "Physics/Mathematics", "English/Kiswahili"], // Medicine
-        "3": ["Mathematics", "English", "Business Studies/Economics", "Any Group III/IV/V"], // Business
-        "4": ["English", "Kiswahili", "Mathematics", "Any Group III/IV/V"], // Education
-        "5": ["English", "Kiswahili", "History/CRE/IRE", "Any Group III/IV/V"], // Law
-        "6": ["Biology", "Agriculture/Geography", "Mathematics", "Any Group III/IV/V"] // Agriculture
+        1: ["Mathematics", "Physics", "Chemistry"],
+        2: ["Biology", "Chemistry", "Mathematics"],
+        3: ["Mathematics", "Business", "English"],
+        4: ["English", "Kiswahili", "History"],
+        5: ["English", "History", "Kiswahili"],
+        6: ["Agriculture", "Biology", "Geography"]
     };
 
+    // Function to dynamically add subject inputs based on cluster
     function updateSubjectInputs() {
-        const selectedCluster = courseClusterSelect.value;
-        const subjects = clusterSubjects[selectedCluster];
+        const selectedCluster = clusterSelect.value;
+        const subjects = clusterSubjects[selectedCluster] || [];
 
+        // Clear previous inputs
         subjectInputsDiv.innerHTML = "";
+
         subjects.forEach(subject => {
-            subjectInputsDiv.innerHTML += `
-                <label for="${subject}">${subject}:</label>
-                <input type="number" id="${subject}" name="${subject}" required><br>
-            `;
+            const label = document.createElement("label");
+            label.textContent = `${subject}:`;
+            
+            const input = document.createElement("input");
+            input.type = "number";
+            input.name = subject.toLowerCase();
+            input.required = true;
+            
+            subjectInputsDiv.appendChild(label);
+            subjectInputsDiv.appendChild(input);
         });
     }
 
-    courseClusterSelect.addEventListener("change", updateSubjectInputs);
-    updateSubjectInputs(); // Load subjects initially
+    // Listen for changes in cluster selection
+    clusterSelect.addEventListener("change", updateSubjectInputs);
+    updateSubjectInputs(); // Load initially
 
-    gradesForm.addEventListener("submit", function (event) {
+    // Form Submission
+    form.addEventListener("submit", function(event) {
         event.preventDefault();
+        
+        // Show loading message
+        loadingMessage.style.display = "block";
+        resultsDiv.innerHTML = "";
 
-        const formData = new FormData(gradesForm);
-        const jsonData = {};
-        formData.forEach((value, key) => {
-            jsonData[key] = value;
-        });
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
 
         fetch("/check-qualification", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(jsonData)
+            body: JSON.stringify(data)
         })
         .then(response => response.json())
-        .then(data => {
-            resultsDiv.innerHTML = `<h3>Results:</h3><p>${data.message}</p>`;
+        .then(result => {
+            loadingMessage.style.display = "none"; // Hide loading
+            resultsDiv.innerHTML = `<h3>Results:</h3><p>${result.message}</p>`;
         })
         .catch(error => {
-            resultsDiv.innerHTML = `<p style="color: red;">Error: ${error}</p>`;
+            loadingMessage.style.display = "none";
+            resultsDiv.innerHTML = "<p style='color: red;'>Error processing request.</p>";
         });
     });
 });
