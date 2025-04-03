@@ -1,50 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Checker</title>
-    <style>
-        body {
-            background: url('background.jpg') no-repeat center center fixed;
-            background-size: cover;
-            text-align: center;
-            font-family: Arial, sans-serif;
-        }
-        h1 {
-            color: yellow;
-            font-size: 2em;
-        }
-        p {
-            color: red;
-        }
-        .menu-button {
-            display: block;
-            width: 80%;
-            padding: 15px;
-            margin: 10px auto;
-            font-size: 1.2em;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-        .degree { background-color: cyan; }
-        .diploma { background-color: blue; color: white; }
-        .certificate { background-color: red; color: white; }
-        .kmtc { background-color: darkgreen; color: white; }
-    </style>
+    <title>KUCCPS Course Checker</title>
+    <link rel="stylesheet" href="static/styles.css">
 </head>
 <body>
-    <h1>The CourseChecker</h1>
-    <p>Your Gateway to University Success!</p>
-    <button class="menu-button degree" onclick="navigateToForm('Degree')">Degree</button>
-    <button class="menu-button diploma" onclick="navigateToForm('Diploma')">Diploma</button>
-    <button class="menu-button certificate" onclick="navigateToForm('Certificate')">Certificate</button>
-    <button class="menu-button kmtc" onclick="navigateToForm('KMTC')">KMTC</button>
+    <div class="container">
+        <h1>KUCCPS Course & University Qualification Checker</h1>
+        <form id="gradesForm">
+            <label for="cluster">Select Cluster:</label>
+            <select id="cluster" name="cluster" required>
+                <option value="1">Law</option>
+                <option value="2">Business, Hospitality & Related</option>
+                <option value="3">Social Sciences, Media Studies & Related</option>
+                <option value="4">Geosciences & Related</option>
+                <option value="5">Engineering & Technology</option>
+                <option value="6">Architecture & Related</option>
+                <option value="7">Computing, IT & Related</option>
+                <option value="8">Agribusiness & Related</option>
+                <option value="9">General Science, Physics, Chemistry & Related</option>
+                <option value="10">Mathematics, Economics & Related</option>
+                <option value="11">Interior Design, Fashion & Related</option>
+                <option value="12">Sports Science & Related</option>
+                <option value="13">Medicine, Health & Veterinary</option>
+                <option value="14">History, Archeology & Related</option>
+                <option value="15">Agriculture, Animal Health & Related</option>
+                <option value="16">Geography & Related</option>
+                <option value="17">French & German</option>
+                <option value="18">Music & Related</option>
+                <option value="19">Education & Related</option>
+                <option value="20">Religious Studies & Related</option>
+            </select><label for="math">Mathematics Grade:</label>
+        <input type="text" id="math" name="math" required>
+        
+        <label for="eng">English Grade:</label>
+        <input type="text" id="eng" name="eng" required>
+        
+        <label for="kis">Kiswahili Grade:</label>
+        <input type="text" id="kis" name="kis" required>
+        
+        <label for="sci">Science Grade:</label>
+        <input type="text" id="sci" name="sci" required>
+        
+        <label for="hum">Humanities Grade:</label>
+        <input type="text" id="hum" name="hum" required>
+        
+        <button type="submit">Check Qualification</button>
+    </form>
+    <div id="results"></div>
+</div>
+<script src="static/script.js"></script>
 
-    <script>
-        function navigateToForm(type) {window.location.href = `main/kcse_form.html?program=${type}`;
-        }
-    </script>
 </body>
 </html>
