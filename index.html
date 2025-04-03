@@ -34,6 +34,7 @@
         .artisan { background-color: yellow; }
         .kmtc { background-color: darkgreen; color: white; }
         .container {
+            display: none;
             margin: 20px auto;
             max-width: 600px;
             background: rgba(255, 255, 255, 0.8);
@@ -45,13 +46,11 @@
 <body>
     <h1>The CourseChecker</h1>
     <p>Your Gateway to University Success!</p>
-    <button class="menu-button degree">Degree</button>
-    <button class="menu-button diploma">Diploma</button>
-    <button class="menu-button certificate">Certificate</button>
-    <button class="menu-button short-courses">Short Courses (for free)</button>
-    <button class="menu-button artisan">Artisan</button>
-    <button class="menu-button kmtc">KMTC</button><div class="container">
-    <h2>Check Your Qualification</h2>
+    <button class="menu-button degree" onclick="showForm('Degree')">Degree</button>
+    <button class="menu-button diploma" onclick="showForm('Diploma')">Diploma</button>
+    <button class="menu-button certificate" onclick="showForm('Certificate')">Certificate</button>
+    <button class="menu-button kmtc" onclick="showForm('KMTC')">KMTC</button><div class="container" id="formContainer">
+    <h2 id="formTitle">Check Your Qualification</h2>
     <label for="grades">Enter Your Grades (Math, Eng, Kis, Sci, Hum):</label>
     <input type="text" id="grades" placeholder="e.g., 80,75,70,85,60">
     <button onclick="checkQualification()">Check</button>
@@ -59,6 +58,11 @@
 </div>
 
 <script>
+    function showForm(type) {
+        document.getElementById("formContainer").style.display = "block";
+        document.getElementById("formTitle").innerText = `Check Your Qualification for ${type}`;
+    }
+    
     async function checkQualification() {
         const gradesInput = document.getElementById("grades").value;
         const [math, eng, kis, sci, hum] = gradesInput.split(",").map(Number);
