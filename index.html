@@ -2,20 +2,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Checker</title>
+    <title>Course Qualification Checker</title>
     <style>
         body {
             background: url('background.jpg') no-repeat center center fixed;
             background-size: cover;
             text-align: center;
             font-family: Arial, sans-serif;
+            color: white;
         }
         h1 {
             color: yellow;
-            font-size: 2em;
-        }
-        p {
-            color: red;
         }
         .menu-button {
             display: block;
@@ -27,93 +24,62 @@
             border-radius: 10px;
             cursor: pointer;
         }
-        .degree { background-color: cyan; color: black; }
+        .degree { background-color: cyan; }
         .diploma { background-color: blue; color: white; }
         .certificate { background-color: red; color: white; }
         .kmtc { background-color: darkgreen; color: white; }
         .container {
             display: none;
-            margin: 20px auto;
-            max-width: 600px;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(0, 0, 0, 0.8);
             padding: 20px;
             border-radius: 10px;
+            margin: 20px auto;
+            max-width: 600px;
         }
-        .subject-button {
-            width: 100px;
+        select {
+            width: 100%;
             padding: 10px;
-            margin: 5px;
-            font-size: 1em;
-            border-radius: 5px;
-            cursor: pointer;
-            color: white;
+            margin: 5px 0;
         }
-        .math { background-color: orange; }
-        .eng { background-color: purple; }
-        .kis { background-color: pink; color: black; }
-        .sci { background-color: green; }
-        .hum { background-color: brown; }
-        .bio { background-color: darkblue; }
-        .chem { background-color: darkred; }
     </style>
 </head>
 <body>
-    <h1>The CourseChecker</h1>
+    <h1>The Course Checker</h1>
     <p>Your Gateway to University Success!</p>
     <button class="menu-button degree" onclick="showForm('Degree')">Degree</button>
     <button class="menu-button diploma" onclick="showForm('Diploma')">Diploma</button>
     <button class="menu-button certificate" onclick="showForm('Certificate')">Certificate</button>
     <button class="menu-button kmtc" onclick="showForm('KMTC')">KMTC</button><div class="container" id="formContainer">
-    <h2 id="formTitle">Check Your Qualification</h2>
-    <p>Select your KCSE grades:</p>
-    <div id="gradeSelection"></div>
-    <button onclick="checkQualification()">Check</button>
-    <div id="results"></div>
+    <h2 id="formTitle">Enter KCSE Grades</h2>
+    <label>English:
+        <select>
+            <option>Select Grade</option>
+            <option>A</option><option>A-</option><option>B+</option><option>B</option>
+            <option>B-</option><option>C+</option><option>C</option><option>C-</option>
+            <option>D+</option><option>D</option><option>D-</option><option>E</option>
+        </select>
+    </label>
+    <label>Kiswahili:
+        <select> <!-- Repeat similar options for each subject -->
+            <option>Select Grade</option>
+            <option>A</option><option>A-</option><option>B+</option><option>B</option>
+        </select>
+    </label>
+    <label>Mathematics:
+        <select>
+            <option>Select Grade</option>
+            <option>A</option><option>A-</option><option>B+</option><option>B</option>
+        </select>
+    </label>
+    <button onclick="checkQualification()">Check Qualification</button>
 </div>
 
 <script>
-    let programType = "";
-    let selectedGrades = {};
     function showForm(type) {
-        programType = type;
         document.getElementById("formContainer").style.display = "block";
-        document.getElementById("formTitle").innerText = `Check Your Qualification for ${type}`;
-        generateGradeSelection(type);
-    }
-    function generateGradeSelection(type) {
-        const subjects = {
-            Degree: ["Math", "English", "Kiswahili", "Science", "Humanities"],
-            Diploma: ["Math", "English", "Science"],
-            KMTC: ["Biology", "Chemistry", "English", "Math"]
-        };
-        const container = document.getElementById("gradeSelection");
-        container.innerHTML = "";
-        (subjects[type] || []).forEach(subject => {
-            const button = document.createElement("button");
-            button.innerText = subject;
-            button.className = `subject-button ${subject.toLowerCase()}`;
-            button.onclick = () => selectGrade(subject);
-            container.appendChild(button);
-        });
-    }
-    function selectGrade(subject) {
-        const grade = prompt(`Enter grade for ${subject}:`);
-        if (grade) {
-            selectedGrades[subject] = grade.toUpperCase();
-        }
-    }
-    function checkQualification() {
-        if (Object.keys(selectedGrades).length === 0) {
-            alert("Please select grades for all required subjects.");
-            return;
-        }
-        alert("Qualification check submitted for " + programType);
+        document.getElementById("formTitle").innerText = `Enter KCSE Grades for ${type}`;
     }
 </script>
-
-<footer>
-    <p>&copy; 2025 All rights reserved.<br>Designed by Sir Masterpeace</p>
-</footer>
 
 </body>
 </html>
