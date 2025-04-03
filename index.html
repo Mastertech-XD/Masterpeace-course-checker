@@ -2,70 +2,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KUCCPS Course Checker</title>
+    <title>Course Checker</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background: url('background-image.jpg') no-repeat center center fixed;
+            background: url('background.jpg') no-repeat center center fixed;
             background-size: cover;
-            color: white;
-        }
-        .container {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 10px;
-            display: inline-block;
-            margin-top: 50px;
+            text-align: center;
+            font-family: Arial, sans-serif;
         }
         h1 {
             color: yellow;
+            font-size: 2em;
         }
-        .button {
+        p {
+            color: red;
+        }
+        .menu-button {
             display: block;
-            width: 100%;
-            padding: 10px;
+            width: 80%;
+            padding: 15px;
             margin: 10px auto;
+            font-size: 1.2em;
             border: none;
-            border-radius: 5px;
-            font-size: 18px;
+            border-radius: 10px;
             cursor: pointer;
         }
-        .degree { background: cyan; }
-        .diploma { background: blue; color: white; }
-        .certificate { background: red; color: white; }
-        .artisan { background: yellow; }
-        .kmtc { background: green; color: white; }
-        .input-field, .cluster-select {
-            width: 100%;
-            padding: 10px;
-            margin: 10px auto;
-            display: block;
-        }
+        .degree { background-color: red; }
+        .diploma { background-color: blue; color: white; }
+        .certificate { background-color: red; color: white; }
+        .short-courses { background-color: green; color: white; }
+        .artisan { background-color: yellow; }
+        .kmtc { background-color: darkgreen; color: white; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>KUCCPS Course & University Qualification Checker</h1>
-        <p>Your Gateway to University Success!</p>
-        <input type="text" class="input-field" placeholder="Mathematics Score">
-        <input type="text" class="input-field" placeholder="English Score">
-        <input type="text" class="input-field" placeholder="Kiswahili Score">
-        <input type="text" class="input-field" placeholder="Science Score">
-        <input type="text" class="input-field" placeholder="Humanities Score">
-        <select class="cluster-select">
-            <option>Select at least 4 Clusters</option>
-            <option>Engineering Cluster</option>
-            <option>Medical Cluster</option>
-            <option>Business Cluster</option>
-            <option>Education Cluster</option>
-        </select>
-        <button class="button degree">Degree</button>
-        <button class="button diploma">Diploma</button>
-        <button class="button certificate">Certificate</button>
-        <button class="button artisan">Artisan</button>
-        <button class="button kmtc">KMTC</button>
-        <p>Designed by Masterpeace</p>
-    </div>
+    <h1>The CourseChecker</h1>
+    <p>Your Gateway to University Success!</p>
+    <button class="menu-button degree">Degree</button>
+    <button class="menu-button diploma">Diploma</button>
+    <button class="menu-button certificate">Certificate</button>
+    <button class="menu-button short-courses">Short Courses (for free)</button>
+    <button class="menu-button artisan">Artisan</button>
+    <button class="menu-button kmtc">KMTC</button>
+    <footer>
+        <p>&copy; 2025 All rights reserved.<br>Designed by sir.Masterpeace</p>
+    </footer>
 </body>
 </html>
