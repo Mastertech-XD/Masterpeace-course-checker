@@ -31,7 +31,7 @@
             margin-bottom: 5px;
             display: block;
         }
-        select, input[type="number"], input[type="text"], input[type="submit"] {
+        select, input[type="number"], input[type="text"] {
             width: 100%;
             padding: 8px;
             margin: 5px 0 10px;
@@ -56,22 +56,7 @@
         }
         footer {
             text-align: center;
-            margin-top: 30px;
-            font-size: 14px;
-            color: #888;
-        }
-        .payment-section {
-            margin-top: 20px;
-            background-color: #fff;
-            padding: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .payment-section input[type="number"] {
-            width: auto;
-            display: inline-block;
-            margin-right: 10px;
+            margin-top: 40px;
         }
     </style>
 </head>
@@ -83,7 +68,7 @@
         <form id="qualificationForm">
             <div class="form-group">
                 <label for="course">Select Desired Course Cluster:</label>
-                <select id="course" name="course">
+                <select id="course" name="course" required>
                     <option value="">--Choose One--</option>
                     <option value="Cluster 1 - Law">Cluster 1 - Law</option>
                     <option value="Cluster 2 - Business, Hospitality & Related">Cluster 2 - Business, Hospitality & Related</option>
@@ -105,10 +90,16 @@
                     <option value="Cluster 18 - Music & Related">Cluster 18 - Music</option>
                     <option value="Cluster 19 - Education & Related">Cluster 19 - Education</option>
                     <option value="Cluster 20 - Religious Studies, Theology, Islamic Studies & Related">Cluster 20 - Religious Studies</option>
+                    <option value="Cluster 21 - Arabic">Cluster 21 - Arabic</option>
+                    <option value="Cluster 22 - Hindu">Cluster 22 - Hindu</option>
+                    <option value="Cluster 23 - IRE">Cluster 23 - IRE</option>
+                    <option value="Cluster 24 - Home Science">Cluster 24 - Home Science</option>
+                    <option value="Cluster 25 - Languages">Cluster 25 - Languages</option>
+                    <option value="Cluster 26 - Aviation">Cluster 26 - Aviation</option>
+                    <option value="Cluster 27 - Computer Science">Cluster 27 - Computer Science</option>
                 </select>
             </div>
 
-            <!-- Humanities Group -->
             <div class="form-group">
                 <label for="history">History Grade:</label>
                 <select id="history" name="history">
@@ -154,10 +145,9 @@
                 </select>
             </div>
 
-            <!-- Language Group (Added French, Arabic, German) -->
             <div class="form-group">
-                <label for="french">French Grade:</label>
-                <select id="french" name="french">
+                <label for="mathematics">Mathematics Grade:</label>
+                <select id="mathematics" name="mathematics">
                     <option value="">--Choose One--</option>
                     <option value="A">A</option>
                     <option value="B+">B+</option>
@@ -171,8 +161,53 @@
             </div>
 
             <div class="form-group">
-                <label for="arabic">Arabic Grade:</label>
-                <select id="arabic" name="arabic">
+                <label for="physics">Physics Grade:</label>
+                <select id="physics" name="physics">
+                    <option value="">--Choose One--</option>
+                    <option value="A">A</option>
+                    <option value="B+">B+</option>
+                    <option value="B">B</option>
+                    <option value="C+">C+</option>
+                    <option value="C">C</option>
+                    <option value="D+">D+</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="chemistry">Chemistry Grade:</label>
+                <select id="chemistry" name="chemistry">
+                    <option value="">--Choose One--</option>
+                    <option value="A">A</option>
+                    <option value="B+">B+</option>
+                    <option value="B">B</option>
+                    <option value="C+">C+</option>
+                    <option value="C">C</option>
+                    <option value="D+">D+</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="biology">Biology Grade:</label>
+                <select id="biology" name="biology">
+                    <option value="">--Choose One--</option>
+                    <option value="A">A</option>
+                    <option value="B+">B+</option>
+                    <option value="B">B</option>
+                    <option value="C+">C+</option>
+                    <option value="C">C</option>
+                    <option value="D+">D+</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="french">French Grade:</label>
+                <select id="french" name="french">
                     <option value="">--Choose One--</option>
                     <option value="A">A</option>
                     <option value="B+">B+</option>
@@ -200,17 +235,6 @@
                 </select>
             </div>
 
-            <!-- Payment Section -->
-            <div class="payment-section">
-                <label for="phone">Enter Phone Number:</label>
-                <input type="text" id="phone" name="phone" placeholder="Enter your phone number" required />
-                
-                <label for="payment">Pay 20 to generate results:</label>
-                <input type="number" id="payment" name="payment" placeholder="Enter Amount" />
-                
-                <button type="button" onclick="processPayment()">Pay and Generate Results</button>
-            </div>
-
             <div class="form-group">
                 <button type="button" onclick="calculateQualification()">Check Qualification</button>
             </div>
@@ -224,23 +248,29 @@
     </footer>
 
     <script>
-        function processPayment() {
-            const payment = document.getElementById('payment').value;
-            const phone = document.getElementById('phone').value;
-            if (payment == 20) {
-                alert("Payment successful. A payment prompt has been sent to " + phone);
-                // Logic to simulate payment processing and notify the number
-                // Here we just simulate the payment prompt
-            } else {
-                alert("Please pay 20 to generate results.");
-            }
-        }
-
         function calculateQualification() {
-            // Logic to calculate qualification based on selected subjects and grades
-            // Your code for checking eligibility based on clusters and grades would go here
-            document.getElementById('result').innerHTML = "Qualification result based on selected criteria will be displayed here.";
+            // Ensure a course is selected
+            const course = document.getElementById('course').value;
+            if (course === "") {
+                alert("Please select a course cluster.");
+                return;
+            }
+
+            // Collect the selected grades
+            const history = document.getElementById('history').value;
+            const geography = document.getElementById('geography').value;
+            const religiousStudies = document.getElementById('religiousStudies').value;
+            const mathematics = document.getElementById('mathematics').value;
+            const physics = document.getElementById('physics').value;
+            const chemistry = document.getElementById('chemistry').value;
+            const biology = document.getElementById('biology').value;
+            const french = document.getElementById('french').value;
+            const german = document.getElementById('german').value;
+
+            // Add logic here to calculate qualification based on the grades and the course selected
+            const result = `You have selected the ${course} cluster. Your grades: History: ${history}, Geography: ${geography}, Religious Studies: ${religiousStudies}, Mathematics: ${mathematics}, Physics: ${physics}, Chemistry: ${chemistry}, Biology: ${biology}, French: ${french}, German: ${german}`;
+            document.getElementById('result').innerText = result;
         }
     </script>
 </body>
-    </html>
+                        </html>
