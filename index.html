@@ -123,22 +123,66 @@
         margin-top: 100px;
     }
 
+    /* Circular buttons */
     .btn {
-        display: block;
-        width: 200px;
-        margin: 10px auto;
-        padding: 15px;
-        font-size: 18px;
+        display: inline-block;
+        width: 150px;
+        height: 150px;
+        margin: 20px;
+        border-radius: 50%;
+        padding: 20px;
+        font-size: 16px;
         color: white;
         border: none;
         cursor: pointer;
-        border-radius: 10px;
+        text-align: center;
+        line-height: 110px;
+        font-weight: bold;
+        transition: transform 0.3s;
     }
 
-    .degree { background: cyan; }
-    .diploma { background: blue; }
-    .certificate { background: red; }
-    .kmtc { background: green; }
+    .degree {
+        background: cyan;
+        font-size: 18px;
+        width: 200px;
+        height: 200px;
+    }
+
+    .diploma {
+        background: blue;
+        font-size: 16px;
+        width: 150px;
+        height: 150px;
+    }
+
+    .certificate {
+        background: red;
+        font-size: 14px;
+        width: 120px;
+        height: 120px;
+    }
+
+    .kmtc {
+        background: green;
+        font-size: 14px;
+        width: 120px;
+        height: 120px;
+    }
+
+    .btn:hover {
+        transform: scale(1.1);
+    }
+
+    /* Footer styles */
+    .footer {
+        text-align: center;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 10px 0;
+        background: #333;
+        color: white;
+    }
 
     /* Responsive design */
     @media screen and (max-width: 768px) {
@@ -147,8 +191,9 @@
         }
 
         .btn {
-            width: 90%;
-            font-size: 16px;
+            width: 120px;
+            height: 120px;
+            font-size: 14px;
             margin-bottom: 10px;
         }
 
@@ -157,15 +202,6 @@
             top: 10px;
             left: 10px;
         }
-    }
-
-    /* Footer styles */
-    .footer {
-        text-align: center;
-        margin-top: 50px;
-        padding: 20px 0;
-        background: #333;
-        color: white;
     }
 </style>
 
