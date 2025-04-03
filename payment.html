@@ -1,0 +1,69 @@
+<form id="paymentForm">
+    <label for="phoneNumber">Enter Phone Number:</label>
+    <input type="text" id="phoneNumber" name="phoneNumber" required placeholder="e.g., 254743727510">
+    <button type="button" id="payButton" onclick="processPayment()">Pay KSh 20</button>
+</form>
+
+<div id="paymentStatus"></div>
+
+<script>
+    function processPayment() {
+        const phoneNumber = document.getElementById('phoneNumber').value;
+
+        if (phoneNumber === "") {
+            alert("Please enter a valid phone number.");
+            return;
+        }
+
+        const paymentAmount = 20;
+        const shortcode = "YOUR_SHORTCODE";  // Replace with your Shortcode
+        const shortcodePassword = "YOUR_PASSWORD";  // Replace with your Shortcode password
+        const consumerKey = "jdW7WT0bUxjQVMGtsxMyiCNTsqRNgkiA23NMSFYEsGGGMo1E";  // Your Consumer Key
+        const consumerSecret = "8uXQqUcFYLiM4MGG0f9GHXlLANATXu5Y12iGYG1ty3j5B87H5SYlGzpQDXXYcfDL";  // Your Consumer Secret
+        const apiUrl = "https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest";  // MPesa API endpoint
+
+        // Generate the token first
+        fetch('https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials', {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Basic ' + btoa(consumerKey + ':' + consumerSecret)
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const accessToken = data.access_token;
+
+            // Now send the STK push request
+            fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + accessToken,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "BusinessShortcode": shortcode,
+                    "LipaNaMpesaOnlineShortcode": shortcode,
+                    "LipaNaMpesaOnlineShortcodePassword": shortcodePassword,
+                    "PhoneNumber": phoneNumber,
+                    "Amount": paymentAmount,
+                    "AccountReference": "KUCCPSPayment",
+                    "TransactionDesc": "KUCCPS Qualification Check Payment",
+                    "CallBackURL": "https://yourdomain.com/paymentcallback"  // Your callback URL
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('paymentStatus').innerText = "Payment request sent successfully.";
+                console.log(data);  // For debugging purposes
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('paymentStatus').innerText = "There was an error processing your payment.";
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('paymentStatus').innerText = "Failed to generate access token.";
+        });
+    }
+</script>
