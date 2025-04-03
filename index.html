@@ -1,61 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KUCCPS Course Checker</title>
-    <link rel="stylesheet" href="static/styles.css">
+    <title>KUCCPS Course & University Qualification Checker</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>KUCCPS Course & University Qualification Checker</h1>
+    <div class="container">
+        <h1>KUCCPS Course & University Qualification Checker</h1>
+        <form id="qualificationForm">
+            <label for="math">Mathematics:</label>
+            <input type="number" id="math" name="math" required><label for="english">English:</label>
+        <input type="number" id="english" name="english" required>
 
-    <form id="gradesForm">
-        <label for="math">Mathematics:</label>
-        <input type="number" id="math" name="math" required><br>
+        <label for="kiswahili">Kiswahili:</label>
+        <input type="number" id="kiswahili" name="kiswahili" required>
 
-        <label for="eng">English:</label>
-        <input type="number" id="eng" name="eng" required><br>
+        <label for="science">Science:</label>
+        <input type="number" id="science" name="science" required>
 
-        <label for="kis">Kiswahili:</label>
-        <input type="number" id="kis" name="kis" required><br>
+        <label for="humanities">Humanities:</label>
+        <input type="number" id="humanities" name="humanities" required>
 
-        <label for="sci">Science:</label>
-        <input type="number" id="sci" name="sci" required><br>
-
-        <label for="hum">Humanities:</label>
-        <input type="number" id="hum" name="hum" required><br>
-
-        <label>Select at least 4 Clusters:</label><br>
-        <select id="clusters" multiple required>
-            <option value="1">Law</option>
-            <option value="2">Business, Hospitality & Related</option>
-            <option value="3">Social Sciences, Media Studies, Fine Arts, Film, Animation, Graphics & Related</option>
-            <option value="4">Geosciences & Related</option>
-            <option value="5">Engineering, Engineering Technology & Related</option>
-            <option value="6">Architecture, Building Construction & Related</option>
-            <option value="7">Computing, IT & Related</option>
-            <option value="8">Agribusiness & Related</option>
-            <option value="9">General Science, Biological Sciences, Physics, Chemistry & Related</option>
-            <option value="10">Actuarial Science, Accountancy, Mathematics, Economics, Statistics & Related</option>
-            <option value="11">Interior Design, Fashion Design, Textiles & Related</option>
-            <option value="12">Sport Science & Related</option>
-            <option value="13">Medicine, Health, Veterinary Medicine & Related</option>
-            <option value="14">History, Archeology & Related</option>
-            <option value="15">Agriculture, Animal Health, Food Science, Nutrition Dietetics, Environmental Sciences, Natural Resources & Related</option>
-            <option value="16">Geography & Related</option>
-            <option value="17">French & German</option>
-            <option value="18">Music & Related</option>
-            <option value="19">Education & Related</option>
-            <option value="20">Religious Studies, Theology, Islamic Studies & Related</option>
-        </select><br>
+        <label for="clusters">Select at least 4 Clusters:</label>
+        <select id="clusters" name="clusters" multiple required>
+            <option value="1">Cluster 1 - Law</option>
+            <option value="2">Cluster 2 - Business, Hospitality & Related</option>
+            <option value="3">Cluster 3 - Social Sciences & Media</option>
+            <option value="4">Cluster 4 - Geosciences</option>
+            <option value="5">Cluster 5 - Engineering & Related</option>
+            <option value="6">Cluster 6 - Architecture & Related</option>
+            <option value="7">Cluster 7 - Computing & IT</option>
+            <option value="8">Cluster 8 - Agribusiness</option>
+            <option value="9">Cluster 9 - General Science</option>
+            <option value="10">Cluster 10 - Actuarial Science & Math</option>
+            <option value="11">Cluster 11 - Interior & Fashion Design</option>
+            <option value="12">Cluster 12 - Sport Science</option>
+            <option value="13">Cluster 13 - Medicine & Health</option>
+            <option value="14">Cluster 14 - History & Archeology</option>
+            <option value="15">Cluster 15 - Agriculture & Food Science</option>
+            <option value="16">Cluster 16 - Geography</option>
+            <option value="17">Cluster 17 - French & German</option>
+            <option value="18">Cluster 18 - Music</option>
+            <option value="19">Cluster 19 - Education</option>
+            <option value="20">Cluster 20 - Religious Studies</option>
+        </select>
 
         <button type="submit">Check Qualification</button>
     </form>
+    <div id="result"></div>
+</div>
 
-    <div id="results"></div>
-    
-    <footer>Designed by <span class="highlight">Masterpeace</span></footer>
+<script src="script.js"></script>
 
-    <script src="static/script.js"></script>
 </body>
 </html>
