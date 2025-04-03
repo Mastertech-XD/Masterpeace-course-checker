@@ -1,93 +1,126 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KUCCPS Qualification Checker</title>
-    <link rel="stylesheet" href="styles.css">  <!-- External Stylesheet -->
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .menu-btn {
-            background-color: #333;
-            color: white;
-            padding: 10px;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            text-align: left;
-            border-radius: 10px;
-        }
-        .menu-content {
-            display: none;
-            background-color: #f9f9f9;
-            padding: 10px;
-            list-style: none;
-            text-align: center;
-        }
-        .menu-content button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            text-align: center;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-        .menu-content button:hover {
-            background-color: #0056b3;
-        }
-        .container {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .btn {
-            padding: 10px 20px;
-            margin: 10px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 18px;
-            color: white;
-            transition: background-color 0.3s;
-        }
-        .degree { background-color: #28a745; }
-        .diploma { background-color: #17a2b8; }
-        .certificate { background-color: #ffc107; color: black; }
-        .kmtc { background-color: #dc3545; }
-        .btn:hover {
-            opacity: 0.8;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body><button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
+<body>
 
-<div class="menu-content" id="sidebar">
-    <button onclick="toggleMenu()">Close ✖</button>
-    <button onclick="location.href='index.html'">Home</button>
-    <button onclick="location.href='https://students.kuccps.net/'">KUCCPS Portal</button>
-    <button onclick="location.href='contact.html'">Contact Us</button>
-    <button onclick="location.href='mailto:support@kuccps.co.ke'">Email Us</button>
-    <button onclick="location.href='about.html'">About Us</button>
-</div><div class="container">
+<!-- Toggle Button -->
+<button class="toggle-btn" onclick="toggleMenu()">☰</button>
+
+<!-- Sidebar Menu -->
+<div class="sidebar" id="sidebar">
+    <button class="close-btn" onclick="toggleMenu()">✖</button>
+    <button class="menu-btn" onclick="window.location.href='index.html'">Home</button>
+    <button class="menu-btn" onclick="window.location.href='https://students.kuccps.net/'">KUCCPS Portal</button>
+    <button class="menu-btn" onclick="window.location.href='contact.html'">Contact Us</button>
+    <button class="menu-btn" onclick="window.location.href='mailto:support@kuccps.co.ke'">Email Us</button>
+    <button class="menu-btn" onclick="window.location.href='about.html'">About Us</button>
+</div>
+
+<!-- Main Content -->
+<div class="container">
     <h2>Select Program</h2>
-    <button class="btn degree" onclick="goToGrades('degree.html')">Degree</button>
-    <button class="btn diploma" onclick="goToGrades('diploma.html')">Diploma</button>
-    <button class="btn certificate" onclick="goToGrades('certificate.html')">Certificate</button>
-    <button class="btn kmtc" onclick="goToGrades('kmtc.html')">KMTC</button>
-</div><script>
+    <button class="btn degree" onclick="goToGrades('degree')">Degree</button>
+    <button class="btn diploma" onclick="goToGrades('diploma')">Diploma</button>
+    <button class="btn certificate" onclick="goToGrades('certificate')">Certificate</button>
+    <button class="btn kmtc" onclick="goToGrades('kmtc')">KMTC</button>
+</div>
+
+<script>
     function toggleMenu() {
-        const menu = document.getElementById("sidebar");
-        menu.style.display = menu.style.display === "block" ? "none" : "block";
+        const sidebar = document.getElementById("sidebar");
+        sidebar.classList.toggle("active");
     }
 
-    function goToGrades(page) {
-        window.location.href = page;
+    function goToGrades(program) {
+        window.location.href = `${program}.html`;
     }
-</script></body>
+</script>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f4f4f4;
+    }
+
+    .toggle-btn {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        background: #333;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        font-size: 20px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .sidebar {
+        position: fixed;
+        left: -250px;
+        top: 0;
+        width: 250px;
+        height: 100%;
+        background: #002147;
+        padding-top: 20px;
+        transition: 0.3s;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .menu-btn, .close-btn {
+        display: block;
+        width: 80%;
+        margin: 10px auto;
+        padding: 12px;
+        background: #0056b3;
+        color: white;
+        text-align: center;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        border-radius: 10px;
+    }
+
+    .close-btn {
+        background: red;
+    }
+
+    .menu-btn:hover {
+        background: #003580;
+    }
+
+    .container {
+        text-align: center;
+        margin-top: 100px;
+    }
+
+    .btn {
+        display: block;
+        width: 200px;
+        margin: 10px auto;
+        padding: 15px;
+        font-size: 18px;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 10px;
+    }
+
+    .degree { background: cyan; }
+    .diploma { background: blue; }
+    .certificate { background: red; }
+    .kmtc { background: green; }
+</style>
+
+</body>
 </html>
