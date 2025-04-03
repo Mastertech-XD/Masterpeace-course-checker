@@ -3,49 +3,273 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diploma Program - Subject Grades</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>KUCCPS Qualification Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background-color: #4CAF50;
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-size: 16px;
+            margin-bottom: 5px;
+            display: block;
+        }
+        select, input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <h1>KUCCPS Qualification Checker</h1>
+    </header>
+    <div class="container">
+        <form id="qualificationForm">
+            <div class="form-group">
+                <label for="course">Select Desired Course:</label>
+                <select id="course" name="course">
+                    <option value="">--Select a Course--</option>
+                    <option value="Bachelor of Science in Computer Science">Bachelor of Science in Computer Science</option>
+                    <option value="Bachelor of Science in Civil Engineering">Bachelor of Science in Civil Engineering</option>
+                    <option value="Bachelor of Commerce">Bachelor of Commerce</option>
+                    <option value="Bachelor of Medicine">Bachelor of Medicine</option>
+                    <option value="Bachelor of Education">Bachelor of Education</option>
+                    <!-- Add more courses as needed -->
+                </select>
+            </div>
 
-<!-- Toggle Button -->
-<button class="toggle-btn" onclick="toggleMenu()">☰</button>
+            <!-- All KCSE subjects dropdowns -->
+            <div class="form-group">
+                <label for="english">English Grade:</label>
+                <select id="english" name="english">
+                    <option value="A">A</option>
+                    <option value="B+">B+</option>
+                    <option value="B">B</option>
+                    <option value="C+">C+</option>
+                    <option value="C">C</option>
+                    <option value="D+">D+</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select>
+            </div>
 
-<!-- Sidebar Menu -->
-<div class="sidebar" id="sidebar">
-    <button class="close-btn" onclick="toggleMenu()">↩️Back</button>
-    <button class="menu-btn" onclick="window.location.href='index.html'">Home</button>
-    
-</div>
+            <div class="form-group">
+                <label for="kiswahili">Kiswahili Grade:</label>
+                <select id="kiswahili" name="kiswahili">
+                    <option value="A">A</option>
+                    <option value="B+">B+</option>
+                    <option value="B">B</option>
+                    <option value="C+">C+</option>
+                    <option value="C">C</option>
+                    <option value="D+">D+</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select>
+            </div>
 
-<!-- Main Content -->
-<div class="container">
-    <h2>Enter Your Grades for Diploma Program</h2>
+            <div class="form-group">
+                <label for="mathematics">Mathematics Grade:</label>
+                <select id="mathematics" name="mathematics">
+                    <option value="A">A</option>
+                    <option value="B+">B+</option>
+                    <option value="B">B</option>
+                    <option value="C+">C+</option>
+                    <option value="C">C</option>
+                    <option value="D+">D+</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select>
+            </div>
 
-    <form id="diploma-form">
-        <!-- Subjects similar to degree program -->
-        <label for="math">Mathematics:</label>
-        <select id="math" name="math" required>
-            <option value="A">A</option>
-            <option value="A-">A-</option>
-            <option value="B+">B+</option>
-            <option value="B">B</option>
-            <option value="B-">B-</option>
-            <option value="C+">C+</option>
-            <option value="C">C</option>
-            <option value="C-">C-</option>
-            <option value="D+">D+</option>
-            <option value="D">D</option>
-            <option value="D-">D-</option>
-            <option value="E">E</option>
-        </select>
+            <div class="form-group">
+                <label for="biology">Biology Grade:</label>
+                <select id="biology" name="biology">
+                    <option value="A">A</option>
+                    <option value="B+">B+</option>
+                    <option value="B">B</option>
+                    <option value="C+">C+</option>
+                    <option value="C">C</option>
+                    <option value="D+">D+</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select>
+            </div>
 
-        <!-- Repeat for other subjects (English, Kiswahili, Chemistry, etc.) -->
+            <div class="form-group">
+                <label for="chemistry">Chemistry Grade:</label>
+                <select id="chemistry" name="chemistry">
+                    <option value="A">A</option>
+                    <option value="B+">B+</option>
+                    <option value="B">B</option>
+                    <option value="C+">C+</option>
+                    <option value="C">C</option>
+                    <option value="D+">D+</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select>
+            </div>
 
-        <button type="submit">Submit</button>
-    </form>
-</div>
+            <div class="form-group">
+                <label for="physics">Physics Grade:</label>
+                <select id="physics" name="physics">
+                    <option value="A">A</option>
+                    <option value="B+">B+</option>
+                    <option value="B">B</option>
+                    <option value="C+">C+</option>
+                    <option value="C">C</option>
+                    <option value="D+">D+</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select>
+            </div>
 
-<script src="script.js"></script>
+            <div class="form-group">
+                <label for="geography">Geography Grade:</label>
+                <select id="geography" name="geography">
+                    <option value="A">A</option>
+                    <option value="B+">B+</option>
+                    <option value="B">B</option>
+                    <option value="C+">C+</option>
+                    <option value="C">C</option>
+                    <option value="D+">D+</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="history">History Grade:</label>
+                <select id="history" name="history">
+                    <option value="A">A</option>
+                    <option value="B+">B+</option>
+                    <option value="B">B</option>
+                    <option value="C+">C+</option>
+                    <option value="C">C</option>
+                    <option value="D+">D+</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="cre">CRE Grade:</label>
+                <select id="cre" name="cre">
+                    <option value="A">A</option>
+                    <option value="B+">B+</option>
+                    <option value="B">B</option>
+                    <option value="C+">C+</option>
+                    <option value="C">C</option>
+                    <option value="D+">D+</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="business">Business Studies Grade:</label>
+                <select id="business" name="business">
+                    <option value="A">A</option>
+                    <option value="B+">B+</option>
+                    <option value="B">B</option>
+                    <option value="C+">C+</option>
+                    <option value="C">C</option>
+                    <option value="D+">D+</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <button type="button" onclick="calculateQualification()">Check Qualification</button>
+            </div>
+        </form>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        // Points for the grades (example)
+        const gradePoints = {
+            "A": 12,
+            "B+": 10,
+            "B": 8,
+            "C+": 6,
+            "C": 4,
+            "D+": 3,
+            "D": 2,
+            "E": 0
+        };
+
+        function calculateQualification() {
+            // Get the selected grades
+            const grades = [
+                document.getElementById('english').value,
+                document.getElementById('kiswahili').value,
+                document.getElementById('mathematics').value,
+                document.getElementById('biology').value,
+                document.getElementById('chemistry').value,
+                document.getElementById('physics').value,
+                document.getElementById('geography').value,
+                document.getElementById('history').value,
+                document.getElementById('cre').value,
+                document.getElementById('business').value
+            ];
+
+            // Calculate total points
+            let totalPoints = 0;
+            for (let grade of grades) {
+                totalPoints += gradePoints[grade] || 0;
+            }
+
+            // Get the selected course
+            const course = document.getElementById('course').value;
+            
+            // Check qualification (example logic: need at least 40 points)
+            let qualification = (totalPoints >= 40) ? "You qualify for this course." : "You do not qualify for this course.";
+            
+            // Display result
+            document.getElementById('result').innerHTML = `
+                Total Points: ${totalPoints}<br>
+                Qualification: ${qualification}
+            `;
+        }
+    </script>
 </body>
 </html>
