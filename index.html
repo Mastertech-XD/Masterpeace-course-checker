@@ -2,17 +2,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Qualification Checker</title>
+    <title>Course Checker</title>
     <style>
         body {
             background: url('background.jpg') no-repeat center center fixed;
             background-size: cover;
             text-align: center;
             font-family: Arial, sans-serif;
-            color: white;
         }
         h1 {
             color: yellow;
+            font-size: 2em;
+        }
+        p {
+            color: red;
         }
         .menu-button {
             display: block;
@@ -28,56 +31,17 @@
         .diploma { background-color: blue; color: white; }
         .certificate { background-color: red; color: white; }
         .kmtc { background-color: darkgreen; color: white; }
-        .container {
-            display: none;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px auto;
-            max-width: 600px;
-        }
-        select {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-        }
     </style>
 </head>
 <body>
-    <h1>The Course Checker</h1>
+    <h1>The CourseChecker</h1>
     <p>Your Gateway to University Success!</p>
-    <button class="menu-button degree" onclick="showForm('Degree')">Degree</button>
-    <button class="menu-button diploma" onclick="showForm('Diploma')">Diploma</button>
-    <button class="menu-button certificate" onclick="showForm('Certificate')">Certificate</button>
-    <button class="menu-button kmtc" onclick="showForm('KMTC')">KMTC</button><div class="container" id="formContainer">
-    <h2 id="formTitle">Enter KCSE Grades</h2>
-    <label>English:
-        <select>
-            <option>Select Grade</option>
-            <option>A</option><option>A-</option><option>B+</option><option>B</option>
-            <option>B-</option><option>C+</option><option>C</option><option>C-</option>
-            <option>D+</option><option>D</option><option>D-</option><option>E</option>
-        </select>
-    </label>
-    <label>Kiswahili:
-        <select> <!-- Repeat similar options for each subject -->
-            <option>Select Grade</option>
-            <option>A</option><option>A-</option><option>B+</option><option>B</option>
-        </select>
-    </label>
-    <label>Mathematics:
-        <select>
-            <option>Select Grade</option>
-            <option>A</option><option>A-</option><option>B+</option><option>B</option>
-        </select>
-    </label>
-    <button onclick="checkQualification()">Check Qualification</button>
-</div>
-
-<script>
-    function showForm(type) {
-        document.getElementById("formContainer").style.display = "block";
-        document.getElementById("formTitle").innerText = `Enter KCSE Grades for ${type}`;
+    <button class="menu-button degree" onclick="navigateToForm('Degree')">Degree</button>
+    <button class="menu-button diploma" onclick="navigateToForm('Diploma')">Diploma</button>
+    <button class="menu-button certificate" onclick="navigateToForm('Certificate')">Certificate</button>
+    <button class="menu-button kmtc" onclick="navigateToForm('KMTC')">KMTC</button><script>
+    function navigateToForm(type) {
+        window.location.href = `kcse_form.html?program=${type}`;
     }
 </script>
 
