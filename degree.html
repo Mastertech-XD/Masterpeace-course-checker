@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Degree Program - Subject Grades</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Toggle Button -->
+<button class="toggle-btn" onclick="toggleMenu()">☰</button>
+
+<!-- Sidebar Menu -->
+<div class="sidebar" id="sidebar">
+    <button class="close-btn" onclick="toggleMenu()">↩️Back</button>
+    <button class="menu-btn" onclick="window.location.href='index.html'">Home</button>
+    <button class="menu-btn" onclick="window.location.href='https://students.kuccps.net/'">📌KUCCPS Portal📚</button>
+    <button class="menu-btn" onclick="window.location.href='https://wa.me/254743727510'">📞Contact us via WhatsApp ☎️</button>
+    <button class="menu-btn" onclick="window.location.href='mailto:aludabrian254@gmail.com'">📥Email Us✉️</button>
+    <button class="menu-btn" onclick="window.location.href='about.html'">About Us📢</button>
+</div>
+
+<!-- Main Content -->
+<div class="container">
+    <h2>Enter Your Grades for Degree Program</h2>
+
+    <form id="degree-form">
+        <!-- Math -->
+        <label for="math">Mathematics:</label>
+        <select id="math" name="math" required>
+            <option value="A">A</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B">B</option>
+            <option value="B-">B-</option>
+            <option value="C+">C+</option>
+            <option value="C">C</option>
+            <option value="C-">C-</option>
+            <option value="D+">D+</option>
+            <option value="D">D</option>
+            <option value="D-">D-</option>
+            <option value="E">E</option>
+        </select>
+
+        <!-- English -->
+        <label for="english">English:</label>
+        <select id="english" name="english" required>
+            <option value="A">A</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B">B</option>
+            <option value="B-">B-</option>
+            <option value="C+">C+</option>
+            <option value="C">C</option>
+            <option value="C-">C-</option>
+            <option value="D+">D+</option>
+            <option value="D">D</option>
+            <option value="D-">D-</option>
+            <option value="E">E</option>
+        </select>
+
+        <!-- Kiswahili -->
+        <label for="kiswahili">Kiswahili:</label>
+        <select id="kiswahili" name="kiswahili" required>
+            <option value="A">A</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B">B</option>
+            <option value="B-">B-</option>
+            <option value="C+">C+</option>
+            <option value="C">C</option>
+            <option value="C-">C-</option>
+            <option value="D+">D+</option>
+            <option value="D">D</option>
+            <option value="D-">D-</option>
+            <option value="E">E</option>
+        </select>
+
+        <!-- Chemistry -->
+        <label for="chemistry">Chemistry:</label>
+        <select id="chemistry" name="chemistry" required>
+            <option value="A">A</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B">B</option>
+            <option value="B-">B-</option>
+            <option value="C+">C+</option>
+            <option value="C">C</option>
+            <option value="C-">C-</option>
+            <option value="D+">D+</option>
+            <option value="D">D</option>
+            <option value="D-">D-</option>
+            <option value="E">E</option>
+        </select>
+
+        <!-- Physics -->
+        <label for="physics">Physics:</label>
+        <select id="physics" name="physics" required>
+            <option value="A">A</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B">B</option>
+            <option value="B-">B-</option>
+            <option value="C+">C+</option>
+            <option value="C">C</option>
+            <option value="C-">C-</option>
+            <option value="D+">D+</option>
+            <option value="D">D</option>
+            <option value="D-">D-</option>
+            <option value="E">E</option>
+        </select>
+
+        <!-- Biology -->
+        <label for="biology">Biology:</label>
+        <select id="biology" name="biology" required>
+            <option value="A">A</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B">B</option>
+            <option value="B-">B-</option>
+            <option value="C+">C+</option>
+            <option value="C">C</option>
+            <option value="C-">C-</option>
+            <option value="D+">D+</option>
+            <option value="D">D</option>
+            <option value="D-">D-</option>
+            <option value="E">E</option>
+        </select>
+
+        <!-- History -->
+        <label for="history">History:</label>
+        <select id="history" name="history" required>
+            <option value="A">A</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B">B</option>
+            <option value="B-">B-</option>
+            <option value="C+">C+</option>
+            <option value="C">C</option>
+            <option value="C-">C-</option>
+            <option value="D+">D+</option>
+            <option value="D">D</option>
+            <option value="D-">D-</option>
+            <option value="E">E</option>
+        </select>
+
+        <!-- CRE -->
+        <label for="cre">CRE:</label>
+        <select id="cre" name="cre" required>
+            <option value="A">A</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B">B</option>
+            <option value="B-">B-</option>
+            <option value="C+">C+</option>
+            <option value="C">C</option>
+            <option value="C-">C-</option>
+            <option value="D+">D+</option>
+            <option value="D">D</option>
+            <option value="D-">D-</option>
+            <option value="E">E</option>
+        </select>
+
+        <!-- IRE -->
+        <label for="ire">IRE:</label>
+        <select id="ire" name="ire" required>
+            <option value="A">A</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B">B</option>
+            <option value="B-">B-</option>
+            <option value="C+">C+</option>
+            <option value="C">C</option>
+            <option value="C-">C-</option>
+            <option value="D+">D+</option>
+            <option value="D">D</option>
+            <option value="D-">D-</option>
+            <option value="E">E</option>
+        </select>
+
+        <!-- Music -->
+        <label for="music">Music:</label>
+        <select id="music" name="music" required>
+            <option value="A">A</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B">B</option>
+            <option value="B-">B-</option>
+            <option value="C+">C+</option>
+            <option value="C">C</option>
+            <option value="C-">C-</option>
+            <option value="D+">D+</option>
+            <option value="D">D</option>
+            <option value="D-">D-</option>
+            <option value="E">E</option>
+        </select>
+
+        <!-- Home Science -->
+        <label for="home-science">Home Science:</label>
+        <select id="home-science" name="home-science" required>
+            <option value="A">A</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B">B</option>
+            <option value="B-">B-</option>
+            <option value="C+">C+</option>
+            <option value="C">C</option>
+            <option value="C-">C-</option>
+            <option value="D+">D+</option>
+            <option value="D">D</option>
+            <option value="D-">D-</option>
+            <option value="E">E</option>
+        </select>
+
+        <!-- French -->
+        <label for="french">French:</label>
+        <select id="french" name="french" required>
+            <option value="A">A</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B">B</option>
+            <option value="B-">B-</option>
+            <option value="C+">C+</option>
+            <option value="C">C</option>
+            <option value="C-">C-</option>
+            <option value="D+">D+</option>
+            <option value="D">D</option>
+            <option value="D-">D-</option>
+            <option value="E">E</option>
+        </select>
+
+        <!-- German -->
+        <label for="german">German:</label>
+        <select id="german" name="german" required>
+            <option value="A">A</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B">B</option>
+            <option value="B-">B-</option>
+            <option value="C+">C+</option>
+            <option value="C">C</option>
+            <option value="C-">C-</option>
+            <option value="D+">D+</option>
+            <option value="D">D</option>
+            <option value="D-">D-</option>
+            <option value="E">E</option>
+        </select>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script src="script.js"></script>
+</body>
+            </html>
