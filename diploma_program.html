@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diploma Program - Subject Grades</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Toggle Button -->
+<button class="toggle-btn" onclick="toggleMenu()">☰</button>
+
+<!-- Sidebar Menu -->
+<div class="sidebar" id="sidebar">
+    <button class="close-btn" onclick="toggleMenu()">↩️Back</button>
+    <button class="menu-btn" onclick="window.location.href='index.html'">Home</button>
+    <button class="menu-btn" onclick="window.location.href='https://students.kuccps.net/'">📌KUCCPS Portal📚</button>
+    <button class="menu-btn" onclick="window.location.href='https://wa.me/254743727510'">📞Contact us via WhatsApp ☎️</button>
+    <button class="menu-btn" onclick="window.location.href='mailto:aludabrian254@gmail.com'">📥Email Us✉️</button>
+    <button class="menu-btn" onclick="window.location.href='about.html'">About Us📢</button>
+</div>
+
+<!-- Main Content -->
+<div class="container">
+    <h2>Enter Your Grades for Diploma Program</h2>
+
+    <form id="diploma-form">
+        <!-- Subjects similar to degree program -->
+        <label for="math">Mathematics:</label>
+        <select id="math" name="math" required>
+            <option value="A">A</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B">B</option>
+            <option value="B-">B-</option>
+            <option value="C+">C+</option>
+            <option value="C">C</option>
+            <option value="C-">C-</option>
+            <option value="D+">D+</option>
+            <option value="D">D</option>
+            <option value="D-">D-</option>
+            <option value="E">E</option>
+        </select>
+
+        <!-- Repeat for other subjects (English, Kiswahili, Chemistry, etc.) -->
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
