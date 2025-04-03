@@ -48,6 +48,15 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
+            console.log("Page loaded, initializing form...");
+
+            // Ensure the container exists
+            const subjectContainer = document.getElementById("subjectInputs");
+            if (!subjectContainer) {
+                console.error("Error: #subjectInputs container not found!");
+                return;
+            }
+
             // List of all KCSE subjects
             const subjects = [
                 "Mathematics", "English", "Kiswahili", "Biology", "Chemistry", "Physics", "General Science",
@@ -65,8 +74,6 @@
 
             // KCSE grade scale
             const gradePoints = ["A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "E"];
-
-            const subjectContainer = document.getElementById("subjectInputs");
 
             // Create subject input dropdowns
             subjects.forEach(subject => {
@@ -87,14 +94,23 @@
                 subjectContainer.appendChild(select);
             });
 
+            console.log("Subjects loaded successfully.");
+
             // Populate cluster options
             const clusterSelect = document.getElementById("cluster");
+            if (!clusterSelect) {
+                console.error("Error: #cluster dropdown not found!");
+                return;
+            }
+
             clusters.forEach((cluster, index) => {
                 let option = document.createElement("option");
                 option.value = index + 1;
                 option.textContent = cluster;
                 clusterSelect.appendChild(option);
             });
+
+            console.log("Clusters loaded successfully.");
 
             // Handle form submission
             document.getElementById("gradesForm").addEventListener("submit", function (e) {
@@ -118,6 +134,10 @@
                         <h4>Eligible Courses:</h4>
                         <ul>${data.qualified_courses.map(course => `<li>${course.Course} - ${course.University}</li>`).join("")}</ul>
                     `;
+                })
+                .catch(error => {
+                    console.error("Error fetching qualification data:", error);
+                    document.getElementById("results").innerHTML = "<p style='color: red;'>Failed to fetch qualification data. Please try again later.</p>";
                 });
             });
         });
