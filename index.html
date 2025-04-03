@@ -40,7 +40,8 @@
     <button class="menu-button diploma" onclick="navigateToForm('Diploma')">Diploma</button>
     <button class="menu-button certificate" onclick="navigateToForm('Certificate')">Certificate</button>
     <button class="menu-button kmtc" onclick="navigateToForm('KMTC')">KMTC</button><script>
-    function navigateToForm(type) {<!DOCTYPE html><html lang="en">
+    function navigateToForm(type) {
+        <!DOCTYPE html><html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -96,13 +97,9 @@
         const urlParams = new URLSearchParams(window.location.search);
         const program = urlParams.get('program');
         document.getElementById("formTitle").innerText = `Enter KCSE Grades for ${program}`;
-    };
-</script>
-
-</body>
-</html>
-        window.location.href = `kcse_form.html?program=${type}`;
     }
+        window.location.href = `kcse_form.html?program=${type}`;
+    };
 </script>
 
 </body>
