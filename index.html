@@ -4,17 +4,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KUCCPS Qualification Checker</title>
     <link rel="stylesheet" href="styles.css">  <!-- External Stylesheet -->
+    <style>
+        .menu-btn {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+        }
+        .menu-content {
+            display: none;
+            background-color: #f9f9f9;
+            padding: 10px;
+            list-style: none;
+        }
+        .menu-content a {
+            display: block;
+            padding: 8px 0;
+            text-decoration: none;
+            color: black;
+        }
+    </style>
 </head>
-<body><button class="toggle-btn" onclick="toggleMenu()">☰</button>
+<body><button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
 
-<div class="sidebar" id="sidebar">
-    <a href="#" onclick="toggleMenu()">Close ✖</a>
-    <a href="index.html">Home</a>
-    <a href="https://students.kuccps.net/">KUCCPS Portal</a>
-    <a href="contact.html">Contact Us</a>
-    <a href="mailto: masterpeaceelite@gmail.com">Email Us</a>
-    <a href="about.html">About Us</a>
-</div><div class="container">
+<ul class="menu-content" id="sidebar">
+    <li><a href="#" onclick="toggleMenu()">Close ✖</a></li>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="https://students.kuccps.net/">KUCCPS Portal</a></li>
+    <li><a href="contact.html">Contact Us</a></li>
+    <li><a href="mailto:support@kuccps.co.ke">Email Us</a></li>
+    <li><a href="about.html">About Us</a></li>
+</ul><div class="container">
     <h2>Select Program</h2>
     <button class="btn degree" onclick="goToGrades('degree.html')">Degree</button>
     <button class="btn diploma" onclick="goToGrades('diploma.html')">Diploma</button>
@@ -22,8 +45,8 @@
     <button class="btn kmtc" onclick="goToGrades('kmtc.html')">KMTC</button>
 </div><script>
     function toggleMenu() {
-        const sidebar = document.getElementById("sidebar");
-        sidebar.style.display = sidebar.style.display === "block" ? "none" : "block";
+        const menu = document.getElementById("sidebar");
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
     }
 
     function goToGrades(page) {
