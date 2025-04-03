@@ -17,7 +17,7 @@
         p {
             color: red;
         }
-        .menu-button, .grade-button {
+        .menu-button {
             display: block;
             width: 80%;
             padding: 15px;
@@ -31,7 +31,7 @@
         .diploma { background-color: blue; color: white; }
         .certificate { background-color: red; color: white; }
         .kmtc { background-color: darkgreen; color: white; }
-        .container, .grade-selector {
+        .container {
             display: none;
             margin: 20px auto;
             max-width: 600px;
@@ -39,13 +39,19 @@
             padding: 20px;
             border-radius: 10px;
         }
-        .grade-options button {
-            width: 60px;
-            margin: 5px;
+        .subject-button {
+            width: 100px;
             padding: 10px;
+            margin: 5px;
             font-size: 1em;
+            border-radius: 5px;
             cursor: pointer;
         }
+        .math { background-color: orange; }
+        .eng { background-color: purple; color: white; }
+        .kis { background-color: pink; }
+        .sci { background-color: green; color: white; }
+        .hum { background-color: brown; color: white; }
     </style>
 </head>
 <body>
@@ -57,67 +63,48 @@
     <button class="menu-button kmtc" onclick="showForm('KMTC')">KMTC</button><div class="container" id="formContainer">
     <h2 id="formTitle">Check Your Qualification</h2>
     <p>Select your KCSE grades:</p>
-    <div class="grade-options">
-        <button onclick="showGradeSelector('math')">Math</button>
-        <button onclick="showGradeSelector('eng')">English</button>
-        <button onclick="showGradeSelector('kis')">Kiswahili</button>
-        <button onclick="showGradeSelector('sci')">Science</button>
-        <button onclick="showGradeSelector('hum')">Humanities</button>
-    </div>
+    <div id="gradeSelection"></div>
     <button onclick="checkQualification()">Check</button>
     <div id="results"></div>
 </div>
 
-<div class="grade-selector" id="gradeSelector">
-    <h3>Select Grade for <span id="subjectName"></span></h3>
-    <div class="grade-options">
-        <button onclick="setGrade('A')">A</button>
-        <button onclick="setGrade('A-')">A-</button>
-        <button onclick="setGrade('B+')">B+</button>
-        <button onclick="setGrade('B')">B</button>
-        <button onclick="setGrade('B-')">B-</button>
-        <button onclick="setGrade('C+')">C+</button>
-        <button onclick="setGrade('C')">C</button>
-        <button onclick="setGrade('C-')">C-</button>
-        <button onclick="setGrade('D+')">D+</button>
-        <button onclick="setGrade('D')">D</button>
-        <button onclick="setGrade('D-')">D-</button>
-        <button onclick="setGrade('E')">E</button>
-    </div>
-</div>
-
 <script>
-    let selectedSubject = "";
-    const grades = {};
+    let programType = "";
+    let selectedGrades = {};
     function showForm(type) {
+        programType = type;
         document.getElementById("formContainer").style.display = "block";
         document.getElementById("formTitle").innerText = `Check Your Qualification for ${type}`;
+        generateGradeSelection(type);
     }
-    function showGradeSelector(subject) {
-        selectedSubject = subject;
-        document.getElementById("subjectName").innerText = subject.toUpperCase();
-        document.getElementById("gradeSelector").style.display = "block";
+    function generateGradeSelection(type) {
+        const subjects = {
+            Degree: ["Math", "English", "Kiswahili", "Science", "Humanities"],
+            Diploma: ["Math", "English", "Science"],
+            KMTC: ["Biology", "Chemistry", "English", "Math"]
+        };
+        const container = document.getElementById("gradeSelection");
+        container.innerHTML = "";
+        (subjects[type] || []).forEach(subject => {
+            const button = document.createElement("button");
+            button.innerText = subject;
+            button.className = `subject-button ${subject.toLowerCase()}`;
+            button.onclick = () => selectGrade(subject);
+            container.appendChild(button);
+        });
     }
-    function setGrade(grade) {
-        grades[selectedSubject] = grade;
-        document.getElementById("gradeSelector").style.display = "none";
-        if (Object.keys(grades).length === 5) {
-            document.getElementById("formContainer").style.display = "none";
+    function selectGrade(subject) {
+        const grade = prompt(`Enter grade for ${subject}:`);
+        if (grade) {
+            selectedGrades[subject] = grade.toUpperCase();
         }
     }
-    async function checkQualification() {
-        if (Object.keys(grades).length < 5) {
-            alert("Please select all grades before proceeding.");
+    function checkQualification() {
+        if (Object.keys(selectedGrades).length === 0) {
+            alert("Please select grades for all required subjects.");
             return;
         }
-        const data = { grades, clusters: ["Cluster1", "Cluster2", "Cluster3", "Cluster4"] };
-        const response = await fetch("/check_qualification", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
-        });
-        const result = await response.json();
-        document.getElementById("results").innerHTML = `<p>Your Cluster Points: ${result.userClusterPoints}</p><ul>${result.qualifiedCourses.map(c => `<li>${c.name}</li>`).join('')}</ul>`;
+        alert("Qualification check submitted for " + programType);
     }
 </script>
 
