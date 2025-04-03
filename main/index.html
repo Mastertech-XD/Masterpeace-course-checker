@@ -1,56 +1,126 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KUCCPS Course Checker</title>
-    <link rel="stylesheet" href="static/styles.css">
+    <title>KUCCPS Qualification Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #subjectInputs {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin: 5px 0;
+        }
+        select {
+            margin: 5px 0 15px;
+        }
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #results {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>KUCCPS Course & University Qualification Checker</h1>
-        <form id="gradesForm">
-            <label for="cluster">Select Cluster:</label>
-            <select id="cluster" name="cluster" required>
-                <option value="1">Law</option>
-                <option value="2">Business, Hospitality & Related</option>
-                <option value="3">Social Sciences, Media Studies & Related</option>
-                <option value="4">Geosciences & Related</option>
-                <option value="5">Engineering & Technology</option>
-                <option value="6">Architecture & Related</option>
-                <option value="7">Computing, IT & Related</option>
-                <option value="8">Agribusiness & Related</option>
-                <option value="9">General Science, Physics, Chemistry & Related</option>
-                <option value="10">Mathematics, Economics & Related</option>
-                <option value="11">Interior Design, Fashion & Related</option>
-                <option value="12">Sports Science & Related</option>
-                <option value="13">Medicine, Health & Veterinary</option>
-                <option value="14">History, Archeology & Related</option>
-                <option value="15">Agriculture, Animal Health & Related</option>
-                <option value="16">Geography & Related</option>
-                <option value="17">French & German</option>
-                <option value="18">Music & Related</option>
-                <option value="19">Education & Related</option>
-                <option value="20">Religious Studies & Related</option>
-            </select><label for="math">Mathematics Grade:</label>
-        <input type="text" id="math" name="math" required>
-        
-        <label for="eng">English Grade:</label>
-        <input type="text" id="eng" name="eng" required>
-        
-        <label for="kis">Kiswahili Grade:</label>
-        <input type="text" id="kis" name="kis" required>
-        
-        <label for="sci">Science Grade:</label>
-        <input type="text" id="sci" name="sci" required>
-        
-        <label for="hum">Humanities Grade:</label>
-        <input type="text" id="hum" name="hum" required>
-        
+    <h1>KUCCPS Qualification Checker</h1>
+    <form id="gradesForm">
+        <div id="subjectInputs"></div>
+
+        <label for="cluster">Select your desired cluster:</label>
+        <select id="cluster" name="cluster"></select>
+
+        <br><br>
+
         <button type="submit">Check Qualification</button>
     </form>
-    <div id="results"></div>
-</div>
-<script src="static/script.js"></script>
 
+    <div id="results"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // List of all KCSE subjects
+            const subjects = [
+                "Mathematics", "English", "Kiswahili", "Biology", "Chemistry", "Physics", "General Science",
+                "History", "Geography", "CRE", "IRE", "HRE", "French", "German", "Arabic",
+                "Business Studies", "Agriculture", "Home Science", "Aviation", "Computer Studies", "Music", "Art & Design"
+            ];
+
+            // List of KUCCPS clusters
+            const clusters = [
+                "Law", "Business & Hospitality", "Social Sciences", "Geosciences", "Engineering", "Architecture",
+                "Computing & IT", "Agribusiness", "Sciences", "Mathematics", "Interior Design", "Sports Science",
+                "Medicine", "History", "Agriculture & Environment", "Geography", "French & German", "Music",
+                "Education", "Religious Studies"
+            ];
+
+            // KCSE grade scale
+            const gradePoints = ["A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "E"];
+
+            const subjectContainer = document.getElementById("subjectInputs");
+
+            // Create subject input dropdowns
+            subjects.forEach(subject => {
+                let label = document.createElement("label");
+                label.textContent = subject + ":";
+
+                let select = document.createElement("select");
+                select.name = subject.toLowerCase().replace(/\s+/g, "_");
+
+                gradePoints.forEach(grade => {
+                    let option = document.createElement("option");
+                    option.value = grade;
+                    option.textContent = grade;
+                    select.appendChild(option);
+                });
+
+                subjectContainer.appendChild(label);
+                subjectContainer.appendChild(select);
+            });
+
+            // Populate cluster options
+            const clusterSelect = document.getElementById("cluster");
+            clusters.forEach((cluster, index) => {
+                let option = document.createElement("option");
+                option.value = index + 1;
+                option.textContent = cluster;
+                clusterSelect.appendChild(option);
+            });
+
+            // Handle form submission
+            document.getElementById("gradesForm").addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                let formData = new FormData(this);
+                let grades = {};
+                formData.forEach((value, key) => {
+                    grades[key] = value;
+                });
+
+                fetch("/check_qualification", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(grades)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("results").innerHTML = `
+                        <h3>Your Cluster Points: ${data.user_cluster}</h3>
+                        <h4>Eligible Courses:</h4>
+                        <ul>${data.qualified_courses.map(course => `<li>${course.Course} - ${course.University}</li>`).join("")}</ul>
+                    `;
+                });
+            });
+        });
+    </script>
 </body>
 </html>
