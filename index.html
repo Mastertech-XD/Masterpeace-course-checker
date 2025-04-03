@@ -57,11 +57,13 @@
     <button class="menu-button kmtc" onclick="showForm('KMTC')">KMTC</button><div class="container" id="formContainer">
     <h2 id="formTitle">Check Your Qualification</h2>
     <p>Select your KCSE grades:</p>
-    <p>Math: <span id="mathGrade">-</span> <button class="grade-button" onclick="showGradeSelector('math')">Select</button></p>
-    <p>English: <span id="engGrade">-</span> <button class="grade-button" onclick="showGradeSelector('eng')">Select</button></p>
-    <p>Kiswahili: <span id="kisGrade">-</span> <button class="grade-button" onclick="showGradeSelector('kis')">Select</button></p>
-    <p>Science: <span id="sciGrade">-</span> <button class="grade-button" onclick="showGradeSelector('sci')">Select</button></p>
-    <p>Humanities: <span id="humGrade">-</span> <button class="grade-button" onclick="showGradeSelector('hum')">Select</button></p>
+    <div class="grade-options">
+        <button onclick="showGradeSelector('math')">Math</button>
+        <button onclick="showGradeSelector('eng')">English</button>
+        <button onclick="showGradeSelector('kis')">Kiswahili</button>
+        <button onclick="showGradeSelector('sci')">Science</button>
+        <button onclick="showGradeSelector('hum')">Humanities</button>
+    </div>
     <button onclick="checkQualification()">Check</button>
     <div id="results"></div>
 </div>
@@ -98,8 +100,10 @@
     }
     function setGrade(grade) {
         grades[selectedSubject] = grade;
-        document.getElementById(`${selectedSubject}Grade`).innerText = grade;
         document.getElementById("gradeSelector").style.display = "none";
+        if (Object.keys(grades).length === 5) {
+            document.getElementById("formContainer").style.display = "none";
+        }
     }
     async function checkQualification() {
         if (Object.keys(grades).length < 5) {
