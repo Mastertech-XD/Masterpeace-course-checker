@@ -17,7 +17,7 @@
         p {
             color: red;
         }
-        .menu-button {
+        .menu-button, .grade-button {
             display: block;
             width: 80%;
             padding: 15px;
@@ -30,16 +30,21 @@
         .degree { background-color: cyan; }
         .diploma { background-color: blue; color: white; }
         .certificate { background-color: red; color: white; }
-        .short-courses { background-color: green; color: white; }
-        .artisan { background-color: yellow; }
         .kmtc { background-color: darkgreen; color: white; }
-        .container {
+        .container, .grade-selector {
             display: none;
             margin: 20px auto;
             max-width: 600px;
             background: rgba(255, 255, 255, 0.8);
             padding: 20px;
             border-radius: 10px;
+        }
+        .grade-options button {
+            width: 60px;
+            margin: 5px;
+            padding: 10px;
+            font-size: 1em;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -51,22 +56,57 @@
     <button class="menu-button certificate" onclick="showForm('Certificate')">Certificate</button>
     <button class="menu-button kmtc" onclick="showForm('KMTC')">KMTC</button><div class="container" id="formContainer">
     <h2 id="formTitle">Check Your Qualification</h2>
-    <label for="grades">Enter Your Grades (Math, Eng, Kis, Sci, Hum):</label>
-    <input type="text" id="grades" placeholder="e.g., 80,75,70,85,60">
+    <p>Select your KCSE grades:</p>
+    <p>Math: <span id="mathGrade">-</span> <button class="grade-button" onclick="showGradeSelector('math')">Select</button></p>
+    <p>English: <span id="engGrade">-</span> <button class="grade-button" onclick="showGradeSelector('eng')">Select</button></p>
+    <p>Kiswahili: <span id="kisGrade">-</span> <button class="grade-button" onclick="showGradeSelector('kis')">Select</button></p>
+    <p>Science: <span id="sciGrade">-</span> <button class="grade-button" onclick="showGradeSelector('sci')">Select</button></p>
+    <p>Humanities: <span id="humGrade">-</span> <button class="grade-button" onclick="showGradeSelector('hum')">Select</button></p>
     <button onclick="checkQualification()">Check</button>
     <div id="results"></div>
 </div>
 
+<div class="grade-selector" id="gradeSelector">
+    <h3>Select Grade for <span id="subjectName"></span></h3>
+    <div class="grade-options">
+        <button onclick="setGrade('A')">A</button>
+        <button onclick="setGrade('A-')">A-</button>
+        <button onclick="setGrade('B+')">B+</button>
+        <button onclick="setGrade('B')">B</button>
+        <button onclick="setGrade('B-')">B-</button>
+        <button onclick="setGrade('C+')">C+</button>
+        <button onclick="setGrade('C')">C</button>
+        <button onclick="setGrade('C-')">C-</button>
+        <button onclick="setGrade('D+')">D+</button>
+        <button onclick="setGrade('D')">D</button>
+        <button onclick="setGrade('D-')">D-</button>
+        <button onclick="setGrade('E')">E</button>
+    </div>
+</div>
+
 <script>
+    let selectedSubject = "";
+    const grades = {};
     function showForm(type) {
         document.getElementById("formContainer").style.display = "block";
         document.getElementById("formTitle").innerText = `Check Your Qualification for ${type}`;
     }
-    
+    function showGradeSelector(subject) {
+        selectedSubject = subject;
+        document.getElementById("subjectName").innerText = subject.toUpperCase();
+        document.getElementById("gradeSelector").style.display = "block";
+    }
+    function setGrade(grade) {
+        grades[selectedSubject] = grade;
+        document.getElementById(`${selectedSubject}Grade`).innerText = grade;
+        document.getElementById("gradeSelector").style.display = "none";
+    }
     async function checkQualification() {
-        const gradesInput = document.getElementById("grades").value;
-        const [math, eng, kis, sci, hum] = gradesInput.split(",").map(Number);
-        const data = { grades: { math, eng, kis, sci, hum }, clusters: ["Cluster1", "Cluster2", "Cluster3", "Cluster4"] };
+        if (Object.keys(grades).length < 5) {
+            alert("Please select all grades before proceeding.");
+            return;
+        }
+        const data = { grades, clusters: ["Cluster1", "Cluster2", "Cluster3", "Cluster4"] };
         const response = await fetch("/check_qualification", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -78,7 +118,7 @@
 </script>
 
 <footer>
-    <p>&copy; 2025 All rights reserved.<br>Designed by ENG. Chester</p>
+    <p>&copy; 2025 All rights reserved.<br>Designed by Sir Masterpeace</p>
 </footer>
 
 </body>
