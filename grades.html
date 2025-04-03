@@ -3,73 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KCSE Grade Input</title>
+    <title>Enter Your Grades</title>
     <style>
         body {
-            background: url('background.jpg') no-repeat center center fixed;
-            background-size: cover;
-            text-align: center;
             font-family: Arial, sans-serif;
-            color: white;
-        }
-        .container {
-            background: rgba(0, 0, 0, 0.8);
+            margin: 0;
             padding: 20px;
-            border-radius: 10px;
-            margin: 20px auto;
-            max-width: 600px;
+            text-align: center;
         }
-        select, button {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            font-size: 1em;
+        select {
+            width: 200px;
+            padding: 5px;
+            margin: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 20px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <h1 id="formTitle">Enter KCSE Grades</h1>
-    <div class="container">
-        <label>English:
-            <select id="english">
-                <option>Select Grade</option>
-                <option>A</option><option>A-</option><option>B+</option><option>B</option>
-                <option>B-</option><option>C+</option><option>C</option><option>C-</option>
-                <option>D+</option><option>D</option><option>D-</option><option>E</option>
-            </select>
-        </label>
-        <label>Kiswahili:
-            <select id="kiswahili">
-                <option>Select Grade</option>
-                <option>A</option><option>A-</option><option>B+</option><option>B</option>
-                <option>B-</option><option>C+</option><option>C</option><option>C-</option>
-                <option>D+</option><option>D</option><option>D-</option><option>E</option>
-            </select>
-        </label>
-        <label>Mathematics:
-            <select id="math">
-                <option>Select Grade</option>
-                <option>A</option><option>A-</option><option>B+</option><option>B</option>
-                <option>B-</option><option>C+</option><option>C</option><option>C-</option>
-                <option>D+</option><option>D</option><option>D-</option><option>E</option>
-            </select>
-        </label>
-        <button onclick="checkQualification()">Check Qualification</button>
-    </div>
 
-    <script>
-        // Update form title based on selected program
-        window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const program = urlParams.get('program');
-            if (program) {
-                document.getElementById("formTitle").innerText = `Enter KCSE Grades for ${program}`;
-            }
-        };
+<h2 id="programTitle"></h2>
 
-        function checkQualification() {
-            alert("Qualification checking logic will be added here!");
-        }
-    </script>
+<form id="gradesForm">
+    <div id="subjectInputs"></div>
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const params = new URLSearchParams(window.location.search);
+        const program = params.get("program");
+        document.getElementById("programTitle").textContent = "Enter Grades for " + program.toUpperCase();
+
+        const subjects = [
+            "Mathematics", "English", "Kiswahili", "Biology", "Chemistry", "Physics", "General Science",
+            "History", "Geography", "CRE", "IRE", "HRE", "French", "German", "Arabic",
+            "Business Studies", "Agriculture", "Home Science", "Aviation", "Computer Studies", "Music", "Art & Design"
+        ];
+        const gradePoints = ["A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "E"];
+        const subjectContainer = document.getElementById("subjectInputs");
+
+        subjects.forEach(subject => {
+            let label = document.createElement("label");
+            label.textContent = subject + ":";
+
+            let select = document.createElement("select");
+            select.name = subject.toLowerCase().replace(/\s+/g, "_");
+
+            gradePoints.forEach(grade => {
+                let option = document.createElement("option");
+                option.value = grade;
+                option.textContent = grade;
+                select.appendChild(option);
+            });
+
+            subjectContainer.appendChild(label);
+            subjectContainer.appendChild(select);
+            subjectContainer.appendChild(document.createElement("br"));
+        });
+
+        document.getElementById("gradesForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            alert("Grades submitted successfully!");
+        });
+    });
+</script>
+
 </body>
 </html>
