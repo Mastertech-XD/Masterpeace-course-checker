@@ -1,63 +1,156 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KUCCPS Qualification Checker</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
         #subjectInputs {
-            display: none; /* Hide subjects initially */
+            display: none; /* Initially hidden */
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin: 5px 0;
+        }
+        select {
+            margin: 5px 0 15px;
+        }
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin: 5px;
+        }
+        #results {
             margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <h2>Select Program</h2>
-    <button class="program-btn" data-program="degree">Degree</button>
-    <button class="program-btn" data-program="diploma">Diploma</button>
-    <button class="program-btn" data-program="kmtc">KMTC</button>
-    <button class="program-btn" data-program="certificate">Certificate</button><div id="subjectInputs">
-    <h3>Enter Your Grades</h3>
-</div>
+    <h1>KUCCPS Qualification Checker</h1>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const subjectContainer = document.getElementById("subjectInputs");
-        const programButtons = document.querySelectorAll(".program-btn");
+    <!-- Buttons to select program -->
+    <div id="programSelection">
+        <button class="program-btn" data-program="degree">Degree</button>
+        <button class="program-btn" data-program="diploma">Diploma</button>
+        <button class="program-btn" data-program="kmtc">KMTC</button>
+        <button class="program-btn" data-program="certificate">Certificate</button>
+    </div>
 
-        programButtons.forEach(button => {
-            button.addEventListener("click", function (event) {
-                event.preventDefault();
-                subjectContainer.style.display = "block";
-                subjectContainer.innerHTML = "<h3>Enter Your Grades</h3>"; 
+    <form id="gradesForm">
+        <div id="subjectInputs"></div> <!-- Subjects will appear here -->
+        
+        <label for="cluster">Select your desired cluster:</label>
+        <select id="cluster" name="cluster"></select>
 
-                const subjects = [
-                    "Mathematics", "English", "Kiswahili", "Biology", "Chemistry", "Physics", "General Science",
-                    "History", "Geography", "CRE", "IRE", "HRE", "French", "German", "Arabic",
-                    "Business Studies", "Agriculture", "Home Science", "Aviation", "Computer Studies", "Music", "Art & Design"
-                ];
-                const gradePoints = ["A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "E"];
+        <br><br>
 
-                subjects.forEach(subject => {
-                    let label = document.createElement("label");
-                    label.textContent = subject + ":";
+        <button type="submit">Check Qualification</button>
+    </form>
 
-                    let select = document.createElement("select");
-                    select.name = subject.toLowerCase().replace(/\s+/g, "_");
+    <div id="results"></div>
 
-                    gradePoints.forEach(grade => {
-                        let option = document.createElement("option");
-                        option.value = grade;
-                        option.textContent = grade;
-                        select.appendChild(option);
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            console.log("Page loaded");
+
+            const subjectContainer = document.getElementById("subjectInputs");
+            const programButtons = document.querySelectorAll(".program-btn");
+
+            // List of all KCSE subjects
+            const subjects = [
+                "Mathematics", "English", "Kiswahili", "Biology", "Chemistry", "Physics", "General Science",
+                "History", "Geography", "CRE", "IRE", "HRE", "French", "German", "Arabic",
+                "Business Studies", "Agriculture", "Home Science", "Aviation", "Computer Studies", "Music", "Art & Design"
+            ];
+
+            // KCSE grade scale
+            const gradePoints = ["A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "E"];
+
+            // Populate cluster options
+            const clusterSelect = document.getElementById("cluster");
+            const clusters = [
+                "Law", "Business & Hospitality", "Social Sciences", "Geosciences", "Engineering", "Architecture",
+                "Computing & IT", "Agribusiness", "Sciences", "Mathematics", "Interior Design", "Sports Science",
+                "Medicine", "History", "Agriculture & Environment", "Geography", "French & German", "Music",
+                "Education", "Religious Studies"
+            ];
+
+            clusters.forEach((cluster, index) => {
+                let option = document.createElement("option");
+                option.value = index + 1;
+                option.textContent = cluster;
+                clusterSelect.appendChild(option);
+            });
+
+            // Show subjects when a program is selected
+            programButtons.forEach(button => {
+                button.addEventListener("click", function () {
+                    console.log(`Program selected: ${this.dataset.program}`);
+                    
+                    // Clear any existing subjects
+                    subjectContainer.innerHTML = "";
+                    
+                    // Create subject dropdowns
+                    subjects.forEach(subject => {
+                        let label = document.createElement("label");
+                        label.textContent = subject + ":";
+
+                        let select = document.createElement("select");
+                        select.name = subject.toLowerCase().replace(/\s+/g, "_");
+
+                        gradePoints.forEach(grade => {
+                            let option = document.createElement("option");
+                            option.value = grade;
+                            option.textContent = grade;
+                            select.appendChild(option);
+                        });
+
+                        subjectContainer.appendChild(label);
+                        subjectContainer.appendChild(select);
                     });
 
-                    subjectContainer.appendChild(label);
-                    subjectContainer.appendChild(select);
+                    // Make subjects visible
+                    subjectContainer.style.display = "block";
+                });
+            });
+
+            // Handle form submission
+            document.getElementById("gradesForm").addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                let formData = new FormData(this);
+                let grades = {};
+                formData.forEach((value, key) => {
+                    grades[key] = value;
+                });
+
+                fetch("/check_qualification", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(grades)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("results").innerHTML = `
+                        <h3>Your Cluster Points: ${data.user_cluster}</h3>
+                        <h4>Eligible Courses:</h4>
+                        <ul>${data.qualified_courses.map(course => `<li>${course.Course} - ${course.University}</li>`).join("")}</ul>
+                    `;
+                })
+                .catch(error => {
+                    console.error("Error fetching qualification data:", error);
+                    document.getElementById("results").innerHTML = "<p style='color: red;'>Failed to fetch qualification data. Please try again later.</p>";
                 });
             });
         });
-    });
-</script>
-
+    </script>
 </body>
 </html>
