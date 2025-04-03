@@ -3,49 +3,275 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KMTC Program - Subject Grades</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>KUCCPS Qualification Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background-color: #4CAF50;
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-size: 16px;
+            margin-bottom: 5px;
+            display: block;
+        }
+        select, input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <h1>KUCCPS Qualification Checker</h1>
+    </header>
+    <div class="container">
+        <form id="qualificationForm">
+            <div class="form-group">
+                <label for="course">Select Desired Course Cluster:</label>
+                <select id="course" name="course">
+                    <option value="">--Choose One--</option>
+                    <option value="Cluster 1 - Law">Cluster 1 - Law</option>
+                    <option value="Cluster 2 - Business, Hospitality & Related">Cluster 2 - Business, Hospitality & Related</option>
+                    <option value="Cluster 3 - Social Sciences, Media Studies, Fine Arts, Film, Animation, Graphics & Related">Cluster 3 - Social Sciences</option>
+                    <option value="Cluster 4 - Geosciences & Related">Cluster 4 - Geosciences</option>
+                    <option value="Cluster 5 - Engineering, Engineering Technology & Related">Cluster 5 - Engineering</option>
+                    <option value="Cluster 6 - Architecture, Building Construction & Related">Cluster 6 - Architecture</option>
+                    <option value="Cluster 7 - Computing, IT & Related">Cluster 7 - Computing</option>
+                    <option value="Cluster 8 - Agribusiness & Related">Cluster 8 - Agribusiness</option>
+                    <option value="Cluster 9 - General Science , Biological Sciences, Physics, Chemistry & Related">Cluster 9 - General Science</option>
+                    <option value="Cluster 10 - Actuarial Science, Accountancy, Mathematics, Economics, Statistics & Related">Cluster 10 - Actuarial Science</option>
+                    <option value="Cluster 11 - Interior Design, Fashion Design, Textiles & Related">Cluster 11 - Interior Design</option>
+                    <option value="Cluster 12 - Sport Science & Related">Cluster 12 - Sport Science</option>
+                    <option value="Cluster 13 - Medicine, Health , Veterinary Medicine & Related">Cluster 13 - Medicine</option>
+                    <option value="Cluster 14 - History, Archeology & Related">Cluster 14 - History</option>
+                    <option value="Cluster 15 - Agriculture, Animal Health, Food Science, Nutrition Dietetics, Environmental Sciences, Natural Resources & Related">Cluster 15 - Agriculture</option>
+                    <option value="Cluster 16 - Geography & Related">Cluster 16 - Geography</option>
+                    <option value="Cluster 17 - French & German">Cluster 17 - French & German</option>
+                    <option value="Cluster 18 - Music & Related">Cluster 18 - Music</option>
+                    <option value="Cluster 19 - Education & Related">Cluster 19 - Education</option>
+                    <option value="Cluster 20 - Religious Studies, Theology, Islamic Studies & Related">Cluster 20 - Religious Studies</option>
+                </select>
+            </div>
 
-<!-- Toggle Button -->
-<button class="toggle-btn" onclick="toggleMenu()">☰</button>
+            <!-- Humanities Group -->
+            <div class="form-group">
+                <label for="history">History Grade:</label>
+                <select id="history" name="history">
+                    <option value="">--Choose One--</option>
+                    <option value="A">A</option>
+                    <option value="B+">B+</option>
+                    <option value="B">B</option>
+                    <option value="C+">C+</option>
+                    <option value="C">C</option>
+                    <option value="D+">D+</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select>
+            </div>
 
-<!-- Sidebar Menu -->
-<div class="sidebar" id="sidebar">
-    <button class="close-btn" onclick="toggleMenu()">↩️Back</button>
-    <button class="menu-btn" onclick="window.location.href='index.html'">Home</button>
-    
-</div>
+            <div class="form-group">
+                <label for="geography">Geography Grade:</label>
+                <select id="geography" name="geography">
+                    <option value="">--Choose One--</option>
+                    <option value="A">A</option>
+                    <option value="B+">B+</option>
+                    <option value="B">B</option>
+                    <option value="C+">C+</option>
+                    <option value="C">C</option>
+                    <option value="D+">D+</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select>
+            </div>
 
-<!-- Main Content -->
-<div class="container">
-    <h2>Enter Your Grades for KMTC Program</h2>
+            <div class="form-group">
+                <label for="religiousStudies">Religious Studies Grade (IRE/CRE):</label>
+                <select id="religiousStudies" name="religiousStudies">
+                    <option value="">--Choose One--</option>
+                    <option value="A">A</option>
+                    <option value="B+">B+</option>
+                    <option value="B">B</option>
+                    <option value="C+">C+</option>
+                    <option value="C">C</option>
+                    <option value="D+">D+</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select>
+            </div>
 
-    <form id="kmtc-form">
-        <!-- Subjects similar to degree, diploma, and certificate programs -->
-        <label for="math">Mathematics:</label>
-        <select id="math" name="math" required>
-            <option value="A">A</option>
-            <option value="A-">A-</option>
-            <option value="B+">B+</option>
-            <option value="B">B</option>
-            <option value="B-">B-</option>
-            <option value="C+">C+</option>
-            <option value="C">C</option>
-            <option value="C-">C-</option>
-            <option value="D+">D+</option>
-            <option value="D">D</option>
-            <option value="D-">D-</option>
-            <option value="E">E</option>
-        </select>
+            <!-- Science Group -->
+            <div class="form-group">
+                <label for="mathematics">Mathematics Grade:</label>
+                <select id="mathematics" name="mathematics">
+                    <option value="">--Choose One--</option>
+                    <option value="A">A</option>
+                    <option value="B+">B+</option>
+                    <option value="B">B</option>
+                    <option value="C+">C+</option>
+                    <option value="C">C</option>
+                    <option value="D+">D+</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select>
+            </div>
 
-        <!-- Repeat for other subjects (English, Kiswahili, Chemistry, etc.) -->
+            <div class="form-group">
+                <label for="physics">Physics Grade:</label>
+                <select id="physics" name="physics">
+                    <option value="">--Choose One--</option>
+                    <option value="A">A</option>
+                    <option value="B+">B+</option>
+                    <option value="B">B</option>
+                    <option value="C+">C+</option>
+                    <option value="C">C</option>
+                    <option value="D+">D+</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select>
+            </div>
 
-        <button type="submit">Submit</button>
-    </form>
-</div>
+            <div class="form-group">
+                <label for="chemistry">Chemistry Grade:</label>
+                <select id="chemistry" name="chemistry">
+                    <option value="">--Choose One--</option>
+                    <option value="A">A</option>
+                    <option value="B+">B+</option>
+                    <option value="B">B</option>
+                    <option value="C+">C+</option>
+                    <option value="C">C</option>
+                    <option value="D+">D+</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select>
+            </div>
 
-<script src="script.js"></script>
+            <div class="form-group">
+                <label for="biology">Biology Grade:</label>
+                <select id="biology" name="biology">
+                    <option value="">--Choose One--</option>
+                    <option value="A">A</option>
+                    <option value="B+">B+</option>
+                    <option value="B">B</option>
+                    <option value="C+">C+</option>
+                    <option value="C">C</option>
+                    <option value="D+">D+</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select>
+            </div>
+
+            <!-- Technical Group -->
+            <div class="form-group">
+                <label for="business">Business Studies Grade:</label>
+                <select id="business" name="business">
+                    <option value="">--Choose One--</option>
+                    <option value="A">A</option>
+                    <option value="B+">B+</option>
+                    <option value="B">B</option>
+                    <option value="C+">C+</option>
+                    <option value="C">C</option>
+                    <option value="D+">D+</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="agriculture">Agriculture Grade:</label>
+                <select id="agriculture" name="agriculture">
+                    <option value="">--Choose One--</option>
+                    <option value="A">A</option>
+                    <option value="B+">B+</option>
+                    <option value="B">B</option>
+                    <option value="C+">C+</option>
+                    <option value="C">C</option>
+                    <option value="D+">D+</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="computer">Computer Science Grade:</label>
+                <select id="computer" name="computer">
+                    <option value="">--Choose One--</option>
+                    <option value="A">A</option>
+                    <option value="B+">B+</option>
+                    <option value="B">B</option>
+                    <option value="C+">C+</option>
+                    <option value="C">C</option>
+                    <option value="D+">D+</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select>
+            </div>
+
+            <!-- Music Group -->
+            <div class="form-group">
+                <label for="music">Music Grade:</label>
+                <select id="music" name="music">
+                    <option value="">--Choose One--</option>
+                    <option value="A">A</option>
+                    <option value="B+">B+</option>
+                    <option value="B">B</option>
+                    <option value="C+">C+</option>
+                    <option value="C">C</option>
+                    <option value="D+">D+</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <button type="button" onclick="calculateQualification()">Check Qualification</button>
+            </div>
+        </form>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateQualification() {
+            // Logic to calculate qualification based on selected subjects and grades
+            // Your code for checking eligibility based on clusters and grades would go here
+            document.getElementById('result').innerHTML = "Qualification result based on selected criteria will be displayed here.";
+        }
+    </script>
 </body>
 </html>
