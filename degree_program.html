@@ -134,7 +134,8 @@
     <h1>Degree Program - Select Your Subjects</h1>
     <p>Select the grades you achieved in each subject:</p>
 
-    <!-- Subject Buttons -->
+    <!-- Subject Buttons and Dropdowns -->
+
     <div class="dropdown-btn">
         <button class="subject-btn" onclick="toggleDropdown('math-dropdown')">Mathematics</button>
         <div id="math-dropdown" class="dropdown">
@@ -177,25 +178,277 @@
         </div>
     </div>
 
-    <!-- Repeat the structure above for other subjects like Kiswahili, Chemistry, Physics, etc. -->
-    <!-- Just change the IDs and names accordingly -->
+    <div class="dropdown-btn">
+        <button class="subject-btn" onclick="toggleDropdown('kiswahili-dropdown')">Kiswahili</button>
+        <div id="kiswahili-dropdown" class="dropdown">
+            <select onchange="closeDropdown('kiswahili-dropdown', this)">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="dropdown-btn">
+        <button class="subject-btn" onclick="toggleDropdown('chemistry-dropdown')">Chemistry</button>
+        <div id="chemistry-dropdown" class="dropdown">
+            <select onchange="closeDropdown('chemistry-dropdown', this)">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="dropdown-btn">
+        <button class="subject-btn" onclick="toggleDropdown('physics-dropdown')">Physics</button>
+        <div id="physics-dropdown" class="dropdown">
+            <select onchange="closeDropdown('physics-dropdown', this)">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="dropdown-btn">
+        <button class="subject-btn" onclick="toggleDropdown('biology-dropdown')">Biology</button>
+        <div id="biology-dropdown" class="dropdown">
+            <select onchange="closeDropdown('biology-dropdown', this)">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="dropdown-btn">
+        <button class="subject-btn" onclick="toggleDropdown('History-dropdown')">History</button>
+        <div id="History-dropdown" class="dropdown">
+            <select onchange="closeDropdown('History-dropdown', this)">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+   </div>
+    
+   <div class="dropdown-btn">
+        <button class="subject-btn" onclick="toggleDropdown('CRE-dropdown')">CRE</button>
+        <div id="CRE-dropdown" class="dropdown">
+            <select onchange="closeDropdown('CRE-dropdown', this)">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="dropdown-btn">
+        <button class="subject-btn" onclick="toggleDropdown('IRE-dropdown')">IRE</button>
+        <div id="IRE-dropdown" class="dropdown">
+            <select onchange="closeDropdown('IRE-dropdown', this)">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="dropdown-btn">
+        <button class="subject-btn" onclick="toggleDropdown('Music-dropdown')">Music</button>
+        <div id="Music-dropdown" class="dropdown">
+            <select onchange="closeDropdown('Music-dropdown', this)">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="dropdown-btn">
+        <button class="subject-btn" onclick="toggleDropdown('Home Science-dropdown')">Home Science</button>
+        <div id="Home Science-dropdown" class="dropdown">
+            <select onchange="closeDropdown('Home Science-dropdown', this)">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="dropdown-btn">
+        <button class="subject-btn" onclick="toggleDropdown('French-dropdown')">French</button>
+        <div id="French-dropdown" class="dropdown">
+            <select onchange="closeDropdown('French-dropdown', this)">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="dropdown-btn">
+        <button class="subject-btn" onclick="toggleDropdown('German-dropdown')">German</button>
+        <div id="German-dropdown" class="dropdown">
+            <select onchange="closeDropdown('German-dropdown', this)">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="dropdown-btn">
+        <button class="subject-btn" onclick="toggleDropdown('Arabic-dropdown')">Arabic</button>
+        <div id="Arabic-dropdown" class="dropdown">
+            <select onchange="closeDropdown('Arabic-dropdown', this)">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+    </div>
+    
+    <!-- Repeat similarly for all other subjects (History, CRE, IRE, Music, Home Science, French, German) -->
+    
+    <!-- Add other subjects here following the same structure -->
+
 </div>
 
 <script>
+    // Toggle the visibility of the dropdown
     function toggleDropdown(id) {
-        const dropdown = document.getElementById(id);
-        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+        var dropdown = document.getElementById(id);
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
     }
 
-    function closeDropdown(id, selectElement) {
-        const dropdown = document.getElementById(id);
-        dropdown.style.display = "none"; // Close dropdown after selection
-        // You can do additional actions here like storing the selected grade.
-        console.log(selectElement.value); // Logs the selected grade
+    // Close dropdown and display selected grade
+    function closeDropdown(id, select) {
+        document.getElementById(id).style.display = 'none';
+        console.log(select.value);  // For debugging, to display the selected grade
     }
 </script>
-
-<script src="script.js"></script>
 
 </body>
 </html>
