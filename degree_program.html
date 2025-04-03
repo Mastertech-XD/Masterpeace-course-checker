@@ -46,6 +46,8 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
+            margin-bottom: 10px;
+            width: 100%;
         }
         button:hover {
             background-color: #45a049;
@@ -54,9 +56,8 @@
             margin-top: 20px;
             font-size: 18px;
         }
-        footer {
-            text-align: center;
-            margin-top: 40px;
+        .group-content {
+            display: none;
         }
     </style>
 </head>
@@ -66,9 +67,10 @@
     </header>
     <div class="container">
         <form id="qualificationForm">
+            <!-- Desired Course Cluster -->
             <div class="form-group">
                 <label for="course">Select Desired Course Cluster:</label>
-                <select id="course" name="course" required>
+                <select id="course" name="course">
                     <option value="">--Choose One--</option>
                     <option value="Cluster 1 - Law">Cluster 1 - Law</option>
                     <option value="Cluster 2 - Business, Hospitality & Related">Cluster 2 - Business, Hospitality & Related</option>
@@ -90,187 +92,194 @@
                     <option value="Cluster 18 - Music & Related">Cluster 18 - Music</option>
                     <option value="Cluster 19 - Education & Related">Cluster 19 - Education</option>
                     <option value="Cluster 20 - Religious Studies, Theology, Islamic Studies & Related">Cluster 20 - Religious Studies</option>
-                    <option value="Cluster 21 - Arabic">Cluster 21 - Arabic</option>
-                    <option value="Cluster 22 - Hindu">Cluster 22 - Hindu</option>
-                    <option value="Cluster 23 - IRE">Cluster 23 - IRE</option>
-                    <option value="Cluster 24 - Home Science">Cluster 24 - Home Science</option>
-                    <option value="Cluster 25 - Languages">Cluster 25 - Languages</option>
-                    <option value="Cluster 26 - Aviation">Cluster 26 - Aviation</option>
-                    <option value="Cluster 27 - Computer Science">Cluster 27 - Computer Science</option>
                 </select>
             </div>
 
-            <div class="form-group">
-                <label for="history">History Grade:</label>
-                <select id="history" name="history">
-                    <option value="">--Choose One--</option>
-                    <option value="A">A</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                </select>
+            <!-- Buttons to Show Groups -->
+            <button type="button" onclick="toggleGroup('languagesGroup')">Languages Group</button>
+            <button type="button" onclick="toggleGroup('scienceGroup')">Science Group</button>
+            <button type="button" onclick="toggleGroup('technicalGroup')">Technical Group</button>
+
+            <!-- Language Group Subjects -->
+            <div id="languagesGroup" class="group-content">
+                <div class="form-group">
+                    <label for="english">English Grade:</label>
+                    <select id="english" name="english">
+                        <option value="">--Choose One--</option>
+                        <option value="A">A</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="kiswahili">Kiswahili Grade:</label>
+                    <select id="kiswahili" name="kiswahili">
+                        <option value="">--Choose One--</option>
+                        <option value="A">A</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="french">French Grade:</label>
+                    <select id="french" name="french">
+                        <option value="">--Choose One--</option>
+                        <option value="A">A</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="arabic">Arabic Grade:</label>
+                    <select id="arabic" name="arabic">
+                        <option value="">--Choose One--</option>
+                        <option value="A">A</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="music">Music Grade:</label>
+                    <select id="music" name="music">
+                        <option value="">--Choose One--</option>
+                        <option value="A">A</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                    </select>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="geography">Geography Grade:</label>
-                <select id="geography" name="geography">
-                    <option value="">--Choose One--</option>
-                    <option value="A">A</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                </select>
+            <!-- Science Group Subjects -->
+            <div id="scienceGroup" class="group-content">
+                <div class="form-group">
+                    <label for="mathematics">Mathematics Grade:</label>
+                    <select id="mathematics" name="mathematics">
+                        <option value="">--Choose One--</option>
+                        <option value="A">A</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="physics">Physics Grade:</label>
+                    <select id="physics" name="physics">
+                        <option value="">--Choose One--</option>
+                        <option value="A">A</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="chemistry">Chemistry Grade:</label>
+                    <select id="chemistry" name="chemistry">
+                        <option value="">--Choose One--</option>
+                        <option value="A">A</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="biology">Biology Grade:</label>
+                    <select id="biology" name="biology">
+                        <option value="">--Choose One--</option>
+                        <option value="A">A</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                    </select>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="religiousStudies">Religious Studies Grade (IRE/CRE):</label>
-                <select id="religiousStudies" name="religiousStudies">
-                    <option value="">--Choose One--</option>
-                    <option value="A">A</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                </select>
+            <!-- Technical Group Subjects -->
+            <div id="technicalGroup" class="group-content">
+                <div class="form-group">
+                    <label for="engineering">Engineering Grade:</label>
+                    <select id="engineering" name="engineering">
+                        <option value="">--Choose One--</option>
+                        <option value="A">A</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="computer">Computer Science Grade:</label>
+                    <select id="computer" name="computer">
+                        <option value="">--Choose One--</option>
+                        <option value="A">A</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                    </select>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="mathematics">Mathematics Grade:</label>
-                <select id="mathematics" name="mathematics">
-                    <option value="">--Choose One--</option>
-                    <option value="A">A</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="physics">Physics Grade:</label>
-                <select id="physics" name="physics">
-                    <option value="">--Choose One--</option>
-                    <option value="A">A</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="chemistry">Chemistry Grade:</label>
-                <select id="chemistry" name="chemistry">
-                    <option value="">--Choose One--</option>
-                    <option value="A">A</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="biology">Biology Grade:</label>
-                <select id="biology" name="biology">
-                    <option value="">--Choose One--</option>
-                    <option value="A">A</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="french">French Grade:</label>
-                <select id="french" name="french">
-                    <option value="">--Choose One--</option>
-                    <option value="A">A</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="german">German Grade:</label>
-                <select id="german" name="german">
-                    <option value="">--Choose One--</option>
-                    <option value="A">A</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <button type="button" onclick="calculateQualification()">Check Qualification</button>
-            </div>
+            <!-- Submit Button -->
+            <button type="submit">Submit</button>
         </form>
-
-        <div class="result" id="result"></div>
     </div>
 
-    <footer>
-        <p>Designed by Masterpeace Elite</p>
-    </footer>
-
     <script>
-        function calculateQualification() {
-            // Ensure a course is selected
-            const course = document.getElementById('course').value;
-            if (course === "") {
-                alert("Please select a course cluster.");
-                return;
+        function toggleGroup(groupId) {
+            const group = document.getElementById(groupId);
+            if (group.style.display === "none" || group.style.display === "") {
+                group.style.display = "block";
+            } else {
+                group.style.display = "none";
             }
-
-            // Collect the selected grades
-            const history = document.getElementById('history').value;
-            const geography = document.getElementById('geography').value;
-            const religiousStudies = document.getElementById('religiousStudies').value;
-            const mathematics = document.getElementById('mathematics').value;
-            const physics = document.getElementById('physics').value;
-            const chemistry = document.getElementById('chemistry').value;
-            const biology = document.getElementById('biology').value;
-            const french = document.getElementById('french').value;
-            const german = document.getElementById('german').value;
-
-            // Add logic here to calculate qualification based on the grades and the course selected
-            const result = `You have selected the ${course} cluster. Your grades: History: ${history}, Geography: ${geography}, Religious Studies: ${religiousStudies}, Mathematics: ${mathematics}, Physics: ${physics}, Chemistry: ${chemistry}, Biology: ${biology}, French: ${french}, German: ${german}`;
-            document.getElementById('result').innerText = result;
         }
     </script>
 </body>
-                        </html>
+</html>
