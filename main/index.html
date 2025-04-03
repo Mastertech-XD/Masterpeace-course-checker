@@ -10,7 +10,8 @@
             margin: 20px;
         }
         #subjectInputs {
-            margin-bottom: 20px;
+            display: none; /* Initially hidden */
+            margin-top: 20px;
         }
         label {
             display: block;
@@ -25,6 +26,7 @@
             color: white;
             border: none;
             cursor: pointer;
+            margin: 5px;
         }
         #results {
             margin-top: 20px;
@@ -33,9 +35,18 @@
 </head>
 <body>
     <h1>KUCCPS Qualification Checker</h1>
-    <form id="gradesForm">
-        <div id="subjectInputs"></div>
 
+    <!-- Buttons to select program -->
+    <div id="programSelection">
+        <button class="program-btn" data-program="degree">Degree</button>
+        <button class="program-btn" data-program="diploma">Diploma</button>
+        <button class="program-btn" data-program="kmtc">KMTC</button>
+        <button class="program-btn" data-program="certificate">Certificate</button>
+    </div>
+
+    <form id="gradesForm">
+        <div id="subjectInputs"></div> <!-- Subjects will appear here -->
+        
         <label for="cluster">Select your desired cluster:</label>
         <select id="cluster" name="cluster"></select>
 
@@ -48,14 +59,10 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            console.log("Page loaded, initializing form...");
+            console.log("Page loaded");
 
-            // Ensure the container exists
             const subjectContainer = document.getElementById("subjectInputs");
-            if (!subjectContainer) {
-                console.error("Error: #subjectInputs container not found!");
-                return;
-            }
+            const programButtons = document.querySelectorAll(".program-btn");
 
             // List of all KCSE subjects
             const subjects = [
@@ -64,44 +71,17 @@
                 "Business Studies", "Agriculture", "Home Science", "Aviation", "Computer Studies", "Music", "Art & Design"
             ];
 
-            // List of KUCCPS clusters
+            // KCSE grade scale
+            const gradePoints = ["A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "E"];
+
+            // Populate cluster options
+            const clusterSelect = document.getElementById("cluster");
             const clusters = [
                 "Law", "Business & Hospitality", "Social Sciences", "Geosciences", "Engineering", "Architecture",
                 "Computing & IT", "Agribusiness", "Sciences", "Mathematics", "Interior Design", "Sports Science",
                 "Medicine", "History", "Agriculture & Environment", "Geography", "French & German", "Music",
                 "Education", "Religious Studies"
             ];
-
-            // KCSE grade scale
-            const gradePoints = ["A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "E"];
-
-            // Create subject input dropdowns
-            subjects.forEach(subject => {
-                let label = document.createElement("label");
-                label.textContent = subject + ":";
-
-                let select = document.createElement("select");
-                select.name = subject.toLowerCase().replace(/\s+/g, "_");
-
-                gradePoints.forEach(grade => {
-                    let option = document.createElement("option");
-                    option.value = grade;
-                    option.textContent = grade;
-                    select.appendChild(option);
-                });
-
-                subjectContainer.appendChild(label);
-                subjectContainer.appendChild(select);
-            });
-
-            console.log("Subjects loaded successfully.");
-
-            // Populate cluster options
-            const clusterSelect = document.getElementById("cluster");
-            if (!clusterSelect) {
-                console.error("Error: #cluster dropdown not found!");
-                return;
-            }
 
             clusters.forEach((cluster, index) => {
                 let option = document.createElement("option");
@@ -110,7 +90,37 @@
                 clusterSelect.appendChild(option);
             });
 
-            console.log("Clusters loaded successfully.");
+            // Show subjects when a program is selected
+            programButtons.forEach(button => {
+                button.addEventListener("click", function () {
+                    console.log(`Program selected: ${this.dataset.program}`);
+                    
+                    // Clear any existing subjects
+                    subjectContainer.innerHTML = "";
+                    
+                    // Create subject dropdowns
+                    subjects.forEach(subject => {
+                        let label = document.createElement("label");
+                        label.textContent = subject + ":";
+
+                        let select = document.createElement("select");
+                        select.name = subject.toLowerCase().replace(/\s+/g, "_");
+
+                        gradePoints.forEach(grade => {
+                            let option = document.createElement("option");
+                            option.value = grade;
+                            option.textContent = grade;
+                            select.appendChild(option);
+                        });
+
+                        subjectContainer.appendChild(label);
+                        subjectContainer.appendChild(select);
+                    });
+
+                    // Make subjects visible
+                    subjectContainer.style.display = "block";
+                });
+            });
 
             // Handle form submission
             document.getElementById("gradesForm").addEventListener("submit", function (e) {
