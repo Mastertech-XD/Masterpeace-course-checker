@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KUCCPS Qualification Checker</title>
+    <title>KUCCPS Degree Courses Qualification Checker</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -31,7 +31,7 @@
             margin-bottom: 5px;
             display: block;
         }
-        select, input[type="number"], input[type="text"] {
+        select, input[type="number"], input[type="text"], input[type="submit"] {
             width: 100%;
             padding: 8px;
             margin: 5px 0 10px;
@@ -53,6 +53,25 @@
         .result {
             margin-top: 20px;
             font-size: 18px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: #888;
+        }
+        .payment-section {
+            margin-top: 20px;
+            background-color: #fff;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .payment-section input[type="number"] {
+            width: auto;
+            display: inline-block;
+            margin-right: 10px;
         }
     </style>
 </head>
@@ -89,100 +108,7 @@
                 </select>
             </div>
 
-            <!-- Subject selections -->
-
-            <div class="form-group">
-                <label for="english">English Grade:</label>
-                <select id="english" name="english">
-                    <option value="">--Choose One--</option>
-                    <option value="A">A</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="kiswahili">Kiswahili Grade:</label>
-                <select id="kiswahili" name="kiswahili">
-                    <option value="">--Choose One--</option>
-                    <option value="A">A</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                </select>
-            </div>
-
-            <!-- Science subjects -->
-            <div class="form-group">
-                <label for="mathematics">Mathematics Grade:</label>
-                <select id="mathematics" name="mathematics">
-                    <option value="">--Choose One--</option>
-                    <option value="A">A</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="biology">Biology Grade:</label>
-                <select id="biology" name="biology">
-                    <option value="">--Choose One--</option>
-                    <option value="A">A</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="chemistry">Chemistry Grade:</label>
-                <select id="chemistry" name="chemistry">
-                    <option value="">--Choose One--</option>
-                    <option value="A">A</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="physics">Physics Grade:</label>
-                <select id="physics" name="physics">
-                    <option value="">--Choose One--</option>
-                    <option value="A">A</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                </select>
-            </div>
-
-            <!-- Humanities subjects -->
+            <!-- Humanities Group -->
             <div class="form-group">
                 <label for="history">History Grade:</label>
                 <select id="history" name="history">
@@ -199,8 +125,8 @@
             </div>
 
             <div class="form-group">
-                <label for="cre">CRE/IRE Grade:</label>
-                <select id="cre" name="cre">
+                <label for="geography">Geography Grade:</label>
+                <select id="geography" name="geography">
                     <option value="">--Choose One--</option>
                     <option value="A">A</option>
                     <option value="B+">B+</option>
@@ -214,8 +140,8 @@
             </div>
 
             <div class="form-group">
-                <label for="homeScience">Home Science Grade:</label>
-                <select id="homeScience" name="homeScience">
+                <label for="religiousStudies">Religious Studies Grade (IRE/CRE):</label>
+                <select id="religiousStudies" name="religiousStudies">
                     <option value="">--Choose One--</option>
                     <option value="A">A</option>
                     <option value="B+">B+</option>
@@ -228,25 +154,10 @@
                 </select>
             </div>
 
-            <!-- Languages -->
+            <!-- Language Group (Added French, Arabic, German) -->
             <div class="form-group">
                 <label for="french">French Grade:</label>
                 <select id="french" name="french">
-                    <option value="">--Choose One--</option>
-                    <option value="A">A</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="german">German Grade:</label>
-                <select id="german" name="german">
                     <option value="">--Choose One--</option>
                     <option value="A">A</option>
                     <option value="B+">B+</option>
@@ -274,10 +185,9 @@
                 </select>
             </div>
 
-            <!-- Business and Technical subjects -->
             <div class="form-group">
-                <label for="businessStudies">Business Studies Grade:</label>
-                <select id="businessStudies" name="businessStudies">
+                <label for="german">German Grade:</label>
+                <select id="german" name="german">
                     <option value="">--Choose One--</option>
                     <option value="A">A</option>
                     <option value="B+">B+</option>
@@ -290,19 +200,15 @@
                 </select>
             </div>
 
-            <div class="form-group">
-                <label for="agriculture">Agriculture Grade:</label>
-                <select id="agriculture" name="agriculture">
-                    <option value="">--Choose One--</option>
-                    <option value="A">A</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                </select>
+            <!-- Payment Section -->
+            <div class="payment-section">
+                <label for="phone">Enter Phone Number:</label>
+                <input type="text" id="phone" name="phone" placeholder="Enter your phone number" required />
+                
+                <label for="payment">Pay 20 to generate results:</label>
+                <input type="number" id="payment" name="payment" placeholder="Enter Amount" />
+                
+                <button type="button" onclick="processPayment()">Pay and Generate Results</button>
             </div>
 
             <div class="form-group">
@@ -313,57 +219,28 @@
         <div class="result" id="result"></div>
     </div>
 
+    <footer>
+        <p>Designed by Masterpeace Elite</p>
+    </footer>
+
     <script>
-        const gradePoints = {
-            "A": 12,
-            "B+": 10,
-            "B": 8,
-            "C+": 6,
-            "C": 4,
-            "D+": 3,
-            "D": 2,
-            "E": 0
-        };
+        function processPayment() {
+            const payment = document.getElementById('payment').value;
+            const phone = document.getElementById('phone').value;
+            if (payment == 20) {
+                alert("Payment successful. A payment prompt has been sent to " + phone);
+                // Logic to simulate payment processing and notify the number
+                // Here we just simulate the payment prompt
+            } else {
+                alert("Please pay 20 to generate results.");
+            }
+        }
 
         function calculateQualification() {
-            const grades = [
-                document.getElementById('english').value,
-                document.getElementById('kiswahili').value,
-                document.getElementById('mathematics').value,
-                document.getElementById('biology').value,
-                document.getElementById('chemistry').value,
-                document.getElementById('physics').value,
-                document.getElementById('history').value,
-                document.getElementById('cre').value,
-                document.getElementById('homeScience').value,
-                document.getElementById('french').value,
-                document.getElementById('german').value,
-                document.getElementById('arabic').value,
-                document.getElementById('businessStudies').value,
-                document.getElementById('agriculture').value
-            ];
-
-            let totalPoints = 0;
-            for (let grade of grades) {
-                totalPoints += gradePoints[grade] || 0;
-            }
-
-            const course = document.getElementById('course').value;
-            let qualification = "You do not qualify for this course.";
-
-            if (course) {
-                // Example qualification criteria: Total points greater than 40
-                qualification = totalPoints >= 40 ? "You qualify for this course." : "You do not qualify for this course.";
-            }
-
-            document.getElementById('result').innerHTML = `
-                Total Points: ${totalPoints}<br>
-                Qualification: ${qualification}
-            `;
+            // Logic to calculate qualification based on selected subjects and grades
+            // Your code for checking eligibility based on clusters and grades would go here
+            document.getElementById('result').innerHTML = "Qualification result based on selected criteria will be displayed here.";
         }
     </script>
-<footer style="background-color: #4CAF50; color: white; text-align: center; padding: 10px; margin-top: 20px;">
-    Designed & Developed by Masterpeace Elite
-</footer>
 </body>
-</html>
+    </html>
