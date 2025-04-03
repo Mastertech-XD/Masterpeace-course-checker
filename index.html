@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,68 +40,12 @@
     <button class="menu-button degree" onclick="navigateToForm('Degree')">Degree</button>
     <button class="menu-button diploma" onclick="navigateToForm('Diploma')">Diploma</button>
     <button class="menu-button certificate" onclick="navigateToForm('Certificate')">Certificate</button>
-    <button class="menu-button kmtc" onclick="navigateToForm('KMTC')">KMTC</button><script>
-    function navigateToForm(type) {
-        <!DOCTYPE html><html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KCSE Grade Input</title>
-    <style>
-        body {
-            background: url('background.jpg') no-repeat center center fixed;
-            background-size: cover;
-            text-align: center;
-            font-family: Arial, sans-serif;
-            color: white;
-        }
-        .container {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px auto;
-            max-width: 600px;
-        }
-        select {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-        }
-    </style>
-</head>
-<body>
-    <h1 id="formTitle">Enter KCSE Grades</h1>
-    <div class="container">
-        <label>English:
-            <select>
-                <option>Select Grade</option>
-                <option>A</option><option>A-</option><option>B+</option><option>B</option>
-                <option>B-</option><option>C+</option><option>C</option><option>C-</option>
-                <option>D+</option><option>D</option><option>D-</option><option>E</option>
-            </select>
-        </label>
-        <label>Kiswahili:
-            <select>
-                <option>Select Grade</option>
-                <option>A</option><option>A-</option><option>B+</option><option>B</option>
-            </select>
-        </label>
-        <label>Mathematics:
-            <select>
-                <option>Select Grade</option>
-                <option>A</option><option>A-</option><option>B+</option><option>B</option>
-            </select>
-        </label>
-        <button onclick="checkQualification()">Check Qualification</button>
-    </div><script>
-    window.onload = function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const program = urlParams.get('program');
-        document.getElementById("formTitle").innerText = `Enter KCSE Grades for ${program}`;
-    }
-        window.location.href = `kcse_form.html?program=${type}`;
-    };
-</script>
+    <button class="menu-button kmtc" onclick="navigateToForm('KMTC')">KMTC</button>
 
+    <script>
+        function navigateToForm(type) {
+            window.location.href = `kcse_form.html?program=${type}`;
+        }
+    </script>
 </body>
 </html>
