@@ -27,12 +27,19 @@
             border-radius: 10px;
             cursor: pointer;
         }
-        .degree { background-color: red; }
+        .degree { background-color: cyan; }
         .diploma { background-color: blue; color: white; }
         .certificate { background-color: red; color: white; }
         .short-courses { background-color: green; color: white; }
         .artisan { background-color: yellow; }
         .kmtc { background-color: darkgreen; color: white; }
+        .container {
+            margin: 20px auto;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body>
@@ -43,9 +50,32 @@
     <button class="menu-button certificate">Certificate</button>
     <button class="menu-button short-courses">Short Courses (for free)</button>
     <button class="menu-button artisan">Artisan</button>
-    <button class="menu-button kmtc">KMTC</button>
-    <footer>
-        <p>&copy; 2025 All rights reserved.<br>Designed by sir.Masterpeace</p>
-    </footer>
+    <button class="menu-button kmtc">KMTC</button><div class="container">
+    <h2>Check Your Qualification</h2>
+    <label for="grades">Enter Your Grades (Math, Eng, Kis, Sci, Hum):</label>
+    <input type="text" id="grades" placeholder="e.g., 80,75,70,85,60">
+    <button onclick="checkQualification()">Check</button>
+    <div id="results"></div>
+</div>
+
+<script>
+    async function checkQualification() {
+        const gradesInput = document.getElementById("grades").value;
+        const [math, eng, kis, sci, hum] = gradesInput.split(",").map(Number);
+        const data = { grades: { math, eng, kis, sci, hum }, clusters: ["Cluster1", "Cluster2", "Cluster3", "Cluster4"] };
+        const response = await fetch("/check_qualification", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
+        const result = await response.json();
+        document.getElementById("results").innerHTML = `<p>Your Cluster Points: ${result.userClusterPoints}</p><ul>${result.qualifiedCourses.map(c => `<li>${c.name}</li>`).join('')}</ul>`;
+    }
+</script>
+
+<footer>
+    <p>&copy; 2025 All rights reserved.<br>Designed by ENG. Chester</p>
+</footer>
+
 </body>
 </html>
