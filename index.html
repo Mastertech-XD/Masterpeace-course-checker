@@ -9,26 +9,31 @@
 <body>
 
 <!-- Toggle Button -->
-<button class="toggle-btn" onclick="toggleMenu()">☰</button>
+<button class="toggle-btn" onclick="toggleMenu()" aria-label="Open Sidebar">☰</button>
 
 <!-- Sidebar Menu -->
-<div class="sidebar" id="sidebar">
-    <button class="close-btn" onclick="toggleMenu()">↩️Back</button>
-    <button class="menu-btn" onclick="window.location.href='index.html'">Home</button>
-    <button class="menu-btn" onclick="window.location.href='https://students.kuccps.net/'">📌KUCCPS Portal📚</button>
-    <button class="menu-btn" onclick="window.location.href='https://wa.me/254743727510'">📞Contact us via WhatsApp ☎️</button>
-    <button class="menu-btn" onclick="window.location.href='mailto:aludabrian254@gmail.com'">📥Email Us✉️</button>
-    <button class="menu-btn" onclick="window.location.href='about.html'">About Us📢</button>
+<div class="sidebar" id="sidebar" role="navigation" aria-label="Main Navigation">
+    <button class="close-btn" onclick="toggleMenu()" aria-label="Close Sidebar">↩️Back</button>
+    <button class="menu-btn" onclick="window.location.href='index.html'" aria-label="Go to Home">Home</button>
+    <button class="menu-btn" onclick="window.location.href='https://students.kuccps.net/'" aria-label="Go to KUCCPS Portal">📌KUCCPS Portal📚</button>
+    <button class="menu-btn" onclick="window.location.href='https://wa.me/254743727510'" aria-label="Contact us via WhatsApp">📞Contact us via WhatsApp ☎️</button>
+    <button class="menu-btn" onclick="window.location.href='mailto:aludabrian254@gmail.com'" aria-label="Email Us">📥Email Us✉️</button>
+    <button class="menu-btn" onclick="window.location.href='about.html'" aria-label="Learn About Us">About Us📢</button>
 </div>
 
 <!-- Main Content -->
 <div class="container">
     <h2>Select Program</h2>
-    <button class="btn degree" onclick="window.location.href='degree_program.html'">Degree</button>
-<button class="btn diploma" onclick="window.location.href='diploma_program.html'">Diploma</button>
-<button class="btn certificate" onclick="window.location.href='certificate_program.html'">Certificate</button>
-<button class="btn kmtc" onclick="window.location.href='kmtc_program.html'">KMTC</button>
+    <button class="btn degree" onclick="window.location.href='degree_program.html'" aria-label="Go to Degree Program">Degree</button>
+    <button class="btn diploma" onclick="window.location.href='diploma_program.html'" aria-label="Go to Diploma Program">Diploma</button>
+    <button class="btn certificate" onclick="window.location.href='certificate_program.html'" aria-label="Go to Certificate Program">Certificate</button>
+    <button class="btn kmtc" onclick="window.location.href='kmtc_program.html'" aria-label="Go to KMTC Program">KMTC</button>
 </div>
+
+<!-- Footer -->
+<footer class="footer">
+    <p>&#169; 2025 Created by Masterpeace. All rights reserved.</p>
+</footer>
 
 <script>
     function toggleMenu() {
@@ -42,11 +47,24 @@
 </script>
 
 <style>
+    /* Background Animation */
+    @keyframes slideBackground {
+        0% {
+            background-position: 0 0;
+        }
+        100% {
+            background-position: 100% 0;
+        }
+    }
+
     body {
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
-        background: #f4f4f4;
+        background: url('your-image.jpg') repeat-x; /* Replace with your image URL */
+        animation: slideBackground 30s linear infinite;
+        background-size: cover;
+        color: white;
     }
 
     .toggle-btn {
@@ -120,6 +138,34 @@
     .diploma { background: blue; }
     .certificate { background: red; }
     .kmtc { background: green; }
+
+    /* Responsive design */
+    @media screen and (max-width: 768px) {
+        .container {
+            margin-top: 50px;
+        }
+
+        .btn {
+            width: 90%;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .toggle-btn {
+            font-size: 25px;
+            top: 10px;
+            left: 10px;
+        }
+    }
+
+    /* Footer styles */
+    .footer {
+        text-align: center;
+        margin-top: 50px;
+        padding: 20px 0;
+        background: #333;
+        color: white;
+    }
 </style>
 
 </body>
