@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KCSE Grade Input</title>
+    <style>
+        body {
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+        }
+        button {
+            background-color: yellow;
+            padding: 10px 15px;
+            font-size: 1.2em;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="formTitle">Enter KCSE Grades</h1>
+    <div class="container">
+        <label>English:
+            <select id="english">
+                <option>Select Grade</option>
+                <option>A</option><option>A-</option><option>B+</option><option>B</option>
+                <option>B-</option><option>C+</option><option>C</option><option>C-</option>
+                <option>D+</option><option>D</option><option>D-</option><option>E</option>
+            </select>
+        </label>
+        <label>Kiswahili:
+            <select id="kiswahili">
+                <option>Select Grade</option>
+                <option>A</option><option>A-</option><option>B+</option><option>B</option>
+                <option>B-</option><option>C+</option><option>C</option><option>C-</option>
+                <option>D+</option><option>D</option><option>D-</option><option>E</option>
+            </select>
+        </label>
+        <label>Mathematics:
+            <select id="math">
+                <option>Select Grade</option>
+                <option>A</option><option>A-</option><option>B+</option><option>B</option>
+                <option>B-</option><option>C+</option><option>C</option><option>C-</option>
+                <option>D+</option><option>D</option><option>D-</option><option>E</option>
+            </select>
+        </label>
+        <button onclick="checkQualification()">Check Qualification</button>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const program = urlParams.get('program');
+            document.getElementById("formTitle").innerText = `Enter KCSE Grades for ${program}`;
+        };
+
+        function checkQualification() {
+            const english = document.getElementById("english").value;
+            const kiswahili = document.getElementById("kiswahili").value;
+            const math = document.getElementById("math").value;
+
+            if (english === "Select Grade" || kiswahili === "Select Grade" || math === "Select Grade") {
+                alert("Please select grades for all subjects.");
+                return;
+            }
+
+            alert("Qualification check feature is not yet implemented!");
+        }
+    </script>
+</body>
+</html>
