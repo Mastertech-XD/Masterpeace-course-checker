@@ -5,6 +5,9 @@
     <title>KUCCPS Qualification Checker</title>
     <link rel="stylesheet" href="styles.css">  <!-- External Stylesheet -->
     <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
         .menu-btn {
             background-color: #333;
             color: white;
@@ -13,31 +16,65 @@
             cursor: pointer;
             width: 100%;
             text-align: left;
+            border-radius: 10px;
         }
         .menu-content {
             display: none;
             background-color: #f9f9f9;
             padding: 10px;
             list-style: none;
+            text-align: center;
         }
-        .menu-content a {
+        .menu-content button {
             display: block;
-            padding: 8px 0;
-            text-decoration: none;
-            color: black;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            text-align: center;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .menu-content button:hover {
+            background-color: #0056b3;
+        }
+        .container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .degree { background-color: #28a745; }
+        .diploma { background-color: #17a2b8; }
+        .certificate { background-color: #ffc107; color: black; }
+        .kmtc { background-color: #dc3545; }
+        .btn:hover {
+            opacity: 0.8;
         }
     </style>
 </head>
 <body><button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
 
-<ul class="menu-content" id="sidebar">
-    <li><a href="#" onclick="toggleMenu()">Close ✖</a></li>
-    <li><a href="index.html">Home</a></li>
-    <li><a href="https://students.kuccps.net/">KUCCPS Portal</a></li>
-    <li><a href="contact.html">Contact Us</a></li>
-    <li><a href="mailto:support@kuccps.co.ke">Email Us</a></li>
-    <li><a href="about.html">About Us</a></li>
-</ul><div class="container">
+<div class="menu-content" id="sidebar">
+    <button onclick="toggleMenu()">Close ✖</button>
+    <button onclick="location.href='index.html'">Home</button>
+    <button onclick="location.href='https://students.kuccps.net/'">KUCCPS Portal</button>
+    <button onclick="location.href='contact.html'">Contact Us</button>
+    <button onclick="location.href='mailto:support@kuccps.co.ke'">Email Us</button>
+    <button onclick="location.href='about.html'">About Us</button>
+</div><div class="container">
     <h2>Select Program</h2>
     <button class="btn degree" onclick="goToGrades('degree.html')">Degree</button>
     <button class="btn diploma" onclick="goToGrades('diploma.html')">Diploma</button>
