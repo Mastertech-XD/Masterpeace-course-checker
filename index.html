@@ -123,54 +123,49 @@
         margin-top: 100px;
     }
 
-    /* Circular buttons */
+    /* Block buttons with curved edges and custom sizes */
     .btn {
-        display: inline-block;
-        width: 150px;
-        height: 150px;
-        margin: 20px;
-        border-radius: 50%;
+        display: block;
+        width: 80%;
+        max-width: 300px;
+        margin: 20px auto;
         padding: 20px;
-        font-size: 16px;
+        font-size: 18px;
         color: white;
         border: none;
         cursor: pointer;
         text-align: center;
-        line-height: 110px;
-        font-weight: bold;
-        transition: transform 0.3s;
+        border-radius: 15px; /* Curved edges */
+        transition: transform 0.3s, background-color 0.3s;
     }
 
     .degree {
         background: cyan;
-        font-size: 18px;
-        width: 200px;
-        height: 200px;
+        font-size: 22px;  /* Larger font size */
+        width: 70%;
     }
 
     .diploma {
         background: blue;
-        font-size: 16px;
-        width: 150px;
-        height: 150px;
+        font-size: 20px;  /* Smaller than degree */
+        width: 60%;
     }
 
     .certificate {
         background: red;
-        font-size: 14px;
-        width: 120px;
-        height: 120px;
+        font-size: 18px;  /* Smaller than diploma */
+        width: 50%;
     }
 
     .kmtc {
         background: green;
-        font-size: 14px;
-        width: 120px;
-        height: 120px;
+        font-size: 16px;  /* Smallest font size */
+        width: 45%;
     }
 
     .btn:hover {
-        transform: scale(1.1);
+        transform: scale(1.05);
+        background-color: #003580;
     }
 
     /* Footer styles */
@@ -191,9 +186,8 @@
         }
 
         .btn {
-            width: 120px;
-            height: 120px;
-            font-size: 14px;
+            width: 80%;
+            font-size: 16px;
             margin-bottom: 10px;
         }
 
