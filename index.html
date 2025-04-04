@@ -18,7 +18,7 @@
 <button class="mode-btn" onclick="toggleTheme()">🌙/🌞 Dark/Light Mode</button>
 
 <!-- KUCCPS Qualification Checker Title -->
-<h1 class="title">KUCCPS Qualification Checker</h1>
+<h1 class="title" id="typewriter"></h1>
 
 <!-- Sidebar Menu -->
 <div class="sidebar" id="sidebar">
@@ -90,7 +90,44 @@
     window.onload = function() {
         const savedTheme = localStorage.getItem('theme') || 'light';
         applyTheme(savedTheme);
+        startTypingEffect();  // Start the typing effect
     };
+
+    // Typing effect for the title
+    const words = ["KUCCPS Qualification Checker"];
+    let wordIndex = 0;
+    let charIndex = 0;
+    let typingSpeed = 100; // typing speed in milliseconds
+    let deletingSpeed = 50; // deleting speed in milliseconds
+    let isDeleting = false;
+    let text = '';
+
+    function startTypingEffect() {
+        const titleElement = document.getElementById('typewriter');
+
+        function type() {
+            if (!isDeleting && charIndex < words[wordIndex].length) {
+                text += words[wordIndex].charAt(charIndex);
+                titleElement.textContent = text;
+                charIndex++;
+                setTimeout(type, typingSpeed);
+            } else if (isDeleting && charIndex > 0) {
+                text = text.substring(0, text.length - 1);
+                titleElement.textContent = text;
+                charIndex--;
+                setTimeout(type, deletingSpeed);
+            } else if (!isDeleting && charIndex === words[wordIndex].length) {
+                isDeleting = true;
+                setTimeout(type, 1000);  // wait for 1 second before deleting
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+                setTimeout(type, 500);  // wait before typing the next word
+            }
+        }
+
+        type();
+    }
 </script>
 
 <style>
@@ -150,30 +187,12 @@
         top: 50px; /* Move the mode button slightly down from the top */
     }
 
-    /* Typing Effect Animation */
+    /* Typing Effect for the Title */
     .title {
         text-align: center;
         font-size: 28px;
         color: white;
         margin-top: 150px;
-        animation: typing 4s steps(40) 1s infinite, blink-caret 0.75s step-end infinite;
-    }
-
-    /* Typing effect keyframes */
-    @keyframes typing {
-        0% {
-            width: 0;
-        }
-        100% {
-            width: 22ch; /* Adjust the width based on the text length */
-        }
-    }
-
-    /* Blinking caret effect */
-    @keyframes blink-caret {
-        50% {
-            border-color: transparent;
-        }
     }
 
     .sidebar {
@@ -275,59 +294,6 @@
         background: #333;
         color: white;
         z-index: 2;
-    }
-
-    /* Neon Effect on the edges of the page */
-    body::before {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 10px;
-        background: linear-gradient(90deg, cyan, magenta);
-        box-shadow: 0 0 20px 10px cyan;
-    }
-
-    body::after {
-        content: "";
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 10px;
-        background: linear-gradient(90deg, magenta, cyan);
-        box-shadow: 0 0 20px 10px magenta;
-    }
-
-    /* Responsive design */
-    @media screen and (max-width: 768px) {
-        .container {
-            margin-top: 50px;
-        }
-
-        .btn {
-            width: 80%;
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-
-        .toggle-btn {
-            font-size: 25px;
-            top: 10px;
-            left: 10px;
-        }
-
-        .mode-btn {
-            font-size: 25px;
-            top: 10px;
-            left: 80px;
-        }
-
-        .title {
-            font-size: 24px;
-            margin-top: 150px;
-        }
     }
 </style>
 
