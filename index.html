@@ -14,8 +14,8 @@
 <!-- Toggle Button for Menu -->
 <button class="toggle-btn" onclick="toggleMenu()">☰</button>
 
-<!-- Dark/Light Mode Toggle Button -->
-<button class="mode-btn" onclick="toggleTheme()">🌙/🌞</button>
+<!-- Dark/Light Mode Toggle Button with Name -->
+<button class="mode-btn" onclick="toggleTheme()">🌙/🌞 Dark/Light Mode</button>
 
 <!-- Sidebar Menu -->
 <div class="sidebar" id="sidebar">
@@ -49,14 +49,17 @@
     }
 
     // Close the sidebar menu if clicked outside
-    function closeMenu() {
+    document.addEventListener('click', function(event) {
         const sidebar = document.getElementById("sidebar");
-        if (sidebar.classList.contains("active")) {
-            sidebar.classList.remove("active");
-        }
-    }
+        const sidebarButton = document.querySelector('.toggle-btn'); // The button that opens the menu
 
-    // Prevent closing the sidebar when clicking inside it
+        // Check if the clicked element is outside the sidebar and not the button
+        if (!sidebar.contains(event.target) && !sidebarButton.contains(event.target)) {
+            sidebar.classList.remove('active'); // Close the sidebar
+        }
+    });
+
+    // Prevent the sidebar from closing when clicking inside it
     document.querySelector(".sidebar").addEventListener("click", function(event) {
         event.stopPropagation();
     });
