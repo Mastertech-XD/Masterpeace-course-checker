@@ -3,151 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KUCCPS Qualification Checker</title>
+    <title>KUCCPS Course Qualification Checker</title>
     <style>
         body {
+            background-color: #808080;
+            color: white;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
         }
-        header {
-            background-color: #4CAF50;
-            padding: 20px;
-            color: white;
+        .neon-border {
+            border: 5px solid;
+            border-image: linear-gradient(to left, #00FF00, #008000, #00FF00) 1;
+            animation: glow 1.5s ease-in-out infinite alternate;
+            height: 100vh;
+        }
+        @keyframes glow {
+            0% {
+                border-color: #00FF00;
+            }
+            50% {
+                border-color: #00FF7F;
+            }
+            100% {
+                border-color: #00FF00;
+            }
+        }
+        h1 {
             text-align: center;
+            font-size: 2em;
+            padding: 20px;
+            color: #fff;
         }
         .container {
-            width: 80%;
-            margin: auto;
-            padding: 20px;
+            margin: 20px;
         }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            font-size: 16px;
-            margin-bottom: 5px;
-            display: block;
-        }
-        select, input[type="number"], input[type="text"] {
+        select, button {
             width: 100%;
-            padding: 8px;
-            margin: 5px 0 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 1em;
         }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
+        .button {
+            background-color: #00FF00;
+            color: black;
+            font-weight: bold;
             border: none;
-            border-radius: 4px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 1em;
         }
-        button:hover {
-            background-color: #45a049;
-        }
-        .result {
+        .results {
+            color: yellow;
+            font-size: 1.2em;
+            padding: 10px;
             margin-top: 20px;
-            font-size: 18px;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .qualification {
+            color: lightgreen;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>KUCCPS Qualification Checker</h1>
-    </header>
-    <div class="container">
-        <form id="qualificationForm">
-            <div class="form-group">
-                <label for="desiredCourse">Select Desired Course</label>
-                <select id="desiredCourse" name="desiredCourse" required>
-                    <option value="Bachelor of Science in Computer Science">Bachelor of Science in Computer Science</option>
-                    <option value="Bachelor of Science in Agriculture">Bachelor of Science in Agriculture</option>
-                    <option value="Bachelor of Science in Education">Bachelor of Science in Education</option>
-                    <option value="Bachelor of Arts in Communication">Bachelor of Arts in Communication</option>
-                    <!-- Add more courses here -->
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="subject1">Enter Subject Marks (KCSE)</label>
-                <select id="subject1" name="subject1" required>
-                    <option value="Mathematics">Mathematics</option>
-                    <option value="English">English</option>
-                    <option value="Kiswahili">Kiswahili</option>
-                    <option value="Chemistry">Chemistry</option>
-                    <option value="Physics">Physics</option>
-                    <option value="Biology">Biology</option>
-                    <option value="Geography">Geography</option>
-                    <option value="History">History</option>
-                    <option value="Agriculture">Agriculture</option>
-                    <option value="Computer">Computer</option>
-                    <option value="Business Studies">Business Studies</option>
-                    <option value="CRE">CRE</option>
-                    <option value="Hindu Religious Education">Hindu Religious Education</option>
-                    <option value="Islamic Religious Education">Islamic Religious Education</option>
-                    <option value="Art">Art</option>
-                    <option value="Home Science">Home Science</option>
-                    <!-- Add more subjects as needed -->
-                </select>
-            </div>
+    <div class="neon-border">
+        <h1>KUCCPS Course Qualification Checker</h1>
+        <div class="container">
+            <label for="cluster">Select a Cluster:</label>
+            <select id="cluster">
+                <option value="">Select Cluster</option>
+                <option value="Cluster 1 - Law">Cluster 1 - Law</option>
+                <option value="Cluster 2 - Business, Hospitality & Related">Cluster 2 - Business, Hospitality & Related</option>
+                <option value="Cluster 3 - Social Sciences, Media Studies, Fine Arts, Film, Animation, Graphics & Related">Cluster 3 - Social Sciences</option>
+                <option value="Cluster 4 - Geosciences & Related">Cluster 4 - Geosciences</option>
+                <option value="Cluster 5 - Engineering, Engineering Technology & Related">Cluster 5 - Engineering</option>
+                <option value="Cluster 6 - Architecture, Building Construction & Related">Cluster 6 - Architecture</option>
+                <option value="Cluster 7 - Computing, IT & Related">Cluster 7 - Computing</option>
+                <option value="Cluster 8 - Agribusiness & Related">Cluster 8 - Agribusiness</option>
+                <option value="Cluster 9 - General Science , Biological Sciences, Physics, Chemistry & Related">Cluster 9 - General Science</option>
+                <option value="Cluster 10 - Actuarial Science, Accountancy, Mathematics, Economics, Statistics & Related">Cluster 10 - Actuarial Science</option>
+                <option value="Cluster 11 - Interior Design, Fashion Design, Textiles & Related">Cluster 11 - Interior Design</option>
+                <option value="Cluster 12 - Sport Science & Related">Cluster 12 - Sport Science</option>
+                <option value="Cluster 13 - Medicine, Health , Veterinary Medicine & Related">Cluster 13 - Medicine</option>
+                <option value="Cluster 14 - History, Archeology & Related">Cluster 14 - History</option>
+                <option value="Cluster 15 - Agriculture, Animal Health, Food Science, Nutrition Dietetics, Environmental Sciences, Natural Resources & Related">Cluster 15 - Agriculture</option>
+                <option value="Cluster 16 - Geography & Related">Cluster 16 - Geography</option>
+                <option value="Cluster 17 - French & German">Cluster 17 - French & German</option>
+                <option value="Cluster 18 - Music & Related">Cluster 18 - Music</option>
+                <option value="Cluster 19 - Education & Related">Cluster 19 - Education</option>
+                <option value="Cluster 20 - Religious Studies, Theology, Islamic Studies & Related">Cluster 20 - Religious Studies</option>
+            </select>
 
-            <div class="form-group">
-                <label for="subject2">Enter Subject 2 Marks (KCSE)</label>
-                <select id="subject2" name="subject2" required>
-                    <option value="Mathematics">Mathematics</option>
-                    <option value="English">English</option>
-                    <option value="Kiswahili">Kiswahili</option>
-                    <option value="Chemistry">Chemistry</option>
-                    <option value="Physics">Physics</option>
-                    <option value="Biology">Biology</option>
-                    <option value="Geography">Geography</option>
-                    <option value="History">History</option>
-                    <option value="Agriculture">Agriculture</option>
-                    <option value="Computer">Computer</option>
-                    <option value="Business Studies">Business Studies</option>
-                    <option value="CRE">CRE</option>
-                    <option value="Hindu Religious Education">Hindu Religious Education</option>
-                    <option value="Islamic Religious Education">Islamic Religious Education</option>
-                    <option value="Art">Art</option>
-                    <option value="Home Science">Home Science</option>
-                    <!-- Add more subjects as needed -->
-                </select>
-            </div>
-            
-            <!-- You can add more subjects in the same way -->
-            
-            <button type="submit">Check Qualification</button>
-        </form>
-        
-        <div class="result" id="result"></div>
+            <button class="button" onclick="generateSubjects()">Generate Subjects</button>
+
+            <div id="subjectInputs"></div>
+
+            <button class="button" onclick="checkQualification()">Check Qualification</button>
+
+            <div id="result" class="results"></div>
+        </div>
     </div>
 
     <script>
-        document.getElementById("qualificationForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            
-            let desiredCourse = document.getElementById("desiredCourse").value;
-            let subject1 = document.getElementById("subject1").value;
-            let subject2 = document.getElementById("subject2").value;
-            
-            // Logic to check qualification (example: basic qualification check)
-            let qualificationMessage = "";
+        function generateSubjects() {
+            const cluster = document.getElementById('cluster').value;
+            let subjectInputsDiv = document.getElementById('subjectInputs');
+            subjectInputsDiv.innerHTML = ''; // Clear previous subjects
 
-            // You can add your own logic here based on KUCCPS requirements
-            if (desiredCourse === "Bachelor of Science in Computer Science" && subject1 === "Mathematics" && subject2 === "English") {
-                qualificationMessage = "You qualify for Bachelor of Science in Computer Science!";
-            } else if (desiredCourse === "Bachelor of Science in Agriculture" && subject1 === "Agriculture") {
-                qualificationMessage = "You qualify for Bachelor of Science in Agriculture!";
-            } else {
-                qualificationMessage = "You do not qualify for the selected course.";
+            if (cluster === "Cluster 1 - Law") {
+                subjectInputsDiv.innerHTML = `
+                    <label for="lawGrade">Law Grade:</label>
+                    <select id="lawGrade">
+                        <option value="">Select Grade</option>
+                        <option value="A">A</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                    </select>
+                    <label for="englishGrade">English Grade:</label>
+                    <select id="englishGrade">
+                        <option value="">Select Grade</option>
+                        <option value="A">A</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                    </select>
+                `;
+            } else if (cluster === "Cluster 2 - Business, Hospitality & Related") {
+                subjectInputsDiv.innerHTML = `
+                    <label for="businessGrade">Business Grade:</label>
+                    <select id="businessGrade">
+                        <option value="">Select Grade</option>
+                        <option value="A">A</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                    </select>
+                `;
             }
+            // Add other clusters here similarly
+        }
 
-            document.getElementById("result").textContent = qualificationMessage;
-        });
+        function checkQualification() {
+            const cluster = document.getElementById('cluster').value;
+            const resultDiv = document.getElementById('result');
+            let resultText = '';
+
+            if (cluster === "Cluster 1 - Law") {
+                const lawGrade = document.getElementById('lawGrade').value;
+                const englishGrade = document.getElementById('englishGrade').value;
+                if (lawGrade === "A" && englishGrade === "A") {
+                    resultText = 'You qualify for Law! Suggested Universities: University of Nairobi, Kenyatta University, Moi University.';
+                } else {
+                    resultText = 'You do not qualify for Law. Consider improving your grades in Law and English.';
+                }
+            } else if (cluster === "Cluster 2 - Business, Hospitality & Related") {
+                const businessGrade = document.getElementById('businessGrade').value;
+                if (businessGrade === "A" || businessGrade === "B+") {
+                    resultText = 'You qualify for Business-related courses! Suggested Universities: Strathmore University, Nairobi University.';
+                } else {
+                    resultText = 'You do not qualify for Business. Consider improving your grades in Business.';
+                }
+            }
+            // Add other clusters and qualification checks here
+
+            resultDiv.innerHTML = resultText;
+        }
     </script>
 </body>
 </html>
