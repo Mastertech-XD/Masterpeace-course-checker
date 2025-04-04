@@ -1,298 +1,279 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KUCCPS Qualification Checker BY MASTERPEACE</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <!-- Blurred Background Overlay -->
-    <div class="background-overlay"></div>
-
-    <!-- Toggle Button for Menu -->
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>KUCCPS COURSE CHECKER BY MASTERPEACE</title>  
+    <link rel="stylesheet" href="styles.css">  
+</head>  
+<body>  
+    <!-- Blurred Background Overlay -->  
+    <div class="background-overlay"></div>  
+    
+    <!-- Toggle Button for Menu -->  
     <button class="toggle-btn" onclick="toggleMenu()">☰</button>
 
-    <!-- KUCCPS Qualification Checker Title -->
-    <h1 class="title">KUCCPS QUALIFICATION CHECKER BY MASTERPEACE</h1>
+    <!-- Dark Mode Toggle Button -->  
+    <button class="mode-btn" onclick="toggleTheme()">🌙 Dark Mode</button>
 
-    <!-- Sidebar Menu -->
-    <div class="sidebar" id="sidebar">
-        <button class="close-btn" onclick="toggleMenu()">↩️Back</button>
-        <button class="menu-btn" onclick="window.location.href='index.html'">Home</button>
-        <button class="menu-btn" onclick="window.location.href='https://students.kuccps.net/'">📌KUCCPS Portal📚</button>
-        <button class="menu-btn" onclick="window.location.href='https://wa.me/254743727510'">📞Contact us via WhatsApp ☎️</button>
-        <button class="menu-btn" onclick="window.location.href='mailto:aludabrian254@gmail.com'">📥Email Us✉️</button>
-        <button class="menu-btn" onclick="window.location.href='about.html'">About Us📢</button>
-    </div>
+    <!-- KUCCPS Qualification Checker Title -->  
+    <h1 class="title">KUCCPS COURSE CHECKER BY MASTERPEACE</h1>  
 
-    <!-- Main Content -->
-    <div class="container" onclick="closeMenu()">
-        <h2>Select Program</h2>
-        <button class="btn degree" onclick="window.location.href='degree_program.html'">Degree</button>
-        <button class="btn diploma" onclick="window.location.href='diploma_program.html'">Diploma</button>
-        <button class="btn certificate" onclick="window.location.href='certificate_program.html'">Certificate</button>
-        <button class="btn kmtc" onclick="window.location.href='kmtc_program.html'">KMTC</button>
-    </div>
+    <!-- Sidebar Menu -->  
+    <div class="sidebar" id="sidebar">  
+        <button class="close-btn" onclick="toggleMenu()">↩️Back</button>  
+        <button class="menu-btn" onclick="window.location.href='index.html'">Home</button>  
+        <button class="menu-btn" onclick="window.location.href='https://students.kuccps.net/'">📌KUCCPS Portal📚</button>  
+        <button class="menu-btn" onclick="window.location.href='https://wa.me/254743727510'">📞Contact us via WhatsApp ☎️</button>  
+        <button class="menu-btn" onclick="window.location.href='mailto:aludabrian254@gmail.com'">📥Email Us✉️</button>  
+        <button class="menu-btn" onclick="window.location.href='about.html'">About Us📢</button>  
+    </div>  
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>&#169; 2025 Created by Masterpeace. All rights reserved.</p>
-    </footer>
+    <!-- Main Content -->  
+    <div class="container" onclick="closeMenu()">  
+        <h2>Select Program</h2>  
+        <button class="btn degree" onclick="window.location.href='degree_program.html'">Degree</button>  
+        <button class="btn diploma" onclick="window.location.href='diploma_program.html'">Diploma</button>  
+        <button class="btn certificate" onclick="window.location.href='certificate_program.html'">Certificate</button>  
+        <button class="btn kmtc" onclick="window.location.href='kmtc_program.html'">KMTC</button>  
+    </div>  
 
-    <script>
-        // Toggle the sidebar menu
-        function toggleMenu() {
-            const sidebar = document.getElementById("sidebar");
-            sidebar.classList.toggle("active");
-        }
+    <!-- Footer -->  
+    <footer class="footer">  
+        <p>&#169; 2025 Created by Masterpeace. All rights reserved.</p>  
+    </footer>  
 
-        // Close the sidebar menu if clicked outside
-        document.addEventListener('click', function(event) {
-            const sidebar = document.getElementById("sidebar");
-            const sidebarButton = document.querySelector('.toggle-btn');
+    <script>  
+        // Toggle the sidebar menu  
+        function toggleMenu() {  
+            const sidebar = document.getElementById("sidebar");  
+            sidebar.classList.toggle("active");  
+        }  
+  
+        // Close the sidebar menu if clicked outside  
+        document.addEventListener('click', function(event) {  
+            const sidebar = document.getElementById("sidebar");  
+            const sidebarButton = document.querySelector('.toggle-btn'); // The button that opens the menu  
+  
+            // Check if the clicked element is outside the sidebar and not the button  
+            if (!sidebar.contains(event.target) && !sidebarButton.contains(event.target)) {  
+                sidebar.classList.remove('active'); // Close the sidebar  
+            }  
+        });  
+  
+        // Prevent the sidebar from closing when clicking inside it  
+        document.querySelector(".sidebar").addEventListener("click", function(event) {  
+            event.stopPropagation();  
+        });  
+  
+        // Toggle dark mode  
+        function toggleTheme() {  
+            const currentTheme = localStorage.getItem('theme');  
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';  
+            localStorage.setItem('theme', newTheme);  
+            applyTheme(newTheme);  
+        }  
+  
+        // Apply the selected theme  
+        function applyTheme(theme) {  
+            if (theme === 'dark') {  
+                document.body.classList.add('dark');  
+                document.body.classList.remove('light');  
+            } else {  
+                document.body.classList.add('light');  
+                document.body.classList.remove('dark');  
+            }  
+        }  
+  
+        // On page load, apply the stored theme preference  
+        window.onload = function() {  
+            const savedTheme = localStorage.getItem('theme') || 'dark';  
+            applyTheme(savedTheme);  
+        };  
+    </script>  
 
-            // Check if the clicked element is outside the sidebar and not the button
-            if (!sidebar.contains(event.target) && !sidebarButton.contains(event.target)) {
-                sidebar.classList.remove('active'); // Close the sidebar
-            }
-        });
-
-        // Prevent the sidebar from closing when clicking inside it
-        document.querySelector(".sidebar").addEventListener("click", function(event) {
-            event.stopPropagation();
-        });
-    </script>
-
-    <style>
-        /* Background Overlay (Blurred) */
-        .background-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://www.w3schools.com/w3images/forest.jpg') no-repeat center center fixed;
-            background-size: cover;
-            filter: blur(8px);
-            z-index: -1;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            position: relative;
-            color: white;
-            background-color: rgba(0, 0, 0, 0.8); /* Dark overlay for text readability */
-            box-shadow: inset 0 0 50px 20px rgba(0, 255, 255, 0.7), inset 0 0 100px 30px rgba(255, 0, 255, 0.5), inset 0 0 150px 40px rgba(0, 0, 255, 0.6);
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        /* Dark mode styling */
-        body.dark {
-            background-color: rgba(0, 0, 0, 0.8);
-            color: white;
-        }
-
-        .toggle-btn {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: #333;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            font-size: 20px;
-            cursor: pointer;
-            border-radius: 5px;
-            z-index: 2;
-        }
-
-        .title {
-            text-align: center;
-            font-size: 40px;
-            color: white;
-            margin-top: 200px;
-            animation: typing 4s steps(40) 1s infinite, blink-caret 0.75s step-end infinite;
-            white-space: nowrap;
-            overflow: hidden;
-            width: 0;
-        }
-
-        /* Typing effect animation */
-.title {
-    text-align: center;
-    font-size: 28px;
-    color: white;
-    margin-top: 150px;
-    animation: typing 8s steps(60) 1s infinite, blink-caret 0.75s step-end infinite;
-}
-
-/* Typing effect keyframes */
-@keyframes typing {
-    0% {
-        width: 0;
-    }
-    100% {
-        width: 45ch; /* Adjusted width to cover the whole text */
-    }
-}
-
-/* Blinking caret effect */
-@keyframes blink-caret {
-    50% {
-        border-color: transparent;
-    }
-}
-
-        .sidebar {
-            position: fixed;
-            left: -250px;
-            top: 0;
-            width: 250px;
-            height: 100%;
-            background: #002147;
-            padding-top: 20px;
-            transition: 0.3s;
-            z-index: 2;
-        }
-
-        .sidebar.active {
-            left: 0;
-        }
-
-        .menu-btn, .close-btn {
-            display: block;
-            width: 80%;
-            margin: 10px auto;
-            padding: 12px;
-            background: #0056b3;
-            color: white;
-            text-align: center;
-            font-size: 16px;
-            border: none;
-            cursor: pointer;
-            border-radius: 10px;
-        }
-
-        .close-btn {
-            background: red;
-        }
-
-        .menu-btn:hover {
-            background: #003580;
-        }
-
-        .container {
-            text-align: center;
-            margin-top: 100px;
-            z-index: 1;
-        }
-
-        /* Block buttons with curved edges and custom sizes */
-        .btn {
-            display: block;
-            width: 80%;
-            max-width: 300px;
-            margin: 20px auto;
-            padding: 20px;
-            font-size: 18px;
-            color: white;
-            border: none;
-            cursor: pointer;
-            text-align: center;
-            border-radius: 15px;
-            transition: transform 0.3s, background-color 0.3s;
-        }
-
-        .degree {
-            background: cyan;
-            font-size: 22px;
-            width: 70%;
-        }
-
-        .diploma {
-            background: blue;
-            font-size: 20px;
-            width: 60%;
-        }
-
-        .certificate {
-            background: red;
-            font-size: 18px;
-            width: 50%;
-        }
-
-        .kmtc {
-            background: green;
-            font-size: 16px;
-            width: 45%;
-        }
-
-        .btn:hover {
-            transform: scale(1.05);
-            background-color: #003580;
-        }
-
-        /* Footer styles */
-        .footer {
-            text-align: center;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            padding: 10px 0;
-            background: #333;
-            color: white;
-            z-index: 2;
-        }
-
-        /* Neon Effect on the edges of the page */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 10px;
-            background: linear-gradient(90deg, cyan, magenta);
-            box-shadow: 0 0 20px 10px cyan;
-        }
-
-        body::after {
-            content: "";
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 10px;
-            background: linear-gradient(90deg, magenta, cyan);
-            box-shadow: 0 0 20px 10px magenta;
-        }
-
-        /* Responsive design */
-        @media screen and (max-width: 768px) {
-            .container {
-                margin-top: 50px;
-            }
-
-            .btn {
-                width: 80%;
-                font-size: 16px;
-                margin-bottom: 10px;
-            }
-
-            .toggle-btn {
-                font-size: 25px;
-                top: 10px;
-                left: 10px;
-            }
-
-            .title {
-                font-size: 24px;
-                margin-top: 150px;
-            }
-        }
-    </style>
-</body>
+    <style>  
+        /* Background Overlay (Blurred) */  
+        .background-overlay {  
+            position: fixed;  
+            top: 0;  
+            left: 0;  
+            width: 100%;  
+            height: 100%;  
+            background: url('https://www.w3schools.com/w3images/forest.jpg') no-repeat center center fixed;  
+            background-size: cover;  
+            filter: blur(8px);  
+            z-index: -1;  
+        }  
+  
+        body {  
+            font-family: Arial, sans-serif;  
+            margin: 0;  
+            padding: 0;  
+            position: relative;  
+            color: white;  
+            background-color: rgba(0, 0, 0, 0.5);  
+            box-shadow: inset 0 0 50px 20px rgba(0, 255, 255, 0.7), inset 0 0 100px 30px rgba(255, 0, 255, 0.5), inset 0 0 150px 40px rgba(0, 0, 255, 0.6);  
+            transition: background-color 0.3s, color 0.3s;  
+        }  
+  
+        /* Dark mode styling */  
+        body.dark {  
+            background-color: rgba(0, 0, 0, 0.8);  
+            color: white;  
+            box-shadow: inset 0 0 50px 20px rgba(0, 255, 255, 0.7), inset 0 0 100px 30px rgba(255, 0, 255, 0.5), inset 0 0 150px 40px rgba(0, 0, 255, 0.6);  
+        }  
+  
+        /* Light mode styling */  
+        body.light {  
+            background-color: rgba(255, 255, 255, 0.8);  
+            color: black;  
+            box-shadow: none;  
+        }  
+  
+        /* Toggle Button Styles */  
+        .toggle-btn, .mode-btn {  
+            position: fixed;  
+            top: 20px;  
+            left: 20px;  
+            background: #333;  
+            color: white;  
+            border: none;  
+            padding: 10px 15px;  
+            font-size: 20px;  
+            cursor: pointer;  
+            border-radius: 5px;  
+            z-index: 2;  
+        }  
+  
+        .mode-btn {  
+            top: 50px;  
+        }  
+  
+        /* Title (Heading) Styles with Times New Roman Font and Animation */  
+        .title {  
+            text-align: center;  
+            font-size: 36px; /* Adjusted for larger font size */  
+            color: white;  
+            margin-top: 150px;  
+            font-family: 'Times New Roman', Times, serif;  
+            animation: typing 8s steps(60) 1s infinite, blink-caret 0.75s step-end infinite;  
+        }  
+  
+        /* Typing effect keyframes */  
+        @keyframes typing {  
+            0% {  
+                width: 0;  
+            }  
+            100% {  
+                width: 34ch; /* Length of the full text */  
+            }  
+        }  
+  
+        /* Blinking caret effect */  
+        @keyframes blink-caret {  
+            50% {  
+                border-color: transparent;  
+            }  
+        }  
+  
+        /* Sidebar Styles */  
+        .sidebar {  
+            position: fixed;  
+            left: -250px;  
+            top: 0;  
+            width: 250px;  
+            height: 100%;  
+            background: #002147;  
+            padding-top: 20px;  
+            transition: 0.3s;  
+            z-index: 2;  
+        }  
+  
+        .sidebar.active {  
+            left: 0;  
+        }  
+  
+        .menu-btn, .close-btn {  
+            display: block;  
+            width: 80%;  
+            margin: 10px auto;  
+            padding: 12px;  
+            background: #0056b3;  
+            color: white;  
+            text-align: center;  
+            font-size: 16px;  
+            border: none;  
+            cursor: pointer;  
+            border-radius: 10px;  
+        }  
+  
+        .close-btn {  
+            background: red;  
+        }  
+  
+        .menu-btn:hover {  
+            background: #003580;  
+        }  
+  
+        /* Content Container */  
+        .container {  
+            text-align: center;  
+            margin-top: 100px;  
+            z-index: 1;  
+        }  
+  
+        .btn {  
+            display: block;  
+            width: 80%;  
+            max-width: 300px;  
+            margin: 20px auto;  
+            padding: 20px;  
+            font-size: 18px;  
+            color: white;  
+            border: none;  
+            cursor: pointer;  
+            text-align: center;  
+            border-radius: 15px;  
+            transition: transform 0.3s, background-color 0.3s;  
+        }  
+  
+        .degree {  
+            background: cyan;  
+            font-size: 22px;  
+        }  
+  
+        .diploma {  
+            background: blue;  
+            font-size: 20px;  
+        }  
+  
+        .certificate {  
+            background: red;  
+            font-size: 18px;  
+        }  
+  
+        .kmtc {  
+            background: green;  
+            font-size: 16px;  
+        }  
+  
+        .btn:hover {  
+            transform: scale(1.05);  
+            background-color: #003580;  
+        }  
+  
+        /* Footer Styles */  
+        .footer {  
+            text-align: center;  
+            position: fixed;  
+            bottom: 0;  
+            width: 100%;  
+            padding: 10px 0;  
+            background: #333;  
+            color: white;  
+            z-index: 2;  
+        }  
+    </style>  
+</body>  
 </html>
