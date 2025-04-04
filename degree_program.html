@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KUCCPS Course Qualification Checker</title>
+    <title>KUCCPS Qualification Checker</title>
     <style>
         body {
             background-color: #808080;
@@ -15,24 +15,13 @@
             border: 5px solid;
             border-image: linear-gradient(to left, #00FF00, #008000, #00FF00) 1;
             animation: glow 1.5s ease-in-out infinite alternate;
+            padding: 20px;
             height: 100vh;
         }
         @keyframes glow {
-            0% {
-                border-color: #00FF00;
-            }
-            50% {
-                border-color: #00FF7F;
-            }
-            100% {
-                border-color: #00FF00;
-            }
-        }
-        h1 {
-            text-align: center;
-            font-size: 2em;
-            padding: 20px;
-            color: #fff;
+            0% { border-color: #00FF00; }
+            50% { border-color: #00FF7F; }
+            100% { border-color: #00FF00; }
         }
         .container {
             margin: 20px;
@@ -49,7 +38,6 @@
             font-weight: bold;
             border: none;
             cursor: pointer;
-            font-size: 1em;
         }
         .results {
             color: yellow;
@@ -70,65 +58,67 @@
             <label for="cluster">Select a Cluster:</label>
             <select id="cluster" onchange="generateSubjects()">
                 <option value="">Select Cluster</option>
-                <option value="Law">Cluster 1 - Law</option>
-                <option value="Business">Cluster 2 - Business, Hospitality & Related</option>
-                <option value="Social Sciences">Cluster 3 - Social Sciences</option>
-                <option value="Geosciences">Cluster 4 - Geosciences</option>
-                <option value="Engineering">Cluster 5 - Engineering</option>
-                <option value="Architecture">Cluster 6 - Architecture</option>
-                <option value="Computing">Cluster 7 - Computing</option>
-                <option value="Agribusiness">Cluster 8 - Agribusiness</option>
-                <option value="General Science">Cluster 9 - General Science</option>
-                <option value="Actuarial Science">Cluster 10 - Actuarial Science</option>
-                <option value="Interior Design">Cluster 11 - Interior Design</option>
-                <option value="Sport Science">Cluster 12 - Sport Science</option>
-                <option value="Medicine">Cluster 13 - Medicine</option>
-                <option value="History">Cluster 14 - History</option>
-                <option value="Agriculture">Cluster 15 - Agriculture</option>
-                <option value="Geography">Cluster 16 - Geography</option>
-                <option value="French & German">Cluster 17 - French & German</option>
-                <option value="Music">Cluster 18 - Music</option>
-                <option value="Education">Cluster 19 - Education</option>
-                <option value="Religious Studies">Cluster 20 - Religious Studies</option>
-            </select><div id="subjectInputs"></div>
-
-        <button class="button" onclick="checkQualification()">Check Qualification</button>
-
-        <div id="result" class="results"></div>
+                <option value="Law">Law</option>
+                <option value="Business">Business</option>
+                <option value="Social Sciences">Social Sciences</option>
+                <option value="Geosciences">Geosciences</option>
+                <option value="Engineering">Engineering</option>
+                <option value="Architecture">Architecture</option>
+                <option value="Computing">Computing</option>
+                <option value="Agribusiness">Agribusiness</option>
+                <option value="General Science">General Science</option>
+                <option value="Actuarial Science">Actuarial Science</option>
+                <option value="Interior Design">Interior Design</option>
+                <option value="Sport Science">Sport Science</option>
+                <option value="Medicine">Medicine</option>
+                <option value="History">History</option>
+                <option value="Agriculture">Agriculture</option>
+                <option value="Geography">Geography</option>
+                <option value="French & German">French & German</option>
+                <option value="Music">Music</option>
+                <option value="Education">Education</option>
+                <option value="Religious Studies">Religious Studies</option>
+            </select>
+            <div id="subjectInputs"></div>
+            <button class="button" onclick="checkQualification()">Check Qualification</button>
+            <div id="result" class="results"></div>
+        </div>
     </div>
-</div>
-
-<script>
-    function generateSubjects() {
-        const cluster = document.getElementById('cluster').value;
-        let subjectInputsDiv = document.getElementById('subjectInputs');
-        subjectInputsDiv.innerHTML = ''; 
-
-        const subjects = {
-            "Law": ["English", "Kiswahili", "History", "CRE"],
-            "Engineering": ["Mathematics", "Physics", "Chemistry"],
-            "Medicine": ["Biology", "Chemistry", "Mathematics", "Physics"],
+    <script>
+        const clusterSubjects = {
+            "Law": ["English", "Kiswahili", "History"],
             "Business": ["Mathematics", "Business Studies", "English"],
-            "Computing": ["Mathematics", "Computer Studies", "Physics"],
-        };
-
-        if (subjects[cluster]) {
-            subjects[cluster].forEach(subject => {
+            "Engineering": ["Mathematics", "Physics", "Chemistry"],
+            "Medicine": ["Biology", "Chemistry", "Mathematics"],
+            "Education": ["English", "Mathematics", "Any Science"],
+            "Computing": ["Mathematics", "Physics", "Computer Studies"],
+            "Geosciences": ["Geography", "Physics", "Chemistry"],
+            "Agribusiness": ["Agriculture", "Biology", "Mathematics"],
+            "General Science": ["Biology", "Physics", "Chemistry"],
+            "Actuarial Science": ["Mathematics", "Economics", "Statistics"],
+            "Interior Design": ["Art & Design", "Mathematics", "English"],
+            "Sport Science": ["Biology", "Physical Education", "English"],
+            "History": ["History", "English", "Geography"],
+            "Geography": ["Geography", "Mathematics", "Environmental Studies"],
+            "French & German": ["French", "German", "English"],
+            "Music": ["Music", "English", "History"],
+            "Religious Studies": ["CRE", "English", "History"]
+        };function generateSubjects() {
+        const cluster = document.getElementById('cluster').value;
+        const subjectInputsDiv = document.getElementById('subjectInputs');
+        subjectInputsDiv.innerHTML = '';
+        if (clusterSubjects[cluster]) {
+            clusterSubjects[cluster].forEach(subject => {
                 subjectInputsDiv.innerHTML += `
                     <label for="${subject}">${subject} Grade:</label>
                     <select id="${subject}">
-                        <option value="">Select Grade</option>
                         <option value="A">A</option>
-                        <option value="A-">A-</option>
                         <option value="B+">B+</option>
                         <option value="B">B</option>
-                        <option value="B-">B-</option>
                         <option value="C+">C+</option>
                         <option value="C">C</option>
-                        <option value="C-">C-</option>
                         <option value="D+">D+</option>
                         <option value="D">D</option>
-                        <option value="D-">D-</option>
                         <option value="E">E</option>
                     </select>
                 `;
@@ -138,9 +128,23 @@
 
     function checkQualification() {
         const cluster = document.getElementById('cluster').value;
-        let resultDiv = document.getElementById('result');
-        let resultText = `Checking qualification for ${cluster}...`;
-        resultDiv.innerHTML = resultText;
+        const resultDiv = document.getElementById('result');
+        if (!cluster) {
+            resultDiv.innerHTML = 'Please select a cluster.';
+            return;
+        }
+        let qualified = true;
+        clusterSubjects[cluster].forEach(subject => {
+            let grade = document.getElementById(subject).value;
+            if (grade === "D" || grade === "E") {
+                qualified = false;
+            }
+        });
+        if (qualified) {
+            resultDiv.innerHTML = `You qualify for ${cluster} courses! Suggested Universities: <b>University of Nairobi, Kenyatta University, Moi University, Egerton University</b>`;
+        } else {
+            resultDiv.innerHTML = `You do not qualify for ${cluster} courses. Consider improving your grades in the required subjects.`;
+        }
     }
 </script>
 
