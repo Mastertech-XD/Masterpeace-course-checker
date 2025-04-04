@@ -147,13 +147,16 @@
             top: 50px;  
         }  
 
-        /* Typing Effect Animation */  
+        /* Typing and Deleting Effect Animation */  
         .title {  
             text-align: center;  
             font-size: 28px;  
             color: white;  
             margin-top: 150px;  
-            animation: typing 4s steps(40) 1s infinite, blink-caret 0.75s step-end infinite;  
+            white-space: nowrap;  
+            overflow: hidden;  
+            width: 22ch;  
+            animation: typing 4s steps(22) 1s infinite, deleting 2s steps(22) 4s infinite;  
         }  
 
         /* Typing effect keyframes */  
@@ -166,10 +169,13 @@
             }  
         }  
 
-        /* Blinking caret effect */  
-        @keyframes blink-caret {  
-            50% {  
-                border-color: transparent;  
+        /* Deleting effect keyframes */  
+        @keyframes deleting {  
+            0% {  
+                width: 22ch;  
+            }  
+            100% {  
+                width: 0;  
             }  
         }  
 
