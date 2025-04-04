@@ -3,274 +3,266 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KUCCPS Degree Courses Qualification Checker</title>
+    <title>Eligibility Checker</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
+            background-color: #f4f4f4;
             color: #333;
-        }
-        header {
-            background-color: #4CAF50;
-            padding: 20px;
-            color: white;
-            text-align: center;
-        }
-        .container {
-            width: 80%;
-            margin: auto;
             padding: 20px;
         }
-        .form-group {
-            margin-bottom: 15px;
+        h1 {
+            color: #5e5e5e;
         }
         label {
-            font-size: 16px;
-            margin-bottom: 5px;
-            display: block;
+            font-size: 1.1em;
         }
-        select, input[type="number"], input[type="text"] {
-            width: 100%;
+        select, input[type="text"] {
             padding: 8px;
-            margin: 5px 0 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            margin: 5px 0 15px 0;
+            width: 200px;
         }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .result {
+        .feedback {
+            font-size: 1.2em;
             margin-top: 20px;
-            font-size: 18px;
+        }
+        .feedback p {
+            color: #d9534f;
+        }
+        .feedback.success p {
+            color: #5bc0de;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>KUCCPS Qualification Checker</h1>
-    </header>
-    <div class="container">
-        <form id="qualificationForm">
-            <div class="form-group">
-                <label for="course">Select Desired Course Cluster:</label>
-                <select id="course" name="course">
-                    <option value="">--Choose One--</option>
-                    <option value="Cluster 1 - Law">Cluster 1 - Law</option>
-                    <option value="Cluster 2 - Business, Hospitality & Related">Cluster 2 - Business, Hospitality & Related</option>
-                    <option value="Cluster 3 - Social Sciences, Media Studies, Fine Arts, Film, Animation, Graphics & Related">Cluster 3 - Social Sciences</option>
-                    <option value="Cluster 4 - Geosciences & Related">Cluster 4 - Geosciences</option>
-                    <option value="Cluster 5 - Engineering, Engineering Technology & Related">Cluster 5 - Engineering</option>
-                    <option value="Cluster 6 - Architecture, Building Construction & Related">Cluster 6 - Architecture</option>
-                    <option value="Cluster 7 - Computing, IT & Related">Cluster 7 - Computing</option>
-                    <option value="Cluster 8 - Agribusiness & Related">Cluster 8 - Agribusiness</option>
-                    <option value="Cluster 9 - General Science , Biological Sciences, Physics, Chemistry & Related">Cluster 9 - General Science</option>
-                    <option value="Cluster 10 - Actuarial Science, Accountancy, Mathematics, Economics, Statistics & Related">Cluster 10 - Actuarial Science</option>
-                    <option value="Cluster 11 - Interior Design, Fashion Design, Textiles & Related">Cluster 11 - Interior Design</option>
-                    <option value="Cluster 12 - Sport Science & Related">Cluster 12 - Sport Science</option>
-                    <option value="Cluster 13 - Medicine, Health , Veterinary Medicine & Related">Cluster 13 - Medicine</option>
-                    <option value="Cluster 14 - History, Archeology & Related">Cluster 14 - History</option>
-                    <option value="Cluster 15 - Agriculture, Animal Health, Food Science, Nutrition Dietetics, Environmental Sciences, Natural Resources & Related">Cluster 15 - Agriculture</option>
-                    <option value="Cluster 16 - Geography & Related">Cluster 16 - Geography</option>
-                    <option value="Cluster 17 - French & German">Cluster 17 - French & German</option>
-                    <option value="Cluster 18 - Music & Related">Cluster 18 - Music</option>
-                    <option value="Cluster 19 - Education & Related">Cluster 19 - Education</option>
-                    <option value="Cluster 20 - Religious Studies, Theology, Islamic Studies & Related">Cluster 20 - Religious Studies</option>
-                </select>
-            </div>
+    <h1>KUCCPS Cluster Eligibility Checker</h1>
+    <p>Select a cluster, input your grades, and check if you qualify for the selected cluster.</p>
 
-            <!-- Humanities Group -->
-            <div class="form-group">
-                <label for="history">History Grade:</label>
-                <select id="history" name="history">
-                    <option value="">--Choose One--</option>
-                    <option value="A">A</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                </select>
-            </div>
+    <form id="eligibility-form">
+        <label for="cluster">Select Cluster:</label>
+        <select id="cluster">
+            <option value="">--Choose a cluster--</option>
+            <option value="Cluster 1">Cluster 1</option>
+            <option value="Cluster 2">Cluster 2</option>
+            <option value="Cluster 3">Cluster 3</option>
+            <option value="Cluster 4">Cluster 4</option>
+            <option value="Cluster 5">Cluster 5</option>
+            <option value="Cluster 6">Cluster 6</option>
+            <option value="Cluster 7">Cluster 7</option>
+            <option value="Cluster 8">Cluster 8</option>
+            <option value="Cluster 9">Cluster 9</option>
+            <option value="Cluster 10">Cluster 10</option>
+            <option value="Cluster 11">Cluster 11</option>
+            <option value="Cluster 12">Cluster 12</option>
+            <option value="Cluster 13">Cluster 13</option>
+            <option value="Cluster 14">Cluster 14</option>
+            <option value="Cluster 15">Cluster 15</option>
+            <option value="Cluster 16">Cluster 16</option>
+            <option value="Cluster 17">Cluster 17</option>
+            <option value="Cluster 18">Cluster 18</option>
+            <option value="Cluster 19">Cluster 19</option>
+            <option value="Cluster 20">Cluster 20</option>
+        </select>
 
-            <div class="form-group">
-                <label for="geography">Geography Grade:</label>
-                <select id="geography" name="geography">
-                    <option value="">--Choose One--</option>
-                    <option value="A">A</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                </select>
-            </div>
+        <div id="subjects-section">
+            <label for="Mathematics">Mathematics Grade:</label>
+            <input type="text" id="Mathematics" placeholder="Enter Grade (e.g., B+)"><br>
 
-            <div class="form-group">
-                <label for="religiousStudies">Religious Studies Grade (IRE/CRE):</label>
-                <select id="religiousStudies" name="religiousStudies">
-                    <option value="">--Choose One--</option>
-                    <option value="A">A</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                </select>
-            </div>
+            <label for="English">English Grade:</label>
+            <input type="text" id="English" placeholder="Enter Grade (e.g., B+)"><br>
 
-            <!-- Science Group -->
-            <div class="form-group">
-                <label for="mathematics">Mathematics Grade:</label>
-                <select id="mathematics" name="mathematics">
-                    <option value="">--Choose One--</option>
-                    <option value="A">A</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                </select>
-            </div>
+            <label for="Biology">Biology Grade:</label>
+            <input type="text" id="Biology" placeholder="Enter Grade (e.g., A)"><br>
 
-            <div class="form-group">
-                <label for="physics">Physics Grade:</label>
-                <select id="physics" name="physics">
-                    <option value="">--Choose One--</option>
-                    <option value="A">A</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                </select>
-            </div>
+            <label for="Chemistry">Chemistry Grade:</label>
+            <input type="text" id="Chemistry" placeholder="Enter Grade (e.g., B)"><br>
 
-            <div class="form-group">
-                <label for="chemistry">Chemistry Grade:</label>
-                <select id="chemistry" name="chemistry">
-                    <option value="">--Choose One--</option>
-                    <option value="A">A</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                </select>
-            </div>
+            <label for="Physics">Physics Grade:</label>
+            <input type="text" id="Physics" placeholder="Enter Grade (e.g., B+)"><br>
 
-            <div class="form-group">
-                <label for="biology">Biology Grade:</label>
-                <select id="biology" name="biology">
-                    <option value="">--Choose One--</option>
-                    <option value="A">A</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                </select>
-            </div>
+            <label for="History">History Grade:</label>
+            <input type="text" id="History" placeholder="Enter Grade (e.g., B)"><br>
 
-            <!-- Technical Group -->
-            <div class="form-group">
-                <label for="business">Business Studies Grade:</label>
-                <select id="business" name="business">
-                    <option value="">--Choose One--</option>
-                    <option value="A">A</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                </select>
-            </div>
+            <label for="Geography">Geography Grade:</label>
+            <input type="text" id="Geography" placeholder="Enter Grade (e.g., B+)"><br>
 
-            <div class="form-group">
-                <label for="agriculture">Agriculture Grade:</label>
-                <select id="agriculture" name="agriculture">
-                    <option value="">--Choose One--</option>
-                    <option value="A">A</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                </select>
-            </div>
+            <label for="Business">Business Grade:</label>
+            <input type="text" id="Business" placeholder="Enter Grade (e.g., B)"><br>
 
-            <div class="form-group">
-                <label for="computer">Computer Science Grade:</label>
-                <select id="computer" name="computer">
-                    <option value="">--Choose One--</option>
-                    <option value="A">A</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                </select>
-            </div>
+            <label for="CRE">CRE Grade:</label>
+            <input type="text" id="CRE" placeholder="Enter Grade (e.g., B)"><br>
 
-            <!-- Music Group -->
-            <div class="form-group">
-                <label for="music">Music Grade:</label>
-                <select id="music" name="music">
-                    <option value="">--Choose One--</option>
-                    <option value="A">A</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                </select>
-            </div>
+            <label for="Music">Music Grade:</label>
+            <input type="text" id="Music" placeholder="Enter Grade (e.g., B)"><br>
 
-            <div class="form-group">
-                <button type="button" onclick="calculateQualification()">Check Qualification</button>
-            </div>
-        </form>
+            <label for="Agriculture">Agriculture Grade:</label>
+            <input type="text" id="Agriculture" placeholder="Enter Grade (e.g., B)"><br>
 
-        <div class="result" id="result"></div>
-    </div>
+            <label for="Aviation">Aviation Grade:</label>
+            <input type="text" id="Aviation" placeholder="Enter Grade (e.g., B)"><br>
+
+            <label for="Kiswahili">Kiswahili Grade:</label>
+            <input type="text" id="Kiswahili" placeholder="Enter Grade (e.g., B)"><br>
+
+            <label for="French">French Grade:</label>
+            <input type="text" id="French" placeholder="Enter Grade (e.g., B)"><br>
+
+            <label for="German">German Grade:</label>
+            <input type="text" id="German" placeholder="Enter Grade (e.g., B)"><br>
+
+            <label for="Arabic">Arabic Grade:</label>
+            <input type="text" id="Arabic" placeholder="Enter Grade (e.g., B)"><br>
+
+            <label for="IRE">IRE Grade:</label>
+            <input type="text" id="IRE" placeholder="Enter Grade (e.g., B)"><br>
+
+            <label for="Computer">Computer Grade:</label>
+            <input type="text" id="Computer" placeholder="Enter Grade (e.g., B+)"><br>
+        </div>
+
+        <button type="button" onclick="checkEligibility()">Check Eligibility</button>
+    </form>
+
+    <div id="feedback" class="feedback"></div>
 
     <script>
-        function calculateQualification() {
-            // Logic to calculate qualification based on selected subjects and grades
-            // Your code for checking eligibility based on clusters and grades would go here
-            document.getElementById('result').innerHTML = "Qualification result based on selected criteria will be displayed here.";
+        const clusters = {
+            "Cluster 1": {
+                requiredSubjects: ["English", "History", "Kiswahili"],
+                requiredGrades: { "English": "B", "History": "B", "Kiswahili": "B" }
+            },
+            "Cluster 2": {
+                requiredSubjects: ["Mathematics", "Physics", "Chemistry"],
+                requiredGrades: { "Mathematics": "B+", "Physics": "B", "Chemistry": "B" }
+            },
+            "Cluster 3": {
+                requiredSubjects: ["Biology", "Chemistry", "Mathematics"],
+                requiredGrades: { "Biology": "A", "Chemistry": "A", "Mathematics": "B+" }
+            },
+            "Cluster 4": {
+                requiredSubjects: ["Business", "Mathematics", "English"],
+                requiredGrades: { "Business": "B", "Mathematics": "B", "English": "B" }
+            },
+            "Cluster 5": {
+                requiredSubjects: ["Biology", "English", "History"],
+                requiredGrades: { "Biology": "B+", "English": "B", "History": "B" }
+            },
+            "Cluster 6": {
+                requiredSubjects: ["Geography", "Mathematics", "English"],
+                requiredGrades: { "Geography": "B", "Mathematics": "B", "English": "B+" }
+            },
+            "Cluster 7": {
+                requiredSubjects: ["Aviation", "Mathematics", "Physics"],
+                requiredGrades: { "Aviation": "B", "Mathematics": "B+", "Physics": "B" }
+            },
+            "Cluster 8": {
+                requiredSubjects: ["CRE", "English", "History"],
+                requiredGrades: { "CRE": "B", "English": "B", "History": "B+" }
+            },
+            "Cluster 9": {
+                requiredSubjects: ["Music", "English", "Kiswahili"],
+                requiredGrades: { "Music": "B", "English": "B+", "Kiswahili": "B" }
+            },
+            "Cluster 10": {
+                requiredSubjects: ["Agriculture", "Mathematics", "Chemistry"],
+                requiredGrades: { "Agriculture": "B", "Mathematics": "B+", "Chemistry": "B" }
+            },
+            "Cluster 11": {
+                requiredSubjects: ["Arabic", "English", "Geography"],
+                requiredGrades: { "Arabic": "B", "English": "B", "Geography": "B+" }
+            },
+            "Cluster 12": {
+                requiredSubjects: ["French", "English", "History"],
+                requiredGrades: { "French": "B", "English": "B", "History": "B+" }
+            },
+            "Cluster 13": {
+                requiredSubjects: ["Home Science", "Kiswahili", "Biology"],
+                requiredGrades: { "Home Science": "B", "Kiswahili": "B", "Biology": "B+" }
+            },
+            "Cluster 14": {
+                requiredSubjects: ["German", "Mathematics", "Physics"],
+                requiredGrades: { "German": "B", "Mathematics": "B", "Physics": "B+" }
+            },
+            "Cluster 15": {
+                requiredSubjects: ["History", "English", "Geography"],
+                requiredGrades: { "History": "B", "English": "B+", "Geography": "B" }
+            },
+            "Cluster 16": {
+                requiredSubjects: ["Agriculture", "Biology", "Chemistry"],
+                requiredGrades: { "Agriculture": "B", "Biology": "B+", "Chemistry": "B" }
+            },
+            "Cluster 17": {
+                requiredSubjects: ["Computer", "Mathematics", "English"],
+                requiredGrades: { "Computer": "B+", "Mathematics": "B", "English": "B" }
+            },
+            "Cluster 18": {
+                requiredSubjects: ["Physics", "Mathematics", "Geography"],
+                requiredGrades: { "Physics": "B", "Mathematics": "B+", "Geography": "B" }
+            },
+            "Cluster 19": {
+                requiredSubjects: ["Kiswahili", "English", "Business"],
+                requiredGrades: { "Kiswahili": "B", "English": "B", "Business": "B+" }
+            },
+            "Cluster 20": {
+                requiredSubjects: ["IRE", "English", "Biology"],
+                requiredGrades: { "IRE": "B", "English": "B+", "Biology": "B" }
+            }
+        };
+
+        function getGradeFailures(requiredSubjects, requiredGrades, subjectsGrades) {
+            const failures = [];
+            requiredSubjects.forEach(subject => {
+                const requiredGrade = requiredGrades[subject];
+                const subjectGrade = subjectsGrades[subject];
+                if (subjectGrade && subjectGrade !== requiredGrade) {
+                    failures.push(`${subject} (Required: ${requiredGrade}, Provided: ${subjectGrade})`);
+                }
+            });
+            return failures;
+        }
+
+        function getMissingSubjects(requiredSubjects, subjectsGrades) {
+            return requiredSubjects.filter(subject => !subjectsGrades[subject]);
+        }
+
+        function checkEligibility() {
+            const cluster = document.getElementById("cluster").value;
+            if (!cluster) {
+                document.getElementById("feedback").innerHTML = "Please select a cluster first.";
+                return;
+            }
+
+            const subjectsGrades = {};
+            const subjects = ["Mathematics", "English", "Biology", "Chemistry", "Physics", "History", "Geography", "Business", "CRE", "Music", "Agriculture", "Aviation", "Kiswahili", "French", "German", "Arabic", "IRE", "Computer"];
+            subjects.forEach(subject => {
+                const grade = document.getElementById(subject).value.trim();
+                if (grade) subjectsGrades[subject] = grade;
+            });
+
+            const { requiredSubjects, requiredGrades } = clusters[cluster];
+
+            const missingSubjects = getMissingSubjects(requiredSubjects, subjectsGrades);
+            const gradeFailures = getGradeFailures(requiredSubjects, requiredGrades, subjectsGrades);
+
+            let feedback = `Checking eligibility for ${cluster}:\n`;
+
+            if (missingSubjects.length > 0) {
+                feedback += `Missing subjects: ${missingSubjects.join(", ")}.\n`;
+            }
+
+            if (gradeFailures.length > 0) {
+                feedback += `Grades to improve: ${gradeFailures.join(", ")}.\n`;
+            }
+
+            if (missingSubjects.length === 0 && gradeFailures.length === 0) {
+                feedback += "You qualify for this cluster!";
+                document.getElementById("feedback").classList.add("success");
+            } else {
+                feedback += "You do not qualify for this cluster. Please improve the required subjects or grades.";
+                document.getElementById("feedback").classList.remove("success");
+            }
+
+            document.getElementById("feedback").innerHTML = feedback.replace(/\n/g, "<br>");
         }
     </script>
 </body>
