@@ -17,6 +17,9 @@
 <!-- Dark/Light Mode Toggle Button with Name -->
 <button class="mode-btn" onclick="toggleTheme()">🌙/🌞 Dark/Light Mode</button>
 
+<!-- KUCCPS Qualification Checker Title -->
+<h1 class="title">KUCCPS Qualification Checker</h1>
+
 <!-- Sidebar Menu -->
 <div class="sidebar" id="sidebar">
     <button class="close-btn" onclick="toggleMenu()">↩️Back</button>
@@ -141,6 +144,18 @@
         cursor: pointer;
         border-radius: 5px;
         z-index: 2;
+    }
+
+    .mode-btn {
+        top: 50px; /* Move the mode button slightly down from the top */
+    }
+
+    .title {
+        text-align: center;
+        font-size: 28px;
+        color: white;
+        margin-top: 100px; /* Make sure it appears below the mode button */
+        z-index: 1;
     }
 
     .sidebar {
@@ -289,6 +304,11 @@
             font-size: 25px;
             top: 10px;
             left: 80px;
+        }
+
+        .title {
+            font-size: 24px;
+            margin-top: 150px;
         }
     }
 </style>
