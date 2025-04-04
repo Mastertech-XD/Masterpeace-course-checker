@@ -1,266 +1,129 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KUCCPS Course Eligibility Checker</title>
+    <title>KUCCPS Course Qualification Checker</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #808080; /* Grey background */
-            color: #333;
-            padding: 20px;
-            margin: 0;
-            box-sizing: border-box;
-            animation: neonGlow 1.5s ease-in-out infinite; /* Glowing animation */
-            border: 10px solid transparent; /* Transparent border */
-            border-image: linear-gradient(45deg, #39FF14, #32e300, #39FF14); /* Neon Green gradient */
-            border-image-slice: 1;
-        }
-
-        h1 {
-            color: #5e5e5e;
-            text-align: center;
-        }
-
-        label {
-            font-size: 1.1em;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        select, input[type="text"], button {
-            padding: 8px;
-            margin: 5px 0 15px 0;
-            width: 250px;
-            border-radius: 5px;
-            font-size: 1.1em;
-        }
-
-        select, input[type="text"] {
-            width: 230px;
-        }
-
-        button {
-            background-color: #39FF14; /* Neon Green */
+            background-color: #808080;
             color: white;
-            border: none;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
         }
-
-        button:hover {
-            background-color: #32e300; /* Darker Neon Green */
+        .neon-border {
+            border: 5px solid;
+            border-image: linear-gradient(to left, #00FF00, #008000, #00FF00) 1;
+            animation: glow 1.5s ease-in-out infinite alternate;
+            height: 100vh;
         }
-
-        .feedback {
-            font-size: 1.2em;
-            margin-top: 20px;
-            text-align: center;
+        @keyframes glow {
+            0% { border-color: #00FF00; }
+            50% { border-color: #00FF7F; }
+            100% { border-color: #00FF00; }
         }
-
-        .feedback p {
-            color: #d9534f;
-        }
-
-        .feedback.success p {
-            color: #5bc0de;
-        }
-
-        .subject-container {
-            margin-bottom: 20px;
-        }
-
-        .subject-dropdown {
-            margin-right: 10px;
-        }
-
-        /* Glowing Neon Effect */
-        @keyframes neonGlow {
-            0% {
-                box-shadow: 0 0 5px #39FF14, 0 0 10px #39FF14, 0 0 15px #39FF14, 0 0 20px #39FF14;
-            }
-            50% {
-                box-shadow: 0 0 10px #39FF14, 0 0 20px #39FF14, 0 0 30px #39FF14, 0 0 40px #39FF14;
-            }
-            100% {
-                box-shadow: 0 0 5px #39FF14, 0 0 10px #39FF14, 0 0 15px #39FF14, 0 0 20px #39FF14;
-            }
-        }
+        h1 { text-align: center; color: #fff; }
+        .container { margin: 20px; }
+        select, button { width: 100%; padding: 10px; margin: 10px 0; }
+        .button { background-color: #00FF00; color: black; font-weight: bold; border: none; cursor: pointer; }
+        .results { color: yellow; font-size: 1.2em; padding: 10px; margin-top: 20px; background-color: rgba(0, 0, 0, 0.7); }
+        .qualification { color: lightgreen; }
     </style>
 </head>
 <body>
-
-    <h1>KUCCPS Course Eligibility Checker</h1>
-
-    <label for="cluster">Select Cluster:</label>
-    <select id="cluster" onchange="generateSubjectInputs(this.value)">
-        <option value="">Select Cluster</option>
-        <option value="Cluster 1 - Law">Cluster 1 - Law</option>
-        <option value="Cluster 2 - Business, Hospitality & Related">Cluster 2 - Business, Hospitality & Related</option>
-        <option value="Cluster 3 - Social Sciences, Media Studies, Fine Arts, Film, Animation, Graphics & Related">Cluster 3 - Social Sciences</option>
-        <option value="Cluster 4 - Geosciences & Related">Cluster 4 - Geosciences</option>
-        <option value="Cluster 5 - Engineering, Engineering Technology & Related">Cluster 5 - Engineering</option>
-        <option value="Cluster 6 - Architecture, Building Construction & Related">Cluster 6 - Architecture</option>
-        <option value="Cluster 7 - Computing, IT & Related">Cluster 7 - Computing</option>
-        <option value="Cluster 8 - Agribusiness & Related">Cluster 8 - Agribusiness</option>
-        <option value="Cluster 9 - General Science , Biological Sciences, Physics, Chemistry & Related">Cluster 9 - General Science</option>
-        <option value="Cluster 10 - Actuarial Science, Accountancy, Mathematics, Economics, Statistics & Related">Cluster 10 - Actuarial Science</option>
-        <option value="Cluster 11 - Interior Design, Fashion Design, Textiles & Related">Cluster 11 - Interior Design</option>
-        <option value="Cluster 12 - Sport Science & Related">Cluster 12 - Sport Science</option>
-        <option value="Cluster 13 - Medicine, Health , Veterinary Medicine & Related">Cluster 13 - Medicine</option>
-        <option value="Cluster 14 - History, Archeology & Related">Cluster 14 - History</option>
-        <option value="Cluster 15 - Agriculture, Animal Health, Food Science, Nutrition Dietetics, Environmental Sciences, Natural Resources & Related">Cluster 15 - Agriculture</option>
-        <option value="Cluster 16 - Geography & Related">Cluster 16 - Geography</option>
-        <option value="Cluster 17 - French & German">Cluster 17 - French & German</option>
-        <option value="Cluster 18 - Music & Related">Cluster 18 - Music</option>
-        <option value="Cluster 19 - Education & Related">Cluster 19 - Education</option>
-        <option value="Cluster 20 - Religious Studies, Theology, Islamic Studies & Related">Cluster 20 - Religious Studies</option>
-    </select>
-
-    <div id="subjects-container">
-        <!-- Subjects dropdowns will be dynamically added here -->
-    </div>
-
-    <button onclick="checkEligibility()">Check Eligibility</button>
-
-    <div class="feedback" id="feedback"></div>
-
-    <script>
-        const clusters = {
-            "Cluster 1 - Law": { 
-                requiredSubjects: ["Math", "English", "Law"], 
-                requiredGrades: ["A", "B+", "B"], 
-                universities: ["University of Nairobi", "Moi University"]
-            },
-            "Cluster 2 - Business, Hospitality & Related": { 
-                requiredSubjects: ["Math", "Business Studies", "Geography"], 
-                requiredGrades: ["A-", "B+", "B"], 
-                universities: ["Strathmore University", "United States International University"]
-            },
-            "Cluster 3 - Social Sciences, Media Studies, Fine Arts, Film, Animation, Graphics & Related": { 
-                requiredSubjects: ["History", "Geography", "Art"], 
-                requiredGrades: ["A", "B"], 
-                universities: ["Kenyatta University", "The University of Nairobi"]
-            },
-            "Cluster 4 - Geosciences & Related": { 
-                requiredSubjects: ["Math", "Geography", "Physics"], 
-                requiredGrades: ["A-", "B+"], 
-                universities: ["Jomo Kenyatta University of Agriculture and Technology", "Maseno University"]
-            },
-            "Cluster 5 - Engineering, Engineering Technology & Related": { 
-                requiredSubjects: ["Math", "Physics", "Chemistry"], 
-                requiredGrades: ["A", "B+", "B"], 
-                universities: ["University of Nairobi", "Kenya School of Law"]
-            },
-            "Cluster 6 - Architecture, Building Construction & Related": { 
-                requiredSubjects: ["Math", "Physics", "Art"], 
-                requiredGrades: ["A-", "B", "B+"], 
-                universities: ["Kenya Polytechnic University College", "Jomo Kenyatta University of Agriculture and Technology"]
-            },
-            "Cluster 7 - Computing, IT & Related": { 
-                requiredSubjects: ["Math", "Computer Science", "Physics"], 
-                requiredGrades: ["A", "B+"], 
-                universities: ["Strathmore University", "Kenya Methodist University"]
-            },
-            "Cluster 8 - Agribusiness & Related": { 
-                requiredSubjects: ["Math", "Agriculture", "Biology"], 
-                requiredGrades: ["A-", "B"], 
-                universities: ["Egerton University", "Jomo Kenyatta University of Agriculture and Technology"]
-            },
-            "Cluster 9 - General Science, Biological Sciences, Physics, Chemistry & Related": { 
-                requiredSubjects: ["Math", "Biology", "Chemistry"], 
-                requiredGrades: ["A", "B+"], 
-                universities: ["Kenyatta University", "Maseno University"]
-            },
-            "Cluster 10 - Actuarial Science, Accountancy, Mathematics, Economics, Statistics & Related": { 
-                requiredSubjects: ["Math", "Economics", "Statistics"], 
-                requiredGrades: ["A", "B"], 
-                universities: ["Strathmore University", "University of Nairobi"]
-            },
-            "Cluster 11 - Interior Design, Fashion Design, Textiles & Related": { 
-                requiredSubjects: ["Art", "Design"], 
-                requiredGrades: ["B", "A"], 
-                universities: ["University of Nairobi", "Technical University of Kenya"]
-            },
-            "Cluster 12 - Sport Science & Related": { 
-                requiredSubjects: ["Physical Education", "Biology"], 
-                requiredGrades: ["A", "B+"], 
-                universities: ["Kenyatta University", "Egerton University"]
-            },
-            "Cluster 13 - Medicine, Health , Veterinary Medicine & Related": { 
-                requiredSubjects: ["Math", "Biology", "Chemistry"], 
-                requiredGrades: ["A", "B+"], 
-                universities: ["University of Nairobi", "Moi University"]
-            },
-            "Cluster 14 - History, Archeology & Related": { 
-                requiredSubjects: ["History", "Geography"], 
-                requiredGrades: ["A", "B"], 
-                universities: ["Kenyatta University", "University of Nairobi"]
-            },
-            "Cluster 15 - Agriculture, Animal Health, Food Science, Nutrition Dietetics, Environmental Sciences, Natural Resources & Related": { 
-                requiredSubjects: ["Agriculture", "Biology", "Chemistry"], 
-                requiredGrades: ["A", "B"], 
-                universities: ["Egerton University", "Jomo Kenyatta University of Agriculture and Technology"]
-            },
-            "Cluster 16 - Geography & Related": { 
-                requiredSubjects: ["Geography", "History"], 
-                requiredGrades: ["B", "A"], 
-                universities: ["University of Nairobi", "Maseno University"]
-            }
+    <div class="neon-border">
+        <h1>KUCCPS Course Qualification Checker</h1>
+        <div class="container">
+            <label for="cluster">Select a Cluster:</label>
+            <select id="cluster" onchange="generateSubjects()">
+                <option value="">Select Cluster</option>
+                <option value="Cluster 1">Law</option>
+                <option value="Cluster 2">Business, Hospitality & Related</option>
+                <option value="Cluster 3">Social Sciences</option>
+                <option value="Cluster 4">Geosciences</option>
+                <option value="Cluster 5">Engineering</option>
+                <option value="Cluster 6">Architecture</option>
+                <option value="Cluster 7">Computing</option>
+                <option value="Cluster 8">Agribusiness</option>
+                <option value="Cluster 9">General Science</option>
+                <option value="Cluster 10">Actuarial Science</option>
+                <option value="Cluster 11">Interior Design</option>
+                <option value="Cluster 12">Sport Science</option>
+                <option value="Cluster 13">Medicine</option>
+                <option value="Cluster 14">History</option>
+                <option value="Cluster 15">Agriculture</option>
+                <option value="Cluster 16">Geography</option>
+                <option value="Cluster 17">French & German</option>
+                <option value="Cluster 18">Music</option>
+                <option value="Cluster 19">Education</option>
+                <option value="Cluster 20">Religious Studies</option>
+            </select>
+            <div id="subjectInputs"></div>
+            <button class="button" onclick="checkQualification()">Check Qualification</button>
+            <div id="result" class="results"></div>
+        </div>
+    </div><script>
+    function generateSubjects() {
+        const cluster = document.getElementById('cluster').value;
+        let subjectInputsDiv = document.getElementById('subjectInputs');
+        subjectInputsDiv.innerHTML = ''; 
+        const subjects = {
+            "Cluster 1": ["English", "History", "Kiswahili"],
+            "Cluster 2": ["Mathematics", "Business", "English"],
+            "Cluster 3": ["History", "Geography", "English"],
+            "Cluster 4": ["Geography", "Physics", "Mathematics"],
+            "Cluster 5": ["Mathematics", "Physics", "Chemistry"],
+            "Cluster 6": ["Mathematics", "Physics", "Art & Design"],
+            "Cluster 7": ["Mathematics", "Computer Studies", "Physics"],
+            "Cluster 8": ["Agriculture", "Biology", "Chemistry"],
+            "Cluster 9": ["Physics", "Chemistry", "Biology"],
+            "Cluster 10": ["Mathematics", "Economics", "Business"],
+            "Cluster 11": ["Art & Design", "Home Science", "English"],
+            "Cluster 12": ["Physical Education", "Biology", "English"],
+            "Cluster 13": ["Biology", "Chemistry", "Physics"],
+            "Cluster 14": ["History", "English", "Kiswahili"],
+            "Cluster 15": ["Agriculture", "Chemistry", "Biology"],
+            "Cluster 16": ["Geography", "Environmental Science", "Biology"],
+            "Cluster 17": ["French", "German", "English"],
+            "Cluster 18": ["Music", "English", "Kiswahili"],
+            "Cluster 19": ["Mathematics", "Education", "English"],
+            "Cluster 20": ["Religious Studies", "Islamic Studies", "English"]
         };
-
-        function generateSubjectInputs(cluster) {
-            const subjectsContainer = document.getElementById('subjects-container');
-            subjectsContainer.innerHTML = ''; // Clear any existing inputs
-            
-            if (!cluster) return; // No cluster selected
-            
-            const selectedCluster = clusters[cluster];
-            if (selectedCluster) {
-                selectedCluster.requiredSubjects.forEach(subject => {
-                    const subjectDiv = document.createElement('div');
-                    subjectDiv.classList.add('subject-container');
-                    subjectDiv.innerHTML = `
-                        <label for="${subject}">${subject} Grade:</label>
-                        <select id="${subject}" class="subject-dropdown">
-                            <option value="">Select Grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    `;
-                    subjectsContainer.appendChild(subjectDiv);
-                });
-            }
+        
+        if (subjects[cluster]) {
+            subjects[cluster].forEach(subject => {
+                subjectInputsDiv.innerHTML += `
+                    <label for="${subject}">${subject} Grade:</label>
+                    <select id="${subject}">
+                        <option value="">Select Grade</option>
+                        <option value="A">A</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                    </select>
+                `;
+            });
         }
+    }
 
-        function checkEligibility() {
-            const cluster = document.getElementById('cluster').value;
-            const selectedCluster = clusters[cluster];
+    function checkQualification() {
+        const cluster = document.getElementById('cluster').value;
+        const resultDiv = document.getElementById('result');
+        if (!cluster) {
+            resultDiv.innerHTML = 'Please select a cluster first!';
+            return;
+        }
+        let resultText = `You qualify for ${cluster}! Suggested Universities: `;
+        let universities = {
+            "Cluster 1": ["University of Nairobi", "Strathmore University"],
+            "Cluster 5": ["Jomo Kenyatta University", "Technical University of Kenya"],
+            "Cluster 13": ["Moi University", "Kenyatta University"],
+        };
+        resultText += universities[cluster] ? universities[cluster].join(", ") : "No universities found";
+        resultDiv.innerHTML = resultText;
+    }
+</script>
 
-            if (!cluster) {
-                alert('Please select a cluster.');
-                return;
-            }
-
-            let isEligible = true;
-            const grades = {};
-            let feedbackMessage = 'Eligibility: ';
-            let requiredSubjectsMet = true;
-
-            selectedCluster.requiredSubjects.forEach(subject => {
-                const grade = document.getElementById(subject).value;
-                grades[subject] = grade;
-
-                if (!grade || !selected
+</body>
+</html>
