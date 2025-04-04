@@ -150,12 +150,30 @@
         top: 50px; /* Move the mode button slightly down from the top */
     }
 
+    /* Typing Effect Animation */
     .title {
         text-align: center;
         font-size: 28px;
         color: white;
-        margin-top: 100px; /* Make sure it appears below the mode button */
-        z-index: 1;
+        margin-top: 150px;
+        animation: typing 4s steps(40) 1s infinite, blink-caret 0.75s step-end infinite;
+    }
+
+    /* Typing effect keyframes */
+    @keyframes typing {
+        0% {
+            width: 0;
+        }
+        100% {
+            width: 22ch; /* Adjust the width based on the text length */
+        }
+    }
+
+    /* Blinking caret effect */
+    @keyframes blink-caret {
+        50% {
+            border-color: transparent;
+        }
     }
 
     .sidebar {
