@@ -194,11 +194,13 @@
         margin-top: 100px;
         font-size: 36px;
         text-transform: uppercase;
+        z-index: 1; /* Ensure title is above other content */
+        position: relative;
     }
 
     .container {
         text-align: center;
-        margin-top: 200px;
+        margin-top: 150px; /* Keep buttons further below */
         position: relative;
     }
 
@@ -219,6 +221,7 @@
         cursor: pointer;
         border-radius: 25px;
         transition: transform 0.3s ease;
+        z-index: 1;
     }
 
     .degree {
