@@ -13,25 +13,51 @@
             margin: 0;
             box-sizing: border-box;
             animation: neonGlow 1.5s ease-in-out infinite; /* Glowing animation */
+            border: 10px solid transparent; /* Transparent border */
+            border-image: linear-gradient(45deg, #39FF14, #32e300, #39FF14); /* Neon Green gradient */
+            border-image-slice: 1;
         }
 
         h1 {
             color: #5e5e5e;
+            text-align: center;
         }
 
         label {
             font-size: 1.1em;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        select, input[type="text"], button {
+            padding: 8px;
+            margin: 5px 0 15px 0;
+            width: 250px;
+            border-radius: 5px;
+            font-size: 1.1em;
         }
 
         select, input[type="text"] {
-            padding: 8px;
-            margin: 5px 0 15px 0;
-            width: 200px;
+            width: 230px;
+        }
+
+        button {
+            background-color: #39FF14; /* Neon Green */
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #32e300; /* Darker Neon Green */
         }
 
         .feedback {
             font-size: 1.2em;
             margin-top: 20px;
+            text-align: center;
         }
 
         .feedback p {
@@ -69,7 +95,7 @@
     <h1>KUCCPS Course Eligibility Checker</h1>
 
     <label for="cluster">Select Cluster:</label>
-    <select id="cluster">
+    <select id="cluster" onchange="generateSubjectInputs(this.value)">
         <option value="">Select Cluster</option>
         <option value="Cluster 1 - Law">Cluster 1 - Law</option>
         <option value="Cluster 2 - Business, Hospitality & Related">Cluster 2 - Business, Hospitality & Related</option>
@@ -191,24 +217,10 @@
                 const grade = gradesEntered[index];
                 if (!requiredGrades.includes(grade)) {
                     eligible = false;
-                    feedbackElement.innerHTML = `<p style='color: red;'>You do not qualify for ${cluster} as you need to improve in ${subject}.</p>`;
+                    feedbackElement.innerHTML = "<p style='color: red;'>You do not qualify for this cluster. Please improve your grades in the required subjects.</p>";
                     return;
                 }
             });
 
             if (eligible) {
-                feedbackElement.innerHTML = "<p style='color: green;'>You qualify for this cluster!</p>";
-            }
-        }
-
-        document.getElementById("cluster").addEventListener("change", (event) => {
-            const selectedCluster = event.target.value;
-            if (selectedCluster) {
-                generateSubjectInputs(selectedCluster);
-            }
-        });
-
-    </script>
-
-</body>
-</html>
+                feedbackElement.innerHTML = "<p class='success'>You qualify for this cluster!</
