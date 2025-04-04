@@ -10,32 +10,37 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            overflow: hidden;
         }
         .neon-border {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100vw;
+            border: 5px solid;
+            border-image: linear-gradient(to left, #00FF00, #008000, #00FF00) 1;
+            animation: glow 1.5s ease-in-out infinite alternate;
             height: 100vh;
-            box-shadow: 0 0 20px 5px #00FF00, 0 0 40px 10px #00FF00 inset;
-            animation: glow 2s infinite alternate;
+            padding: 20px;
+            box-shadow: 0 0 20px #00FF00;
         }
         @keyframes glow {
             0% {
-                box-shadow: 0 0 20px 5px #00FF00, 0 0 40px 10px #00FF00 inset;
+                box-shadow: 0 0 10px #00FF00;
+            }
+            50% {
+                box-shadow: 0 0 30px #00FF7F;
             }
             100% {
-                box-shadow: 0 0 30px 10px #008000, 0 0 50px 15px #008000 inset;
+                box-shadow: 0 0 10px #00FF00;
             }
         }
-        .container {
-            position: relative;
-            padding: 20px;
+        h1 {
             text-align: center;
+            font-size: 2em;
+            padding: 20px;
+            color: #fff;
+        }
+        .container {
+            margin: 20px;
         }
         select, button {
-            width: 90%;
+            width: 100%;
             padding: 10px;
             margin: 10px 0;
             font-size: 1em;
@@ -61,84 +66,82 @@
     </style>
 </head>
 <body>
-    <div class="neon-border"></div>
-    <div class="container">
+    <div class="neon-border">
         <h1>KUCCPS Course Qualification Checker</h1>
-        <label for="cluster">Select a Cluster:</label>
-        <select id="cluster" onchange="generateSubjects()">
-            <option value="">Select Cluster</option>
-            <option value="Cluster 1 - Law">Cluster 1 - Law</option>
-            <option value="Cluster 2 - Business">Cluster 2 - Business</option>
-            <option value="Cluster 3 - Social Sciences">Cluster 3 - Social Sciences</option>
-            <option value="Cluster 4 - Geosciences">Cluster 4 - Geosciences</option>
-            <option value="Cluster 5 - Engineering">Cluster 5 - Engineering</option>
-            <option value="Cluster 6 - Architecture">Cluster 6 - Architecture</option>
-            <option value="Cluster 7 - Computing">Cluster 7 - Computing</option>
-            <option value="Cluster 8 - Agribusiness">Cluster 8 - Agribusiness</option>
-            <option value="Cluster 9 - General Science">Cluster 9 - General Science</option>
-            <option value="Cluster 10 - Actuarial Science">Cluster 10 - Actuarial Science</option>
-            <option value="Cluster 11 - Interior Design">Cluster 11 - Interior Design</option>
-            <option value="Cluster 12 - Sport Science">Cluster 12 - Sport Science</option>
-            <option value="Cluster 13 - Medicine">Cluster 13 - Medicine</option>
-            <option value="Cluster 14 - History">Cluster 14 - History</option>
-            <option value="Cluster 15 - Agriculture">Cluster 15 - Agriculture</option>
-            <option value="Cluster 16 - Geography">Cluster 16 - Geography</option>
-            <option value="Cluster 17 - French & German">Cluster 17 - French & German</option>
-            <option value="Cluster 18 - Music">Cluster 18 - Music</option>
-            <option value="Cluster 19 - Education">Cluster 19 - Education</option>
-            <option value="Cluster 20 - Religious Studies">Cluster 20 - Religious Studies</option>
-        </select>
-        <div id="subjectInputs"></div>
+        <div class="container">
+            <label for="cluster">Select a Cluster:</label>
+            <select id="cluster" onchange="generateSubjects()">
+                <option value="">Select Cluster</option>
+                <option value="Law">Cluster 1 - Law</option>
+                <option value="Business">Cluster 2 - Business, Hospitality & Related</option>
+                <option value="Social Sciences">Cluster 3 - Social Sciences</option>
+                <option value="Geosciences">Cluster 4 - Geosciences</option>
+                <option value="Engineering">Cluster 5 - Engineering</option>
+                <option value="Architecture">Cluster 6 - Architecture</option>
+                <option value="Computing">Cluster 7 - Computing</option>
+                <option value="Agribusiness">Cluster 8 - Agribusiness</option>
+                <option value="General Science">Cluster 9 - General Science</option>
+                <option value="Actuarial Science">Cluster 10 - Actuarial Science</option>
+                <option value="Interior Design">Cluster 11 - Interior Design</option>
+                <option value="Sport Science">Cluster 12 - Sport Science</option>
+                <option value="Medicine">Cluster 13 - Medicine</option>
+                <option value="History">Cluster 14 - History</option>
+                <option value="Agriculture">Cluster 15 - Agriculture</option>
+                <option value="Geography">Cluster 16 - Geography</option>
+                <option value="French & German">Cluster 17 - French & German</option>
+                <option value="Music">Cluster 18 - Music</option>
+                <option value="Education">Cluster 19 - Education</option>
+                <option value="Religious Studies">Cluster 20 - Religious Studies</option>
+            </select><div id="subjectInputs"></div>
         <button class="button" onclick="checkQualification()">Check Qualification</button>
         <div id="result" class="results"></div>
     </div>
-    <script>
-        function generateSubjects() {
-            const cluster = document.getElementById('cluster').value;
-            let subjectInputsDiv = document.getElementById('subjectInputs');
-            subjectInputsDiv.innerHTML = ''; let subjects = ["Mathematics", "English", "Kiswahili", "Biology", "Physics", "Chemistry", "History", "Geography", "Business", "Agriculture", "CRE", "IRE", "French", "German", "Music", "Aviation", "Computer Science", "Home Science", "Arabic"];
-        
-        subjects.forEach(subject => {
-            subjectInputsDiv.innerHTML += `
-                <label for="${subject}">${subject} Grade:</label>
-                <select id="${subject}">
-                    <option value="">Select Grade</option>
-                    <option value="A">A</option>
-                    <option value="A-">A-</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="B-">B-</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="C-">C-</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="D-">D-</option>
-                    <option value="E">E</option>
-                </select>
-            `;
-        });
-    }
+</div>
 
-    function checkQualification() {
+<script>
+    function generateSubjects() {
         const cluster = document.getElementById('cluster').value;
-        const resultDiv = document.getElementById('result');
-        let resultText = `You qualify for ${cluster}! Suggested Universities:`;
-        
-        let universities = {
-            "Cluster 1 - Law": ["University of Nairobi", "Kenyatta University", "Strathmore University"],
-            "Cluster 5 - Engineering": ["JKUAT", "Technical University of Kenya", "Moi University"],
-            "Cluster 13 - Medicine": ["University of Nairobi", "Moi University", "Maseno University"],
-            "Cluster 20 - Religious Studies": ["Catholic University of Eastern Africa", "Kenya Methodist University"]
+        let subjectInputsDiv = document.getElementById('subjectInputs');
+        subjectInputsDiv.innerHTML = ''; 
+
+        const subjectsByCluster = {
+            "Law": ["English", "Kiswahili", "History", "CRE"],
+            "Business": ["Mathematics", "Business Studies", "Economics"],
+            "Social Sciences": ["History", "Geography", "English"],
+            "Geosciences": ["Geography", "Physics", "Chemistry"],
+            "Engineering": ["Mathematics", "Physics", "Chemistry"],
+            "Architecture": ["Mathematics", "Physics", "Art & Design"],
+            "Computing": ["Mathematics", "Physics", "Computer Studies"],
+            "Agribusiness": ["Agriculture", "Biology", "Mathematics"],
+            "General Science": ["Physics", "Chemistry", "Biology"],
+            "Actuarial Science": ["Mathematics", "Economics", "Statistics"],
+            "Interior Design": ["Art & Design", "Mathematics", "Home Science"],
+            "Sport Science": ["Biology", "Physical Education", "Mathematics"],
+            "Medicine": ["Biology", "Chemistry", "Mathematics"],
+            "History": ["History", "English", "Geography"],
+            "Agriculture": ["Agriculture", "Biology", "Chemistry"],
+            "Geography": ["Geography", "Environmental Science", "Mathematics"],
+            "French & German": ["French", "German", "English"],
+            "Music": ["Music", "English", "Mathematics"],
+            "Education": ["Any 3 relevant teaching subjects"],
+            "Religious Studies": ["CRE", "Islamic Studies", "History"]
         };
-        
-        if (universities[cluster]) {
-            resultText += `<br><span class="qualification">${universities[cluster].join(', ')}</span>`;
-        } else {
-            resultText = "Cluster not found or no universities available.";
+
+        if (cluster in subjectsByCluster) {
+            subjectsByCluster[cluster].forEach(subject => {
+                subjectInputsDiv.innerHTML += `
+                    <label for="${subject}">${subject} Grade:</label>
+                    <select id="${subject}">
+                        <option value="">Select Grade</option>
+                        <option value="A">A</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                    </select>
+                `;
+            });
         }
-        
-        resultDiv.innerHTML = resultText;
     }
 </script>
 
