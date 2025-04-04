@@ -8,6 +8,9 @@
 </head>
 <body>
 
+<!-- Blurred Background Overlay -->
+<div class="background-overlay"></div>
+
 <!-- Toggle Button -->
 <button class="toggle-btn" onclick="toggleMenu()" aria-label="Open Sidebar">☰</button>
 
@@ -61,12 +64,22 @@
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
-        /* Sample background image for testing */
-        background: url('https://www.w3schools.com/w3images/forest.jpg') no-repeat center center fixed; /* Replace this with your desired image */
-        background-size: cover;
-        animation: slideBackground 30s linear infinite;
+        position: relative;
         color: white;
         box-shadow: inset 0 0 50px 20px rgba(0, 255, 255, 0.7), inset 0 0 100px 30px rgba(255, 0, 255, 0.5), inset 0 0 150px 40px rgba(0, 0, 255, 0.6);
+    }
+
+    /* Background Overlay (Blurred) */
+    .background-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('https://www.w3schools.com/w3images/forest.jpg') no-repeat center center fixed;
+        background-size: cover;
+        filter: blur(8px); /* Apply blur to the background image */
+        z-index: -1; /* Position it behind all other content */
     }
 
     .toggle-btn {
