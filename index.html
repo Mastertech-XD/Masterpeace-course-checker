@@ -4,12 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>KUCCPS Qualification Checker</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
   <style>
     body {
       margin: 0;
-      padding: 0;
-      font-family: 'Times New Roman', Times, serif;
+      font-family: "Times New Roman", Times, serif;
       background-color: #000;
       color: white;
       overflow-x: hidden;
@@ -27,11 +25,35 @@
       z-index: -1;
     }
 
+    .title {
+      font-size: 32px;
+      text-align: center;
+      margin-top: 80px;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid white;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+      animation: typing 6s steps(40, end) infinite, blink-caret 0.75s step-end infinite alternate;
+    }
+
+    @keyframes typing {
+      0% { width: 0; }
+      50% { width: 30ch; }
+      100% { width: 0; }
+    }
+
+    @keyframes blink-caret {
+      0%, 100% { border-color: transparent; }
+      50% { border-color: white; }
+    }
+
     .toggle-btn {
       position: fixed;
       top: 20px;
       left: 20px;
-      background: #222;
+      background: #333;
       color: white;
       border: none;
       padding: 10px 15px;
@@ -43,144 +65,121 @@
 
     .sidebar {
       position: fixed;
-      left: -250px;
       top: 0;
+      left: -260px;
       width: 250px;
       height: 100%;
       background: #002147;
-      padding-top: 20px;
+      padding: 20px;
       transition: 0.3s;
-      z-index: 3;
+      z-index: 2;
     }
 
     .sidebar.active {
       left: 0;
     }
 
-    .menu-btn, .close-btn {
+    .menu-btn, .mode-btn, .close-btn {
       display: block;
-      width: 80%;
+      width: 90%;
       margin: 10px auto;
       padding: 12px;
       background: #0056b3;
       color: white;
-      text-align: center;
-      font-size: 16px;
       border: none;
-      cursor: pointer;
       border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      text-align: center;
     }
 
     .close-btn {
       background: red;
     }
 
-    .menu-btn:hover {
-      background: #003580;
-    }
-
     .mode-btn {
-      display: block;
-      width: 80%;
-      margin: 10px auto;
-      padding: 12px;
-      background: #444;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    .title {
-      font-size: 28px;
-      text-align: center;
-      white-space: nowrap;
-      overflow: hidden;
-      border-right: 3px solid white;
-      width: 100%;
-      max-width: 600px;
-      margin: 100px auto 30px auto;
-      animation: typing 8s steps(30) infinite, blink-caret 0.75s step-end infinite;
-    }
-
-    @keyframes typing {
-      0% { width: 0; }
-      50% { width: 28ch; }
-      100% { width: 0; }
-    }
-
-    @keyframes blink-caret {
-      50% { border-color: transparent; }
+      background: purple;
     }
 
     .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 20px;
+      text-align: center;
+      margin-top: 100px;
+      z-index: 1;
     }
 
     .btn {
+      display: block;
       width: 80%;
       max-width: 300px;
-      margin: 15px;
+      margin: 20px auto;
       padding: 20px;
-      font-size: 18px;
+      font-size: 20px;
+      color: white;
       border: none;
       border-radius: 15px;
-      color: white;
       cursor: pointer;
-      transition: 0.3s;
-      text-align: center;
+      transition: transform 0.3s, background-color 0.3s;
     }
 
     .btn:hover {
       transform: scale(1.05);
-      background-color: #003580;
     }
 
-    .degree { background: cyan; font-size: 22px; }
-    .diploma { background: blue; font-size: 20px; }
-    .certificate { background: red; font-size: 18px; }
-    .kmtc { background: green; font-size: 16px; }
+    .degree { background: cyan; }
+    .diploma { background: blue; }
+    .certificate { background: red; }
+    .kmtc { background: green; }
 
     .footer {
+      text-align: center;
       position: fixed;
       bottom: 0;
       width: 100%;
-      text-align: center;
-      padding: 10px 0;
+      padding: 10px;
       background: #333;
       color: white;
-      z-index: 2;
+      z-index: 1;
     }
 
-    @media screen and (max-width: 768px) {
-      .title {
-        font-size: 24px;
-        margin-top: 80px;
-      }
+    /* Light mode styles */
+    body.light {
+      background-color: #f2f2f2;
+      color: black;
+    }
+
+    body.light .footer {
+      background: #ddd;
+      color: black;
+    }
+
+    body.light .btn {
+      color: white;
+    }
+
+    body.light .background-overlay {
+      filter: blur(5px) brightness(0.7);
     }
   </style>
 </head>
 <body>
   <div class="background-overlay"></div>
-
   <button class="toggle-btn" onclick="toggleMenu()">☰</button>
 
+  <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
-    <button class="close-btn" onclick="toggleMenu()">↩️Back</button>
+    <button class="close-btn" onclick="toggleMenu()">↩️ Back</button>
     <button class="menu-btn" onclick="window.location.href='index.html'">Home</button>
-    <button class="menu-btn" onclick="window.location.href='https://students.kuccps.net/'">📌KUCCPS Portal</button>
-    <button class="menu-btn" onclick="window.location.href='https://wa.me/254743727510'">📞Contact via WhatsApp</button>
-    <button class="menu-btn" onclick="window.location.href='mailto:aludabrian254@gmail.com'">📥Email Us</button>
+    <button class="menu-btn" onclick="window.location.href='https://students.kuccps.net/'">KUCCPS Portal</button>
+    <button class="menu-btn" onclick="window.location.href='mailto:aludabrian254@gmail.com'">Email Us</button>
+    <button class="menu-btn" onclick="window.location.href='https://wa.me/254743727510'">WhatsApp Us</button>
     <button class="menu-btn" onclick="window.location.href='about.html'">About Us</button>
-    <button class="mode-btn" onclick="toggleTheme()">Toggle Dark/Light</button>
+    <button class="mode-btn" onclick="toggleTheme()">Toggle Theme</button>
   </div>
 
+  <!-- Heading -->
   <h1 class="title">KUCCPS QUALIFICATION CHECKER</h1>
 
+  <!-- Main Content -->
   <div class="container">
     <button class="btn degree" onclick="window.location.href='degree_program.html'">Degree</button>
     <button class="btn diploma" onclick="window.location.href='diploma_program.html'">Diploma</button>
@@ -188,23 +187,35 @@
     <button class="btn kmtc" onclick="window.location.href='kmtc_program.html'">KMTC</button>
   </div>
 
+  <!-- Footer -->
   <footer class="footer">
     <p>&#169; 2025 Created by Masterpeace. All rights reserved.</p>
   </footer>
 
   <script>
+    const sidebar = document.getElementById("sidebar");
+
     function toggleMenu() {
-      const sidebar = document.getElementById("sidebar");
       sidebar.classList.toggle("active");
     }
 
+    document.addEventListener("click", function (event) {
+      const isClickInside = sidebar.contains(event.target) || event.target.classList.contains("toggle-btn");
+      if (!isClickInside && sidebar.classList.contains("active")) {
+        sidebar.classList.remove("active");
+      }
+    });
+
     function toggleTheme() {
       document.body.classList.toggle("light");
+      localStorage.setItem("theme", document.body.classList.contains("light") ? "light" : "dark");
     }
 
-    // Default to dark mode
-    window.onload = function() {
-      document.body.classList.remove("light");
+    window.onload = function () {
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "light") {
+        document.body.classList.add("light");
+      }
     };
   </script>
 </body>
