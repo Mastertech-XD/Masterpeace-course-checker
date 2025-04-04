@@ -129,104 +129,138 @@
 
     <script>
         const clusters = {
-            "Cluster 1 - Law": { requiredSubjects: ["Math", "English", "Law"], requiredGrades: ["A", "B+", "B"] },
-            "Cluster 2 - Business, Hospitality & Related": { requiredSubjects: ["Math", "Business Studies", "Geography"], requiredGrades: ["A-", "B+", "B"] },
-            "Cluster 3 - Social Sciences, Media Studies, Fine Arts, Film, Animation, Graphics & Related": { requiredSubjects: ["History", "Geography", "Art"], requiredGrades: ["A", "B"] },
-            "Cluster 4 - Geosciences & Related": { requiredSubjects: ["Math", "Geography", "Physics"], requiredGrades: ["A-", "B+"] },
-            "Cluster 5 - Engineering, Engineering Technology & Related": { requiredSubjects: ["Math", "Physics", "Chemistry"], requiredGrades: ["A", "B+", "B"] },
-            "Cluster 6 - Architecture, Building Construction & Related": { requiredSubjects: ["Math", "Physics", "Art"], requiredGrades: ["A-", "B", "B+"] },
-            "Cluster 7 - Computing, IT & Related": { requiredSubjects: ["Math", "Computer Science", "Physics"], requiredGrades: ["A", "B+"] },
-            "Cluster 8 - Agribusiness & Related": { requiredSubjects: ["Math", "Agriculture", "Biology"], requiredGrades: ["A-", "B"] },
-            "Cluster 9 - General Science, Biological Sciences, Physics, Chemistry & Related": { requiredSubjects: ["Math", "Biology", "Chemistry"], requiredGrades: ["A", "B+"] },
-            "Cluster 10 - Actuarial Science, Accountancy, Mathematics, Economics, Statistics & Related": { requiredSubjects: ["Math", "Economics", "Statistics"], requiredGrades: ["A", "B"] },
-            "Cluster 11 - Interior Design, Fashion Design, Textiles & Related": { requiredSubjects: ["Art", "Design"], requiredGrades: ["B", "A"] },
-            "Cluster 12 - Sport Science & Related": { requiredSubjects: ["Physical Education", "Biology"], requiredGrades: ["A", "B+"] },
-            "Cluster 13 - Medicine, Health , Veterinary Medicine & Related": { requiredSubjects: ["Math", "Biology", "Chemistry"], requiredGrades: ["A", "B+"] },
-            "Cluster 14 - History, Archeology & Related": { requiredSubjects: ["History", "Geography"], requiredGrades: ["A", "B"] },
-            "Cluster 15 - Agriculture, Animal Health, Food Science, Nutrition Dietetics, Environmental Sciences, Natural Resources & Related": { requiredSubjects: ["Agriculture", "Biology", "Chemistry"], requiredGrades: ["A", "B"] },
-            "Cluster 16 - Geography & Related": { requiredSubjects: ["Geography", "History"], requiredGrades: ["B", "A"] },
-            "Cluster 17 - French & German": { requiredSubjects: ["French", "German"], requiredGrades: ["A-", "B+"] },
-            "Cluster 18 - Music & Related": { requiredSubjects: ["Music", "Art"], requiredGrades: ["A", "B"] },
-            "Cluster 19 - Education & Related": { requiredSubjects: ["Education", "History"], requiredGrades: ["B", "B+"] },
-            "Cluster 20 - Religious Studies, Theology, Islamic Studies & Related": { requiredSubjects: ["Religious Studies", "Islamic Studies"], requiredGrades: ["A", "B"] }
+            "Cluster 1 - Law": { 
+                requiredSubjects: ["Math", "English", "Law"], 
+                requiredGrades: ["A", "B+", "B"], 
+                universities: ["University of Nairobi", "Moi University"]
+            },
+            "Cluster 2 - Business, Hospitality & Related": { 
+                requiredSubjects: ["Math", "Business Studies", "Geography"], 
+                requiredGrades: ["A-", "B+", "B"], 
+                universities: ["Strathmore University", "United States International University"]
+            },
+            "Cluster 3 - Social Sciences, Media Studies, Fine Arts, Film, Animation, Graphics & Related": { 
+                requiredSubjects: ["History", "Geography", "Art"], 
+                requiredGrades: ["A", "B"], 
+                universities: ["Kenyatta University", "The University of Nairobi"]
+            },
+            "Cluster 4 - Geosciences & Related": { 
+                requiredSubjects: ["Math", "Geography", "Physics"], 
+                requiredGrades: ["A-", "B+"], 
+                universities: ["Jomo Kenyatta University of Agriculture and Technology", "Maseno University"]
+            },
+            "Cluster 5 - Engineering, Engineering Technology & Related": { 
+                requiredSubjects: ["Math", "Physics", "Chemistry"], 
+                requiredGrades: ["A", "B+", "B"], 
+                universities: ["University of Nairobi", "Kenya School of Law"]
+            },
+            "Cluster 6 - Architecture, Building Construction & Related": { 
+                requiredSubjects: ["Math", "Physics", "Art"], 
+                requiredGrades: ["A-", "B", "B+"], 
+                universities: ["Kenya Polytechnic University College", "Jomo Kenyatta University of Agriculture and Technology"]
+            },
+            "Cluster 7 - Computing, IT & Related": { 
+                requiredSubjects: ["Math", "Computer Science", "Physics"], 
+                requiredGrades: ["A", "B+"], 
+                universities: ["Strathmore University", "Kenya Methodist University"]
+            },
+            "Cluster 8 - Agribusiness & Related": { 
+                requiredSubjects: ["Math", "Agriculture", "Biology"], 
+                requiredGrades: ["A-", "B"], 
+                universities: ["Egerton University", "Jomo Kenyatta University of Agriculture and Technology"]
+            },
+            "Cluster 9 - General Science, Biological Sciences, Physics, Chemistry & Related": { 
+                requiredSubjects: ["Math", "Biology", "Chemistry"], 
+                requiredGrades: ["A", "B+"], 
+                universities: ["Kenyatta University", "Maseno University"]
+            },
+            "Cluster 10 - Actuarial Science, Accountancy, Mathematics, Economics, Statistics & Related": { 
+                requiredSubjects: ["Math", "Economics", "Statistics"], 
+                requiredGrades: ["A", "B"], 
+                universities: ["Strathmore University", "University of Nairobi"]
+            },
+            "Cluster 11 - Interior Design, Fashion Design, Textiles & Related": { 
+                requiredSubjects: ["Art", "Design"], 
+                requiredGrades: ["B", "A"], 
+                universities: ["University of Nairobi", "Technical University of Kenya"]
+            },
+            "Cluster 12 - Sport Science & Related": { 
+                requiredSubjects: ["Physical Education", "Biology"], 
+                requiredGrades: ["A", "B+"], 
+                universities: ["Kenyatta University", "Egerton University"]
+            },
+            "Cluster 13 - Medicine, Health , Veterinary Medicine & Related": { 
+                requiredSubjects: ["Math", "Biology", "Chemistry"], 
+                requiredGrades: ["A", "B+"], 
+                universities: ["University of Nairobi", "Moi University"]
+            },
+            "Cluster 14 - History, Archeology & Related": { 
+                requiredSubjects: ["History", "Geography"], 
+                requiredGrades: ["A", "B"], 
+                universities: ["Kenyatta University", "University of Nairobi"]
+            },
+            "Cluster 15 - Agriculture, Animal Health, Food Science, Nutrition Dietetics, Environmental Sciences, Natural Resources & Related": { 
+                requiredSubjects: ["Agriculture", "Biology", "Chemistry"], 
+                requiredGrades: ["A", "B"], 
+                universities: ["Egerton University", "Jomo Kenyatta University of Agriculture and Technology"]
+            },
+            "Cluster 16 - Geography & Related": { 
+                requiredSubjects: ["Geography", "History"], 
+                requiredGrades: ["B", "A"], 
+                universities: ["University of Nairobi", "Maseno University"]
+            }
         };
 
-        const grades = ["A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "E"];
-
         function generateSubjectInputs(cluster) {
-            const subjectContainer = document.getElementById("subjects-container");
-            subjectContainer.innerHTML = ""; // Clear existing inputs
-
-            const subjects = clusters[cluster]?.requiredSubjects || [];
-
-            subjects.forEach(subject => {
-                const div = document.createElement("div");
-                div.classList.add("subject-container");
-
-                const label = document.createElement("label");
-                label.textContent = subject;
-
-                const select = document.createElement("select");
-                select.classList.add("subject-dropdown");
-
-                const optionDefault = document.createElement("option");
-                optionDefault.value = "";
-                optionDefault.textContent = "Select Grade";
-                select.appendChild(optionDefault);
-
-                grades.forEach(grade => {
-                    const option = document.createElement("option");
-                    option.value = grade;
-                    option.textContent = grade;
-                    select.appendChild(option);
+            const subjectsContainer = document.getElementById('subjects-container');
+            subjectsContainer.innerHTML = ''; // Clear any existing inputs
+            
+            if (!cluster) return; // No cluster selected
+            
+            const selectedCluster = clusters[cluster];
+            if (selectedCluster) {
+                selectedCluster.requiredSubjects.forEach(subject => {
+                    const subjectDiv = document.createElement('div');
+                    subjectDiv.classList.add('subject-container');
+                    subjectDiv.innerHTML = `
+                        <label for="${subject}">${subject} Grade:</label>
+                        <select id="${subject}" class="subject-dropdown">
+                            <option value="">Select Grade</option>
+                            <option value="A">A</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B">B</option>
+                            <option value="B-">B-</option>
+                            <option value="C+">C+</option>
+                            <option value="C">C</option>
+                            <option value="C-">C-</option>
+                            <option value="D+">D+</option>
+                            <option value="D">D</option>
+                            <option value="D-">D-</option>
+                            <option value="E">E</option>
+                        </select>
+                    `;
+                    subjectsContainer.appendChild(subjectDiv);
                 });
-
-                div.appendChild(label);
-                div.appendChild(select);
-                subjectContainer.appendChild(div);
-            });
+            }
         }
 
         function checkEligibility() {
-            const cluster = document.getElementById("cluster").value;
+            const cluster = document.getElementById('cluster').value;
+            const selectedCluster = clusters[cluster];
+
             if (!cluster) {
-                alert("Please select a cluster.");
+                alert('Please select a cluster.');
                 return;
             }
 
-            const feedbackElement = document.getElementById("feedback");
-            const gradeInputs = document.querySelectorAll(".subject-dropdown");
-            const gradesEntered = [];
+            let isEligible = true;
+            const grades = {};
+            let feedbackMessage = 'Eligibility: ';
+            let requiredSubjectsMet = true;
 
-            gradeInputs.forEach(select => {
-                gradesEntered.push(select.value);
-            });
+            selectedCluster.requiredSubjects.forEach(subject => {
+                const grade = document.getElementById(subject).value;
+                grades[subject] = grade;
 
-            if (gradesEntered.includes("")) {
-                feedbackElement.innerHTML = "<p style='color: red;'>Please enter grades for all selected subjects.</p>";
-                return;
-            }
-
-            // Eligibility checking logic based on selected cluster
-            const requiredGrades = clusters[cluster].requiredGrades;
-            const requiredSubjects = clusters[cluster].requiredSubjects;
-
-            let eligible = true;
-
-            requiredSubjects.forEach((subject, index) => {
-                const grade = gradesEntered[index];
-                if (!requiredGrades.includes(grade)) {
-                    eligible = false;
-                    feedbackElement.innerHTML = "<p style='color: red;'>You do not qualify for this cluster. Please improve your grades in the required subjects.</p>";
-                    return;
-                }
-            });
-
-            if (eligible) {
-                feedbackElement.innerHTML = "<p class='success'>You qualify for this cluster!</p>";
-            }
-        }
-    </script>
-
-</body>
-</html>
+                if (!grade || !selected
