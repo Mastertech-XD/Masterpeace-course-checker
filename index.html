@@ -12,25 +12,25 @@
 <div class="background-overlay"></div>
 
 <!-- Toggle Button -->
-<button class="toggle-btn" onclick="toggleMenu()" aria-label="Open Sidebar">☰</button>
+<button class="toggle-btn" onclick="toggleMenu()">☰</button>
 
 <!-- Sidebar Menu -->
-<div class="sidebar" id="sidebar" role="navigation" aria-label="Main Navigation">
-    <button class="close-btn" onclick="toggleMenu()" aria-label="Close Sidebar">↩️Back</button>
-    <button class="menu-btn" onclick="window.location.href='index.html'" aria-label="Go to Home">Home</button>
-    <button class="menu-btn" onclick="window.location.href='https://students.kuccps.net/'" aria-label="Go to KUCCPS Portal">📌KUCCPS Portal📚</button>
-    <button class="menu-btn" onclick="window.location.href='https://wa.me/254743727510'" aria-label="Contact us via WhatsApp">📞Contact us via WhatsApp ☎️</button>
-    <button class="menu-btn" onclick="window.location.href='mailto:aludabrian254@gmail.com'" aria-label="Email Us">📥Email Us✉️</button>
-    <button class="menu-btn" onclick="window.location.href='about.html'" aria-label="Learn About Us">About Us📢</button>
+<div class="sidebar" id="sidebar">
+    <button class="close-btn" onclick="toggleMenu()">↩️Back</button>
+    <button class="menu-btn" onclick="window.location.href='index.html'">Home</button>
+    <button class="menu-btn" onclick="window.location.href='https://students.kuccps.net/'">📌KUCCPS Portal📚</button>
+    <button class="menu-btn" onclick="window.location.href='https://wa.me/254743727510'">📞Contact us via WhatsApp ☎️</button>
+    <button class="menu-btn" onclick="window.location.href='mailto:aludabrian254@gmail.com'">📥Email Us✉️</button>
+    <button class="menu-btn" onclick="window.location.href='about.html'">About Us📢</button>
 </div>
 
 <!-- Main Content -->
 <div class="container">
     <h2>Select Program</h2>
-    <button class="btn degree" onclick="window.location.href='degree_program.html'" aria-label="Go to Degree Program">Degree</button>
-    <button class="btn diploma" onclick="window.location.href='diploma_program.html'" aria-label="Go to Diploma Program">Diploma</button>
-    <button class="btn certificate" onclick="window.location.href='certificate_program.html'" aria-label="Go to Certificate Program">Certificate</button>
-    <button class="btn kmtc" onclick="window.location.href='kmtc_program.html'" aria-label="Go to KMTC Program">KMTC</button>
+    <button class="btn degree" onclick="window.location.href='degree_program.html'">Degree</button>
+    <button class="btn diploma" onclick="window.location.href='diploma_program.html'">Diploma</button>
+    <button class="btn certificate" onclick="window.location.href='certificate_program.html'">Certificate</button>
+    <button class="btn kmtc" onclick="window.location.href='kmtc_program.html'">KMTC</button>
 </div>
 
 <!-- Footer -->
@@ -43,32 +43,9 @@
         const sidebar = document.getElementById("sidebar");
         sidebar.classList.toggle("active");
     }
-
-    function goToGrades(program) {
-        window.location.href = `${program}.html`;
-    }
 </script>
 
 <style>
-    /* Background Animation */
-    @keyframes slideBackground {
-        0% {
-            background-position: 0 0;
-        }
-        100% {
-            background-position: 100% 0;
-        }
-    }
-
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        position: relative;
-        color: white;
-        box-shadow: inset 0 0 50px 20px rgba(0, 255, 255, 0.7), inset 0 0 100px 30px rgba(255, 0, 255, 0.5), inset 0 0 150px 40px rgba(0, 0, 255, 0.6);
-    }
-
     /* Background Overlay (Blurred) */
     .background-overlay {
         position: absolute;
@@ -79,7 +56,17 @@
         background: url('https://www.w3schools.com/w3images/forest.jpg') no-repeat center center fixed;
         background-size: cover;
         filter: blur(8px); /* Apply blur to the background image */
-        z-index: -1; /* Position it behind all other content */
+        z-index: -1; /* Ensure it is behind other elements */
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.5); /* Dark overlay for text readability */
+        box-shadow: inset 0 0 50px 20px rgba(0, 255, 255, 0.7), inset 0 0 100px 30px rgba(255, 0, 255, 0.5), inset 0 0 150px 40px rgba(0, 0, 255, 0.6);
     }
 
     .toggle-btn {
@@ -93,6 +80,7 @@
         font-size: 20px;
         cursor: pointer;
         border-radius: 5px;
+        z-index: 2;
     }
 
     .sidebar {
@@ -104,6 +92,7 @@
         background: #002147;
         padding-top: 20px;
         transition: 0.3s;
+        z-index: 2;
     }
 
     .sidebar.active {
@@ -135,6 +124,7 @@
     .container {
         text-align: center;
         margin-top: 100px;
+        z-index: 1;
     }
 
     /* Block buttons with curved edges and custom sizes */
@@ -185,7 +175,7 @@
     /* Footer styles */
     .footer {
         text-align: center;
-        position: absolute;
+        position: fixed;
         bottom: 0;
         width: 100%;
         padding: 10px 0;
