@@ -5,12 +5,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>KUCCPS Qualification Checker</title>
   <style>
+    :root {
+      --neon-blue: #0ff;
+      --neon-pink: #f0f;
+      --neon-purple: #90f;
+      --dark-bg: #000;
+      --light-bg: #f2f2f2;
+    }
+
     body {
       margin: 0;
       font-family: "Times New Roman", Times, serif;
-      background-color: #000;
+      background-color: var(--dark-bg);
       color: white;
       overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Rotating Neon Border */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border: 4px solid transparent;
+      background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink), var(--neon-purple), var(--neon-blue)) border-box;
+      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: destination-out;
+      mask-composite: exclude;
+      z-index: -1;
+      animation: borderRotate 20s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes borderRotate {
+      0% { border-image: linear-gradient(0deg, var(--neon-blue), var(--neon-pink), var(--neon-purple), var(--neon-blue)) 1; }
+      25% { border-image: linear-gradient(90deg, var(--neon-blue), var(--neon-pink), var(--neon-purple), var(--neon-blue)) 1; }
+      50% { border-image: linear-gradient(180deg, var(--neon-blue), var(--neon-pink), var(--neon-purple), var(--neon-blue)) 1; }
+      75% { border-image: linear-gradient(270deg, var(--neon-blue), var(--neon-pink), var(--neon-purple), var(--neon-blue)) 1; }
+      100% { border-image: linear-gradient(360deg, var(--neon-blue), var(--neon-pink), var(--neon-purple), var(--neon-blue)) 1; }
+    }
+
+    /* Raindrop animation */
+    .raindrop {
+      position: absolute;
+      width: 2px;
+      height: 15px;
+      background: linear-gradient(to bottom, transparent, var(--neon-blue));
+      border-radius: 0 0 5px 5px;
+      animation: rain linear infinite;
+      z-index: -2;
+      opacity: 0.6;
+    }
+
+    @keyframes rain {
+      0% { transform: translateY(-100vh); }
+      100% { transform: translateY(100vh); }
     }
 
     .background-overlay {
@@ -22,7 +74,7 @@
       background: url('https://www.w3schools.com/w3images/forest.jpg') no-repeat center center fixed;
       background-size: cover;
       filter: blur(8px);
-      z-index: -1;
+      z-index: -3;
     }
 
     .title {
@@ -61,6 +113,12 @@
       cursor: pointer;
       border-radius: 5px;
       z-index: 3;
+      transition: all 0.3s;
+    }
+
+    .toggle-btn:hover {
+      background: #555;
+      transform: scale(1.1);
     }
 
     .sidebar {
@@ -69,10 +127,12 @@
       left: -260px;
       width: 250px;
       height: 100%;
-      background: #002147;
+      background: rgba(0, 33, 71, 0.9);
       padding: 0px;
       transition: 0.3s;
       z-index: 2;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
     }
 
     .sidebar.active {
@@ -91,14 +151,25 @@
       font-size: 16px;
       cursor: pointer;
       text-align: center;
+      transition: all 0.3s;
+    }
+
+    .menu-btn:hover, .mode-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
     }
 
     .close-btn {
-      background: red;
+      background: rgba(255, 0, 0, 0.7);
+    }
+
+    .close-btn:hover {
+      background: rgba(255, 0, 0, 0.9);
+      transform: scale(1.05);
     }
 
     .mode-btn {
-      background: purple;
+      background: rgba(128, 0, 128, 0.7);
     }
 
     .container {
@@ -118,17 +189,41 @@
       border: none;
       border-radius: 15px;
       cursor: pointer;
-      transition: transform 0.3s, background-color 0.3s;
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to bottom right,
+        transparent, transparent, transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+      );
+      transform: rotate(30deg);
+      transition: all 0.5s;
     }
 
     .btn:hover {
       transform: scale(1.05);
+      box-shadow: 0 0 20px currentColor;
     }
 
-    .degree { background: purple; }
-    .diploma { background: blue; }
-    .certificate { background: red; }
-    .kmtc { background: green; }
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .degree { background: rgba(128, 0, 128, 0.7); }
+    .diploma { background: rgba(0, 0, 255, 0.7); }
+    .certificate { background: rgba(255, 0, 0, 0.7); }
+    .kmtc { background: rgba(0, 128, 0, 0.7); }
 
     .footer {
       text-align: center;
@@ -136,19 +231,25 @@
       bottom: 0;
       width: 100%;
       padding: 10px;
-      background: #333;
+      background: rgba(51, 51, 51, 0.8);
       color: white;
       z-index: 1;
+      backdrop-filter: blur(5px);
     }
 
     /* Light mode styles */
     body.light {
-      background-color: #f2f2f2;
+      background-color: var(--light-bg);
       color: black;
     }
 
+    body.light .title {
+      color: black;
+      border-right-color: black;
+    }
+
     body.light .footer {
-      background: #ddd;
+      background: rgba(221, 221, 221, 0.8);
       color: black;
     }
 
@@ -158,6 +259,14 @@
 
     body.light .background-overlay {
       filter: blur(5px) brightness(0.7);
+    }
+
+    body.light .sidebar {
+      background: rgba(200, 220, 255, 0.9);
+    }
+
+    body.light .menu-btn {
+      color: white;
     }
   </style>
 </head>
@@ -193,6 +302,37 @@
   </footer>
 
   <script>
+    // Create raindrops
+    function createRain() {
+      const rainCount = 50;
+      const body = document.body;
+      
+      for (let i = 0; i < rainCount; i++) {
+        const raindrop = document.createElement('div');
+        raindrop.className = 'raindrop';
+        
+        // Random position and properties
+        const left = Math.random() * 100;
+        const animationDuration = 1 + Math.random() * 2;
+        const animationDelay = Math.random() * 5;
+        const height = 5 + Math.random() * 20;
+        const opacity = 0.2 + Math.random() * 0.5;
+        
+        raindrop.style.left = `${left}%`;
+        raindrop.style.animationDuration = `${animationDuration}s`;
+        raindrop.style.animationDelay = `${animationDelay}s`;
+        raindrop.style.height = `${height}px`;
+        raindrop.style.opacity = opacity;
+        
+        // Random neon color
+        const colors = ['--neon-blue', '--neon-pink', '--neon-purple'];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        raindrop.style.background = `linear-gradient(to bottom, transparent, var(${randomColor}))`;
+        
+        body.appendChild(raindrop);
+      }
+    }
+
     const sidebar = document.getElementById("sidebar");
 
     function toggleMenu() {
@@ -212,6 +352,8 @@
     }
 
     window.onload = function () {
+      createRain();
+      
       const savedTheme = localStorage.getItem("theme");
       if (savedTheme === "light") {
         document.body.classList.add("light");
