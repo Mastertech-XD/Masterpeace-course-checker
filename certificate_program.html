@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,172 +6,1051 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KUCCPS Course Qualification Checker</title>
     <style>
+        :root {
+            --primary-color: #0ff;
+            --secondary-color: #f0f;
+            --dark-bg: #111;
+            --card-bg: rgba(34, 34, 34, 0.9);
+            --text-light: #fff;
+            --text-dim: #aaa;
+            --success-color: #0f0;
+            --error-color: #f44;
+        }
+        
         body {
-            background-color: #808080;
-            color: white;
-            font-family: Arial, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            font-family: 'Arial', sans-serif;
             margin: 0;
-            padding: 0;
-        }
-        .neon-border {
-            border: 5px solid;
-            border-image: linear-gradient(to left, #00FF00, #008000, #00FF00) 1;
-            animation: glow 1.5s ease-in-out infinite alternate;
-            height: 100vh;
-        }
-        @keyframes glow {
-            0% {
-                border-color: #00FF00;
-            }
-            50% {
-                border-color: #00FF7F;
-            }
-            100% {
-                border-color: #00FF00;
-            }
-        }
-        h1 {
-            text-align: center;
-            font-size: 2em;
             padding: 20px;
-            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
+
+        h1 {
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--primary-color);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
         .container {
-            margin: 20px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            border: 1px solid var(--primary-color);
         }
-        select, button {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            font-size: 1em;
+
+        .form-group {
+            margin-bottom: 20px;
         }
-        .button {
-            background-color: #00FF00;
-            color: black;
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary-color);
             font-weight: bold;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            border: 2px solid var(--primary-color);
+            background-color: #333;
+            color: var(--text-light);
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            box-shadow: 0 0 10px var(--primary-color);
+            border-color: var(--secondary-color);
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: var(--dark-bg);
             border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 1em;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 10px;
         }
+
+        button:hover {
+            background-color: var(--secondary-color);
+            box-shadow: 0 0 15px var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
         .results {
-            color: yellow;
-            font-size: 1.2em;
-            padding: 10px;
-            margin-top: 20px;
-            background-color: rgba(0, 0, 0, 0.7);
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(0, 100, 100, 0.2);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            display: none;
         }
-        .qualification {
-            color: lightgreen;
+
+        .course-header {
+            color: var(--primary-color);
+            font-size: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .university-list {
+            margin-top: 15px;
+        }
+
+        .university {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            margin-bottom: 8px;
+            background: rgba(0, 50, 50, 0.3);
+            border-radius: 5px;
+            align-items: center;
+        }
+
+        .qualified {
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        .not-qualified {
+            color: var(--error-color);
+        }
+
+        .cutoff {
+            color: var(--text-dim);
+            font-size: 0.9em;
+            margin-left: 10px;
+        }
+
+        .suggestions {
+            margin-top: 30px;
+            padding: 15px;
+            background: rgba(0, 150, 150, 0.2);
+            border-radius: 8px;
+            border-left: 4px solid var(--success-color);
+            display: none;
+        }
+
+        .suggestion-title {
+            color: var(--success-color);
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .suggestion-item {
+            padding: 8px;
+            margin-bottom: 5px;
+            background: rgba(0, 100, 100, 0.3);
+            border-radius: 4px;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .search-options {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .search-option {
+            flex: 1;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+                width: 95%;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .search-options {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="neon-border">
-        <h1>KUCCPS Course Qualification Checker</h1>
-        <div class="container">
-            <label for="cluster">Select a Cluster:</label>
-            <select id="cluster">
-                <option value="">Select Cluster</option>
-                <option value="Cluster 1 - Law">Cluster 1 - Law</option>
-                <option value="Cluster 2 - Business, Hospitality & Related">Cluster 2 - Business, Hospitality & Related</option>
-                <option value="Cluster 3 - Social Sciences, Media Studies, Fine Arts, Film, Animation, Graphics & Related">Cluster 3 - Social Sciences</option>
-                <option value="Cluster 4 - Geosciences & Related">Cluster 4 - Geosciences</option>
-                <option value="Cluster 5 - Engineering, Engineering Technology & Related">Cluster 5 - Engineering</option>
-                <option value="Cluster 6 - Architecture, Building Construction & Related">Cluster 6 - Architecture</option>
-                <option value="Cluster 7 - Computing, IT & Related">Cluster 7 - Computing</option>
-                <option value="Cluster 8 - Agribusiness & Related">Cluster 8 - Agribusiness</option>
-                <option value="Cluster 9 - General Science , Biological Sciences, Physics, Chemistry & Related">Cluster 9 - General Science</option>
-                <option value="Cluster 10 - Actuarial Science, Accountancy, Mathematics, Economics, Statistics & Related">Cluster 10 - Actuarial Science</option>
-                <option value="Cluster 11 - Interior Design, Fashion Design, Textiles & Related">Cluster 11 - Interior Design</option>
-                <option value="Cluster 12 - Sport Science & Related">Cluster 12 - Sport Science</option>
-                <option value="Cluster 13 - Medicine, Health , Veterinary Medicine & Related">Cluster 13 - Medicine</option>
-                <option value="Cluster 14 - History, Archeology & Related">Cluster 14 - History</option>
-                <option value="Cluster 15 - Agriculture, Animal Health, Food Science, Nutrition Dietetics, Environmental Sciences, Natural Resources & Related">Cluster 15 - Agriculture</option>
-                <option value="Cluster 16 - Geography & Related">Cluster 16 - Geography</option>
-                <option value="Cluster 17 - French & German">Cluster 17 - French & German</option>
-                <option value="Cluster 18 - Music & Related">Cluster 18 - Music</option>
-                <option value="Cluster 19 - Education & Related">Cluster 19 - Education</option>
-                <option value="Cluster 20 - Religious Studies, Theology, Islamic Studies & Related">Cluster 20 - Religious Studies</option>
-            </select>
-
-            <button class="button" onclick="generateSubjects()">Generate Subjects</button>
-
-            <div id="subjectInputs"></div>
-
-            <button class="button" onclick="checkQualification()">Check Qualification</button>
-
-            <div id="result" class="results"></div>
+    <h1>KUCCPS Course Qualification Checker</h1>
+    
+    <div class="container">
+        <div class="search-options">
+            <div class="search-option">
+                <div class="form-group">
+                    <label for="searchMethod">Search By:</label>
+                    <select id="searchMethod" onchange="toggleSearchMethod()">
+                        <option value="course">Course</option>
+                        <option value="cluster">Cluster</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="search-option" id="courseSearchOption">
+                <div class="form-group">
+                    <label for="courseSelect">Select Course:</label>
+                    <select id="courseSelect">
+                        <option value="">-- Select a course --</option>
+                        <!-- Courses will be populated by JavaScript -->
+                    </select>
+                </div>
+            </div>
+            
+            <div class="search-option" id="clusterSearchOption" style="display: none;">
+                <div class="form-group">
+                    <label for="clusterSelect">Select Cluster:</label>
+                    <select id="clusterSelect">
+                        <option value="">-- Select a cluster --</option>
+                        <!-- Clusters will be populated by JavaScript -->
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="clusterPoints">Enter Your Cluster Points:</label>
+            <input type="number" id="clusterPoints" min="0" max="100" placeholder="Enter your points">
+        </div>
+        
+        <button onclick="checkQualification()">Check Qualification</button>
+        
+        <div class="results" id="results">
+            <div class="course-header">
+                <span id="selectedCourseName"></span>
+                <span id="courseCluster"></span>
+            </div>
+            
+            <div class="university-list" id="universityList"></div>
+            
+            <div class="suggestions" id="suggestions">
+                <div class="suggestion-title">Universities You Qualify For:</div>
+                <div id="suggestionList"></div>
+            </div>
         </div>
     </div>
 
     <script>
-        function generateSubjects() {
-            const cluster = document.getElementById('cluster').value;
-            let subjectInputsDiv = document.getElementById('subjectInputs');
-            subjectInputsDiv.innerHTML = ''; // Clear previous subjects
+        // Complete course data with all 20 clusters and their courses
+        const courses = [
+            // Cluster 1: Law
+            {
+                name: "Bachelor of Laws",
+                cluster: "Law",
+                universities: {
+                    "University of Nairobi": 42.014,
+                    "Kenyatta University": 41.643,
+                    "Jomo Kenyatta": 41.184,
+                    "Mount Kenya University": 40.474,
+                    "Moi University": 40.225,
+                    "Maseno University": 39.798,
+                    "Egerton University": 39.534
+                }
+            },
+            
+            // Cluster 2: Business, Hospitality & Related
+            {
+                name: "Bachelor of Commerce",
+                cluster: "Business",
+                universities: {
+                    "University of Nairobi": 34.426,
+                    "Kenyatta University": 32.613,
+                    "Jomo Kenyatta": 32.291,
+                    "Egerton University": 30.01,
+                    "Masinde Muliro University": 30.054,
+                    "Technical University of Kenya": 30.286,
+                    "Dedan Kimathi University of Technology": 24.388
+                }
+            },
+            {
+                name: "Bachelor of Economics",
+                cluster: "Business",
+                universities: {
+                    "Jomo Kenyatta": 27.073,
+                    "Kenyatta University": 26.413,
+                    "University of Nairobi": 26.096,
+                    "Technical University of Kenya": 25.284,
+                    "Meru University of Science and Technology": 18.831,
+                    "Multimedia University of Kenya": 18.831
+                }
+            },
+            {
+                name: "Bachelor of Business Information Technology",
+                cluster: "Business",
+                universities: {
+                    "Jomo Kenyatta University": 34.173,
+                    "Riara University": 32.503,
+                    "Multimedia University of Kenya": 31.205,
+                    "Murang'a University of Technology": 27.359,
+                    "Meru University of Science and Technology": 26.523,
+                    "Africa Nazarene University": 25.254
+                }
+            },
+            {
+                name: "Bachelor of Entrepreneurship",
+                cluster: "Business",
+                universities: {
+                    "Jomo Kenyatta University": 21.375,
+                    "Murang'a University of Technology": 21.375,
+                    "Egerton University": 21.375,
+                    "Tharaka University": 21.375
+                }
+            },
+            {
+                name: "Bachelor of Science (Financial Engineering)",
+                cluster: "Business",
+                universities: {
+                    "Jomo Kenyatta University": 32.04,
+                    "Kirinyaga University": 18.831
+                }
+            },
+            {
+                name: "Bachelor of Science (Project Planning Management)",
+                cluster: "Business",
+                universities: {
+                    "University of Nairobi": 30.644,
+                    "Jomo Kenyatta University": 28.76,
+                    "South Eastern Kenya University": 25.695,
+                    "Moi University": 22.69,
+                    "University Of Eldoret": 21.375,
+                    "Koitaleel Samoei University College": 21.375
+                }
+            },
+            {
+                name: "Bachelor of Travel & Tours Operations Management",
+                cluster: "Business",
+                universities: {
+                    "University Of Eldoret": 23.068,
+                    "Moi University": 21.375,
+                    "Kisii University": 21.375,
+                    "Murang'a University Of Technology": 21.375
+                }
+            },
+            {
+                name: "Bachelor of Science (Hospitality & Tourism Management)",
+                cluster: "Business",
+                universities: {
+                    "Kenyatta University": 29.608,
+                    "Dedan Kimathi University of Technology": 25.03,
+                    "Kenyatta University – Mama Ngina University College": 25.531,
+                    "Machakos University": 23.996,
+                    "Masinde Muliro University": 23.962
+                }
+            },
+            
+            // Cluster 3: Social Sciences, Media Studies, Fine Arts, etc.
+            {
+                name: "Bachelor of Arts In Counseling Psychology",
+                cluster: "Social Sciences",
+                universities: {
+                    "Technical University of Kenya": 31.022,
+                    "Machakos University": 24.615,
+                    "Moi University": 24.041,
+                    "Kenyatta University – Mama Ngina University College": 24.094,
+                    "St Pauls University": 22.449
+                }
+            },
+            {
+                name: "Bachelor of Criminology",
+                cluster: "Social Sciences",
+                universities: {
+                    "Chuka University": 26.631,
+                    "Maseno University": 25.524,
+                    "Masinde Muliro University": 23.602,
+                    "Kisii University": 22.449,
+                    "Maasai Mara University": 22.449,
+                    "Laikipia University": 22.449
+                }
+            },
+            {
+                name: "BACHELOR OF MASS COMMUNICATION",
+                cluster: "Media",
+                universities: {
+                    "JOMO KENYATTA UNIVERSITY": 30.116,
+                    "AFRICA NAZARENE UNIVERSITY": 22.449,
+                    "KABARAK UNIVERSITY": 22.449
+                }
+            },
+            {
+                name: "BACHELOR OF JOURNALISM & MASS COMMUNICATION",
+                cluster: "Media",
+                universities: {
+                    "TECHNICAL UNIVERSITY OF MOMBASA": 29.885,
+                    "UNIVERSITY OF NAIROBI": 29.254,
+                    "CHUKA UNIVERSITY": 29.127,
+                    "MASINDE MULIRO UNIVERSITY": 28.014,
+                    "KIBABII UNIVERSITY": 23.688
+                }
+            },
+            {
+                name: "Bachelor of Arts (Music)",
+                cluster: "Arts",
+                universities: {
+                    "Kenyatta University": 25.152,
+                    "Maseno University": 23.417,
+                    "Moi University": 23.417,
+                    "University Of Eastern Africa, Baraton": 23.417,
+                    "Kisii University": 23.417,
+                    "Daystar University": 23.417
+                }
+            },
+            {
+                name: "Bachelor of Education (Arts) Music",
+                cluster: "Arts",
+                universities: {
+                    "Kenyatta University": 27.617,
+                    "Maseno University": 21.858
+                }
+            },
+            {
+                name: "Bachelor of Arts (Theater Arts & Film Technology)",
+                cluster: "Arts",
+                universities: {
+                    "Kenyatta University": 23.977,
+                    "Maseno University": 22.449,
+                    "KCA University": 22.449
+                }
+            },
+            {
+                name: "BACHELOR OF EDUCATION (ARTS) FINE ART",
+                cluster: "Arts",
+                universities: {
+                    "KENYATTA UNIVERSITY": 27.035
+                }
+            },
+            
+            // Cluster 4: Geosciences & Related
+            {
+                name: "Bachelor of Science (Meteorology)",
+                cluster: "Geosciences",
+                universities: {
+                    "UNIVERSITY OF NAIROBI": 15.683,
+                    "SOUTH EASTERN KENYA UNIVERSITY": 15.683
+                }
+            },
+            
+            // Cluster 5: Engineering, Engineering Technology & Related
+            {
+                name: "Bachelor of Science In Civil Engineering",
+                cluster: "Engineering",
+                universities: {
+                    "University of Nairobi": 43.463,
+                    "Jomo Kenyatta": 42.618,
+                    "Kenyatta University": 42.574,
+                    "Technical University of Kenya": 41.924,
+                    "Dedan Kimathi University of Technology": 39.863,
+                    "Multimedia University of Kenya": 39.11
+                }
+            },
+            {
+                name: "Bachelor of Science in Electrical & Electronic Engineering",
+                cluster: "Engineering",
+                universities: {
+                    "University of Nairobi": 43.003,
+                    "Kenyatta University": 42.275,
+                    "Jomo Kenyatta": 42.434,
+                    "Dedan Kimathi University of Technology": 38.823,
+                    "Egerton University": 36.804,
+                    "Technical University of Mombasa": 35.82
+                }
+            },
+            {
+                name: "Bachelor of Science In Mechanical Engineering",
+                cluster: "Engineering",
+                universities: {
+                    "University of Nairobi": 41.835,
+                    "Kenyatta University": 41.109,
+                    "Jomo Kenyatta": 41.45,
+                    "Technical University of Kenya": 39.887,
+                    "Dedan Kimathi University of Technology": 37.487,
+                    "Machakos University": 35.444
+                }
+            },
+            {
+                name: "BACHELOR OF SCIENCE (ELECTRONIC AND COMPUTER ENGINEERING)",
+                cluster: "Engineering",
+                universities: {
+                    "JOMO KENYATTA UNIVERSITY": 40.823,
+                    "KIRINYAGA UNIVERSITY": 15.683
+                }
+            },
+            {
+                name: "BACHELOR OF CONSTRUCTION MANAGEMENT",
+                cluster: "Engineering",
+                universities: {
+                    "UNIVERSITY OF NAIROBI": 30.243,
+                    "JOMO KENYATTA UNIVERSITY": 32.379
+                }
+            },
+            {
+                name: "BACHELOR OF ENGINEERING (CHEMICAL ENGINEERING)",
+                cluster: "Engineering",
+                universities: {
+                    "TECHNICAL UNIVERSITY OF KENYA": 38.978,
+                    "MOI UNIVERSITY": 34.111,
+                    "DEDAN KIMATHI UNIVERSITY OF TECHNOLOGY": 33.421
+                }
+            },
+            {
+                name: "BACHELOR OF ENGINEERING (MECHANICAL & PRODUCTION ENGINEERING)",
+                cluster: "Engineering",
+                universities: {
+                    "UNIVERSITY OF ELDORET": 26.898,
+                    "MOI UNIVERSITY": 36.089
+                }
+            },
+            {
+                name: "BACHELOR OF SCIENCE (AEROSPACE ENGINEERING)",
+                cluster: "Engineering",
+                universities: {
+                    "KENYATTA UNIVERSITY": 41.379,
+                    "JOMO KENYATTA UNIVERSITY": 41.341
+                }
+            },
+            {
+                name: "BACHELOR OF SCIENCE (PETROLEUM ENGINEERING)",
+                cluster: "Engineering",
+                universities: {
+                    "KENYATTA UNIVERSITY": 35.347
+                }
+            },
+            {
+                name: "BACHELOR OF ENGINEERING (GEOSPATIAL ENGINEERING)",
+                cluster: "Engineering",
+                universities: {
+                    "TECHNICAL UNIVERSITY OF KENYA": 34.502,
+                    "UNIVERSITY OF NAIROBI": 35.105
+                }
+            },
+            {
+                name: "BACHELOR OF SCIENCE IN MECHATRONIC ENGINEERING",
+                cluster: "Engineering",
+                universities: {
+                    "DEDAN KIMATHI UNIVERSITY OF TECHNOLOGY": 39.369,
+                    "JOMO KENYATTA UNIVERSITY": 43.232,
+                    "MURANG'A UNIVERSITY OF TECHNOLOGY": 36.535
+                }
+            },
+            {
+                name: "BACHELOR OF ENGINEERING (ELECTRICAL AND TELECOMMUNICATION ENGINEERING)",
+                cluster: "Engineering",
+                universities: {
+                    "MOI UNIVERSITY": 38.039
+                }
+            },
+            {
+                name: "BACHELOR OF SCIENCE (MEDICAL ENGINEERING)",
+                cluster: "Engineering",
+                universities: {
+                    "TECHNICAL UNIVERSITY OF MOMBASA": 36.249,
+                    "KENYATTA UNIVERSITY": 42.387
+                }
+            },
+            
+            // Cluster 6: Architecture, Building Construction & Related
+            {
+                name: "Bachelor of Architecture",
+                cluster: "Architecture",
+                universities: {
+                    "University of Nairobi": 42.99,
+                    "Jomo Kenyatta": 41.803,
+                    "Kenyatta University": 41.494,
+                    "Technical University of Kenya": 41.035,
+                    "Technical University of Mombasa": 38.365
+                }
+            },
+            {
+                name: "Bachelor of Quantity Surveying",
+                cluster: "Architecture",
+                universities: {
+                    "University of Nairobi": 40.232,
+                    "Jomo Kenyatta": 39.763,
+                    "Technical University Of Kenya": 38.424
+                }
+            },
+            
+            // Cluster 7: Computing, IT & Related
+            {
+                name: "Bachelor of Science (Computer Science)",
+                cluster: "Computing",
+                universities: {
+                    "University of Nairobi": 44.825,
+                    "Jomo Kenyatta": 44.101,
+                    "Kenyatta University": 43.497,
+                    "Multimedia University of Kenya": 41.039,
+                    "Dedan Kimathi University of Technology": 39.746,
+                    "Moi University": 38.968,
+                    "Egerton University": 38.37
+                }
+            },
+            {
+                name: "Bachelor of Science In Information Technology",
+                cluster: "Computing",
+                universities: {
+                    "Jomo Kenyatta University": 39.851,
+                    "Technical University of Kenya": 36.399,
+                    "Multimedia University of Kenya": 35.385,
+                    "University of Eldoret": 30.177,
+                    "Dedan Kimathi University of Technology": 33.591,
+                    "Maseno University": 31.702
+                }
+            },
+            {
+                name: "Bachelor of Science In Software Engineering",
+                cluster: "Computing",
+                universities: {
+                    "Multimedia University Of Kenya": 41.368,
+                    "Co-Operative University Of Kenya": 40.162,
+                    "Murang'a University Of Technology": 38.437,
+                    "Kisii University": 36.957,
+                    "Kirinyaga University": 33.884,
+                    "University Of Eastern Africa, Baraton": 25.573
+                }
+            },
+            {
+                name: "Bachelor of Science (Telecommunication & Inform. Tech)",
+                cluster: "Computing",
+                universities: {
+                    "Jomo Kenyatta University": 37.472,
+                    "Kenyatta University": 29.104,
+                    "Dedan Kimathi University Of Technology": 27.909,
+                    "Pwani University": 15.683
+                }
+            },
+            {
+                name: "Bachelor of Science (Computer Security and Forensics)",
+                cluster: "Computing",
+                universities: {
+                    "Machakos University": 25.586,
+                    "Open University of Kenya": 18.814,
+                    "Jaramogi Oginga Odinga University": 18.814,
+                    "Kabarak University": 18.814
+                }
+            },
+            {
+                name: "BACHELOR OF SCIENCE (ACTUARIAL SCIENCE WITH IT)",
+                cluster: "Computing",
+                universities: {
+                    "UNIVERSITY OF NAIROBI": 39.531,
+                    "KENYATTA UNIVERSITY": 34.474,
+                    "EGERTON UNIVERSITY": 32.262,
+                    "JOMO KENYATTA UNIVERSITY": 34.347,
+                    "MULTIMEDIA UNIVERSITY OF KENYA": 28.075,
+                    "CHUKA UNIVERSITY": 25.416
+                }
+            },
+            
+            // Cluster 8: Agribusiness & Related
+            {
+                name: "BACHELOR OF SCIENCE (HORTICULTURE)",
+                cluster: "Agriculture",
+                universities: {
+                    "EGERTON UNIVERSITY": 15.864,
+                    "JOMO KENYATTA UNIVERSITY": 15.864,
+                    "UNIVERSITY OF ELDORET": 15.864,
+                    "UNIVERSITY OF KABIANGA": 15.864,
+                    "KISII UNIVERSITY": 15.864
+                }
+            },
+            {
+                name: "BACHELOR OF SCIENCE (ENVIRONMENTAL HORTICULTURE & LANDSCAPING TECHNOLOGY)",
+                cluster: "Agriculture",
+                universities: {
+                    "JOMO KENYATTA UNIVERSITY": 15.864
+                }
+            },
+            {
+                name: "BACHELOR OF SCIENCE (AGRICULTURAL EDUCATION & EXTENSION)",
+                cluster: "Agriculture",
+                universities: {
+                    "EGERTON UNIVERSITY": 31.668,
+                    "UNIVERSITY OF NAIROBI": 26.761,
+                    "MASENO UNIVERSITY": 24.692,
+                    "RONGO UNIVERSITY": 24.326,
+                    "MASINDE MULIRO UNIVERSITY": 23.795,
+                    "KISII UNIVERSITY": 23.556
+                }
+            },
+            
+            // Cluster 9: General Science, Biological Sciences, Physics, Chemistry & Related
+            {
+                name: "Bachelor of Science (Biochemistry)",
+                cluster: "Sciences",
+                universities: {
+                    "Kenyatta University": 32.976,
+                    "University of Nairobi": 32.695,
+                    "Technical University of Kenya": 31.23,
+                    "Maseno University": 30.294,
+                    "Egerton University": 25.661,
+                    "Moi University": 25.581
+                }
+            },
+            {
+                name: "Bachelor of Science (Medical Laboratory Sciences)",
+                cluster: "Sciences",
+                universities: {
+                    "University of Nairobi": 41.309,
+                    "Kenyatta University": 41.175,
+                    "Jomo Kenyatta": 40.675,
+                    "Maseno University": 39.343,
+                    "Masinde Muliro University": 38.872,
+                    "Kisii University": 38.842
+                }
+            },
+            {
+                name: "Bachelor of Science (Medical Microbiology)",
+                cluster: "Sciences",
+                universities: {
+                    "JOMO KENYATTA UNIVERSITY": 24.6,
+                    "MERU UNIVERSITY OF SCIENCE AND TECHNOLOGY": 15.683
+                }
+            },
+            {
+                name: "Bachelor of Science (Forensic Science)",
+                cluster: "Sciences",
+                universities: {
+                    "KENYATTA UNIVERSITY": 32.214,
+                    "KIRINYAGA UNIVERSITY": 15.683
+                }
+            },
+            {
+                name: "Bachelor of Science (Statistics)",
+                cluster: "Sciences",
+                universities: {
+                    "UNIVERSITY OF NAIROBI": 35.192,
+                    "JOMO KENYATTA UNIVERSITY": 30.147,
+                    "EGERTON UNIVERSITY": 26.311,
+                    "UNIVERSITY OF EMBU": 18.831,
+                    "LAIKIPIA UNIVERSITY": 18.831
+                }
+            },
+            
+            // Cluster 10: Actuarial Science, Accountancy, Mathematics, Economics, Statistics & Related
+            // (Already covered in Business and Sciences clusters)
+            
+            // Cluster 11: Interior Design, Fashion Design, Textiles & Related
+            // (Not enough data provided)
+            
+            // Cluster 12: Sport Science & Related
+            // (Not enough data provided)
+            
+            // Cluster 13: Medicine, Health, Veterinary Medicine & Related
+            {
+                name: "Bachelor of Medicine & Bachelor of Surgery",
+                cluster: "Health Sciences",
+                universities: {
+                    "University Of Nairobi": 45.584,
+                    "Kenyatta University": 45.433,
+                    "Moi University": 45.087,
+                    "Jomo Kenyatta": 45.048,
+                    "Maseno University": 44.787,
+                    "Egerton University": 44.563
+                }
+            },
+            {
+                name: "Bachelor of Science (Nursing)",
+                cluster: "Health Sciences",
+                universities: {
+                    "University of Nairobi": 43.676,
+                    "Kenyatta University": 43.051,
+                    "Jomo Kenyatta": 42.95,
+                    "Maseno University": 42.529,
+                    "Masinde Muliro University": 42.475,
+                    "Moi University": 42.39,
+                    "Egerton University": 42.166
+                }
+            },
+            {
+                name: "Bachelor of Dental Surgery",
+                cluster: "Health Sciences",
+                universities: {
+                    "University of Nairobi": 44.75,
+                    "Moi University": 44.502
+                }
+            },
+            {
+                name: "Bachelor of Pharmacy",
+                cluster: "Health Sciences",
+                universities: {
+                    "University of Nairobi": 44.75,
+                    "Kenyatta University": 44.01,
+                    "Jomo Kenyatta": 43.872,
+                    "Maseno University": 43.308,
+                    "Kisii University": 43.111,
+                    "Mount Kenya University": 42.989,
+                    "Kabarak University": 41.093
+                }
+            },
+            {
+                name: "Bachelor of Science in Clinical Medicine",
+                cluster: "Health Sciences",
+                universities: {
+                    "Jomo Kenyatta": 42.847,
+                    "Egerton University": 42.215,
+                    "Masinde Muliro University": 42.231,
+                    "University Of Kabianga": 41.014,
+                    "Kisii University": 41.573,
+                    "Mount Kenya University": 41.517
+                }
+            },
+            {
+                name: "Bachelor of Science (Environmental Health)",
+                cluster: "Health Sciences",
+                universities: {
+                    "Moi University": 29.944,
+                    "Masinde Muliro University": 29.517,
+                    "Kenyatta University": 28.791,
+                    "Kenya Methodist University": 15.864,
+                    "Pwani University": 15.864,
+                    "Murang'a University of Technology": 15.864
+                }
+            },
+            {
+                name: "BACHELOR OF RADIOGRAPHY",
+                cluster: "Health Sciences",
+                universities: {
+                    "JOMO KENYATTA UNIVERSITY": 43.325
+                }
+            },
+            {
+                name: "BACHELOR OF PHYSIOTHERAPY",
+                cluster: "Health Sciences",
+                universities: {
+                    "MOI UNIVERSITY": 36.681,
+                    "ALUPE UNIVERSITY": 28.214
+                }
+            },
+            {
+                name: "BACHELOR OF SCIENCE (PUBLIC HEALTH)",
+                cluster: "Health Sciences",
+                universities: {
+                    "JOMO KENYATTA UNIVERSITY": 37.245,
+                    "MASENO UNIVERSITY": 33.436,
+                    "UNIVERSITY OF KABIANGA": 29.664,
+                    "SOUTH EASTERN KENYA UNIVERSITY": 29.179
+                }
+            },
+            {
+                name: "BACHELOR OF SCIENCE (FOOD SCIENCE & TECHNOLOGY)",
+                cluster: "Health Sciences",
+                universities: {
+                    "JOMO KENYATTA UNIVERSITY": 30.855,
+                    "EGERTON UNIVERSITY": 24.645,
+                    "UNIVERSITY OF NAIROBI": 23.85,
+                    "TECHNICAL UNIVERSITY OF MOMBASA": 15.864,
+                    "MASINDE MULIRO UNIVERSITY": 15.864
+                }
+            },
+            
+            // Cluster 14: History, Archaeology & Related
+            // (Not enough data provided)
+            
+            // Cluster 15: Agriculture, Animal Health, Food Science, etc.
+            // (Covered in Agriculture and Health Sciences clusters)
+            
+            // Cluster 16: Geography & Related
+            // (Not enough data provided)
+            
+            // Cluster 17: French & German
+            // (Not enough data provided)
+            
+            // Cluster 18: Music & Related
+            // (Covered in Arts cluster)
+            
+            // Cluster 19: Education & Related
+            {
+                name: "Bachelor of Education (Arts)",
+                cluster: "Education",
+                universities: {
+                    "Kenyatta University": 33.556,
+                    "University of Nairobi": 32.421,
+                    "Egerton University": 32.306,
+                    "Maseno University": 31.535,
+                    "Masinde Muliro University": 30.054,
+                    "Moi University": 30.04,
+                    "Kisii University": 29.991
+                }
+            },
+            {
+                name: "Bachelor of Education (Early Childhood Development)",
+                cluster: "Education",
+                universities: {
+                    "Kenyatta University": 27.337,
+                    "University of Nairobi": 23.552,
+                    "Maseno University": 23.303,
+                    "Tharaka University": 24.541,
+                    "Kaimosi Friends University": 24.469,
+                    "Jaramogi Oginga Odinga University": 23.906,
+                    "Kisii University": 21.858
+                }
+            },
+            {
+                name: "Bachelor of Education (Science With IT)",
+                cluster: "Education",
+                universities: {
+                    "Kenyatta University": 37.208,
+                    "University of Nairobi": 36.127,
+                    "Egerton University": 35.289,
+                    "Moi University": 34.603,
+                    "Maseno University": 35.041,
+                    "Chuka University": 34.392,
+                    "University of Eldoret": 32.77
+                }
+            },
+            {
+                name: "BACHELOR OF EDUCATION (SPECIAL NEEDS EDUCATION)",
+                cluster: "Education",
+                universities: {
+                    "KENYATTA UNIVERSITY": 34.963,
+                    "MASENO UNIVERSITY": 32.47,
+                    "UNIVERSITY OF ELDORET": 27.999,
+                    "JARAMOGI OGINGA ODINGA UNIVERSITY": 26.909,
+                    "PWANI UNIVERSITY": 25.847,
+                    "MACHAKOS UNIVERSITY": 24.064
+                }
+            },
+            
+            // Cluster 20: Religious Studies, Theology, Islamic Studies & Related
+            // (Not enough data provided)
+        ];
 
-            if (cluster === "Cluster 1 - Law") {
-                subjectInputsDiv.innerHTML = `
-                    <label for="lawGrade">Law Grade:</label>
-                    <select id="lawGrade">
-                        <option value="">Select Grade</option>
-                        <option value="A">A</option>
-                        <option value="B+">B+</option>
-                        <option value="B">B</option>
-                        <option value="C+">C+</option>
-                        <option value="C">C</option>
-                    </select>
-                    <label for="englishGrade">English Grade:</label>
-                    <select id="englishGrade">
-                        <option value="">Select Grade</option>
-                        <option value="A">A</option>
-                        <option value="B+">B+</option>
-                        <option value="B">B</option>
-                        <option value="C+">C+</option>
-                        <option value="C">C</option>
-                    </select>
-                `;
-            } else if (cluster === "Cluster 2 - Business, Hospitality & Related") {
-                subjectInputsDiv.innerHTML = `
-                    <label for="businessGrade">Business Grade:</label>
-                    <select id="businessGrade">
-                        <option value="">Select Grade</option>
-                        <option value="A">A</option>
-                        <option value="B+">B+</option>
-                        <option value="B">B</option>
-                        <option value="C+">C+</option>
-                        <option value="C">C</option>
-                    </select>
-                `;
-            }
-            // Add other clusters here similarly
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Populate course dropdown
+            const courseSelect = document.getElementById('courseSelect');
+            courses.forEach(course => {
+                const option = document.createElement('option');
+                option.value = course.name;
+                option.textContent = course.name;
+                courseSelect.appendChild(option);
+            });
+            
+            // Populate cluster dropdown with unique clusters
+            const clusterSelect = document.getElementById('clusterSelect');
+            const clusters = [...new Set(courses.map(course => course.cluster))];
+            
+            clusters.forEach(cluster => {
+                const option = document.createElement('option');
+                option.value = cluster;
+                option.textContent = cluster;
+                clusterSelect.appendChild(option);
+            });
+        });
+
+        function toggleSearchMethod() {
+            const searchMethod = document.getElementById('searchMethod').value;
+            document.getElementById('courseSearchOption').style.display = 
+                searchMethod === 'course' ? 'block' : 'none';
+            document.getElementById('clusterSearchOption').style.display = 
+                searchMethod === 'cluster' ? 'block' : 'none';
         }
 
         function checkQualification() {
-            const cluster = document.getElementById('cluster').value;
-            const resultDiv = document.getElementById('result');
-            let resultText = '';
-
-            if (cluster === "Cluster 1 - Law") {
-                const lawGrade = document.getElementById('lawGrade').value;
-                const englishGrade = document.getElementById('englishGrade').value;
-                if (lawGrade === "A" && englishGrade === "A") {
-                    resultText = 'You qualify for Law! Suggested Universities: University of Nairobi, Kenyatta University, Moi University.';
-                } else {
-                    resultText = 'You do not qualify for Law. Consider improving your grades in Law and English.';
-                }
-            } else if (cluster === "Cluster 2 - Business, Hospitality & Related") {
-                const businessGrade = document.getElementById('businessGrade').value;
-                if (businessGrade === "A" || businessGrade === "B+") {
-                    resultText = 'You qualify for Business-related courses! Suggested Universities: Strathmore University, Nairobi University.';
-                } else {
-                    resultText = 'You do not qualify for Business. Consider improving your grades in Business.';
-                }
+            const searchMethod = document.getElementById('searchMethod').value;
+            const clusterPoints = parseFloat(document.getElementById('clusterPoints').value);
+            const resultsDiv = document.getElementById('results');
+            const universityListDiv = document.getElementById('universityList');
+            const suggestionsDiv = document.getElementById('suggestions');
+            
+            // Validate inputs
+            if (isNaN(clusterPoints)) {
+                alert("Please enter valid cluster points");
+                return;
             }
-            // Add other clusters and qualification checks here
-
-            resultDiv.innerHTML = resultText;
-        }
-    </script>
-</body>
-</html>
+            
+            if (clusterPoints < 0 || clusterPoints > 100) {
+                alert("Cluster points must be between 0 and 100");
+                return;
+            }
+            
+            let selectedCourses = [];
+            
+            if (searchMethod === 'course') {
+                const courseName = document.getElementById('courseSelect').value;
+                if (!courseName) {
+                    alert("Please select a course");
+                    return;
+                }
+                
+                const course = courses.find(c => c.name === courseName);
+                if (course) selectedCourses.push(course);
+            } else {
+                const clusterName = document.getElementById('clusterSelect').value;
+                if (!clusterName) {
+                    alert("Please select a cluster");
+                    return;
+                }
+                
+                selectedCourses = courses.filter(c => c.cluster === clusterName);
+            }
+            
+            if (selectedCourses.length === 0) {
+                alert("No courses found for your selection");
+                return;
+            }
+            
+            // Display results for each selected course
+            resultsDiv.style.display = 'block';
+            universityListDiv.innerHTML = '';
+            suggestionsDiv.style.display = 'none';
+            
+            selectedCourses.forEach(course => {
+                const courseDiv = document.createElement('div');
+                courseDiv.className = 'course-result';
+                courseDiv.innerHTML = `
+                    <div class="course-header">
+                        <span>${course.name}</span>
+                        <span>Cluster: ${course.cluster}</span>
+                    </div>
+                `;
+                
+                const uniList = document.createElement('div');
+                uniList.className = 'university-list';
+                
+                let qualifiedUnis = [];
+                
+                for (const [university, cutoff] of Object.entries(course.universities)) {
+                    const qualifies = clusterPoints >= cutoff;
+                    if (qualifies) qualifiedUnis.push(university);
+                    
+                    const uniDiv = document.createElement('div');
+                    uniDiv.className = `university ${qualifies ? 'qualified' : 'not-qualified'}`;
+                    uniDiv.innerHTML = `
+                        <span>${university}</span>
+                        <span>
+                            ${qualifies ? '✅ Qualified' : '❌ Not Qualified'} 
+                            <span class="cutoff">(Cutoff: ${cutoff})</span>
+                        </span>
+                    `;
+                    uniList.appendChild(uniDiv);
+                }
+                
+                courseDiv.appendChild(uniList);
+                universityListDiv.appendChild(courseDiv);
+                
+                // Add suggestions if any qualified universities
+                if (qualifiedUnis.length > 0) {
