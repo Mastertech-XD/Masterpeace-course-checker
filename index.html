@@ -11,15 +11,17 @@
       --neon-purple: #90f;
       --dark-bg: #000;
       --light-bg: #f2f2f2;
+      --primary-color: #0056b3;
     }
 
     body {
       margin: 0;
-      font-family: "Times New Roman", Times, serif;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       background-color: var(--dark-bg);
       color: white;
       overflow-x: hidden;
       position: relative;
+      min-height: 100vh;
     }
 
     /* Rotating Neon Border */
@@ -78,7 +80,7 @@
     }
 
     .title {
-      font-size: 32px;
+      font-size: clamp(24px, 5vw, 42px);
       text-align: center;
       margin-top: 80px;
       white-space: nowrap;
@@ -88,6 +90,7 @@
       margin-left: auto;
       margin-right: auto;
       animation: typing 6s steps(40, end) infinite, blink-caret 0.75s step-end infinite alternate;
+      text-shadow: 0 0 10px var(--neon-blue);
     }
 
     @keyframes typing {
@@ -99,6 +102,75 @@
     @keyframes blink-caret {
       0%, 100% { border-color: transparent; }
       50% { border-color: white; }
+    }
+
+    /* Notification Bell */
+    .notification-bell {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #333;
+      color: white;
+      border: none;
+      padding: 10px;
+      font-size: 24px;
+      cursor: pointer;
+      border-radius: 50%;
+      z-index: 3;
+      transition: all 0.3s;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .notification-bell:hover {
+      background: #555;
+      transform: scale(1.1);
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: red;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .notification-panel {
+      position: fixed;
+      top: 80px;
+      right: -300px;
+      width: 280px;
+      height: 400px;
+      background: rgba(0, 33, 71, 0.95);
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+      transition: right 0.3s;
+      z-index: 4;
+      backdrop-filter: blur(5px);
+      overflow-y: auto;
+    }
+
+    .notification-panel.active {
+      right: 20px;
+    }
+
+    .notification-item {
+      padding: 10px;
+      margin-bottom: 10px;
+      background: rgba(0, 86, 179, 0.3);
+      border-radius: 5px;
+      border-left: 3px solid var(--neon-blue);
     }
 
     .toggle-btn {
@@ -172,10 +244,38 @@
       background: rgba(128, 0, 128, 0.7);
     }
 
+    .search-container {
+      margin: 20px auto;
+      width: 80%;
+      max-width: 500px;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 12px 20px;
+      padding-left: 45px;
+      border-radius: 25px;
+      border: none;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 16px;
+      backdrop-filter: blur(5px);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: white;
+    }
+
     .container {
       text-align: center;
-      margin-top: 100px;
+      margin-top: 30px;
       z-index: 1;
+      padding-bottom: 100px;
     }
 
     .btn {
@@ -225,16 +325,59 @@
     .certificate { background: rgba(255, 0, 0, 0.7); }
     .kmtc { background: rgba(0, 128, 0, 0.7); }
 
+    .quick-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin: 30px auto;
+      max-width: 600px;
+    }
+
+    .quick-link {
+      padding: 10px 15px;
+      background: rgba(0, 86, 179, 0.5);
+      border-radius: 20px;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s;
+      font-size: 14px;
+    }
+
+    .quick-link:hover {
+      background: rgba(0, 86, 179, 0.8);
+      transform: translateY(-3px);
+    }
+
     .footer {
       text-align: center;
       position: fixed;
       bottom: 0;
       width: 100%;
-      padding: 10px;
+      padding: 15px;
       background: rgba(51, 51, 51, 0.8);
       color: white;
       z-index: 1;
       backdrop-filter: blur(5px);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-icon {
+      color: white;
+      font-size: 20px;
+      transition: all 0.3s;
+    }
+
+    .social-icon:hover {
+      color: var(--neon-blue);
+      transform: scale(1.2);
     }
 
     /* Light mode styles */
@@ -246,6 +389,7 @@
     body.light .title {
       color: black;
       border-right-color: black;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     }
 
     body.light .footer {
@@ -268,37 +412,211 @@
     body.light .menu-btn {
       color: white;
     }
+
+    body.light .search-input {
+      background: rgba(0, 0, 0, 0.1);
+      color: black;
+    }
+
+    body.light .search-icon {
+      color: black;
+    }
+
+    body.light .quick-link {
+      background: rgba(0, 86, 179, 0.3);
+      color: black;
+    }
+
+    body.light .social-icon {
+      color: black;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .quick-links {
+        gap: 10px;
+        padding: 0 15px;
+      }
+      
+      .quick-link {
+        padding: 8px 12px;
+        font-size: 12px;
+      }
+      
+      .footer {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+      }
+      
+      .social-icons {
+        margin-top: 5px;
+      }
+    }
+
+    /* Loading spinner */
+    .loader {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: var(--neon-blue);
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Back to top button */
+    .back-to-top {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      background: var(--primary-color);
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 99;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+    }
+
+    .back-to-top:hover {
+      background: var(--neon-blue);
+      transform: translateY(-5px);
+    }
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
   <div class="background-overlay"></div>
+  
+  <!-- Loading Spinner -->
+  <div class="loader" id="loader">
+    <div class="spinner"></div>
+  </div>
+  
+  <!-- Notification Bell -->
+  <button class="notification-bell" onclick="toggleNotifications()">
+    <i class="fas fa-bell"></i>
+    <span class="notification-badge">3</span>
+  </button>
+  
+  <!-- Notification Panel -->
+  <div class="notification-panel" id="notificationPanel">
+    <h3>Notifications</h3>
+    <div class="notification-item">
+      <strong>KUCCPS Updates</strong>
+      <p>2024/2025 placement results will be released on 15th August</p>
+    </div>
+    <div class="notification-item">
+      <strong>Important Notice</strong>
+      <p>Deadline for revision of courses is 30th July</p>
+    </div>
+    <div class="notification-item">
+      <strong>New Feature</strong>
+      <p>Check our new course comparison tool</p>
+    </div>
+  </div>
+
+  <!-- Menu Toggle -->
   <button class="toggle-btn" onclick="toggleMenu()">☰</button>
 
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
     <button class="close-btn" onclick="toggleMenu()">↩️ Back</button>
-    <button class="menu-btn" onclick="window.location.href='index.html'">Home</button>
-    <button class="menu-btn" onclick="window.location.href='https://students.kuccps.net/'">KUCCPS Portal</button>
-    <button class="menu-btn" onclick="window.location.href='mailto:aludabrian254@gmail.com'">Email Us</button>
-    <button class="menu-btn" onclick="window.location.href='https://wa.me/254743727510'">WhatsApp Us</button>
-    <button class="menu-btn" onclick="window.location.href='about.html'">About Us</button>
-    <button class="mode-btn" onclick="toggleTheme()">Toggle Theme</button>
+    <button class="menu-btn" onclick="navigateTo('index.html')">
+      <i class="fas fa-home"></i> Home
+    </button>
+    <button class="menu-btn" onclick="navigateTo('https://students.kuccps.net/')">
+      <i class="fas fa-user-graduate"></i> KUCCPS Portal
+    </button>
+    <button class="menu-btn" onclick="navigateTo('mailto:aludabrian254@gmail.com')">
+      <i class="fas fa-envelope"></i> Email Us
+    </button>
+    <button class="menu-btn" onclick="navigateTo('https://wa.me/254743727510')">
+      <i class="fab fa-whatsapp"></i> WhatsApp Us
+    </button>
+    <button class="menu-btn" onclick="navigateTo('about.html')">
+      <i class="fas fa-info-circle"></i> About Us
+    </button>
+    <button class="mode-btn" onclick="toggleTheme()">
+      <i class="fas fa-moon"></i> Toggle Theme
+    </button>
   </div>
 
   <!-- Heading -->
   <h1 class="title">KUCCPS QUALIFICATION CHECKER</h1>
 
+  <!-- Search Bar -->
+  <div class="search-container">
+    <i class="fas fa-search search-icon"></i>
+    <input type="text" class="search-input" placeholder="Search courses or universities..." id="searchInput">
+  </div>
+
+  <!-- Quick Links -->
+  <div class="quick-links">
+    <a href="#" class="quick-link" onclick="showLoader('cutoff.html')">Cutoff Points</a>
+    <a href="#" class="quick-link" onclick="showLoader('courses.html')">All Courses</a>
+    <a href="#" class="quick-link" onclick="showLoader('universities.html')">Universities</a>
+    <a href="#" class="quick-link" onclick="showLoader('colleges.html')">Colleges</a>
+    <a href="#" class="quick-link" onclick="showLoader('faq.html')">FAQ</a>
+    <a href="#" class="quick-link" onclick="showLoader('contact.html')">Contact</a>
+  </div>
+
   <!-- Main Content -->
   <div class="container">
-    <button class="btn degree" onclick="window.location.href='degree_program.html'">Degree</button>
-    <button class="btn diploma" onclick="window.location.href='diploma_program.html'">Diploma</button>
-    <button class="btn certificate" onclick="window.location.href='certificate_program.html'">Certificate</button>
-    <button class="btn kmtc" onclick="window.location.href='kmtc_program.html'">KMTC</button>
+    <button class="btn degree" onclick="showLoader('degree_program.html')">
+      <i class="fas fa-university"></i> Degree Programs
+    </button>
+    <button class="btn diploma" onclick="showLoader('diploma_program.html')">
+      <i class="fas fa-certificate"></i> Diploma Programs
+    </button>
+    <button class="btn certificate" onclick="showLoader('certificate_program.html')">
+      <i class="fas fa-file-alt"></i> Certificate Programs
+    </button>
+    <button class="btn kmtc" onclick="showLoader('kmtc_program.html')">
+      <i class="fas fa-hospital"></i> KMTC Programs
+    </button>
+  </div>
+
+  <!-- Back to Top Button -->
+  <div class="back-to-top" id="backToTop" onclick="scrollToTop()">
+    <i class="fas fa-arrow-up"></i>
   </div>
 
   <!-- Footer -->
   <footer class="footer">
     <p>&#169; 2025 Created by Masterpeace Elite. All rights reserved.</p>
+    <div class="social-icons">
+      <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+      <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+      <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+    </div>
   </footer>
 
   <script>
@@ -333,31 +651,105 @@
       }
     }
 
+    // DOM elements
     const sidebar = document.getElementById("sidebar");
+    const notificationPanel = document.getElementById("notificationPanel");
+    const backToTopBtn = document.getElementById("backToTop");
+    const loader = document.getElementById("loader");
+    const searchInput = document.getElementById("searchInput");
 
+    // Toggle sidebar menu
     function toggleMenu() {
       sidebar.classList.toggle("active");
+      if (notificationPanel.classList.contains("active")) {
+        notificationPanel.classList.remove("active");
+      }
     }
 
-    document.addEventListener("click", function (event) {
-      const isClickInside = sidebar.contains(event.target) || event.target.classList.contains("toggle-btn");
-      if (!isClickInside && sidebar.classList.contains("active")) {
+    // Toggle notifications panel
+    function toggleNotifications() {
+      notificationPanel.classList.toggle("active");
+      if (sidebar.classList.contains("active")) {
         sidebar.classList.remove("active");
+      }
+    }
+
+    // Close panels when clicking outside
+    document.addEventListener("click", function (event) {
+      const isMenuClick = sidebar.contains(event.target) || event.target.classList.contains("toggle-btn");
+      const isNotificationClick = notificationPanel.contains(event.target) || event.target.classList.contains("notification-bell");
+      
+      if (!isMenuClick && sidebar.classList.contains("active")) {
+        sidebar.classList.remove("active");
+      }
+      
+      if (!isNotificationClick && notificationPanel.classList.contains("active")) {
+        notificationPanel.classList.remove("active");
       }
     });
 
+    // Toggle theme
     function toggleTheme() {
       document.body.classList.toggle("light");
       localStorage.setItem("theme", document.body.classList.contains("light") ? "light" : "dark");
     }
 
+    // Show loading spinner
+    function showLoader(page) {
+      loader.style.display = "flex";
+      setTimeout(() => {
+        window.location.href = page;
+      }, 1000);
+    }
+
+    // Navigate to page
+    function navigateTo(url) {
+      showLoader(url);
+    }
+
+    // Scroll to top function
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    // Show/hide back to top button based on scroll position
+    window.addEventListener('scroll', function() {
+      if (window.pageYOffset > 300) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
+    });
+
+    // Search functionality
+    searchInput.addEventListener('keyup', function(event) {
+      if (event.key === 'Enter') {
+        const query = searchInput.value.trim().toLowerCase();
+        if (query) {
+          alert(`Searching for: ${query}\nThis would normally redirect to search results.`);
+          // In a real implementation, you would redirect to search page or filter content
+          // window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+        }
+      }
+    });
+
+    // Initialize page
     window.onload = function () {
       createRain();
       
+      // Set saved theme
       const savedTheme = localStorage.getItem("theme");
       if (savedTheme === "light") {
         document.body.classList.add("light");
       }
+      
+      // Hide loader after 1.5 seconds (simulating content load)
+      setTimeout(() => {
+        loader.style.display = "none";
+      }, 1500);
     };
   </script>
 </body>
