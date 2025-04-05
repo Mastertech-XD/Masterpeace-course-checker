@@ -1046,11 +1046,32 @@
                             <span class="cutoff">(Cutoff: ${cutoff})</span>
                         </span>
                     `;
-                    uniList.appendChild(uniDiv);
-                }
+                    universityListDiv.appendChild(uniDiv);
+            }
+            
+            // Display suggestions if any qualified universities
+            const suggestionListDiv = document.getElementById('suggestionList');
+            suggestionListDiv.innerHTML = '';
+            
+            if (qualifiedUniversities.length > 0) {
+                suggestionsDiv.style.display = 'block';
                 
-                courseDiv.appendChild(uniList);
-                universityListDiv.appendChild(courseDiv);
-                
-                // Add suggestions if any qualified universities
-                if (qualifiedUnis.length > 0) {
+                qualifiedUniversities.forEach(uni => {
+                    const suggestionDiv = document.createElement('div');
+                    suggestionDiv.className = 'suggestion-item';
+                    suggestionDiv.textContent = uni;
+                    suggestionListDiv.appendChild(suggestionDiv);
+                });
+            } else {
+                suggestionsDiv.style.display = 'none';
+            }
+            
+            // Show results
+            resultsDiv.style.display = 'block';
+            
+            // Scroll to results
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
