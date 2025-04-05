@@ -3,267 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eligibility Checker</title>
+    <title>KUCCPS Course Cluster Point Checker</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            padding: 20px;
+            background-color: #111;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            flex-direction: column;
         }
+
         h1 {
-            color: #5e5e5e;
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: #0ff;
+            text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff;
         }
+
+        .container {
+            background: #222;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 15px #0ff;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        .cluster-group {
+            margin-bottom: 20px;
+        }
+
         label {
-            font-size: 1.1em;
-        }
-        select, input[type="text"] {
-            padding: 8px;
-            margin: 5px 0 15px 0;
-            width: 200px;
-        }
-        .feedback {
             font-size: 1.2em;
+            display: block;
+            margin: 10px 0;
+        }
+
+        select, input[type="number"] {
+            padding: 10px;
+            background: #333;
+            border: 2px solid #0ff;
+            color: #0ff;
+            border-radius: 5px;
+            width: 100%;
+            font-size: 1em;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        .neon-button {
+            padding: 10px 20px;
+            background-color: #0ff;
+            color: #111;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px #0ff;
+        }
+
+        .neon-button:hover {
+            background-color: #00e5e5;
+            box-shadow: 0 0 30px #00e5e5;
+        }
+
+        .result {
             margin-top: 20px;
+            font-size: 1.2em;
+            text-shadow: 0 0 10px #00e5e5, 0 0 20px #00e5e5;
         }
-        .feedback p {
-            color: #d9534f;
-        }
-        .feedback.success p {
-            color: #5bc0de;
-        }
+
     </style>
 </head>
 <body>
-    <h1>KUCCPS Cluster Eligibility Checker</h1>
-    <p>Select a cluster, input your grades, and check if you qualify for the selected cluster.</p>
 
-    <form id="eligibility-form">
-        <label for="cluster">Select Cluster:</label>
-        <select id="cluster">
-            <option value="">--Choose a cluster--</option>
-            <option value="Cluster 1">Cluster 1</option>
-            <option value="Cluster 2">Cluster 2</option>
-            <option value="Cluster 3">Cluster 3</option>
-            <option value="Cluster 4">Cluster 4</option>
-            <option value="Cluster 5">Cluster 5</option>
-            <option value="Cluster 6">Cluster 6</option>
-            <option value="Cluster 7">Cluster 7</option>
-            <option value="Cluster 8">Cluster 8</option>
-            <option value="Cluster 9">Cluster 9</option>
-            <option value="Cluster 10">Cluster 10</option>
-            <option value="Cluster 11">Cluster 11</option>
-            <option value="Cluster 12">Cluster 12</option>
-            <option value="Cluster 13">Cluster 13</option>
-            <option value="Cluster 14">Cluster 14</option>
-            <option value="Cluster 15">Cluster 15</option>
-            <option value="Cluster 16">Cluster 16</option>
-            <option value="Cluster 17">Cluster 17</option>
-            <option value="Cluster 18">Cluster 18</option>
-            <option value="Cluster 19">Cluster 19</option>
-            <option value="Cluster 20">Cluster 20</option>
-        </select>
+    <h1>KUCCPS Course Cluster Point Checker</h1>
 
-        <div id="subjects-section">
-            <label for="Mathematics">Mathematics Grade:</label>
-            <input type="text" id="Mathematics" placeholder="Enter Grade (e.g., B+)"><br>
-
-            <label for="English">English Grade:</label>
-            <input type="text" id="English" placeholder="Enter Grade (e.g., B+)"><br>
-
-            <label for="Biology">Biology Grade:</label>
-            <input type="text" id="Biology" placeholder="Enter Grade (e.g., A)"><br>
-
-            <label for="Chemistry">Chemistry Grade:</label>
-            <input type="text" id="Chemistry" placeholder="Enter Grade (e.g., B)"><br>
-
-            <label for="Physics">Physics Grade:</label>
-            <input type="text" id="Physics" placeholder="Enter Grade (e.g., B+)"><br>
-
-            <label for="History">History Grade:</label>
-            <input type="text" id="History" placeholder="Enter Grade (e.g., B)"><br>
-
-            <label for="Geography">Geography Grade:</label>
-            <input type="text" id="Geography" placeholder="Enter Grade (e.g., B+)"><br>
-
-            <label for="Business">Business Grade:</label>
-            <input type="text" id="Business" placeholder="Enter Grade (e.g., B)"><br>
-
-            <label for="CRE">CRE Grade:</label>
-            <input type="text" id="CRE" placeholder="Enter Grade (e.g., B)"><br>
-
-            <label for="Music">Music Grade:</label>
-            <input type="text" id="Music" placeholder="Enter Grade (e.g., B)"><br>
-
-            <label for="Agriculture">Agriculture Grade:</label>
-            <input type="text" id="Agriculture" placeholder="Enter Grade (e.g., B)"><br>
-
-            <label for="Aviation">Aviation Grade:</label>
-            <input type="text" id="Aviation" placeholder="Enter Grade (e.g., B)"><br>
-
-            <label for="Kiswahili">Kiswahili Grade:</label>
-            <input type="text" id="Kiswahili" placeholder="Enter Grade (e.g., B)"><br>
-
-            <label for="French">French Grade:</label>
-            <input type="text" id="French" placeholder="Enter Grade (e.g., B)"><br>
-
-            <label for="German">German Grade:</label>
-            <input type="text" id="German" placeholder="Enter Grade (e.g., B)"><br>
-
-            <label for="Arabic">Arabic Grade:</label>
-            <input type="text" id="Arabic" placeholder="Enter Grade (e.g., B)"><br>
-
-            <label for="IRE">IRE Grade:</label>
-            <input type="text" id="IRE" placeholder="Enter Grade (e.g., B)"><br>
-
-            <label for="Computer">Computer Grade:</label>
-            <input type="text" id="Computer" placeholder="Enter Grade (e.g., B+)"><br>
+    <div class="container">
+        <div class="cluster-group">
+            <label for="cluster">Select Cluster</label>
+            <select id="cluster">
+                <option value="1">Law</option>
+                <option value="2">Business, Hospitality & Related</option>
+                <option value="3">Social Sciences, Media Studies, Fine Arts, Film, Animation, Graphics & Related</option>
+                <option value="4">Geosciences & Related</option>
+                <option value="5">Engineering, Engineering Technology & Related</option>
+                <option value="6">Architecture, Building Construction & Related</option>
+                <option value="7">Computing, IT & Related</option>
+                <option value="8">Agribusiness & Related</option>
+                <option value="9">General Science, Biological Sciences, Physics, Chemistry & Related</option>
+                <option value="10">Actuarial Science, Accountancy, Mathematics, Economics, Statistics & Related</option>
+                <option value="11">Interior Design, Fashion Design, Textiles & Related</option>
+                <option value="12">Sport Science & Related</option>
+                <option value="13">Medicine, Health, Veterinary Medicine & Related</option>
+                <option value="14">History, Archaeology & Related</option>
+                <option value="15">Agriculture, Animal Health, Food Science, Nutrition Dietetics, Environmental Sciences, Natural Resources & Related</option>
+                <option value="16">Geography & Related</option>
+                <option value="17">French & German</option>
+                <option value="18">Music & Related</option>
+                <option value="19">Education & Related</option>
+                <option value="20">Religious Studies, Theology, Islamic Studies & Related</option>
+            </select>
         </div>
 
-        <button type="button" onclick="checkEligibility()">Check Eligibility</button>
-    </form>
+        <div class="cluster-group">
+            <label for="clusterPoints">Enter Your Cluster Points</label>
+            <input type="number" id="clusterPoints" placeholder="Enter your cluster points" min="0">
+        </div>
 
-    <div id="feedback" class="feedback"></div>
+        <button class="neon-button" onclick="checkQualification()">Check Qualification</button>
+
+        <div class="result" id="result"></div>
+    </div>
 
     <script>
-        const clusters = {
-            "Cluster 1": {
-                requiredSubjects: ["English", "History", "Kiswahili"],
-                requiredGrades: { "English": "B", "History": "B", "Kiswahili": "B" }
-            },
-            "Cluster 2": {
-                requiredSubjects: ["Mathematics", "Physics", "Chemistry"],
-                requiredGrades: { "Mathematics": "B+", "Physics": "B", "Chemistry": "B" }
-            },
-            "Cluster 3": {
-                requiredSubjects: ["Biology", "Chemistry", "Mathematics"],
-                requiredGrades: { "Biology": "A", "Chemistry": "A", "Mathematics": "B+" }
-            },
-            "Cluster 4": {
-                requiredSubjects: ["Business", "Mathematics", "English"],
-                requiredGrades: { "Business": "B", "Mathematics": "B", "English": "B" }
-            },
-            "Cluster 5": {
-                requiredSubjects: ["Biology", "English", "History"],
-                requiredGrades: { "Biology": "B+", "English": "B", "History": "B" }
-            },
-            "Cluster 6": {
-                requiredSubjects: ["Geography", "Mathematics", "English"],
-                requiredGrades: { "Geography": "B", "Mathematics": "B", "English": "B+" }
-            },
-            "Cluster 7": {
-                requiredSubjects: ["Aviation", "Mathematics", "Physics"],
-                requiredGrades: { "Aviation": "B", "Mathematics": "B+", "Physics": "B" }
-            },
-            "Cluster 8": {
-                requiredSubjects: ["CRE", "English", "History"],
-                requiredGrades: { "CRE": "B", "English": "B", "History": "B+" }
-            },
-            "Cluster 9": {
-                requiredSubjects: ["Music", "English", "Kiswahili"],
-                requiredGrades: { "Music": "B", "English": "B+", "Kiswahili": "B" }
-            },
-            "Cluster 10": {
-                requiredSubjects: ["Agriculture", "Mathematics", "Chemistry"],
-                requiredGrades: { "Agriculture": "B", "Mathematics": "B+", "Chemistry": "B" }
-            },
-            "Cluster 11": {
-                requiredSubjects: ["Arabic", "English", "Geography"],
-                requiredGrades: { "Arabic": "B", "English": "B", "Geography": "B+" }
-            },
-            "Cluster 12": {
-                requiredSubjects: ["French", "English", "History"],
-                requiredGrades: { "French": "B", "English": "B", "History": "B+" }
-            },
-            "Cluster 13": {
-                requiredSubjects: ["Home Science", "Kiswahili", "Biology"],
-                requiredGrades: { "Home Science": "B", "Kiswahili": "B", "Biology": "B+" }
-            },
-            "Cluster 14": {
-                requiredSubjects: ["German", "Mathematics", "Physics"],
-                requiredGrades: { "German": "B", "Mathematics": "B", "Physics": "B+" }
-            },
-            "Cluster 15": {
-                requiredSubjects: ["History", "English", "Geography"],
-                requiredGrades: { "History": "B", "English": "B+", "Geography": "B" }
-            },
-            "Cluster 16": {
-                requiredSubjects: ["Agriculture", "Biology", "Chemistry"],
-                requiredGrades: { "Agriculture": "B", "Biology": "B+", "Chemistry": "B" }
-            },
-            "Cluster 17": {
-                requiredSubjects: ["Computer", "Mathematics", "English"],
-                requiredGrades: { "Computer": "B+", "Mathematics": "B", "English": "B" }
-            },
-            "Cluster 18": {
-                requiredSubjects: ["Physics", "Mathematics", "Geography"],
-                requiredGrades: { "Physics": "B", "Mathematics": "B+", "Geography": "B" }
-            },
-            "Cluster 19": {
-                requiredSubjects: ["Kiswahili", "English", "Business"],
-                requiredGrades: { "Kiswahili": "B", "English": "B", "Business": "B+" }
-            },
-            "Cluster 20": {
-                requiredSubjects: ["IRE", "English", "Biology"],
-                requiredGrades: { "IRE": "B", "English": "B+", "Biology": "B" }
-            }
+        const clusterData = {
+            1: { "UoN": 45, "Moi": 40, "KU": 42, "Egerton": 43 },
+            2: { "UoN": 38, "Moi": 35, "KU": 37, "Egerton": 36 },
+            3: { "UoN": 30, "Moi": 28, "KU": 32, "Egerton": 31 },
+            4: { "UoN": 40, "Moi": 38, "KU": 39, "Egerton": 41 },
+            5: { "UoN": 55, "Moi": 50, "KU": 52, "Egerton": 54 },
+            6: { "UoN": 50, "Moi": 45, "KU": 48, "Egerton": 49 },
+            7: { "UoN": 42, "Moi": 40, "KU": 44, "Egerton": 43 },
+            8: { "UoN": 35, "Moi": 33, "KU": 36, "Egerton": 34 },
+            9: { "UoN": 30, "Moi": 28, "KU": 32, "Egerton": 31 },
+            10: { "UoN": 50, "Moi": 48, "KU": 52, "Egerton": 51 },
+            11: { "UoN": 40, "Moi": 38, "KU": 41, "Egerton": 39 },
+            12: { "UoN": 28, "Moi": 30, "KU": 32, "Egerton": 29 },
+            13: { "UoN": 75, "Moi": 70, "KU": 72, "Egerton": 74 },
+            14: { "UoN": 27, "Moi": 25, "KU": 29, "Egerton": 28 },
+            15: { "UoN": 34, "Moi": 32, "KU": 35, "Egerton": 33 },
+            16: { "UoN": 32, "Moi": 30, "KU": 33, "Egerton": 31 },
+            17: { "UoN": 26, "Moi": 24, "KU": 27, "Egerton": 25 },
+            18: { "UoN": 30, "Moi": 28, "KU": 31, "Egerton": 29 },
+            19: { "UoN": 40, "Moi": 38, "KU": 42, "Egerton": 41 },
+            20: { "UoN": 30, "Moi": 28, "KU": 32, "Egerton": 31 },
         };
 
-        function getGradeFailures(requiredSubjects, requiredGrades, subjectsGrades) {
-            const failures = [];
-            requiredSubjects.forEach(subject => {
-                const requiredGrade = requiredGrades[subject];
-                const subjectGrade = subjectsGrades[subject];
-                if (subjectGrade && subjectGrade !== requiredGrade) {
-                    failures.push(`${subject} (Required: ${requiredGrade}, Provided: ${subjectGrade})`);
-                }
-            });
-            return failures;
-        }
-
-        function getMissingSubjects(requiredSubjects, subjectsGrades) {
-            return requiredSubjects.filter(subject => !subjectsGrades[subject]);
-        }
-
-        function checkEligibility() {
+        function checkQualification() {
             const cluster = document.getElementById("cluster").value;
-            if (!cluster) {
-                document.getElementById("feedback").innerHTML = "Please select a cluster first.";
+            const clusterPoints = parseInt(document.getElementById("clusterPoints").value);
+
+            if (isNaN(clusterPoints)) {
+                document.getElementById("result").innerText = "Please enter a valid number for cluster points.";
                 return;
             }
 
-            const subjectsGrades = {};
-            const subjects = ["Mathematics", "English", "Biology", "Chemistry", "Physics", "History", "Geography", "Business", "CRE", "Music", "Agriculture", "Aviation", "Kiswahili", "French", "German", "Arabic", "IRE", "Computer"];
-            subjects.forEach(subject => {
-                const grade = document.getElementById(subject).value.trim();
-                if (grade) subjectsGrades[subject] = grade;
-            });
-
-            const { requiredSubjects, requiredGrades } = clusters[cluster];
-
-            const missingSubjects = getMissingSubjects(requiredSubjects, subjectsGrades);
-            const gradeFailures = getGradeFailures(requiredSubjects, requiredGrades, subjectsGrades);
-
-            let feedback = `Checking eligibility for ${cluster}:\n`;
-
-            if (missingSubjects.length > 0) {
-                feedback += `Missing subjects: ${missingSubjects.join(", ")}.\n`;
+            const universities = clusterData[cluster];
+            let result = "You qualify for the following universities:\n";
+            for (const [university, requiredPoints] of Object.entries(universities)) {
+                if (clusterPoints >= requiredPoints) {
+                    result += `${university}: Qualifies\n`;
+                } else {
+                    result += `${university}: Does not qualify\n`;
+                }
             }
 
-            if (gradeFailures.length > 0) {
-                feedback += `Grades to improve: ${gradeFailures.join(", ")}.\n`;
-            }
-
-            if (missingSubjects.length === 0 && gradeFailures.length === 0) {
-                feedback += "You qualify for this cluster!";
-                document.getElementById("feedback").classList.add("success");
-            } else {
-                feedback += "You do not qualify for this cluster. Please improve the required subjects or grades.";
-                document.getElementById("feedback").classList.remove("success");
-            }
-
-            document.getElementById("feedback").innerHTML = feedback.replace(/\n/g, "<br>");
+            document.getElementById("result").innerText = result;
         }
     </script>
+
 </body>
 </html>
