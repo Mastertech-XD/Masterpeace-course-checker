@@ -1,6 +1,3 @@
-Here's a fully customized KUCCPS Course Cluster Point Checker with all the courses and universities you provided:
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -338,31 +335,221 @@ Here's a fully customized KUCCPS Course Cluster Point Checker with all the cours
                     "Kenyatta University": 41.109,
                     "Jomo Kenyatta": 41.45,
                     "Technical University of Kenya": 39.887,
-                    "Dedan kimathi": 34.675
+                    "Dedan Kimathi University of Technology": 37.487,
+                    "Machakos University": 35.444
                 }
-            }
-        function checkQualification() {
-            const cluster = document.getElementById("cluster").value;
-            const clusterPoints = parseInt(document.getElementById("clusterPoints").value);
-
-            if (isNaN(clusterPoints)) {
-                document.getElementById("result").innerText = "Please enter a valid number for cluster points.";
-                return;
-            }
-
-            const universities = clusterData[cluster];
-            let result = "You qualify for the following universities:\n";
-            for (const [university, requiredPoints] of Object.entries(universities)) {
-                if (clusterPoints >= requiredPoints) {
-                    result += `${university}: Qualifies\n`;
-                } else {
-                    result += `${university}: Does not qualify\n`;
+            },
+            {
+                name: "Bachelor of Dental Surgery",
+                cluster: "Health Sciences",
+                universities: {
+                    "University of Nairobi": 44.75,
+                    "Moi University": 44.502
                 }
-            }
-
-            document.getElementById("result").innerText = result;
-        }
-    </script>
-
-</body>
-</html>
+            },
+            {
+                name: "Bachelor of Pharmacy",
+                cluster: "Health Sciences",
+                universities: {
+                    "University of Nairobi": 44.75,
+                    "Kenyatta University": 44.01,
+                    "Jomo Kenyatta": 43.872,
+                    "Maseno University": 43.308,
+                    "Kisii University": 43.111,
+                    "Mount Kenya University": 42.989,
+                    "Kabarak University": 41.093
+                }
+            },
+            {
+                name: "Bachelor of Economics",
+                cluster: "Business",
+                universities: {
+                    "Jomo Kenyatta": 27.073,
+                    "Kenyatta University": 26.413,
+                    "University of Nairobi": 26.096,
+                    "Technical University of Kenya": 25.284,
+                    "Meru University of Science and Technology": 18.831,
+                    "Multimedia University of Kenya": 18.831
+                }
+            },
+            {
+                name: "Bachelor of Architecture",
+                cluster: "Architecture",
+                universities: {
+                    "University of Nairobi": 42.99,
+                    "Jomo Kenyatta": 41.803,
+                    "Kenyatta University": 41.494,
+                    "Technical University of Kenya": 41.035,
+                    "Technical University of Mombasa": 38.365
+                }
+            },
+            {
+                name: "Bachelor of Quantity Surveying",
+                cluster: "Architecture",
+                universities: {
+                    "University of Nairobi": 40.232,
+                    "Jomo Kenyatta": 39.763,
+                    "Technical University Of Kenya": 38.424
+                }
+            },
+            {
+                name: "Bachelor of Science in Clinical Medicine",
+                cluster: "Health Sciences",
+                universities: {
+                    "Jomo Kenyatta": 42.847,
+                    "Egerton University": 42.215,
+                    "Masinde Muliro University": 42.231,
+                    "University Of Kabianga": 41.014,
+                    "Kisii University": 41.573,
+                    "Mount Kenya University": 41.517
+                }
+            },
+            {
+                name: "Bachelor of Education (Early Childhood Development)",
+                cluster: "Education",
+                universities: {
+                    "Kenyatta University": 27.337,
+                    "University of Nairobi": 23.552,
+                    "Maseno University": 23.303,
+                    "Tharaka University": 24.541,
+                    "Kaimosi Friends University": 24.469,
+                    "Jaramogi Oginga Odinga University": 23.906,
+                    "Kisii University": 21.858
+                }
+            },
+            {
+                name: "Bachelor of Laws",
+                cluster: "Law",
+                universities: {
+                    "University of Nairobi": 42.014,
+                    "Kenyatta University": 41.643,
+                    "Jomo Kenyatta": 41.184,
+                    "Mount Kenya University": 40.474,
+                    "Moi University": 40.225,
+                    "Maseno University": 39.798,
+                    "Egerton University": 39.534
+                }
+            },
+            {
+                name: "Bachelor of Science In Information Technology",
+                cluster: "Computing",
+                universities: {
+                    "Jomo Kenyatta University": 39.851,
+                    "Technical University of Kenya": 36.399,
+                    "Multimedia University of Kenya": 35.385,
+                    "University of Eldoret": 30.177,
+                    "Dedan Kimathi University of Technology": 33.591,
+                    "Maseno University": 31.702
+                }
+            },
+            {
+                name: "Bachelor of Science (Medical Laboratory Sciences)",
+                cluster: "Health Sciences",
+                universities: {
+                    "University of Nairobi": 41.309,
+                    "Kenyatta University": 41.175,
+                    "Jomo Kenyatta": 40.675,
+                    "Maseno University": 39.343,
+                    "Masinde Muliro University": 38.872,
+                    "Kisii University": 38.842
+                }
+            },
+            {
+                name: "Bachelor of Science In Software Engineering",
+                cluster: "Computing",
+                universities: {
+                    "Multimedia University Of Kenya": 41.368,
+                    "Co-Operative University Of Kenya": 40.162,
+                    "Murang'a University Of Technology": 38.437,
+                    "Kisii University": 36.957,
+                    "Kirinyaga University": 33.884,
+                    "University Of Eastern Africa, Baraton": 25.573
+                }
+            },
+            {
+                name: "Bachelor of Arts In Counseling Psychology",
+                cluster: "Social Sciences",
+                universities: {
+                    "Technical University of Kenya": 31.022,
+                    "Machakos University": 24.615,
+                    "Moi University": 24.041,
+                    "Kenyatta University – Mama Ngina University College": 24.094,
+                    "St Pauls University": 22.449
+                }
+            },
+            {
+                name: "Bachelor of Science (Biochemistry)",
+                cluster: "Sciences",
+                universities: {
+                    "Kenyatta University": 32.976,
+                    "University of Nairobi": 32.695,
+                    "Technical University of Kenya": 31.23,
+                    "Maseno University": 30.294,
+                    "Egerton University": 25.661,
+                    "Moi University": 25.581
+                }
+            },
+            {
+                name: "Bachelor of Business Information Technology",
+                cluster: "Computing",
+                universities: {
+                    "Jomo Kenyatta University": 34.173,
+                    "Riara University": 32.503,
+                    "Multimedia University of Kenya": 31.205,
+                    "Murang'a University of Technology": 27.359,
+                    "Meru University of Science and Technology": 26.523,
+                    "Africa Nazarene University": 25.254
+                }
+            },
+            {
+                name: "Bachelor of Arts (Music)",
+                cluster: "Arts",
+                universities: {
+                    "Kenyatta University": 25.152,
+                    "Maseno University": 23.417,
+                    "Moi University": 23.417,
+                    "University Of Eastern Africa, Baraton": 23.417,
+                    "Kisii University": 23.417,
+                    "Daystar University": 23.417
+                }
+            },
+            {
+                name: "Bachelor of Education (Arts) Music",
+                cluster: "Education",
+                universities: {
+                    "Kenyatta University": 27.617,
+                    "Maseno University": 21.858
+                }
+            },
+            {
+                name: "Bachelor of Arts (Theater Arts & Film Technology)",
+                cluster: "Arts",
+                universities: {
+                    "Kenyatta University": 23.977,
+                    "Maseno University": 22.449,
+                    "KCA University": 22.449
+                }
+            },
+            {
+                name: "Bachelor of Science (Environmental Health)",
+                cluster: "Health Sciences",
+                universities: {
+                    "Moi University": 29.944,
+                    "Masinde Muliro University": 29.517,
+                    "Kenyatta University": 28.791,
+                    "Kenya Methodist University": 15.864,
+                    "Pwani University": 15.864,
+                    "Murang'a University of Technology": 15.864
+                }
+            },
+            {
+                name: "Bachelor of Science (Telecommunication & Inform. Tech)",
+                cluster: "Computing",
+                universities: {
+                    "Jomo Kenyatta University": 37.472,
+                    "Kenyatta University": 29.104,
+                    "Dedan Kimathi University Of Technology": 27.909,
+                    "Pwani University": 15.683
+                }
+            },
+ 
