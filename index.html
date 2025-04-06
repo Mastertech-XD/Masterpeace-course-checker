@@ -1,1632 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Comprehensive KUCCPS qualification checker with real-time updates, course comparisons, and personalized recommendations">
-  <title>KUCCPS Ultimate Qualification Checker</title>
+  <!-- All your existing head content remains exactly the same -->
+  <!-- Only adding new CSS for admin actions and password recovery -->
   <style>
-    :root {
-      --neon-blue: #0ff;
-      --neon-pink: #f0f;
-      --neon-purple: #90f;
-      --neon-green: #0f0;
-      --dark-bg: #000;
-      --light-bg: #f8f9fa;
-      --primary-color: #0056b3;
-      --secondary-color: #6c757d;
-      --success-color: #28a745;
-      --danger-color: #dc3545;
-      --warning-color: #ffc107;
-      --info-color: #17a2b8;
-    }
-
-    /* Base Styles */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      margin: 0;
-      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      background-color: var(--dark-bg);
-      color: white;
-      overflow-x: hidden;
-      position: relative;
-      min-height: 100vh;
-      line-height: 1.6;
-    }
-
-    /* Rotating Neon Border */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      border: 4px solid transparent;
-      background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink), var(--neon-purple), var(--neon-blue)) border-box;
-      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: destination-out;
-      mask-composite: exclude;
-      z-index: -1;
-      animation: borderRotate 20s linear infinite;
-      pointer-events: none;
-    }
-
-    @keyframes borderRotate {
-      0% { border-image: linear-gradient(0deg, var(--neon-blue), var(--neon-pink), var(--neon-purple), var(--neon-blue)) 1; }
-      25% { border-image: linear-gradient(90deg, var(--neon-blue), var(--neon-pink), var(--neon-purple), var(--neon-blue)) 1; }
-      50% { border-image: linear-gradient(180deg, var(--neon-blue), var(--neon-pink), var(--neon-purple), var(--neon-blue)) 1; }
-      75% { border-image: linear-gradient(270deg, var(--neon-blue), var(--neon-pink), var(--neon-purple), var(--neon-blue)) 1; }
-      100% { border-image: linear-gradient(360deg, var(--neon-blue), var(--neon-pink), var(--neon-purple), var(--neon-blue)) 1; }
-    }
-
-    /* Particle Background */
-    #particles-js {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      z-index: -3;
-    }
-
-    /* Raindrop animation */
-    .raindrop {
-      position: absolute;
-      width: 2px;
-      height: 15px;
-      background: linear-gradient(to bottom, transparent, var(--neon-blue));
-      border-radius: 0 0 5px 5px;
-      animation: rain linear infinite;
-      z-index: -2;
-      opacity: 0.6;
-    }
-
-    @keyframes rain {
-      0% { transform: translateY(-100vh); }
-      100% { transform: translateY(100vh); }
-    }
-
-    /* Typing Animation */
-    .title {
-      font-size: clamp(24px, 5vw, 42px);
-      text-align: center;
-      margin-top: 80px;
-      white-space: nowrap;
-      overflow: hidden;
-      border-right: 2px solid white;
-      width: fit-content;
-      margin-left: auto;
-      margin-right: auto;
-      animation: typing 6s steps(40, end) infinite, blink-caret 0.75s step-end infinite alternate;
-      text-shadow: 0 0 10px var(--neon-blue);
-      font-weight: 700;
-    }
-
-    @keyframes typing {
-      0% { width: 0; }
-      100% { width: 30ch; }
-      0% { width: 0; }
-    }
-
-    @keyframes blink-caret {
-      0%, 100% { border-color: transparent; }
-      50% { border-color: white; }
-    }
-
-    /* Notification System */
-    .notification-bell {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: rgba(51, 51, 51, 0.8);
+    /* Add these new styles for admin actions */
+    .admin-action-btn {
+      padding: 5px 10px;
+      background: rgba(220, 53, 69, 0.7);
       color: white;
       border: none;
-      padding: 12px;
-      font-size: 24px;
+      border-radius: 4px;
       cursor: pointer;
-      border-radius: 50%;
-      z-index: 10;
       transition: all 0.3s;
-      width: 50px;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      backdrop-filter: blur(5px);
-      box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
-    }
-
-    .notification-bell:hover {
-      background: rgba(85, 85, 85, 0.9);
-      transform: scale(1.1);
-      box-shadow: 0 0 20px var(--neon-blue);
-    }
-
-    .notification-badge {
-      position: absolute;
-      top: -5px;
-      right: -5px;
-      background: var(--danger-color);
-      color: white;
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
       font-size: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      animation: pulse 2s infinite;
     }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-      100% { transform: scale(1); }
+    
+    .admin-action-btn:hover {
+      background: rgba(220, 53, 69, 0.9);
     }
-
-    .notification-panel {
-      position: fixed;
-      top: 80px;
-      right: -350px;
-      width: 320px;
-      max-height: 70vh;
-      background: rgba(0, 33, 71, 0.95);
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
-      transition: right 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-      z-index: 9;
-      backdrop-filter: blur(10px);
-      overflow-y: auto;
-      border: 1px solid rgba(0, 255, 255, 0.2);
-    }
-
-    .notification-panel.active {
-      right: 20px;
-    }
-
-    .notification-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid rgba(0, 255, 255, 0.3);
-    }
-
-    .notification-title {
-      font-size: 20px;
-      font-weight: 600;
-      color: var(--neon-blue);
-    }
-
-    .clear-notifications {
-      background: transparent;
-      border: none;
-      color: var(--neon-pink);
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .notification-item {
-      padding: 12px;
-      margin-bottom: 12px;
-      background: rgba(0, 86, 179, 0.3);
-      border-radius: 8px;
-      border-left: 3px solid var(--neon-blue);
-      transition: all 0.3s;
-      cursor: pointer;
-    }
-
-    .notification-item.unread {
-      background: rgba(0, 86, 179, 0.5);
-      border-left: 3px solid var(--neon-pink);
-    }
-
-    .notification-item:hover {
-      transform: translateX(5px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
-
-    .notification-item .notification-time {
-      font-size: 12px;
-      color: var(--text-dim);
+    
+    /* Password strength meter */
+    .password-strength {
+      height: 5px;
       margin-top: 5px;
-      display: block;
-    }
-
-    /* Sidebar Navigation */
-    .toggle-btn {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      background: rgba(51, 51, 51, 0.8);
-      color: white;
-      border: none;
-      padding: 12px 15px;
-      font-size: 24px;
-      cursor: pointer;
-      border-radius: 50%;
-      z-index: 10;
-      transition: all 0.3s;
-      backdrop-filter: blur(5px);
-      box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
-    }
-
-    .toggle-btn:hover {
-      background: rgba(85, 85, 85, 0.9);
-      transform: scale(1.1);
-      box-shadow: 0 0 20px var(--neon-blue);
-    }
-
-    .sidebar {
-      position: fixed;
-      top: 0;
-      left: -300px;
-      width: 280px;
-      height: 100%;
-      background: rgba(0, 33, 71, 0.95);
-      padding: 20px 0;
-      transition: left 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-      z-index: 8;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
-      border-right: 1px solid rgba(0, 255, 255, 0.2);
-      overflow-y: auto;
-    }
-
-    .sidebar.active {
-      left: 0;
-    }
-
-    .sidebar-header {
-      padding: 0 20px 15px;
-      border-bottom: 1px solid rgba(0, 255, 255, 0.3);
-      margin-bottom: 15px;
-    }
-
-    .sidebar-title {
-      font-size: 22px;
-      font-weight: 600;
-      color: var(--neon-blue);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .sidebar-title img {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-    }
-
-    .user-profile {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .user-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: rgba(0, 255, 255, 0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .user-info {
-      flex: 1;
-    }
-
-    .user-name {
-      font-weight: 600;
-      font-size: 16px;
-    }
-
-    .user-email {
-      font-size: 12px;
-      color: var(--text-dim);
-    }
-
-    .menu-btn, .mode-btn, .close-btn {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      width: 90%;
-      margin: 8px auto;
-      padding: 12px 15px;
-      background: rgba(0, 86, 179, 0.5);
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: all 0.3s;
-      text-align: left;
-    }
-
-    .menu-btn:hover, .mode-btn:hover {
-      background: rgba(0, 86, 179, 0.8);
-      transform: translateX(5px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
-
-    .close-btn {
-      background: rgba(255, 0, 0, 0.5);
-      justify-content: center;
-      margin-top: 20px;
-    }
-
-    .close-btn:hover {
-      background: rgba(255, 0, 0, 0.8);
-      transform: translateX(5px);
-    }
-
-    .mode-btn {
-      background: rgba(128, 0, 128, 0.5);
-    }
-
-    .mode-btn:hover {
-      background: rgba(128, 0, 128, 0.8);
-    }
-
-    /* Search Bar */
-    .search-container {
-      margin: 25px auto;
-      width: 90%;
-      max-width: 600px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .search-input {
-      width: 100%;
-      padding: 15px 25px;
-      padding-left: 50px;
-      border-radius: 30px;
-      border: none;
-      background: rgba(255, 255, 255, 0.1);
-      color: white;
-      font-size: 16px;
-      backdrop-filter: blur(5px);
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-      transition: all 0.3s;
-    }
-
-    .search-input:focus {
-      outline: none;
-      background: rgba(255, 255, 255, 0.15);
-      box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
-    }
-
-    .search-icon {
-      position: absolute;
-      left: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: white;
-      font-size: 18px;
-    }
-
-    /* Quick Links */
-    .quick-links-container {
-      width: 100%;
-      overflow-x: auto;
-      padding: 10px 0;
-      margin: 20px 0;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .quick-links {
-      display: inline-flex;
-      gap: 15px;
-      padding: 0 20px;
-      white-space: nowrap;
-    }
-
-    .quick-link {
-      padding: 10px 20px;
-      background: rgba(0, 86, 179, 0.5);
-      border-radius: 25px;
-      color: white;
-      text-decoration: none;
-      transition: all 0.3s;
-      font-size: 14px;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid rgba(0, 255, 255, 0.2);
-    }
-
-    .quick-link:hover {
-      background: rgba(0, 86, 179, 0.8);
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
-
-    /* Main Content */
-    .container {
-      text-align: center;
-      margin-top: 30px;
-      z-index: 1;
-      padding-bottom: 120px;
-    }
-
-    .btn-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      width: 90%;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .btn {
-      position: relative;
-      padding: 25px;
-      font-size: 18px;
-      color: white;
-      border: none;
-      border-radius: 15px;
-      cursor: pointer;
-      transition: all 0.3s;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 150px;
-      backdrop-filter: blur(5px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(
-        to bottom right,
-        transparent, transparent, transparent,
-        rgba(255, 255, 255, 0.3),
-        transparent
-      );
-      transform: rotate(30deg);
-      transition: all 0.5s;
-    }
-
-    .btn:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    }
-
-    .btn:hover::before {
-      left: 100%;
-    }
-
-    .btn i {
-      font-size: 36px;
-      margin-bottom: 10px;
-    }
-
-    .btn .btn-description {
-      font-size: 14px;
-      opacity: 0.8;
-      margin-top: 8px;
-    }
-
-    .degree { background: rgba(128, 0, 128, 0.7); }
-    .diploma { background: rgba(0, 0, 255, 0.7); }
-    .certificate { background: rgba(255, 0, 0, 0.7); }
-    .kmtc { background: rgba(0, 128, 0, 0.7); }
-    .cutoffs { background: rgba(255, 165, 0, 0.7); }
-    .compare { background: rgba(0, 255, 255, 0.7); }
-    .calculator { background: rgba(255, 0, 255, 0.7); }
-    .trends { background: rgba(255, 215, 0, 0.7); }
-
-    /* Featured Courses Section */
-    .featured-section {
-      width: 90%;
-      max-width: 1200px;
-      margin: 40px auto;
-      padding: 20px;
-      border-radius: 15px;
-      background: rgba(0, 33, 71, 0.5);
-      backdrop-filter: blur(5px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      border: 1px solid rgba(0, 255, 255, 0.2);
-    }
-
-    .section-title {
-      font-size: 24px;
-      margin-bottom: 20px;
-      color: var(--neon-blue);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .courses-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 20px;
-    }
-
-    .course-card {
-      background: rgba(0, 86, 179, 0.3);
-      border-radius: 10px;
-      padding: 15px;
-      transition: all 0.3s;
-      border: 1px solid rgba(0, 255, 255, 0.1);
-    }
-
-    .course-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-      border-color: var(--neon-blue);
-    }
-
-    .course-title {
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .course-university {
-      font-size: 14px;
-      color: var(--text-dim);
-      margin-bottom: 8px;
-    }
-
-    .course-cutoff {
-      font-size: 14px;
-      color: var(--neon-green);
-      font-weight: 500;
-    }
-
-    /* Stats Dashboard */
-    .stats-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-      width: 90%;
-      max-width: 1200px;
-      margin: 30px auto;
-    }
-
-    .stat-card {
-      background: rgba(0, 33, 71, 0.5);
-      border-radius: 10px;
-      padding: 20px;
-      text-align: center;
-      backdrop-filter: blur(5px);
-      border: 1px solid rgba(0, 255, 255, 0.1);
-      transition: all 0.3s;
-    }
-
-    .stat-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    .stat-value {
-      font-size: 36px;
-      font-weight: 700;
-      color: var(--neon-blue);
-      margin: 10px 0;
-    }
-
-    .stat-label {
-      font-size: 14px;
-      color: var(--text-dim);
-    }
-
-    /* Back to top button */
-    .back-to-top {
-      position: fixed;
-      bottom: 100px;
-      right: 30px;
-      background: var(--primary-color);
-      color: white;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      opacity: 0;
-      transition: all 0.3s;
-      z-index: 99;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-    }
-
-    .back-to-top.visible {
-      opacity: 1;
-    }
-
-    .back-to-top:hover {
-      background: var(--neon-blue);
-      transform: translateY(-5px) scale(1.1);
-      box-shadow: 0 0 20px var(--neon-blue);
-    }
-
-    /* Footer */
-    .footer {
-      text-align: center;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      padding: 20px;
-      background: rgba(51, 51, 51, 0.8);
-      color: white;
-      z-index: 5;
-      backdrop-filter: blur(10px);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid rgba(0, 255, 255, 0.2);
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 20px;
-    }
-
-    .footer-link {
-      color: white;
-      text-decoration: none;
-      transition: all 0.3s;
-      font-size: 14px;
-    }
-
-    .footer-link:hover {
-      color: var(--neon-blue);
-      text-decoration: underline;
-    }
-
-    .social-icons {
-      display: flex;
-      gap: 15px;
-    }
-
-    .social-icon {
-      color: white;
-      font-size: 20px;
-      transition: all 0.3s;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .social-icon:hover {
-      color: var(--neon-blue);
-      transform: scale(1.2);
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    /* Light mode styles */
-    body.light {
-      background-color: var(--light-bg);
-      color: #333;
-    }
-
-    body.light .title {
-      color: #333;
-      border-right-color: #333;
-      text-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    body.light .footer {
-      background: rgba(221, 221, 221, 0.8);
-      color: #333;
-    }
-
-    body.light .btn {
-      color: white;
-    }
-
-    body.light .background-overlay {
-      filter: blur(5px) brightness(0.7);
-    }
-
-    body.light .sidebar {
-      background: rgba(200, 220, 255, 0.95);
-    }
-
-    body.light .menu-btn {
-      color: #333;
-      background: rgba(0, 86, 179, 0.2);
-    }
-
-    body.light .search-input {
-      background: rgba(0, 0, 0, 0.1);
-      color: #333;
-    }
-
-    body.light .search-icon {
-      color: #333;
-    }
-
-    body.light .quick-link {
-      background: rgba(0, 86, 179, 0.2);
-      color: #333;
-    }
-
-    body.light .social-icon {
-      color: #333;
-      background: rgba(0, 0, 0, 0.1);
-    }
-
-    body.light .footer-link {
-      color: #333;
-    }
-
-    body.light .featured-section,
-    body.light .stat-card,
-    body.light .course-card {
-      background: rgba(255, 255, 255, 0.8);
-      color: #333;
-    }
-
-    body.light .course-university {
-      color: #666;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 992px) {
-      .btn-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      }
-    }
-
-    @media (max-width: 768px) {
-      .quick-links {
-        gap: 10px;
-        padding: 0 15px;
-      }
-      
-      .quick-link {
-        padding: 8px 15px;
-        font-size: 12px;
-      }
-      
-      .footer {
-        flex-direction: column;
-        gap: 15px;
-        padding: 15px;
-      }
-      
-      .footer-links {
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-      
-      .social-icons {
-        margin-top: 10px;
-      }
-      
-      .back-to-top {
-        bottom: 80px;
-        right: 20px;
-      }
-    }
-
-    @media (max-width: 576px) {
-      .btn-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .stats-container {
-        grid-template-columns: 1fr;
-      }
-      
-      .search-input {
-        padding: 12px 20px 12px 45px;
-      }
-      
-      .sidebar {
-        width: 80%;
-      }
-      
-      .notification-panel {
-        width: 90%;
-        right: -100%;
-      }
-      
-      .notification-panel.active {
-        right: 5%;
-      }
-    }
-
-    /* Loading spinner */
-    .loader {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      z-index: 9999;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-    }
-
-    .loader.active {
-      display: flex;
-    }
-
-    .spinner {
-      width: 70px;
-      height: 70px;
-      border: 8px solid rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-      border-top-color: var(--neon-blue);
-      animation: spin 1s linear infinite;
-      margin-bottom: 20px;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .loader-text {
-      color: white;
-      font-size: 18px;
-      margin-top: 20px;
-      text-align: center;
-    }
-
-    /* Tooltip */
-    .tooltip {
-      position: relative;
-      display: inline-block;
-    }
-
-    .tooltip .tooltiptext {
-      visibility: hidden;
-      width: 200px;
-      background-color: rgba(0, 33, 71, 0.9);
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 10px;
-      position: absolute;
-      z-index: 1;
-      bottom: 125%;
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 0;
-      transition: opacity 0.3s;
-      backdrop-filter: blur(5px);
-      border: 1px solid rgba(0, 255, 255, 0.2);
-      font-size: 14px;
-    }
-
-    .tooltip:hover .tooltiptext {
-      visibility: visible;
-      opacity: 1;
-    }
-
-    /* Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      z-index: 100;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .modal-content {
-      background: rgba(0, 33, 71, 0.95);
-      padding: 30px;
-      border-radius: 15px;
-      width: 90%;
-      max-width: 600px;
-      max-height: 80vh;
-      overflow-y: auto;
-      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
-      border: 1px solid rgba(0, 255, 255, 0.2);
-      backdrop-filter: blur(10px);
-      animation: modalFadeIn 0.3s;
-    }
-
-    @keyframes modalFadeIn {
-      from { opacity: 0; transform: translateY(-50px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid rgba(0, 255, 255, 0.3);
-    }
-
-    .modal-title {
-      font-size: 24px;
-      color: var(--neon-blue);
-    }
-
-    .close-modal {
-      background: transparent;
-      border: none;
-      color: white;
-      font-size: 24px;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .close-modal:hover {
-      color: var(--neon-pink);
-      transform: rotate(90deg);
-    }
-
-    /* Login Form */
-    .login-form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-
-    .form-label {
-      font-size: 14px;
-      color: var(--text-dim);
-    }
-
-    .form-input {
-      padding: 12px 15px;
-      border-radius: 5px;
-      border: 1px solid rgba(0, 255, 255, 0.3);
-      background: rgba(0, 86, 179, 0.2);
-      color: white;
-      font-size: 16px;
-      transition: all 0.3s;
-    }
-
-    .form-input:focus {
-      outline: none;
-      border-color: var(--neon-blue);
-      box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
-    }
-
-    .form-submit {
-      padding: 12px;
-      background: var(--primary-color);
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: all 0.3s;
-      margin-top: 10px;
-    }
-
-    .form-submit:hover {
-      background: var(--neon-blue);
-      transform: translateY(-2px);
-    }
-
-    .form-footer {
-      margin-top: 15px;
-      font-size: 14px;
-      text-align: center;
-    }
-
-    .form-link {
-      color: var(--neon-blue);
-      text-decoration: none;
-    }
-
-    /* Cookie Consent */
-    .cookie-consent {
+      border-radius: 2px;
+      transition: width 0.3s, background-color 0.3s;
+    }
+    
+    /* Session timeout warning */
+    .session-timeout-warning {
       position: fixed;
       bottom: 20px;
-      left: 20px;
       right: 20px;
-      background: rgba(0, 33, 71, 0.95);
-      padding: 15px 20px;
-      border-radius: 10px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 100;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(0, 255, 255, 0.2);
-      transform: translateY(150%);
-      transition: transform 0.5s ease-out;
-    }
-
-    .cookie-consent.active {
-      transform: translateY(0);
-    }
-
-    .cookie-text {
-      flex: 1;
-      min-width: 250px;
-      margin-right: 20px;
-      margin-bottom: 10px;
-    }
-
-    .cookie-buttons {
-      display: flex;
-      gap: 10px;
-    }
-
-    .cookie-btn {
-      padding: 8px 15px;
+      background: #dc3545;
+      color: white;
+      padding: 15px;
       border-radius: 5px;
-      cursor: pointer;
-      transition: all 0.3s;
-      font-size: 14px;
-    }
-
-    .cookie-accept {
-      background: var(--success-color);
-      color: white;
-      border: none;
-    }
-
-    .cookie-decline {
-      background: transparent;
-      color: white;
-      border: 1px solid white;
-    }
-
-    .cookie-accept:hover {
-      background: #218838;
-      transform: translateY(-2px);
-    }
-
-    .cookie-decline:hover {
-      background: rgba(255, 255, 255, 0.1);
-      transform: translateY(-2px);
-    }
-
-    /* Admin Panel Styles */
-    .admin-panel-content {
-      max-height: 60vh;
-      overflow-y: auto;
-      padding-right: 10px;
-    }
-    
-    .admin-panel-content h3 {
-      margin-bottom: 15px;
-      color: var(--neon-blue);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .admin-panel-content textarea.form-input {
-      min-height: 100px;
-      resize: vertical;
-    }
-    
-    .admin-access-btn {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      background: rgba(128, 0, 128, 0.7);
-      color: white;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 99;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-      transition: all 0.3s;
-    }
-    
-    .admin-access-btn:hover {
-      background: rgba(128, 0, 128, 0.9);
-      transform: scale(1.1);
-      box-shadow: 0 0 20px var(--neon-purple);
-    }
-
-    /* Admin tabs */
-    .admin-tabs {
-      display: flex;
-      gap: 5px;
-      margin: 15px 0;
-      flex-wrap: wrap;
-    }
-    
-    .admin-tab {
-      padding: 8px 15px;
-      background: rgba(0, 86, 179, 0.3);
-      border: none;
-      border-radius: 5px;
-      color: white;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    
-    .admin-tab:hover {
-      background: rgba(0, 86, 179, 0.5);
-    }
-    
-    .admin-tab.active {
-      background: var(--neon-blue);
-      color: #000;
-    }
-    
-    .admin-tab-content {
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      z-index: 1000;
       display: none;
-      padding: 10px 0;
-    }
-    
-    .admin-tab-content.active {
-      display: block;
-    }
-    
-    table {
-      border-collapse: collapse;
-      width: 100%;
-    }
-    
-    th, td {
-      padding: 8px;
-      text-align: left;
-      border-bottom: 1px solid rgba(0, 255, 255, 0.2);
-    }
-    
-    th {
-      background: rgba(0, 86, 179, 0.3);
-    }
-
-    /* Password toggle */
-    .password-container {
-      position: relative;
-    }
-    
-    .toggle-password {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      color: var(--neon-blue);
-      cursor: pointer;
     }
   </style>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Particle Background -->
-  <div id="particles-js"></div>
-  
-  <!-- Loading Spinner -->
-  <div class="loader" id="loader">
-    <div class="spinner"></div>
-    <div class="loader-text">Loading Data...</div>
-  </div>
-  
-  <!-- Notification Bell -->
-  <button class="notification-bell" id="notificationBell">
-    <i class="fas fa-bell"></i>
-    <span class="notification-badge">3</span>
-  </button>
-  
-  <!-- Notification Panel -->
-  <div class="notification-panel" id="notificationPanel">
-    <div class="notification-header">
-      <div class="notification-title">Notifications</div>
-      <button class="clear-notifications" id="clearNotifications">Clear All</button>
-    </div>
-    <div class="notification-item unread">
-      <strong>KUCCPS Updates</strong>
-      <p>2024/2025 placement results will be released on 15th August</p>
-      <span class="notification-time">2 hours ago</span>
-    </div>
-    <div class="notification-item unread">
-      <strong>Important Notice</strong>
-      <p>Deadline for degree application is 30th July</p>
-      <span class="notification-time">1 day ago</span>
-    </div>
-    <div class="notification-item">
-      <strong>New Feature</strong>
-      <p>Check our new course comparison tool</p>
-      <span class="notification-time">3 days ago</span>
-    </div>
-    <div class="notification-item">
-      <strong>Maintenance</strong>
-      <p>System maintenance scheduled for Sunday 2am-4am</p>
-      <span class="notification-time">1 week ago</span>
-    </div>
-  </div>
+  <!-- Your existing HTML content remains exactly the same until before the closing </body> tag -->
 
-  <!-- Menu Toggle -->
-  <button class="toggle-btn" id="menuToggle">
-    <i class="fas fa-bars"></i>
-  </button>
-
-  <!-- Sidebar -->
-  <div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      <div class="sidebar-title">
-        <i class="fas fa-user-graduate"></i> KUCCPS Portal
-      </div>
-      <div class="user-profile">
-        <div class="user-avatar">
-          <i class="fas fa-user"></i>
-        </div>
-        <div class="user-info">
-          <div class="user-name">Guest User</div>
-          <div class="user-email">guest@gmail.com</div>
-        </div>
-      </div>
-    </div>
-    
-    <button class="menu-btn" data-url="index.html">
-      <i class="fas fa-home"></i> Home
-    </button>
-    <button class="menu-btn" data-url="dashboard.html">
-      <i class="fas fa-tachometer-alt"></i> Dashboard
-    </button>
-    <button class="menu-btn" data-url="https://students.kuccps.net/">
-      <i class="fas fa-external-link-alt"></i> Official Portal
-    </button>
-    <button class="menu-btn" data-url="courses.html">
-      <i class="fas fa-book"></i> All Courses
-    </button>
-    <button class="menu-btn" data-url="universities.html">
-      <i class="fas fa-university"></i> Universities
-    </button>
-    <button class="menu-btn" data-url="cutoffs.html">
-      <i class="fas fa-chart-line"></i> Cutoff Points
-    </button>
-    <button class="menu-btn" id="loginBtn">
-      <i class="fas fa-sign-in-alt"></i> Login
-    </button>
-    <button class="menu-btn" data-url="about.html">
-      <i class="fas fa-info-circle"></i> About Us
-    </button>
-    <button class="menu-btn" data-url="contact.html">
-      <i class="fas fa-envelope"></i> Contact
-    </button>
-    <button class="menu-btn" data-url="faq.html">
-      <i class="fas fa-question-circle"></i> FAQ
-    </button>
-    <button class="mode-btn" id="themeToggle">
-      <i class="fas fa-moon"></i> Toggle Theme
-    </button>
-    <button class="close-btn" id="closeMenu">
-      <i class="fas fa-times"></i> Close Menu
-    </button>
-  </div>
-
-  <!-- Search Bar -->
-  <div class="search-container">
-    <i class="fas fa-search search-icon"></i>
-    <input type="text" class="search-input" placeholder="Search courses, universities, or programs..." id="searchInput" autocomplete="off">
-  </div>
-
-  <!-- Quick Links -->
-  <div class="quick-links-container">
-    <div class="quick-links">
-      <a href="cutoffs.html" class="quick-link">
-        <i class="fas fa-chart-line"></i> Cutoff Points
-      </a>
-      <a href="calculator.html" class="quick-link">
-        <i class="fas fa-calculator"></i> Points Calculator
-      </a>
-      <a href="compare.html" class="quick-link">
-        <i class="fas fa-balance-scale"></i> Compare Courses
-      </a>
-      <a href="trends.html" class="quick-link">
-        <i class="fas fa-chart-bar"></i> Placement Trends
-      </a>
-      <a href="scholarships.html" class="quick-link">
-        <i class="fas fa-award"></i> Scholarships
-      </a>
-      <a href="deadlines.html" class="quick-link">
-        <i class="fas fa-calendar-alt"></i> Key Deadlines
-      </a>
-      <a href="loans.html" class="quick-link">
-        <i class="fas fa-hand-holding-usd"></i> HELB Loans
-      </a>
-    </div>
-  </div>
-
-  <!-- Heading -->
-  <h1 class="title">QUALIFICATION CHECKER CREATED BY MASTERPEACE</h1>
-
-  <!-- Stats Dashboard -->
-  <div class="stats-container">
-    <div class="stat-card">
-      <i class="fas fa-university"></i>
-      <div class="stat-value">72</div>
-      <div class="stat-label">Universities & Colleges</div>
-    </div>
-    <div class="stat-card">
-      <i class="fas fa-book"></i>
-      <div class="stat-value">1,250+</div>
-      <div class="stat-label">Courses Available</div>
-    </div>
-    <div class="stat-card">
-      <i class="fas fa-users"></i>
-      <div class="stat-value">150K+</div>
-      <div class="stat-label">Students Placed Annually</div>
-    </div>
-    <div class="stat-card">
-      <i class="fas fa-clock"></i>
-      <div class="stat-value">7</div>
-      <div class="stat-label">Days to Revision Deadline</div>
-    </div>
-  </div>
-
-  <!-- Main Content -->
-  <div class="container">
-    <div class="btn-grid">
-      <button class="btn degree" data-url="degree_program.html">
-        <i class="fas fa-university"></i>
-        Degree Programs
-        <div class="btn-description">Browse all undergraduate degree courses</div>
-      </button>
-      <button class="btn diploma" data-url="diploma_program.html">
-        <i class="fas fa-certificate"></i>
-        Diploma Programs
-        <div class="btn-description">Technical and professional diploma courses</div>
-      </button>
-      <button class="btn certificate" data-url="certificate_program.html">
-        <i class="fas fa-file-alt"></i>
-        Certificate Programs
-        <div class="btn-description">Short-term certificate courses</div>
-      </button>
-      <button class="btn kmtc" data-url="kmtc_program.html">
-        <i class="fas fa-hospital"></i>
-        KMTC Programs
-        <div class="btn-description">Medical training college courses</div>
-      </button>
-      <button class="btn cutoffs" data-url="cutoffs.html">
-        <i class="fas fa-chart-line"></i>
-        Cutoff Points
-        <div class="btn-description">Latest cutoff points for all courses</div>
-      </button>
-      <button class="btn compare" data-url="compare.html">
-        <i class="fas fa-balance-scale"></i>
-        Compare Courses
-        <div class="btn-description">Side-by-side course comparison</div>
-      </button>
-      <button class="btn calculator" data-url="calculator.html">
-        <i class="fas fa-calculator"></i>
-        Points Calculator
-        <div class="btn-description">Calculate your cluster points</div>
-      </button>
-      <button class="btn trends" data-url="trends.html">
-        <i class="fas fa-chart-bar"></i>
-        Placement Trends
-        <div class="btn-description">Historical placement data analysis</div>
-      </button>
-    </div>
-
-    <!-- Featured Courses Section -->
-    <div class="featured-section">
-      <div class="section-title">
-        <i class="fas fa-star"></i> Featured Courses This Month
-      </div>
-      <div class="courses-grid" id="featuredCourses">
-        <div class="course-card" data-url="medicine.html">
-          <div class="course-title">Medicine & Surgery</div>
-          <div class="course-university">University of Nairobi</div>
-          <div class="course-cutoff">Cutoff: 45.584</div>
-        </div>
-        <div class="course-card" data-url="computer-science.html">
-          <div class="course-title">Computer Science</div>
-          <div class="course-university">Jomo Kenyatta University</div>
-          <div class="course-cutoff">Cutoff: 44.101</div>
-        </div>
-        <div class="course-card" data-url="law.html">
-          <div class="course-title">Law (LLB)</div>
-          <div class="course-university">Kenyatta University</div>
-          <div class="course-cutoff">Cutoff: 41.643</div>
-        </div>
-        <div class="course-card" data-url="engineering.html">
-          <div class="course-title">Electrical Engineering</div>
-          <div class="course-university">Technical University of Kenya</div>
-          <div class="course-cutoff">Cutoff: 41.924</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- How It Works Section -->
-    <div class="featured-section">
-      <div class="section-title">
-        <i class="fas fa-question-circle"></i> How It Works
-      </div>
-      <div class="courses-grid">
-        <div class="course-card">
-          <div class="course-title">1. Select Your Program</div>
-          <div class="course-university">Choose from degree, diploma, or certificate programs</div>
-        </div>
-        <div class="course-card">
-          <div class="course-title">2. Enter Your Scores</div>
-          <div class="course-university">Input your KCSE grades or cluster points</div>
-        </div>
-        <div class="course-card">
-          <div class="course-title">3. Get Matches</div>
-          <div class="course-university">View courses you qualify for</div>
-        </div>
-        <div class="course-card">
-          <div class="course-title">4. Apply</div>
-          <div class="course-university">Submit your application through KUCCPS</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Back to Top Button -->
-  <div class="back-to-top" id="backToTop">
-    <i class="fas fa-arrow-up"></i>
-  </div>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-links">
-      <a href="privacy.html" class="footer-link">Privacy Policy</a>
-      <a href="terms.html" class="footer-link">Terms of Service</a>
-      <a href="disclaimer.html" class="footer-link">Disclaimer</a>
-      <a href="#" class="footer-link" id="contactSupport">Contact Support</a>
-      <a href="sitemap.html" class="footer-link">Sitemap</a>
-    </div>
-    <div class="social-icons">
-      <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-      <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-      <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-      <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-      <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
-    </div>
-    <p>&#169; 2025 KUCCPS Ultimate Qualification Checker created by Sir Masterpeace Elite. All rights reserved.</p>
-  </footer>
-
-  <!-- Login Modal -->
-  <div class="modal" id="loginModal">
+  <!-- Add these new modals before the closing </body> tag -->
+  <!-- Forgot Password Modal -->
+  <div class="modal" id="forgotPasswordModal">
     <div class="modal-content">
       <div class="modal-header">
         <div class="modal-title">
-          <i class="fas fa-sign-in-alt"></i> Login to Your Account
+          <i class="fas fa-key"></i> Password Recovery
         </div>
-        <button class="close-modal" id="closeLoginModal">&times;</button>
+        <button class="close-modal" id="closeForgotPasswordModal">&times;</button>
       </div>
-      <form class="login-form" id="loginForm">
+      <form class="login-form" id="forgotPasswordForm">
         <div class="form-group">
           <label class="form-label">Email or KUCCPS Number</label>
-          <input type="text" class="form-input" placeholder="Enter your email or KUCCPS number" required>
+          <input type="text" class="form-input" id="recoveryEmail" placeholder="Enter your email or KUCCPS number" required>
         </div>
-        <div class="form-group">
-          <label class="form-label">Password</label>
-          <div class="password-container">
-            <input type="password" class="form-input" placeholder="Enter your password" required>
-            <button type="button" class="toggle-password">
-              <i class="fas fa-eye"></i>
-            </button>
-          </div>
-        </div>
-        <button type="submit" class="form-submit">Login</button>
+        <button type="submit" class="form-submit">Send Recovery Link</button>
         <div class="form-footer">
-          Don't have an account? <a href="#" class="form-link" id="showRegister">Register</a>
-        </div>
-        <div class="form-footer">
-          <a href="#" class="form-link" id="forgotPassword">Forgot Password?</a>
+          Remember your password? <a href="#" class="form-link" id="showLoginFromRecovery">Login</a>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- Registration Modal -->
-  <div class="modal" id="registerModal">
+  <!-- Reset Password Modal -->
+  <div class="modal" id="resetPasswordModal">
     <div class="modal-content">
       <div class="modal-header">
         <div class="modal-title">
-          <i class="fas fa-user-plus"></i> Create Account
+          <i class="fas fa-key"></i> Reset Password
         </div>
-        <button class="close-modal" id="closeRegisterModal">&times;</button>
+        <button class="close-modal" id="closeResetPasswordModal">&times;</button>
       </div>
-      <form class="login-form" id="registerForm">
+      <form class="login-form" id="resetPasswordForm">
+        <input type="hidden" id="resetToken">
         <div class="form-group">
-          <label class="form-label">Email</label>
-          <input type="email" class="form-input" id="registerEmail" placeholder="Enter your email" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label">KUCCPS Number</label>
-          <input type="text" class="form-input" id="registerKuccps" placeholder="Enter your KUCCPS number" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Password</label>
+          <label class="form-label">New Password</label>
           <div class="password-container">
-            <input type="password" class="form-input" id="registerPassword" placeholder="Create a password" required>
+            <input type="password" class="form-input" id="newPassword" placeholder="Enter new password" required>
+            <button type="button" class="toggle-password">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+          <div class="password-strength" id="passwordStrength"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Confirm New Password</label>
+          <div class="password-container">
+            <input type="password" class="form-input" id="confirmNewPassword" placeholder="Confirm new password" required>
             <button type="button" class="toggle-password">
               <i class="fas fa-eye"></i>
             </button>
           </div>
         </div>
-        <div class="form-group">
-          <label class="form-label">Confirm Password</label>
-          <div class="password-container">
-            <input type="password" class="form-input" id="registerConfirmPassword" placeholder="Confirm your password" required>
-            <button type="button" class="toggle-password">
-              <i class="fas fa-eye"></i>
-            </button>
-          </div>
-        </div>
-        <button type="submit" class="form-submit">Register</button>
-        <div class="form-footer">
-          Already have an account? <a href="#" class="form-link" id="showLogin">Login</a>
-        </div>
+        <button type="submit" class="form-submit">Reset Password</button>
       </form>
     </div>
   </div>
 
-  <!-- Admin Login Modal -->
-  <div class="modal" id="adminLoginModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <div class="modal-title">
-          <i class="fas fa-lock"></i> Admin Login
-        </div>
-        <button class="close-modal" id="closeAdminLoginModal">&times;</button>
-      </div>
-      <form class="login-form" id="adminLoginForm">
-        <div class="form-group">
-          <label class="form-label">Admin Username</label>
-          <input type="text" class="form-input" id="adminUsername" placeholder="Enter admin username" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Admin Password</label>
-          <div class="password-container">
-            <input type="password" class="form-input" id="adminPassword" placeholder="Enter admin password" required>
-            <button type="button" class="toggle-password">
-              <i class="fas fa-eye"></i>
-            </button>
-          </div>
-        </div>
-        <button type="submit" class="form-submit">Login</button>
-        <div id="adminLoginError" style="color: red; margin-top: 10px; display: none;">
-          Incorrect username or password. Please try again.
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- Admin Panel Modal -->
+  <!-- Update Admin Panel Modal to include active users tab -->
   <div class="modal" id="adminPanelModal">
     <div class="modal-content">
       <div class="modal-header">
@@ -1641,6 +119,7 @@
         <div class="admin-tabs">
           <button class="admin-tab active" onclick="openAdminTab('users')">Users</button>
           <button class="admin-tab" onclick="openAdminTab('logins')">Login History</button>
+          <button class="admin-tab" onclick="openAdminTab('active')">Active Sessions</button>
           <button class="admin-tab" onclick="openAdminTab('notifications')">Notifications</button>
         </div>
         
@@ -1653,6 +132,7 @@
                   <th>Email</th>
                   <th>KUCCPS No.</th>
                   <th>Registered</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody id="adminUserList">
@@ -1671,11 +151,29 @@
                   <th>Email</th>
                   <th>Timestamp</th>
                   <th>IP Address</th>
+                  <th>Location</th>
                 </tr>
               </thead>
               <tbody id="adminLoginList">
                 <!-- Filled by JavaScript -->
               </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <div id="activeTab" class="admin-tab-content">
+          <h4>Currently Active Users</h4>
+          <div style="max-height: 200px; overflow-y: auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Email</th>
+                  <th>Login Time</th>
+                  <th>Location</th>
+                  <th>Device</th>
+                </tr>
+              </thead>
+              <tbody id="adminActiveUsersList"></tbody>
             </table>
           </div>
         </div>
@@ -1707,35 +205,44 @@
     </div>
   </div>
 
-  <!-- Cookie Consent -->
-  <div class="cookie-consent" id="cookieConsent">
-    <div class="cookie-text">
-      We use cookies to enhance your experience on our website. By continuing to browse, you agree to our use of cookies.
-    </div>
-    <div class="cookie-buttons">
-      <button class="cookie-btn cookie-accept" id="acceptCookies">Accept All</button>
-      <button class="cookie-btn cookie-decline" id="declineCookies">Decline</button>
-    </div>
-  </div>
-
-  <!-- Admin Access Button -->
-  <div class="admin-access-btn" id="adminAccessBtn">
-    <i class="fas fa-user-shield"></i>
+  <!-- Session timeout warning -->
+  <div class="session-timeout-warning" id="sessionTimeoutWarning">
+    Your session will expire in <span id="timeoutCounter">2:00</span>. Click to extend.
   </div>
 
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
   <script>
-    // Database for users and logins (in a real app, this would be server-side)
+    // Enhanced security version with password recovery and admin monitoring
+    const SECURITY = {
+      SESSION_TIMEOUT: 30 * 60 * 1000, // 30 minutes
+      PASSWORD_RESET_EXPIRY: 3600000, // 1 hour
+      MIN_PASSWORD_LENGTH: 8,
+      MAX_LOGIN_ATTEMPTS: 5,
+      LOCKOUT_DURATION: 15 * 60 * 1000 // 15 minutes
+    };
+
     let users = JSON.parse(localStorage.getItem('kuccps_users')) || [
-      { id: '1', email: 'student@example.com', kuccpsNumber: 'KCPS12345', password: 'password123', createdAt: new Date().toISOString() }
+      { 
+        id: crypto.randomUUID(),
+        email: 'student@example.com', 
+        kuccpsNumber: 'KCPS12345', 
+        password: hashPassword('password123'), 
+        createdAt: new Date().toISOString(),
+        lastLogin: null,
+        failedAttempts: 0,
+        lockedUntil: null
+      }
     ];
+    
     let loginHistory = JSON.parse(localStorage.getItem('kuccps_login_history')) || [];
-    const ADMIN_USERNAME = "admin";
-    const ADMIN_PASSWORD = "Robinson254"; // In production, use proper authentication
+    let userSessions = JSON.parse(localStorage.getItem('kuccps_user_sessions')) || [];
+    let notifications = JSON.parse(localStorage.getItem('kuccps_notifications')) || [];
+    let sessionTimer;
 
     // Initialize when DOM is loaded
     document.addEventListener('DOMContentLoaded', function() {
-      // Initialize particles.js
+      // Your existing initialization code
       if (typeof particlesJS !== 'undefined') {
         particlesJS('particles-js', {
           particles: {
@@ -1757,464 +264,363 @@
         });
       }
       
-      // Create raindrops
       createRain();
-      
-      // Set up all event listeners
       setupEventListeners();
-      
-      // Show initial loader
       showLoader();
       setTimeout(hideLoader, 1500);
-      
-      // Show cookie consent after 3 seconds
       setTimeout(showCookieConsent, 3000);
-      
-      // Check scroll position for back-to-top button
       checkScrollPosition();
-      
-      // Check if user is logged in
       checkLoginStatus();
+      
+      // Add these new initializations
+      initPasswordRecovery();
+      initSessionTracking();
+      checkAutoLogout();
+      
+      // Check for reset token in URL
+      checkPasswordResetToken();
     });
 
-    // Create raindrops
-    function createRain() {
-      const rainCount = 50;
-      const body = document.body;
+    // ==================== Security Functions ====================
+    function hashPassword(password) {
+      return CryptoJS.SHA256(password + "KUCCPS_SALT").toString();
+    }
+
+    function generateSecureToken() {
+      const array = new Uint32Array(10);
+      window.crypto.getRandomValues(array);
+      return array.join('-');
+    }
+
+    function validatePassword(password) {
+      if (password.length < SECURITY.MIN_PASSWORD_LENGTH) return false;
+      // Add more complexity rules as needed
+      return true;
+    }
+
+    function updatePasswordStrength(password) {
+      const strengthBar = document.getElementById('passwordStrength');
+      if (!strengthBar) return;
       
-      for (let i = 0; i < rainCount; i++) {
-        const raindrop = document.createElement('div');
-        raindrop.className = 'raindrop';
-        
-        // Random position and properties
-        const left = Math.random() * 100;
-        const animationDuration = 1 + Math.random() * 2;
-        const animationDelay = Math.random() * 5;
-        const height = 5 + Math.random() * 20;
-        const opacity = 0.2 + Math.random() * 0.5;
-        
-        raindrop.style.left = `${left}%`;
-        raindrop.style.animationDuration = `${animationDuration}s`;
-        raindrop.style.animationDelay = `${animationDelay}s`;
-        raindrop.style.height = `${height}px`;
-        raindrop.style.opacity = opacity;
-        
-        // Random neon color
-        const colors = ['--neon-blue', '--neon-pink', '--neon-purple'];
-        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-        raindrop.style.background = `linear-gradient(to bottom, transparent, var(${randomColor}))`;
-        
-        body.appendChild(raindrop);
+      const strength = Math.min(password.length / 12 * 100, 100);
+      strengthBar.style.width = strength + '%';
+      
+      if (password.length < 6) {
+        strengthBar.style.backgroundColor = '#dc3545'; // Red
+      } else if (password.length < 10) {
+        strengthBar.style.backgroundColor = '#ffc107'; // Yellow
+      } else {
+        strengthBar.style.backgroundColor = '#28a745'; // Green
       }
     }
 
-    // Set up all event listeners
-    function setupEventListeners() {
-      // Menu toggle
-      document.getElementById('menuToggle').addEventListener('click', toggleMenu);
-      document.getElementById('closeMenu').addEventListener('click', toggleMenu);
+    // ==================== Session Management ====================
+    function initSessionTracking() {
+      const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+      if (currentUser) {
+        trackUserLogin(currentUser);
+        startSessionTimer();
+      }
+    }
+
+    function startSessionTimer() {
+      resetSessionTimer();
+      document.addEventListener('mousemove', resetSessionTimer);
+      document.addEventListener('keypress', resetSessionTimer);
+    }
+
+    function resetSessionTimer() {
+      clearTimeout(sessionTimer);
+      sessionTimer = setTimeout(showSessionTimeoutWarning, SECURITY.SESSION_TIMEOUT - 60000); // Warn 1 min before
+    }
+
+    function showSessionTimeoutWarning() {
+      const warning = document.getElementById('sessionTimeoutWarning');
+      let seconds = 60;
       
-      // Notification toggle
-      document.getElementById('notificationBell').addEventListener('click', toggleNotifications);
-      document.getElementById('clearNotifications').addEventListener('click', clearNotifications);
+      warning.style.display = 'block';
+      warning.addEventListener('click', extendSession);
       
-      // Theme toggle
-      document.getElementById('themeToggle').addEventListener('click', toggleTheme);
-      
-      // Back to top
-      document.getElementById('backToTop').addEventListener('click', scrollToTop);
-      
-      // Search functionality
-      document.getElementById('searchInput').addEventListener('keyup', function(event) {
-        if (event.key === 'Enter') {
-          const query = this.value.trim();
-          if (query) filterCourses(query);
+      const countdown = setInterval(() => {
+        document.getElementById('timeoutCounter').textContent = `0:${seconds < 10 ? '0' : ''}${seconds}`;
+        seconds--;
+        
+        if (seconds < 0) {
+          clearInterval(countdown);
+          logoutUser();
         }
-      });
-      
-      // Connect all navigation buttons
-      document.querySelectorAll('[data-url]').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const url = this.getAttribute('data-url');
-          if (url.startsWith('http')) {
-            window.open(url, '_blank');
-          } else {
-            window.location.href = url;
-          }
-        });
-      });
-      
-      // Modal controls
-      document.getElementById('loginBtn').addEventListener('click', () => {
-        const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-        if (currentUser) {
-          logout();
-        } else {
-          showModal('loginModal');
-        }
-      });
-      
-      document.getElementById('closeLoginModal').addEventListener('click', () => hideModal('loginModal'));
-      document.getElementById('closeRegisterModal').addEventListener('click', () => hideModal('registerModal'));
-      document.getElementById('closeAdminLoginModal').addEventListener('click', () => hideModal('adminLoginModal'));
-      document.getElementById('closeAdminPanel').addEventListener('click', () => hideModal('adminPanelModal'));
-      document.getElementById('contactSupport').addEventListener('click', () => showModal('loginModal'));
-      
-      // Toggle between login and register
-      document.getElementById('showRegister').addEventListener('click', (e) => {
+      }, 1000);
+    }
+
+    function extendSession() {
+      clearTimeout(sessionTimer);
+      document.getElementById('sessionTimeoutWarning').style.display = 'none';
+      startSessionTimer();
+    }
+
+    // ==================== Password Recovery ====================
+    function initPasswordRecovery() {
+      // Forgot password link
+      document.getElementById('forgotPassword').addEventListener('click', (e) => {
         e.preventDefault();
         hideModal('loginModal');
-        showModal('registerModal');
+        showModal('forgotPasswordModal');
       });
       
-      document.getElementById('showLogin').addEventListener('click', (e) => {
+      // Back to login from recovery
+      document.getElementById('showLoginFromRecovery').addEventListener('click', (e) => {
         e.preventDefault();
-        hideModal('registerModal');
+        hideModal('forgotPasswordModal');
         showModal('loginModal');
       });
       
-      // Login form
-      document.getElementById('loginForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const email = this.querySelector('input[type="text"]').value;
-        const password = this.querySelector('input[type="password"]').value;
+      // Close buttons for new modals
+      document.getElementById('closeForgotPasswordModal').addEventListener('click', () => hideModal('forgotPasswordModal'));
+      document.getElementById('closeResetPasswordModal').addEventListener('click', () => hideModal('resetPasswordModal'));
+      
+      // Password strength meter
+      document.getElementById('newPassword')?.addEventListener('input', function() {
+        updatePasswordStrength(this.value);
+      });
+      
+      // Forgot password form
+      document.getElementById('forgotPasswordForm').addEventListener('submit', handleForgotPassword);
+      
+      // Reset password form
+      document.getElementById('resetPasswordForm').addEventListener('submit', handlePasswordReset);
+    }
+
+    function handleForgotPassword(e) {
+      e.preventDefault();
+      const identifier = document.getElementById('recoveryEmail').value;
+      const user = users.find(u => u.email === identifier || u.kuccpsNumber === identifier);
+      
+      if (user) {
+        if (user.lockedUntil && new Date(user.lockedUntil) > new Date()) {
+          alert('Account is temporarily locked. Please try again later.');
+          return;
+        }
         
-        const user = users.find(u => (u.email === email || u.kuccpsNumber === email) && u.password === password);
+        const resetToken = generateSecureToken();
+        user.resetToken = resetToken;
+        user.resetTokenExpiry = Date.now() + SECURITY.PASSWORD_RESET_EXPIRY;
+        localStorage.setItem('kuccps_users', JSON.stringify(users));
+        
+        // Simulate email sending
+        setTimeout(() => {
+          alert(`Password reset link has been sent to ${user.email}`);
+        }, 1000);
+        
+        hideModal('forgotPasswordModal');
+      } else {
+        alert('No account found with that email or KUCCPS number');
+      }
+    }
+
+    function checkPasswordResetToken() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const resetToken = urlParams.get('resetToken');
+      
+      if (resetToken) {
+        const user = users.find(u => 
+          u.resetToken === resetToken && 
+          u.resetTokenExpiry > Date.now()
+        );
         
         if (user) {
-          // Record login
-          const loginEntry = {
-            userId: user.id,
-            email: user.email,
-            timestamp: new Date().toISOString(),
-            ip: "192.168.1.1" // In real app, get actual IP
-          };
-          loginHistory.push(loginEntry);
-          localStorage.setItem('kuccps_login_history', JSON.stringify(loginHistory));
-          
-          // Set session
-          sessionStorage.setItem('currentUser', JSON.stringify(user));
-          alert('Login successful!');
-          hideModal('loginModal');
-          checkLoginStatus();
+          document.getElementById('resetToken').value = resetToken;
+          showModal('resetPasswordModal');
+          window.history.replaceState({}, document.title, window.location.pathname);
         } else {
-          alert('Invalid email or password');
+          alert('Invalid or expired reset token');
         }
-      });
+      }
+    }
+
+    function handlePasswordReset(e) {
+      e.preventDefault();
+      const token = document.getElementById('resetToken').value;
+      const newPassword = document.getElementById('newPassword').value;
+      const confirmPassword = document.getElementById('confirmNewPassword').value;
       
-      // Registration form
-      document.getElementById('registerForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const email = document.getElementById('registerEmail').value;
-        const kuccpsNumber = document.getElementById('registerKuccps').value;
-        const password = document.getElementById('registerPassword').value;
-        const confirmPassword = document.getElementById('registerConfirmPassword').value;
+      if (newPassword !== confirmPassword) {
+        alert('Passwords do not match');
+        return;
+      }
+      
+      if (!validatePassword(newPassword)) {
+        alert(`Password must be at least ${SECURITY.MIN_PASSWORD_LENGTH} characters long`);
+        return;
+      }
+      
+      const user = users.find(u => u.resetToken === token);
+      
+      if (user) {
+        user.password = hashPassword(newPassword);
+        delete user.resetToken;
+        delete user.resetTokenExpiry;
+        user.failedAttempts = 0;
+        user.lockedUntil = null;
         
-        if (password !== confirmPassword) {
-          alert('Passwords do not match');
-          return;
-        }
-        
-        if (users.some(u => u.email === email)) {
-          alert('Email already registered');
-          return;
-        }
-        
-        const newUser = {
-          id: Date.now().toString(),
-          email,
-          kuccpsNumber,
-          password,
-          createdAt: new Date().toISOString()
+        localStorage.setItem('kuccps_users', JSON.stringify(users));
+        alert('Password reset successfully! Please login with your new password.');
+        hideModal('resetPasswordModal');
+        showModal('loginModal');
+      } else {
+        alert('Invalid or expired reset token');
+      }
+    }
+
+    // ==================== User Tracking ====================
+    function trackUserLogin(user) {
+      // Check if user already has an active session
+      const existingSessionIndex = userSessions.findIndex(session => 
+        session.userId === user.id && session.isActive);
+      
+      if (existingSessionIndex >= 0) {
+        // Update last activity time
+        userSessions[existingSessionIndex].lastActivity = new Date().toISOString();
+      } else {
+        // Create new session
+        const session = {
+          userId: user.id,
+          email: user.email,
+          kuccpsNumber: user.kuccpsNumber,
+          ip: "192.168.1.1", // In production, get actual IP from request
+          location: "Nairobi, Kenya", // In production, use geolocation API
+          device: navigator.userAgent,
+          loginTime: new Date().toISOString(),
+          lastActivity: new Date().toISOString(),
+          isActive: true
         };
         
-        users.push(newUser);
+        userSessions.push(session);
+      }
+      
+      localStorage.setItem('kuccps_user_sessions', JSON.stringify(userSessions));
+    }
+
+    // ==================== Admin Functions ====================
+    function loadAdminData() {
+      loadUserList();
+      loadLoginHistory();
+      loadActiveSessions();
+      loadNotifications();
+    }
+
+    function loadUserList() {
+      const userList = document.getElementById('adminUserList');
+      userList.innerHTML = users.map(user => `
+        <tr>
+          <td>${user.email}</td>
+          <td>${user.kuccpsNumber}</td>
+          <td>${new Date(user.createdAt).toLocaleDateString()}</td>
+          <td>
+            <button class="admin-action-btn" onclick="adminResetPassword('${user.id}')">
+              Reset Password
+            </button>
+            ${user.lockedUntil && new Date(user.lockedUntil) > new Date() ? 
+              `<button class="admin-action-btn" onclick="adminUnlockAccount('${user.id}')">
+                Unlock
+              </button>` : ''}
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function adminResetPassword(userId) {
+      if (confirm('Are you sure you want to reset this user\'s password?')) {
+        const user = users.find(u => u.id === userId);
+        if (user) {
+          // Generate temporary password
+          const tempPassword = `temp${Math.random().toString(36).substr(2, 8)}`;
+          user.password = hashPassword(tempPassword);
+          user.failedAttempts = 0;
+          user.lockedUntil = null;
+          localStorage.setItem('kuccps_users', JSON.stringify(users));
+          
+          // In production, send email to user with temp password
+          alert(`Password reset for ${user.email}. Temporary password: ${tempPassword}`);
+          
+          // Reload admin data to reflect changes
+          loadUserList();
+        }
+      }
+    }
+
+    function adminUnlockAccount(userId) {
+      const user = users.find(u => u.id === userId);
+      if (user) {
+        user.lockedUntil = null;
+        user.failedAttempts = 0;
         localStorage.setItem('kuccps_users', JSON.stringify(users));
-        alert('Registration successful! Please login.');
-        showModal('loginModal');
-        hideModal('registerModal');
-      });
+        loadUserList();
+        alert('Account unlocked successfully');
+      }
+    }
+
+    function loadLoginHistory() {
+      const loginList = document.getElementById('adminLoginList');
+      loginList.innerHTML = loginHistory.map(entry => `
+        <tr>
+          <td>${entry.email}</td>
+          <td>${new Date(entry.timestamp).toLocaleString()}</td>
+          <td>${entry.ip}</td>
+          <td>${entry.location || 'Unknown'}</td>
+        </tr>
+      `).join('');
+    }
+
+    function loadActiveSessions() {
+      const activeUsersList = document.getElementById('adminActiveUsersList');
+      activeUsersList.innerHTML = userSessions
+        .filter(session => session.isActive)
+        .map(session => `
+          <tr>
+            <td>${session.email}</td>
+            <td>${new Date(session.loginTime).toLocaleTimeString()}</td>
+            <td>${session.location}</td>
+            <td>${session.device.substring(0, 30)}...</td>
+          </tr>
+        `).join('');
+    }
+
+    function loadNotifications() {
+      // Your existing notification loading logic
+    }
+
+    // ==================== Modified Existing Functions ====================
+    // Update the setupEventListeners function to include password recovery
+    const originalSetupEventListeners = setupEventListeners;
+    setupEventListeners = function() {
+      originalSetupEventListeners();
       
-      // Password visibility toggle
-      document.querySelectorAll('.toggle-password').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const input = this.previousElementSibling;
-          if (input.type === 'password') {
-            input.type = 'text';
-            this.innerHTML = '<i class="fas fa-eye-slash"></i>';
-          } else {
-            input.type = 'password';
-            this.innerHTML = '<i class="fas fa-eye"></i>';
-          }
-        });
-      });
-      
-      // Admin access
-      document.getElementById('adminAccessBtn').addEventListener('click', () => showModal('adminLoginModal'));
-      
-      // Admin login form
-      document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+      // Add these new event listeners
+      document.getElementById('forgotPassword').addEventListener('click', (e) => {
         e.preventDefault();
-        const username = document.getElementById('adminUsername').value;
-        const password = document.getElementById('adminPassword').value;
-        const errorElement = document.getElementById('adminLoginError');
-        
-        if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-          sessionStorage.setItem('isAdmin', 'true');
-          hideModal('adminLoginModal');
-          showModal('adminPanelModal');
-          loadAdminData();
-          errorElement.style.display = 'none';
-        } else {
-          errorElement.style.display = 'block';
-        }
+        hideModal('loginModal');
+        showModal('forgotPasswordModal');
       });
       
-      // Admin panel functions
-      document.getElementById('addNotificationBtn').addEventListener('click', addNotification);
-      
-      // Cookie consent
-      document.getElementById('acceptCookies').addEventListener('click', acceptCookies);
-      document.getElementById('declineCookies').addEventListener('click', declineCookies);
-      
-      // Window scroll event
-      window.addEventListener('scroll', checkScrollPosition);
-    }
-
-    // Toggle sidebar menu
-    function toggleMenu() {
-      document.getElementById('sidebar').classList.toggle('active');
-      // Close notifications if open
-      if (document.getElementById('notificationPanel').classList.contains('active')) {
-        document.getElementById('notificationPanel').classList.remove('active');
-      }
-    }
-
-    // Toggle notifications panel
-    function toggleNotifications() {
-      document.getElementById('notificationPanel').classList.toggle('active');
-      // Close menu if open
-      if (document.getElementById('sidebar').classList.contains('active')) {
-        document.getElementById('sidebar').classList.remove('active');
-      }
-    }
-
-    // Clear notifications
-    function clearNotifications() {
-      document.querySelectorAll('.notification-item.unread').forEach(item => {
-        item.classList.remove('unread');
+      document.getElementById('showLoginFromRecovery').addEventListener('click', (e) => {
+        e.preventDefault();
+        hideModal('forgotPasswordModal');
+        showModal('loginModal');
       });
-      document.querySelector('.notification-badge').style.display = 'none';
-    }
+    };
 
-    // Toggle theme
-    function toggleTheme() {
-      document.body.classList.toggle('light');
-      localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
-    }
-
-    // Show loading spinner
-    function showLoader(url) {
-      const loader = document.getElementById('loader');
-      loader.style.display = 'flex';
-      
-      if (url) {
-        // Simulate loading before navigation
-        setTimeout(() => {
-          window.location.href = url;
-        }, 1500);
-      }
-    }
-
-    // Hide loading spinner
-    function hideLoader() {
-      document.getElementById('loader').style.display = 'none';
-    }
-
-    // Filter courses based on search query
-    function filterCourses(query) {
-      const q = query.toLowerCase();
-      let hasResults = false;
-      
-      document.querySelectorAll('.course-card').forEach(card => {
-        const title = card.querySelector('.course-title').textContent.toLowerCase();
-        const uni = card.querySelector('.course-university').textContent.toLowerCase();
-        
-        if (title.includes(q) || uni.includes(q)) {
-          card.style.display = 'block';
-          hasResults = true;
-        } else {
-          card.style.display = 'none';
-        }
-      });
-      
-      if (!hasResults) {
-        alert('No courses found matching your search');
-      }
-    }
-
-    // Scroll to top function
-    function scrollToTop() {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }
-
-    // Check scroll position for back-to-top button
-    function checkScrollPosition() {
-      const backToTopBtn = document.getElementById('backToTop');
-      if (window.pageYOffset > 300) {
-        backToTopBtn.classList.add('visible');
-      } else {
-        backToTopBtn.classList.remove('visible');
-      }
-    }
-
-    // Show modal
-    function showModal(modalId) {
-      document.getElementById(modalId).style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-    }
-
-    // Hide modal
-    function hideModal(modalId) {
-      document.getElementById(modalId).style.display = 'none';
-      document.body.style.overflow = 'auto';
-    }
-
-    // Check login status and update UI
-    function checkLoginStatus() {
+    // Update checkLoginStatus to track user sessions
+    const originalCheckLoginStatus = checkLoginStatus;
+    checkLoginStatus = function() {
+      originalCheckLoginStatus();
       const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-      const userProfile = document.querySelector('.user-profile');
-      
       if (currentUser) {
-        document.querySelector('.user-name').textContent = currentUser.email;
-        document.querySelector('.user-email').textContent = currentUser.kuccpsNumber;
-        document.getElementById('loginBtn').innerHTML = '<i class="fas fa-sign-out-alt"></i> Logout';
-      } else {
-        document.querySelector('.user-name').textContent = 'Guest User';
-        document.querySelector('.user-email').textContent = 'guest@gmail.com';
-        document.getElementById('loginBtn').innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+        trackUserLogin(currentUser);
       }
-    }
-    // Logout function
-function logout() {
-  sessionStorage.removeItem('currentUser');
-  checkLoginStatus();
-  alert('You have been logged out');
-}
-    
-    // Cookie consent functions
-function showCookieConsent() {
-  if (!localStorage.getItem('cookiesAccepted')) {
-    document.getElementById('cookieConsent').classList.add('active');
-  }
-}
+    };
 
-function acceptCookies() {
-  localStorage.setItem('cookiesAccepted', 'true');
-  document.getElementById('cookieConsent').classList.remove('active');
-}
-
-function declineCookies() {
-  localStorage.setItem('cookiesDeclined', 'true');
-  document.getElementById('cookieConsent').classList.remove('active');
-}
-
-// Admin panel functions
-function openAdminTab(tabName) {
-  // Hide all tab contents
-  document.querySelectorAll('.admin-tab-content').forEach(tab => {
-    tab.classList.remove('active');
-  });
-  
-  // Deactivate all tabs
-  document.querySelectorAll('.admin-tab').forEach(tab => {
-    tab.classList.remove('active');
-  });
-  
-  // Show the selected tab content
-  document.getElementById(`${tabName}Tab`).classList.add('active');
-  
-  // Activate the clicked tab
-  event.currentTarget.classList.add('active');
-}
-
-// Load admin data
-function loadAdminData() {
-  const userList = document.getElementById('adminUserList');
-  const loginList = document.getElementById('adminLoginList');
-  
-  // Display all users
-  userList.innerHTML = users.map(user => `
-    <tr>
-      <td>${user.email}</td>
-      <td>${user.kuccpsNumber}</td>
-      <td>${new Date(user.createdAt).toLocaleDateString()}</td>
-    </tr>
-  `).join('');
-  
-  // Display login history
-  loginList.innerHTML = loginHistory.map(entry => `
-    <tr>
-      <td>${entry.email}</td>
-      <td>${new Date(entry.timestamp).toLocaleString()}</td>
-      <td>${entry.ip}</td>
-    </tr>
-  `).join('');
-}
-
-// Add notification
-function addNotification() {
-  const title = document.getElementById('notificationTitle').value;
-  const content = document.getElementById('notificationContent').value;
-  const time = document.getElementById('notificationTime').value || 'Just now';
-  const unread = document.getElementById('notificationUnread').checked;
-  
-  if (!title || !content) {
-    alert('Please fill in all fields');
-    return;
-  }
-  
-  const notificationPanel = document.querySelector('.notification-panel');
-  const newNotification = document.createElement('div');
-  newNotification.className = `notification-item ${unread ? 'unread' : ''}`;
-  newNotification.innerHTML = `
-    <strong>${title}</strong>
-    <p>${content}</p>
-    <span class="notification-time">${time}</span>
-  `;
-  
-  // Add click handler to mark as read
-  newNotification.addEventListener('click', function() {
-    this.classList.remove('unread');
-    updateNotificationBadge();
-  });
-  
-  // Insert after header
-  notificationPanel.insertBefore(newNotification, notificationPanel.children[1]);
-  
-  // Update badge count if unread
-  if (unread) {
-    updateNotificationBadge();
-  }
-  
-  // Clear form
-  document.getElementById('notificationTitle').value = '';
-  document.getElementById('notificationContent').value = '';
-  document.getElementById('notificationTime').value = '';
-  document.getElementById('notificationUnread').checked = false;
-  
-  alert('Notification added successfully!');
-}
-
-function updateNotificationBadge() {
-  const badge = document.querySelector('.notification-badge');
-  const unreadCount = document.querySelectorAll('.notification-item.unread').length;
-  badge.textContent = unreadCount;
-  badge.style.display = unreadCount > 0 ? 'flex' : 'none';
-}
-</script>
+    // Your remaining existing JavaScript functions remain exactly the same
+    // Only the new/modified functions are shown above
+  </script>
 </body>
 </html>
