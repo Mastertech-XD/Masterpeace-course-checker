@@ -3,20 +3,342 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FAQs - KUCCPS</title>
+  <title>Frequently Asked Questions - KUCCPS Qualification Checker</title>
+  <style>
+    /* Reuse your existing styles with some additions */
+    :root {
+      --neon-blue: #0ff;
+      --neon-pink: #f0f;
+      --neon-purple: #90f;
+      --dark-bg: #000;
+      --light-bg: #f8f9fa;
+      --primary-color: #0056b3;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--dark-bg);
+      color: white;
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      color: var(--neon-blue);
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+      text-shadow: 0 0 10px var(--neon-blue);
+    }
+
+    h2.section-title {
+      color: var(--neon-pink);
+      text-align: center;
+      margin: 40px 0 30px;
+      font-size: 1.8rem;
+    }
+
+    .faq-category {
+      margin-bottom: 50px;
+    }
+
+    .faq-item {
+      background: rgba(0, 33, 71, 0.5);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      transition: all 0.3s;
+    }
+
+    .faq-question {
+      color: var(--neon-blue);
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faq-question::after {
+      content: '+';
+      font-size: 1.5rem;
+      transition: transform 0.3s;
+    }
+
+    .faq-item.active .faq-question::after {
+      content: '-';
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+    }
+
+    .back-button {
+      display: inline-block;
+      padding: 12px 25px;
+      background: var(--primary-color);
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 30px;
+      transition: all 0.3s;
+      text-align: center;
+    }
+
+    .back-button:hover {
+      background: var(--neon-blue);
+      transform: translateY(-2px);
+    }
+
+    /* Light mode styles */
+    body.light {
+      background-color: var(--light-bg);
+      color: #333;
+    }
+
+    body.light h1 {
+      color: var(--primary-color);
+      text-shadow: none;
+    }
+
+    body.light h2.section-title {
+      color: var(--neon-purple);
+    }
+
+    body.light .faq-item {
+      background: rgba(255, 255, 255, 0.8);
+      color: #333;
+    }
+
+    body.light .faq-question {
+      color: var(--primary-color);
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+      
+      h2.section-title {
+        font-size: 1.5rem;
+      }
+      
+      .faq-question {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-  <!-- Header/navigation -->
   <div class="container">
-    <h1>Frequently Asked Questions</h1>
-    <div class="faq-section">
+    <h1><i class="fas fa-question-circle"></i> Frequently Asked Questions</h1>
+
+    <div class="faq-category">
+      <h2 class="section-title">General Questions</h2>
+      
       <div class="faq-item">
-        <h3>How are cutoff points determined?</h3>
-        <p>Cutoff points are based on demand and available slots...</p>
+        <div class="faq-question">What is the KUCCPS Qualification Checker?</div>
+        <div class="faq-answer">
+          <p>The KUCCPS Qualification Checker is an independent tool designed to help students estimate their eligibility for various university and college courses in Kenya based on their KCSE results. It provides guidance on potential courses you may qualify for based on historical cutoff points.</p>
+        </div>
       </div>
-      <!-- More FAQ items -->
+      
+      <div class="faq-item">
+        <div class="faq-question">Is this the official KUCCPS website?</div>
+        <div class="faq-answer">
+          <p>No, this is not the official KUCCPS website. We are an independent service that provides tools and information to help students navigate the university placement process. For official placement information, always refer to the <a href="https://students.kuccps.net/" style="color: var(--neon-blue);">official KUCCPS portal</a>.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">How accurate are the qualification results?</div>
+        <div class="faq-answer">
+          <p>Our qualification checker provides estimates based on historical data and trends. While we strive for accuracy, actual placement decisions are made by KUCCPS and may differ from our predictions due to factors like:</p>
+          <ul style="margin: 15px 0 15px 30px;">
+            <li>Changes in cutoff points from year to year</li>
+            <li>Variations in course availability</li>
+            <li>Number of applicants for specific programs</li>
+            <li>Institutional capacity changes</li>
+          </ul>
+          <p>Always verify with official KUCCPS communications.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-category">
+      <h2 class="section-title">Using the Qualification Checker</h2>
+      
+      <div class="faq-item">
+        <div class="faq-question">How do I use the qualification checker tool?</div>
+        <div class="faq-answer">
+          <p>To use the qualification checker:</p>
+          <ol style="margin: 15px 0 15px 30px;">
+            <li>Select your preferred program type (Degree, Diploma, Certificate, or KMTC)</li>
+            <li>Enter your KCSE grades for the relevant subjects</li>
+            <li>Specify your preferred cluster subjects (if applicable)</li>
+            <li>Click "Check Qualification" to see estimated eligible courses</li>
+            <li>Review the results and suggested alternatives</li>
+          </ol>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">What information do I need to use the checker?</div>
+        <div class="faq-answer">
+          <p>You'll need:</p>
+          <ul style="margin: 15px 0 15px 30px;">
+            <li>Your KCSE certificate with grades</li>
+            <li>Knowledge of your preferred career path (helps with course selection)</li>
+            <li>Your KUCCPS account details (if you want to compare with official data)</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">Can I save my qualification results?</div>
+        <div class="faq-answer">
+          <p>Yes, after checking your qualifications, you can create an account to save your results for future reference. This allows you to track changes and compare different course options over time.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-category">
+      <h2 class="section-title">Technical Questions</h2>
+      
+      <div class="faq-item">
+        <div class="faq-question">Why isn't the qualification checker working?</div>
+        <div class="faq-answer">
+          <p>If you're experiencing issues, try these troubleshooting steps:</p>
+          <ul style="margin: 15px 0 15px 30px;">
+            <li>Refresh the page and try again</li>
+            <li>Ensure all required fields are filled correctly</li>
+            <li>Check your internet connection</li>
+            <li>Try using a different browser</li>
+            <li>Clear your browser cache</li>
+          </ul>
+          <p>If problems persist, please contact our support team.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">How often is the course data updated?</div>
+        <div class="faq-answer">
+          <p>We update our course database:</p>
+          <ul style="margin: 15px 0 15px 30px;">
+            <li>After each KUCCPS placement cycle</li>
+            <li>When new institutions or programs are added</li>
+            <li>When cutoff points are officially released</li>
+            <li>When we receive verified updates from institutions</li>
+          </ul>
+          <p>We recommend checking back regularly during application periods for the most current information.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">Is my personal data secure?</div>
+        <div class="faq-answer">
+          <p>We take data security seriously. Any personal information you provide is protected according to our <a href="privacy.html" style="color: var(--neon-blue);">Privacy Policy</a>. We don't share your data with third parties without your consent, and we use encryption to protect sensitive information.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-category">
+      <h2 class="section-title">Placement Process</h2>
+      
+      <div class="faq-item">
+        <div class="faq-question">How does the official KUCCPS placement work?</div>
+        <div class="faq-answer">
+          <p>The official KUCCPS placement process involves:</p>
+          <ol style="margin: 15px 0 15px 30px;">
+            <li>Application through the KUCCPS portal</li>
+            <li>Course selection based on your qualifications</li>
+            <li>Processing of applications by KUCCPS</li>
+            <li>Publication of placement results</li>
+            <li>Acceptance and registration at the assigned institution</li>
+          </ol>
+          <p>Our tool helps you prepare for step 2 by estimating which courses you might qualify for.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">What if I don't qualify for my preferred courses?</div>
+        <div class="faq-answer">
+          <p>If our checker shows you may not qualify for your preferred courses, consider these options:</p>
+          <ul style="margin: 15px 0 15px 30px;">
+            <li>Look for similar courses with lower cutoff points</li>
+            <li>Consider diploma options that may lead to degree programs later</li>
+            <li>Check for certificate programs in your field of interest</li>
+            <li>Review subject requirements - you might qualify if you improve specific subjects</li>
+            <li>Contact institutions directly for alternative entry options</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">When are the official placement results released?</div>
+        <div class="faq-answer">
+          <p>KUCCPS typically releases placement results in:</p>
+          <ul style="margin: 15px 0 15px 30px;">
+            <li><strong>August/September</strong> for government-sponsored placements</li>
+            <li><strong>Throughout the year</strong> for self-sponsored programs</li>
+          </ul>
+          <p>Exact dates vary each year. Monitor the official KUCCPS website and our notifications for updates.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align: center;">
+      <a href="index.html" class="back-button"><i class="fas fa-arrow-left"></i> Back to Home</a>
+      <p style="margin-top: 30px;">Still have questions? <a href="contact.html" style="color: var(--neon-blue);">Contact our support team</a></p>
     </div>
   </div>
-  <!-- Footer -->
+
+  <script>
+    // Check for saved theme preference
+    document.addEventListener('DOMContentLoaded', function() {
+      if (localStorage.getItem('theme') === 'light') {
+        document.body.classList.add('light');
+      }
+      
+      // FAQ accordion functionality
+      const faqItems = document.querySelectorAll('.faq-item');
+      faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        question.addEventListener('click', () => {
+          item.classList.toggle('active');
+          
+          // Close other open items
+          faqItems.forEach(otherItem => {
+            if (otherItem !== item && otherItem.classList.contains('active')) {
+              otherItem.classList.remove('active');
+            }
+          });
+        });
+      });
+    });
+  </script>
 </body>
 </html>
