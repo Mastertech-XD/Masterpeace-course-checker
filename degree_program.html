@@ -41,6 +41,42 @@
             max-width: 800px;
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
             border: 1px solid var(--neon-blue);
+            margin-bottom: 20px;
+        }
+
+        .mode-selector {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .mode-btn {
+            background-color: var(--card-bg);
+            color: var(--neon-blue);
+            border: 2px solid var(--neon-blue);
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .mode-btn:first-child {
+            border-radius: 5px 0 0 5px;
+        }
+
+        .mode-btn:last-child {
+            border-radius: 0 5px 5px 0;
+        }
+
+        .mode-btn.active {
+            background-color: var(--neon-blue);
+            color: var(--dark-bg);
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .mode-btn:hover:not(.active) {
+            background-color: rgba(0, 255, 255, 0.2);
         }
 
         .form-group {
@@ -161,6 +197,64 @@
             color: var(--neon-pink);
         }
 
+        .cluster-list {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(0, 50, 50, 0.3);
+            border-radius: 5px;
+        }
+
+        .cluster-item {
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .cluster-item:hover {
+            background: rgba(0, 150, 150, 0.3);
+            color: var(--neon-blue);
+        }
+
+        .course-list {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(0, 70, 70, 0.3);
+            border-radius: 5px;
+        }
+
+        .course-item {
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .course-item:hover {
+            background: rgba(0, 180, 180, 0.3);
+            color: var(--neon-blue);
+        }
+
+        .cluster-results {
+            margin-top: 20px;
+        }
+
+        .eligible-course {
+            background: rgba(0, 50, 50, 0.3);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border-left: 4px solid var(--neon-blue);
+        }
+
+        .eligible-course-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: var(--neon-blue);
+        }
+
         @media (max-width: 600px) {
             .container {
                 padding: 15px;
@@ -177,32 +271,89 @@
     <h1>KUCCPS Course Qualification Checker</h1>
     
     <div class="container">
-        <div class="form-group">
-            <label for="courseSelect">Select Course:</label>
-            <select id="courseSelect">
-                <option value="">-- Select a course --</option>
-                <!-- Courses will be populated by JavaScript -->
-            </select>
+        <div class="mode-selector">
+            <button class="mode-btn active" id="courseModeBtn">Check by Course</button>
+            <button class="mode-btn" id="clusterModeBtn">Check by Cluster</button>
         </div>
         
-        <div class="form-group">
-            <label for="clusterPoints">Enter Your Cluster Points:</label>
-            <input type="number" id="clusterPoints" min="0" max="100" placeholder="Enter your points">
-        </div>
-        
-        <button onclick="checkQualification()">Check Qualification</button>
-        
-        <div class="results" id="results" style="display: none;">
-            <div class="course-header">
-                <span id="selectedCourseName"></span>
-                <span id="courseCluster"></span>
+        <!-- Course Mode Content -->
+        <div id="courseModeContent">
+            <div class="form-group">
+                <label for="clusterSelect">Select Cluster:</label>
+                <div id="clusterSelect" class="cluster-selector">
+                    <div class="cluster-item" data-cluster="all">All Clusters</div>
+                    <div class="cluster-item" data-cluster="1">1 - Law</div>
+                    <div class="cluster-item" data-cluster="2">2 - Business, Hospitality & Related</div>
+                    <div class="cluster-item" data-cluster="3">3 - Social Sciences, Media Studies, Fine Arts</div>
+                    <div class="cluster-item" data-cluster="5">5 - Engineering, Engineering Technology</div>
+                    <div class="cluster-item" data-cluster="6">6 - Architecture, Building Construction</div>
+                    <div class="cluster-item" data-cluster="7">7 - Computing, IT & Related</div>
+                    <div class="cluster-item" data-cluster="9">9 - General Science, Biological Sciences</div>
+                    <div class="cluster-item" data-cluster="13">13 - Medicine, Health, Veterinary Medicine</div>
+                    <div class="cluster-item" data-cluster="15">15 - Agriculture, Animal Health, Food Science</div>
+                    <div class="cluster-item" data-cluster="19">19 - Education and Related</div>
+                </div>
             </div>
             
-            <div class="university-list" id="universityList"></div>
+            <div class="form-group">
+                <label for="courseSelect">Select Course:</label>
+                <select id="courseSelect">
+                    <option value="">-- Select a course --</option>
+                    <!-- Courses will be populated by JavaScript -->
+                </select>
+            </div>
             
-            <div class="suggestions" id="suggestions" style="display: none;">
-                <div class="suggestion-title">Suggested Universities (You Qualify):</div>
-                <div id="suggestionList"></div>
+            <div class="form-group">
+                <label for="clusterPoints">Enter Your Cluster Points:</label>
+                <input type="number" id="clusterPoints" min="0" max="100" placeholder="Enter your points">
+            </div>
+            
+            <button onclick="checkQualification()">Check Qualification</button>
+            
+            <div class="results" id="results" style="display: none;">
+                <div class="course-header">
+                    <span id="selectedCourseName"></span>
+                    <span id="courseCluster"></span>
+                </div>
+                
+                <div class="university-list" id="universityList"></div>
+                
+                <div class="suggestions" id="suggestions" style="display: none;">
+                    <div class="suggestion-title">Suggested Universities (You Qualify):</div>
+                    <div id="suggestionList"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Cluster Mode Content -->
+        <div id="clusterModeContent" style="display: none;">
+            <div class="form-group">
+                <label for="clusterSelectMode">Select Cluster:</label>
+                <select id="clusterSelectMode">
+                    <option value="">-- Select a cluster --</option>
+                    <option value="1">1 - Law</option>
+                    <option value="2">2 - Business, Hospitality & Related</option>
+                    <option value="3">3 - Social Sciences, Media Studies, Fine Arts</option>
+                    <option value="5">5 - Engineering, Engineering Technology</option>
+                    <option value="6">6 - Architecture, Building Construction</option>
+                    <option value="7">7 - Computing, IT & Related</option>
+                    <option value="9">9 - General Science, Biological Sciences</option>
+                    <option value="13">13 - Medicine, Health, Veterinary Medicine</option>
+                    <option value="15">15 - Agriculture, Animal Health, Food Science</option>
+                    <option value="19">19 - Education and Related</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="clusterPointsMode">Enter Your Cluster Points:</label>
+                <input type="number" id="clusterPointsMode" min="0" max="100" placeholder="Enter your points">
+            </div>
+            
+            <button onclick="checkClusterQualification()">Check Eligible Courses</button>
+            
+            <div class="cluster-results" id="clusterResults" style="display: none;">
+                <h3>Courses You Qualify For:</h3>
+                <div id="eligibleCoursesList"></div>
             </div>
         </div>
     </div>
@@ -1199,19 +1350,58 @@
 
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
-            // Populate course dropdown
+            // Set up mode switching
+            const courseModeBtn = document.getElementById('courseModeBtn');
+            const clusterModeBtn = document.getElementById('clusterModeBtn');
+            const courseModeContent = document.getElementById('courseModeContent');
+            const clusterModeContent = document.getElementById('clusterModeContent');
+            
+            courseModeBtn.addEventListener('click', function() {
+                courseModeBtn.classList.add('active');
+                clusterModeBtn.classList.remove('active');
+                courseModeContent.style.display = 'block';
+                clusterModeContent.style.display = 'none';
+            });
+            
+            clusterModeBtn.addEventListener('click', function() {
+                clusterModeBtn.classList.add('active');
+                courseModeBtn.classList.remove('active');
+                clusterModeContent.style.display = 'block';
+                courseModeContent.style.display = 'none';
+            });
+            
+            // Set up cluster selection for course mode
+            const clusterItems = document.querySelectorAll('.cluster-item');
+            clusterItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const cluster = this.getAttribute('data-cluster');
+                    populateCoursesByCluster(cluster);
+                });
+            });
+            
+            // Initially populate with all courses
+            populateCoursesByCluster('all');
+        });
+
+        function populateCoursesByCluster(cluster) {
             const courseSelect = document.getElementById('courseSelect');
+            courseSelect.innerHTML = '<option value="">-- Select a course --</option>';
+            
+            let filteredCourses = courses;
+            if (cluster !== 'all') {
+                filteredCourses = courses.filter(course => course.cluster.startsWith(cluster));
+            }
             
             // Sort courses alphabetically
-            const sortedCourses = [...courses].sort((a, b) => a.name.localeCompare(b.name));
+            filteredCourses.sort((a, b) => a.name.localeCompare(b.name));
             
-            sortedCourses.forEach(course => {
+            filteredCourses.forEach(course => {
                 const option = document.createElement('option');
                 option.value = course.name;
                 option.textContent = course.name;
                 courseSelect.appendChild(option);
             });
-        });
+        }
 
         function checkQualification() {
             const courseName = document.getElementById('courseSelect').value;
@@ -1304,6 +1494,97 @@
                 `;
                 suggestionListDiv.appendChild(noQualificationDiv);
                 suggestionsDiv.style.display = 'block';
+            }
+            
+            // Show results
+            resultsDiv.style.display = 'block';
+            
+            // Scroll to results
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function checkClusterQualification() {
+            const cluster = document.getElementById('clusterSelectMode').value;
+            const clusterPoints = parseFloat(document.getElementById('clusterPointsMode').value);
+            const resultsDiv = document.getElementById('clusterResults');
+            const eligibleCoursesList = document.getElementById('eligibleCoursesList');
+            
+            // Validate inputs
+            if (!cluster) {
+                alert("Please select a cluster");
+                return;
+            }
+            
+            if (isNaN(clusterPoints)) {
+                alert("Please enter valid cluster points");
+                return;
+            }
+            
+            if (clusterPoints < 0 || clusterPoints > 100) {
+                alert("Cluster points must be between 0 and 100");
+                return;
+            }
+            
+            // Filter courses by cluster
+            const clusterCourses = courses.filter(course => course.cluster.startsWith(cluster));
+            
+            // Process each course to find eligible universities
+            eligibleCoursesList.innerHTML = '';
+            
+            let eligibleCoursesCount = 0;
+            
+            clusterCourses.forEach(course => {
+                const universitiesArray = Object.entries(course.universities)
+                    .map(([name, cutoff]) => ({ name, cutoff }))
+                    .sort((a, b) => a.cutoff - b.cutoff);
+                
+                // Find universities where the student qualifies
+                const eligibleUniversities = universitiesArray.filter(uni => clusterPoints >= uni.cutoff);
+                
+                if (eligibleUniversities.length > 0) {
+                    eligibleCoursesCount++;
+                    
+                    const courseDiv = document.createElement('div');
+                    courseDiv.className = 'eligible-course';
+                    
+                    const headerDiv = document.createElement('div');
+                    headerDiv.className = 'eligible-course-header';
+                    headerDiv.innerHTML = `
+                        <span>${course.name}</span>
+                        <span>${eligibleUniversities.length}/${universitiesArray.length} universities</span>
+                    `;
+                    
+                    const unisDiv = document.createElement('div');
+                    unisDiv.className = 'university-list';
+                    
+                    eligibleUniversities.forEach(uni => {
+                        const uniDiv = document.createElement('div');
+                        uniDiv.className = 'university qualified';
+                        uniDiv.innerHTML = `
+                            <span>${uni.name}</span>
+                            <span class="cutoff">Cutoff: ${uni.cutoff}</span>
+                        `;
+                        unisDiv.appendChild(uniDiv);
+                    });
+                    
+                    courseDiv.appendChild(headerDiv);
+                    courseDiv.appendChild(unisDiv);
+                    eligibleCoursesList.appendChild(courseDiv);
+                }
+            });
+            
+            // Show message if no eligible courses
+            if (eligibleCoursesCount === 0) {
+                const noCoursesDiv = document.createElement('div');
+                noCoursesDiv.className = 'eligible-course';
+                noCoursesDiv.textContent = 'No courses in this cluster where you meet the cutoff points for any university.';
+                eligibleCoursesList.appendChild(noCoursesDiv);
+            } else {
+                const summaryDiv = document.createElement('div');
+                summaryDiv.style.marginTop = '15px';
+                summaryDiv.style.fontStyle = 'italic';
+                summaryDiv.textContent = `Found ${eligibleCoursesCount} courses where you qualify for at least one university.`;
+                eligibleCoursesList.appendChild(summaryDiv);
             }
             
             // Show results
