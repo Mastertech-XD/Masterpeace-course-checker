@@ -1685,8 +1685,7 @@
           console.log('ServiceWorker registration failed: ', err);
         });
       });
-    }
-  </script><!-- Add this modal at the bottom of your HTML, before the closing </body> tag -->
+    }<!-- Add this right before the closing </body> tag -->
 <div class="modal" id="adminLoginModal">
   <div class="modal-content">
     <div class="modal-header">
@@ -1780,7 +1779,7 @@
   </div>
 </div>
 
-<!-- Add this to your existing CSS -->
+<!-- Add this to your CSS section -->
 <style>
   .admin-panel-content {
     max-height: 60vh;
@@ -1800,9 +1799,33 @@
     min-height: 100px;
     resize: vertical;
   }
+  
+  .admin-access-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(128, 0, 128, 0.7);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 99;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s;
+  }
+  
+  .admin-access-btn:hover {
+    background: rgba(128, 0, 128, 0.9);
+    transform: scale(1.1);
+    box-shadow: 0 0 20px var(--neon-purple);
+  }
 </style>
 
-<!-- Add this to your existing JavaScript -->
+<!-- Add this to your JavaScript section -->
 <script>
   // Admin password
   const ADMIN_PASSWORD = "Robinson254";
@@ -1927,13 +1950,16 @@
     
     alert('Statistics updated successfully!');
   }
-  
-  // Add admin access button to your sidebar (add this inside your sidebar div)
-  /*
-  <button class="menu-btn" onclick="showAdminLogin()">
-    <i class="fas fa-user-shield"></i> Admin Panel
-  </button>
-  */
+
+  // Add admin access button to the page
+  document.addEventListener('DOMContentLoaded', function() {
+    const adminBtn = document.createElement('div');
+    adminBtn.className = 'admin-access-btn';
+    adminBtn.innerHTML = '<i class="fas fa-user-shield"></i>';
+    adminBtn.onclick = showAdminLogin;
+    document.body.appendChild(adminBtn);
+  });
 </script>
-</body>
+  </script>
+    </body>
 </html>
