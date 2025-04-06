@@ -839,6 +839,19 @@
       .search-input {
         padding: 12px 20px 12px 45px;
       }
+      
+      .sidebar {
+        width: 80%;
+      }
+      
+      .notification-panel {
+        width: 90%;
+        right: -100%;
+      }
+      
+      .notification-panel.active {
+        right: 5%;
+      }
     }
 
     /* Loading spinner */
@@ -1101,6 +1114,50 @@
       background: rgba(255, 255, 255, 0.1);
       transform: translateY(-2px);
     }
+
+    /* Admin Panel Styles */
+    .admin-panel-content {
+      max-height: 60vh;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+    
+    .admin-panel-content h3 {
+      margin-bottom: 15px;
+      color: var(--neon-blue);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .admin-panel-content textarea.form-input {
+      min-height: 100px;
+      resize: vertical;
+    }
+    
+    .admin-access-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(128, 0, 128, 0.7);
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 99;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s;
+    }
+    
+    .admin-access-btn:hover {
+      background: rgba(128, 0, 128, 0.9);
+      transform: scale(1.1);
+      box-shadow: 0 0 20px var(--neon-purple);
+    }
   </style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -1116,7 +1173,7 @@
   </div>
   
   <!-- Notification Bell -->
-  <button class="notification-bell" onclick="toggleNotifications()">
+  <button class="notification-bell" id="notificationBell">
     <i class="fas fa-bell"></i>
     <span class="notification-badge">3</span>
   </button>
@@ -1125,7 +1182,7 @@
   <div class="notification-panel" id="notificationPanel">
     <div class="notification-header">
       <div class="notification-title">Notifications</div>
-      <button class="clear-notifications">Clear All</button>
+      <button class="clear-notifications" id="clearNotifications">Clear All</button>
     </div>
     <div class="notification-item unread">
       <strong>KUCCPS Updates</strong>
@@ -1150,7 +1207,7 @@
   </div>
 
   <!-- Menu Toggle -->
-  <button class="toggle-btn" onclick="toggleMenu()">
+  <button class="toggle-btn" id="menuToggle">
     <i class="fas fa-bars"></i>
   </button>
 
@@ -1171,40 +1228,40 @@
       </div>
     </div>
     
-    <button class="menu-btn" onclick="navigateTo('index.html')">
+    <button class="menu-btn" data-url="index.html">
       <i class="fas fa-home"></i> Home
     </button>
-    <button class="menu-btn" onclick="navigateTo('dashboard.html')">
+    <button class="menu-btn" data-url="dashboard.html">
       <i class="fas fa-tachometer-alt"></i> Dashboard
     </button>
-    <button class="menu-btn" onclick="navigateTo('https://students.kuccps.net/')">
+    <button class="menu-btn" data-url="https://students.kuccps.net/">
       <i class="fas fa-external-link-alt"></i> Official Portal
     </button>
-    <button class="menu-btn" onclick="navigateTo('courses.html')">
+    <button class="menu-btn" data-url="courses.html">
       <i class="fas fa-book"></i> All Courses
     </button>
-    <button class="menu-btn" onclick="navigateTo('universities.html')">
+    <button class="menu-btn" data-url="universities.html">
       <i class="fas fa-university"></i> Universities
     </button>
-    <button class="menu-btn" onclick="navigateTo('cutoffs.html')">
+    <button class="menu-btn" data-url="cutoffs.html">
       <i class="fas fa-chart-line"></i> Cutoff Points
     </button>
-    <button class="menu-btn" onclick="showModal('loginModal')">
+    <button class="menu-btn" id="loginBtn">
       <i class="fas fa-sign-in-alt"></i> Login
     </button>
-    <button class="menu-btn" onclick="navigateTo('about.html')">
+    <button class="menu-btn" data-url="about.html">
       <i class="fas fa-info-circle"></i> About Us
     </button>
-    <button class="menu-btn" onclick="navigateTo('contact.html')">
+    <button class="menu-btn" data-url="contact.html">
       <i class="fas fa-envelope"></i> Contact
     </button>
-    <button class="menu-btn" onclick="navigateTo('faq.html')">
+    <button class="menu-btn" data-url="faq.html">
       <i class="fas fa-question-circle"></i> FAQ
     </button>
-    <button class="mode-btn" onclick="toggleTheme()">
+    <button class="mode-btn" id="themeToggle">
       <i class="fas fa-moon"></i> Toggle Theme
     </button>
-    <button class="close-btn" onclick="toggleMenu()">
+    <button class="close-btn" id="closeMenu">
       <i class="fas fa-times"></i> Close Menu
     </button>
   </div>
@@ -1218,25 +1275,25 @@
   <!-- Quick Links -->
   <div class="quick-links-container">
     <div class="quick-links">
-      <a href="#" class="quick-link" onclick="showLoader('cutoffs.html')">
+      <a href="cutoffs.html" class="quick-link">
         <i class="fas fa-chart-line"></i> Cutoff Points
       </a>
-      <a href="#" class="quick-link" onclick="showLoader('calculator.html')">
+      <a href="calculator.html" class="quick-link">
         <i class="fas fa-calculator"></i> Points Calculator
       </a>
-      <a href="#" class="quick-link" onclick="showLoader('compare.html')">
+      <a href="compare.html" class="quick-link">
         <i class="fas fa-balance-scale"></i> Compare Courses
       </a>
-      <a href="#" class="quick-link" onclick="showLoader('trends.html')">
+      <a href="trends.html" class="quick-link">
         <i class="fas fa-chart-bar"></i> Placement Trends
       </a>
-      <a href="#" class="quick-link" onclick="showLoader('scholarships.html')">
+      <a href="scholarships.html" class="quick-link">
         <i class="fas fa-award"></i> Scholarships
       </a>
-      <a href="#" class="quick-link" onclick="showLoader('deadlines.html')">
+      <a href="deadlines.html" class="quick-link">
         <i class="fas fa-calendar-alt"></i> Key Deadlines
       </a>
-      <a href="#" class="quick-link" onclick="showLoader('loans.html')">
+      <a href="loans.html" class="quick-link">
         <i class="fas fa-hand-holding-usd"></i> HELB Loans
       </a>
     </div>
@@ -1272,42 +1329,42 @@
   <!-- Main Content -->
   <div class="container">
     <div class="btn-grid">
-      <button class="btn degree" onclick="showLoader('degree_program.html')">
+      <button class="btn degree" data-url="degree_program.html">
         <i class="fas fa-university"></i>
         Degree Programs
         <div class="btn-description">Browse all undergraduate degree courses</div>
       </button>
-      <button class="btn diploma" onclick="showLoader('diploma_program.html')">
+      <button class="btn diploma" data-url="diploma_program.html">
         <i class="fas fa-certificate"></i>
         Diploma Programs
         <div class="btn-description">Technical and professional diploma courses</div>
       </button>
-      <button class="btn certificate" onclick="showLoader('certificate_program.html')">
+      <button class="btn certificate" data-url="certificate_program.html">
         <i class="fas fa-file-alt"></i>
         Certificate Programs
         <div class="btn-description">Short-term certificate courses</div>
       </button>
-      <button class="btn kmtc" onclick="showLoader('kmtc_program.html')">
+      <button class="btn kmtc" data-url="kmtc_program.html">
         <i class="fas fa-hospital"></i>
         KMTC Programs
         <div class="btn-description">Medical training college courses</div>
       </button>
-      <button class="btn cutoffs" onclick="showLoader('cutoffs.html')">
+      <button class="btn cutoffs" data-url="cutoffs.html">
         <i class="fas fa-chart-line"></i>
         Cutoff Points
         <div class="btn-description">Latest cutoff points for all courses</div>
       </button>
-      <button class="btn compare" onclick="showLoader('compare.html')">
+      <button class="btn compare" data-url="compare.html">
         <i class="fas fa-balance-scale"></i>
         Compare Courses
         <div class="btn-description">Side-by-side course comparison</div>
       </button>
-      <button class="btn calculator" onclick="showLoader('calculator.html')">
+      <button class="btn calculator" data-url="calculator.html">
         <i class="fas fa-calculator"></i>
         Points Calculator
         <div class="btn-description">Calculate your cluster points</div>
       </button>
-      <button class="btn trends" onclick="showLoader('trends.html')">
+      <button class="btn trends" data-url="trends.html">
         <i class="fas fa-chart-bar"></i>
         Placement Trends
         <div class="btn-description">Historical placement data analysis</div>
@@ -1319,23 +1376,23 @@
       <div class="section-title">
         <i class="fas fa-star"></i> Featured Courses This Month
       </div>
-      <div class="courses-grid">
-        <div class="course-card" onclick="showLoader('medicine.html')">
+      <div class="courses-grid" id="featuredCourses">
+        <div class="course-card" data-url="medicine.html">
           <div class="course-title">Medicine & Surgery</div>
           <div class="course-university">University of Nairobi</div>
           <div class="course-cutoff">Cutoff: 45.584</div>
         </div>
-        <div class="course-card" onclick="showLoader('computer-science.html')">
+        <div class="course-card" data-url="computer-science.html">
           <div class="course-title">Computer Science</div>
           <div class="course-university">Jomo Kenyatta University</div>
           <div class="course-cutoff">Cutoff: 44.101</div>
         </div>
-        <div class="course-card" onclick="showLoader('law.html')">
+        <div class="course-card" data-url="law.html">
           <div class="course-title">Law (LLB)</div>
           <div class="course-university">Kenyatta University</div>
           <div class="course-cutoff">Cutoff: 41.643</div>
         </div>
-        <div class="course-card" onclick="showLoader('engineering.html')">
+        <div class="course-card" data-url="engineering.html">
           <div class="course-title">Electrical Engineering</div>
           <div class="course-university">Technical University of Kenya</div>
           <div class="course-cutoff">Cutoff: 41.924</div>
@@ -1370,18 +1427,18 @@
   </div>
 
   <!-- Back to Top Button -->
-  <div class="back-to-top" id="backToTop" onclick="scrollToTop()">
+  <div class="back-to-top" id="backToTop">
     <i class="fas fa-arrow-up"></i>
   </div>
 
   <!-- Footer -->
   <footer class="footer">
     <div class="footer-links">
-      <a href="#" class="footer-link" onclick="showLoader('privacy.html')">Privacy Policy</a>
-      <a href="#" class="footer-link" onclick="showLoader('terms.html')">Terms of Service</a>
-      <a href="#" class="footer-link" onclick="showLoader('disclaimer.html')">Disclaimer</a>
-      <a href="#" class="footer-link" onclick="showModal('contactModal')">Contact Support</a>
-      <a href="#" class="footer-link" onclick="showLoader('sitemap.html')">Sitemap</a>
+      <a href="privacy.html" class="footer-link">Privacy Policy</a>
+      <a href="terms.html" class="footer-link">Terms of Service</a>
+      <a href="disclaimer.html" class="footer-link">Disclaimer</a>
+      <a href="#" class="footer-link" id="contactSupport">Contact Support</a>
+      <a href="sitemap.html" class="footer-link">Sitemap</a>
     </div>
     <div class="social-icons">
       <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
@@ -1400,25 +1457,120 @@
         <div class="modal-title">
           <i class="fas fa-sign-in-alt"></i> Login to Your Account
         </div>
-        <button class="close-modal" onclick="hideModal('loginModal')">&times;</button>
+        <button class="close-modal" id="closeLoginModal">&times;</button>
       </div>
-      <form class="login-form">
+      <form class="login-form" id="loginForm">
         <div class="form-group">
           <label class="form-label">Email or KUCCPS Number</label>
-          <input type="text" class="form-input" placeholder="Enter your email or KUCCPS number">
+          <input type="text" class="form-input" placeholder="Enter your email or KUCCPS number" required>
         </div>
         <div class="form-group">
           <label class="form-label">Password</label>
-          <input type="password" class="form-input" placeholder="Enter your password">
+          <input type="password" class="form-input" placeholder="Enter your password" required>
         </div>
         <button type="submit" class="form-submit">Login</button>
         <div class="form-footer">
-          Don't have an account? <a href="#" class="form-link" onclick="showModal('registerModal')">Register</a>
+          Don't have an account? <a href="#" class="form-link" id="showRegister">Register</a>
         </div>
         <div class="form-footer">
-          <a href="#" class="form-link" onclick="showModal('forgotModal')">Forgot Password?</a>
+          <a href="#" class="form-link" id="forgotPassword">Forgot Password?</a>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- Admin Login Modal -->
+  <div class="modal" id="adminLoginModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fas fa-lock"></i> Admin Login
+        </div>
+        <button class="close-modal" id="closeAdminLoginModal">&times;</button>
+      </div>
+      <form class="login-form" id="adminLoginForm">
+        <div class="form-group">
+          <label class="form-label">Admin Password</label>
+          <input type="password" class="form-input" id="adminPassword" placeholder="Enter admin password" required>
+        </div>
+        <button type="submit" class="form-submit">Login</button>
+        <div id="adminLoginError" style="color: red; margin-top: 10px; display: none;">
+          Incorrect password. Please try again.
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Admin Panel Modal -->
+  <div class="modal" id="adminPanelModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fas fa-cogs"></i> Admin Panel
+        </div>
+        <button class="close-modal" id="closeAdminPanel">&times;</button>
+      </div>
+      <div class="admin-panel-content">
+        <h3><i class="fas fa-bell"></i> Manage Notifications</h3>
+        <div class="form-group">
+          <label class="form-label">Notification Title</label>
+          <input type="text" class="form-input" id="notificationTitle" placeholder="Enter title">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Notification Content</label>
+          <textarea class="form-input" id="notificationContent" rows="3" placeholder="Enter content"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Notification Time</label>
+          <input type="text" class="form-input" id="notificationTime" placeholder="e.g. 2 hours ago">
+        </div>
+        <div class="form-group">
+          <label>
+            <input type="checkbox" id="notificationUnread"> Mark as unread
+          </label>
+        </div>
+        <button class="form-submit" id="addNotificationBtn">
+          <i class="fas fa-plus"></i> Add Notification
+        </button>
+        
+        <h3 style="margin-top: 30px;"><i class="fas fa-star"></i> Featured Courses</h3>
+        <div class="form-group">
+          <label class="form-label">Course Title</label>
+          <input type="text" class="form-input" id="featuredCourseTitle" placeholder="Enter course title">
+        </div>
+        <div class="form-group">
+          <label class="form-label">University</label>
+          <input type="text" class="form-input" id="featuredCourseUni" placeholder="Enter university">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Cutoff Points</label>
+          <input type="text" class="form-input" id="featuredCourseCutoff" placeholder="Enter cutoff points">
+        </div>
+        <button class="form-submit" id="addFeaturedCourseBtn">
+          <i class="fas fa-plus"></i> Add Featured Course
+        </button>
+        
+        <h3 style="margin-top: 30px;"><i class="fas fa-chart-line"></i> Update Statistics</h3>
+        <div class="form-group">
+          <label class="form-label">Universities & Colleges</label>
+          <input type="number" class="form-input" id="statUnis" placeholder="Enter number">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Courses Available</label>
+          <input type="text" class="form-input" id="statCourses" placeholder="Enter number">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Students Placed</label>
+          <input type="text" class="form-input" id="statStudents" placeholder="Enter number">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Days to Deadline</label>
+          <input type="number" class="form-input" id="statDeadline" placeholder="Enter days">
+        </div>
+        <button class="form-submit" id="updateStatsBtn">
+          <i class="fas fa-sync-alt"></i> Update Statistics
+        </button>
+      </div>
     </div>
   </div>
 
@@ -1428,15 +1580,21 @@
       We use cookies to enhance your experience on our website. By continuing to browse, you agree to our use of cookies.
     </div>
     <div class="cookie-buttons">
-      <button class="cookie-btn cookie-accept" onclick="acceptCookies()">Accept All</button>
-      <button class="cookie-btn cookie-decline" onclick="declineCookies()">Decline</button>
+      <button class="cookie-btn cookie-accept" id="acceptCookies">Accept All</button>
+      <button class="cookie-btn cookie-decline" id="declineCookies">Decline</button>
     </div>
+  </div>
+
+  <!-- Admin Access Button (hidden by default) -->
+  <div class="admin-access-btn" id="adminAccessBtn">
+    <i class="fas fa-user-shield"></i>
   </div>
 
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script>
-    // Initialize particles.js
+    // Initialize when DOM is loaded
     document.addEventListener('DOMContentLoaded', function() {
+      // Initialize particles.js
       if (typeof particlesJS !== 'undefined') {
         particlesJS('particles-js', {
           particles: {
@@ -1461,12 +1619,18 @@
       // Create raindrops
       createRain();
       
-      // Show loader for 1.5 seconds (simulating initial load)
+      // Set up all event listeners
+      setupEventListeners();
+      
+      // Show initial loader
       showLoader();
       setTimeout(hideLoader, 1500);
       
       // Show cookie consent after 3 seconds
       setTimeout(showCookieConsent, 3000);
+      
+      // Check scroll position for back-to-top button
+      checkScrollPosition();
     });
 
     // Create raindrops
@@ -1500,70 +1664,157 @@
       }
     }
 
-    // DOM elements
-    const sidebar = document.getElementById("sidebar");
-    const notificationPanel = document.getElementById("notificationPanel");
-    const backToTopBtn = document.getElementById("backToTop");
-    const loader = document.getElementById("loader");
-    const searchInput = document.getElementById("searchInput");
-    const cookieConsent = document.getElementById("cookieConsent");
+    // Set up all event listeners
+    function setupEventListeners() {
+      // Menu toggle
+      document.getElementById('menuToggle').addEventListener('click', toggleMenu);
+      document.getElementById('closeMenu').addEventListener('click', toggleMenu);
+      
+      // Notification toggle
+      document.getElementById('notificationBell').addEventListener('click', toggleNotifications);
+      document.getElementById('clearNotifications').addEventListener('click', clearNotifications);
+      
+      // Theme toggle
+      document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+      
+      // Back to top
+      document.getElementById('backToTop').addEventListener('click', scrollToTop);
+      
+      // Search functionality
+      document.getElementById('searchInput').addEventListener('keyup', function(event) {
+        if (event.key === 'Enter') {
+          const query = this.value.trim();
+          if (query) filterCourses(query);
+        }
+      });
+      
+      // Connect all navigation buttons
+      document.querySelectorAll('[data-url]').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const url = this.getAttribute('data-url');
+          if (url) showLoader(url);
+        });
+      });
+      
+      // Modal controls
+      document.getElementById('loginBtn').addEventListener('click', () => showModal('loginModal'));
+      document.getElementById('closeLoginModal').addEventListener('click', () => hideModal('loginModal'));
+      document.getElementById('contactSupport').addEventListener('click', () => showModal('loginModal'));
+      
+      // Login form
+      document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        // In a real app, this would validate and submit to server
+        alert('Login functionality would be implemented here');
+        hideModal('loginModal');
+      });
+      
+      // Admin access
+      document.getElementById('adminAccessBtn').addEventListener('click', () => showModal('adminLoginModal'));
+      document.getElementById('closeAdminLoginModal').addEventListener('click', () => hideModal('adminLoginModal'));
+      document.getElementById('closeAdminPanel').addEventListener('click', () => hideModal('adminPanelModal'));
+      
+      // Admin login form
+      document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const password = document.getElementById('adminPassword').value;
+        const errorElement = document.getElementById('adminLoginError');
+        
+        // In a real app, this would be a server request
+        if (password === "Robinson254") { // Remove hardcoded password in production!
+          hideModal('adminLoginModal');
+          showModal('adminPanelModal');
+          errorElement.style.display = 'none';
+        } else {
+          errorElement.style.display = 'block';
+        }
+      });
+      
+      // Admin panel functions
+      document.getElementById('addNotificationBtn').addEventListener('click', addNotification);
+      document.getElementById('addFeaturedCourseBtn').addEventListener('click', addFeaturedCourse);
+      document.getElementById('updateStatsBtn').addEventListener('click', updateStatistics);
+      
+      // Cookie consent
+      document.getElementById('acceptCookies').addEventListener('click', acceptCookies);
+      document.getElementById('declineCookies').addEventListener('click', declineCookies);
+      
+      // Window scroll event
+      window.addEventListener('scroll', checkScrollPosition);
+    }
 
     // Toggle sidebar menu
     function toggleMenu() {
-      sidebar.classList.toggle("active");
-      if (notificationPanel.classList.contains("active")) {
-        notificationPanel.classList.remove("active");
+      document.getElementById('sidebar').classList.toggle('active');
+      // Close notifications if open
+      if (document.getElementById('notificationPanel').classList.contains('active')) {
+        document.getElementById('notificationPanel').classList.remove('active');
       }
     }
 
     // Toggle notifications panel
     function toggleNotifications() {
-      notificationPanel.classList.toggle("active");
-      if (sidebar.classList.contains("active")) {
-        sidebar.classList.remove("active");
+      document.getElementById('notificationPanel').classList.toggle('active');
+      // Close menu if open
+      if (document.getElementById('sidebar').classList.contains('active')) {
+        document.getElementById('sidebar').classList.remove('active');
       }
     }
 
-    // Close panels when clicking outside
-    document.addEventListener("click", function (event) {
-      const isMenuClick = sidebar.contains(event.target) || event.target.classList.contains("toggle-btn");
-      const isNotificationClick = notificationPanel.contains(event.target) || event.target.classList.contains("notification-bell");
-      
-      if (!isMenuClick && sidebar.classList.contains("active")) {
-        sidebar.classList.remove("active");
-      }
-      
-      if (!isNotificationClick && notificationPanel.classList.contains("active")) {
-        notificationPanel.classList.remove("active");
-      }
-    });
+    // Clear notifications
+    function clearNotifications() {
+      document.querySelectorAll('.notification-item.unread').forEach(item => {
+        item.classList.remove('unread');
+      });
+      document.querySelector('.notification-badge').style.display = 'none';
+    }
 
     // Toggle theme
     function toggleTheme() {
-      document.body.classList.toggle("light");
-      localStorage.setItem("theme", document.body.classList.contains("light") ? "light" : "dark");
+      document.body.classList.toggle('light');
+      localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
     }
 
     // Show loading spinner
     function showLoader(url) {
+      const loader = document.getElementById('loader');
+      loader.style.display = 'flex';
+      
       if (url) {
-        loader.style.display = "flex";
+        // Simulate loading before navigation
         setTimeout(() => {
-          window.location.href = url;
-        }, 1000);
-      } else {
-        loader.style.display = "flex";
+          // In a real app, this would navigate to the URL
+          alert(`Would navigate to: ${url}`);
+          loader.style.display = 'none';
+        }, 1500);
       }
     }
 
     // Hide loading spinner
     function hideLoader() {
-      loader.style.display = "none";
+      document.getElementById('loader').style.display = 'none';
     }
 
-    // Navigate to page
-    function navigateTo(url) {
-      showLoader(url);
+    // Filter courses based on search query
+    function filterCourses(query) {
+      const q = query.toLowerCase();
+      let hasResults = false;
+      
+      document.querySelectorAll('.course-card').forEach(card => {
+        const title = card.querySelector('.course-title').textContent.toLowerCase();
+        const uni = card.querySelector('.course-university').textContent.toLowerCase();
+        
+        if (title.includes(q) || uni.includes(q)) {
+          card.style.display = 'block';
+          hasResults = true;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      
+      if (!hasResults) {
+        alert('No courses found matching your search');
+      }
     }
 
     // Scroll to top function
@@ -1574,24 +1825,15 @@
       });
     }
 
-    // Show/hide back to top button based on scroll position
-    window.addEventListener('scroll', function() {
+    // Check scroll position for back-to-top button
+    function checkScrollPosition() {
+      const backToTopBtn = document.getElementById('backToTop');
       if (window.pageYOffset > 300) {
         backToTopBtn.classList.add('visible');
       } else {
         backToTopBtn.classList.remove('visible');
       }
-    });
-
-    // Search functionality
-    searchInput.addEventListener('keyup', function(event) {
-      if (event.key === 'Enter') {
-        const query = searchInput.value.trim().toLowerCase();
-        if (query) {
-          showLoader(`search.html?q=${encodeURIComponent(query)}`);
-        }
-      }
-    });
+    }
 
     // Show modal
     function showModal(modalId) {
@@ -1608,358 +1850,132 @@
     // Cookie consent functions
     function showCookieConsent() {
       if (!localStorage.getItem('cookiesAccepted')) {
-        cookieConsent.classList.add('active');
+        document.getElementById('cookieConsent').classList.add('active');
       }
     }
 
     function acceptCookies() {
       localStorage.setItem('cookiesAccepted', 'true');
-      cookieConsent.classList.remove('active');
+      document.getElementById('cookieConsent').classList.remove('active');
     }
 
     function declineCookies() {
       localStorage.setItem('cookiesDeclined', 'true');
-      cookieConsent.classList.remove('active');
+      document.getElementById('cookieConsent').classList.remove('active');
     }
 
-    // Initialize page
-    window.onload = function () {
-      // Set saved theme
-      const savedTheme = localStorage.getItem("theme");
-      if (savedTheme === "light") {
-        document.body.classList.add("light");
+    // Admin panel functions
+    function addNotification() {
+      const title = document.getElementById('notificationTitle').value;
+      const content = document.getElementById('notificationContent').value;
+      const time = document.getElementById('notificationTime').value || 'Just now';
+      const unread = document.getElementById('notificationUnread').checked;
+      
+      if (!title || !content) {
+        alert('Please fill in all fields');
+        return;
       }
       
-      // Check if user has visited before
-      if (!localStorage.getItem('firstVisit')) {
-        localStorage.setItem('firstVisit', 'true');
-        // You could show a welcome tour here
-      }
-    };
-
-    // Sample data for search autocomplete (in a real app, this would come from an API)
-    const courses = [
-      "Medicine and Surgery", "Computer Science", "Law (LLB)", 
-      "Electrical Engineering", "Business Administration", "Economics",
-      "Nursing", "Pharmacy", "Architecture", "Actuarial Science"
-    ];
-
-    // Initialize search autocomplete
-    searchInput.addEventListener('input', function() {
-      // In a real implementation, you would filter courses and show suggestions
-    });
-
-    // Clear notifications
-    document.querySelector('.clear-notifications').addEventListener('click', function(e) {
-      e.stopPropagation();
-      document.querySelectorAll('.notification-item.unread').forEach(item => {
-        item.classList.remove('unread');
-      });
-      document.querySelector('.notification-badge').style.display = 'none';
-    });
-
-    // Sample function to mark notifications as read
-    document.querySelectorAll('.notification-item').forEach(item => {
-      item.addEventListener('click', function() {
+      const notificationPanel = document.querySelector('.notification-panel');
+      const newNotification = document.createElement('div');
+      newNotification.className = `notification-item ${unread ? 'unread' : ''}`;
+      newNotification.innerHTML = `
+        <strong>${title}</strong>
+        <p>${content}</p>
+        <span class="notification-time">${time}</span>
+      `;
+      
+      // Add click handler to mark as read
+      newNotification.addEventListener('click', function() {
         this.classList.remove('unread');
-        const unreadCount = document.querySelectorAll('.notification-item.unread').length;
-        document.querySelector('.notification-badge').textContent = unreadCount;
-        if (unreadCount === 0) {
-          document.querySelector('.notification-badge').style.display = 'none';
-        }
+        updateNotificationBadge();
       });
-    });
-
-    // Sample analytics (in a real app, you would use Google Analytics or similar)
-    function trackEvent(category, action, label) {
-      console.log(`Tracking: ${category}, ${action}, ${label}`);
-      // analytics.trackEvent(category, action, label);
-    }
-
-    // Service Worker Registration (for PWA)
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').then(registration => {
-          console.log('ServiceWorker registration successful');
-        }).catch(err => {
-          console.log('ServiceWorker registration failed: ', err);
-        });
-      });
-    }<!-- Add this right before the closing </body> tag -->
-<div class="modal" id="adminLoginModal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <div class="modal-title">
-        <i class="fas fa-lock"></i> Admin Login
-      </div>
-      <button class="close-modal" onclick="hideModal('adminLoginModal')">&times;</button>
-    </div>
-    <form class="login-form" onsubmit="return checkAdminPassword(event)">
-      <div class="form-group">
-        <label class="form-label">Admin Password</label>
-        <input type="password" class="form-input" id="adminPassword" placeholder="Enter admin password" required>
-      </div>
-      <button type="submit" class="form-submit">Login</button>
-      <div id="adminLoginError" style="color: red; margin-top: 10px; display: none;">
-        Incorrect password. Please try again.
-      </div>
-    </form>
-  </div>
-</div>
-
-<div class="modal" id="adminPanelModal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <div class="modal-title">
-        <i class="fas fa-cogs"></i> Admin Panel
-      </div>
-      <button class="close-modal" onclick="hideModal('adminPanelModal')">&times;</button>
-    </div>
-    <div class="admin-panel-content">
-      <h3><i class="fas fa-bell"></i> Manage Notifications</h3>
-      <div class="form-group">
-        <label class="form-label">Notification Title</label>
-        <input type="text" class="form-input" id="notificationTitle" placeholder="Enter title">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Notification Content</label>
-        <textarea class="form-input" id="notificationContent" rows="3" placeholder="Enter content"></textarea>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Notification Time</label>
-        <input type="text" class="form-input" id="notificationTime" placeholder="e.g. 2 hours ago">
-      </div>
-      <div class="form-group">
-        <label>
-          <input type="checkbox" id="notificationUnread"> Mark as unread
-        </label>
-      </div>
-      <button class="form-submit" onclick="addNotification()">
-        <i class="fas fa-plus"></i> Add Notification
-      </button>
       
-      <h3 style="margin-top: 30px;"><i class="fas fa-star"></i> Featured Courses</h3>
-      <div class="form-group">
-        <label class="form-label">Course Title</label>
-        <input type="text" class="form-input" id="featuredCourseTitle" placeholder="Enter course title">
-      </div>
-      <div class="form-group">
-        <label class="form-label">University</label>
-        <input type="text" class="form-input" id="featuredCourseUni" placeholder="Enter university">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Cutoff Points</label>
-        <input type="text" class="form-input" id="featuredCourseCutoff" placeholder="Enter cutoff points">
-      </div>
-      <button class="form-submit" onclick="addFeaturedCourse()">
-        <i class="fas fa-plus"></i> Add Featured Course
-      </button>
+      // Insert after header
+      notificationPanel.insertBefore(newNotification, notificationPanel.children[1]);
       
-      <h3 style="margin-top: 30px;"><i class="fas fa-chart-line"></i> Update Statistics</h3>
-      <div class="form-group">
-        <label class="form-label">Universities & Colleges</label>
-        <input type="number" class="form-input" id="statUnis" placeholder="Enter number">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Courses Available</label>
-        <input type="text" class="form-input" id="statCourses" placeholder="Enter number">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Students Placed</label>
-        <input type="text" class="form-input" id="statStudents" placeholder="Enter number">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Days to Deadline</label>
-        <input type="number" class="form-input" id="statDeadline" placeholder="Enter days">
-      </div>
-      <button class="form-submit" onclick="updateStatistics()">
-        <i class="fas fa-sync-alt"></i> Update Statistics
-      </button>
-    </div>
-  </div>
-</div>
-
-<!-- Add this to your CSS section -->
-<style>
-  .admin-panel-content {
-    max-height: 60vh;
-    overflow-y: auto;
-    padding-right: 10px;
-  }
-  
-  .admin-panel-content h3 {
-    margin-bottom: 15px;
-    color: var(--neon-blue);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .admin-panel-content textarea.form-input {
-    min-height: 100px;
-    resize: vertical;
-  }
-  
-  .admin-access-btn {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    background: rgba(128, 0, 128, 0.7);
-    color: white;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 99;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s;
-  }
-  
-  .admin-access-btn:hover {
-    background: rgba(128, 0, 128, 0.9);
-    transform: scale(1.1);
-    box-shadow: 0 0 20px var(--neon-purple);
-  }
-</style>
-
-<!-- Add this to your JavaScript section -->
-<script>
-  // Admin password
-  const ADMIN_PASSWORD = "Robinson254";
-  
-  // Function to show admin login
-  function showAdminLogin() {
-    showModal('adminLoginModal');
-  }
-  
-  // Function to check admin password
-  function checkAdminPassword(event) {
-    event.preventDefault();
-    const password = document.getElementById('adminPassword').value;
-    const errorElement = document.getElementById('adminLoginError');
-    
-    if (password === ADMIN_PASSWORD) {
-      hideModal('adminLoginModal');
-      showModal('adminPanelModal');
-      errorElement.style.display = 'none';
-    } else {
-      errorElement.style.display = 'block';
+      // Update badge count if unread
+      if (unread) {
+        updateNotificationBadge();
+      }
+      
+      // Clear form
+      document.getElementById('notificationTitle').value = '';
+      document.getElementById('notificationContent').value = '';
+      document.getElementById('notificationTime').value = '';
+      document.getElementById('notificationUnread').checked = false;
+      
+      alert('Notification added successfully!');
     }
-    return false;
-  }
-  
-  // Function to add notification
-  function addNotification() {
-    const title = document.getElementById('notificationTitle').value;
-    const content = document.getElementById('notificationContent').value;
-    const time = document.getElementById('notificationTime').value;
-    const unread = document.getElementById('notificationUnread').checked;
-    
-    if (!title || !content) {
-      alert('Please fill in all fields');
-      return;
-    }
-    
-    const notificationPanel = document.querySelector('.notification-panel');
-    const newNotification = document.createElement('div');
-    newNotification.className = `notification-item ${unread ? 'unread' : ''}`;
-    newNotification.innerHTML = `
-      <strong>${title}</strong>
-      <p>${content}</p>
-      <span class="notification-time">${time || 'Just now'}</span>
-    `;
-    
-    notificationPanel.insertBefore(newNotification, notificationPanel.firstChild.nextSibling);
-    
-    // Update badge count if unread
-    if (unread) {
+
+    function updateNotificationBadge() {
       const badge = document.querySelector('.notification-badge');
-      const currentCount = parseInt(badge.textContent) || 0;
-      badge.textContent = currentCount + 1;
-      badge.style.display = 'flex';
+      const unreadCount = document.querySelectorAll('.notification-item.unread').length;
+      badge.textContent = unreadCount;
+      badge.style.display = unreadCount > 0 ? 'flex' : 'none';
     }
-    
-    // Clear form
-    document.getElementById('notificationTitle').value = '';
-    document.getElementById('notificationContent').value = '';
-    document.getElementById('notificationTime').value = '';
-    document.getElementById('notificationUnread').checked = false;
-    
-    alert('Notification added successfully!');
-  }
-  
-  // Function to add featured course
-  function addFeaturedCourse() {
-    const title = document.getElementById('featuredCourseTitle').value;
-    const uni = document.getElementById('featuredCourseUni').value;
-    const cutoff = document.getElementById('featuredCourseCutoff').value;
-    
-    if (!title || !uni) {
-      alert('Please fill in all required fields');
-      return;
-    }
-    
-    const coursesGrid = document.querySelector('.courses-grid');
-    const newCourse = document.createElement('div');
-    newCourse.className = 'course-card';
-    newCourse.onclick = function() { showLoader('course-detail.html'); };
-    newCourse.innerHTML = `
-      <div class="course-title">${title}</div>
-      <div class="course-university">${uni}</div>
-      <div class="course-cutoff">${cutoff ? 'Cutoff: ' + cutoff : ''}</div>
-    `;
-    
-    coursesGrid.appendChild(newCourse);
-    
-    // Clear form
-    document.getElementById('featuredCourseTitle').value = '';
-    document.getElementById('featuredCourseUni').value = '';
-    document.getElementById('featuredCourseCutoff').value = '';
-    
-    alert('Featured course added successfully!');
-  }
-  
-  // Function to update statistics
-  function updateStatistics() {
-    const unis = document.getElementById('statUnis').value;
-    const courses = document.getElementById('statCourses').value;
-    const students = document.getElementById('statStudents').value;
-    const deadline = document.getElementById('statDeadline').value;
-    
-    if (unis) {
-      document.querySelector('.stat-card:nth-child(1) .stat-value').textContent = unis;
-    }
-    if (courses) {
-      document.querySelector('.stat-card:nth-child(2) .stat-value').textContent = courses;
-    }
-    if (students) {
-      document.querySelector('.stat-card:nth-child(3) .stat-value').textContent = students;
-    }
-    if (deadline) {
-      document.querySelector('.stat-card:nth-child(4) .stat-value').textContent = deadline;
-    }
-    
-    // Clear form
-    document.getElementById('statUnis').value = '';
-    document.getElementById('statCourses').value = '';
-    document.getElementById('statStudents').value = '';
-    document.getElementById('statDeadline').value = '';
-    
-    alert('Statistics updated successfully!');
-  }
 
-  // Add admin access button to the page
-  document.addEventListener('DOMContentLoaded', function() {
-    const adminBtn = document.createElement('div');
-    adminBtn.className = 'admin-access-btn';
-    adminBtn.innerHTML = '<i class="fas fa-user-shield"></i>';
-    adminBtn.onclick = showAdminLogin;
-    document.body.appendChild(adminBtn);
-  })
-</script>
+    function addFeaturedCourse() {
+      const title = document.getElementById('featuredCourseTitle').value;
+      const uni = document.getElementById('featuredCourseUni').value;
+      const cutoff = document.getElementById('featuredCourseCutoff').value;
+      
+      if (!title || !uni) {
+        alert('Please fill in all required fields');
+        return;
+      }
+      
+      const coursesGrid = document.getElementById('featuredCourses');
+      const newCourse = document.createElement('div');
+      newCourse.className = 'course-card';
+      newCourse.innerHTML = `
+        <div class="course-title">${title}</div>
+        <div class="course-university">${uni}</div>
+        ${cutoff ? `<div class="course-cutoff">Cutoff: ${cutoff}</div>` : ''}
+      `;
+      
+      // Add click handler
+      newCourse.addEventListener('click', function() {
+        showLoader('course-detail.html');
+      });
+      
+      coursesGrid.appendChild(newCourse);
+      
+      // Clear form
+      document.getElementById('featuredCourseTitle').value = '';
+      document.getElementById('featuredCourseUni').value = '';
+      document.getElementById('featuredCourseCutoff').value = '';
+      
+      alert('Featured course added successfully!');
+    }
+
+    function updateStatistics() {
+      const unis = document.getElementById('statUnis').value;
+      const courses = document.getElementById('statCourses').value;
+      const students = document.getElementById('statStudents').value;
+      const deadline = document.getElementById('statDeadline').value;
+      
+      if (unis) {
+        document.querySelector('.stat-card:nth-child(1) .stat-value').textContent = unis;
+      }
+      if (courses) {
+        document.querySelector('.stat-card:nth-child(2) .stat-value').textContent = courses;
+      }
+      if (students) {
+        document.querySelector('.stat-card:nth-child(3) .stat-value').textContent = students;
+      }
+      if (deadline) {
+        document.querySelector('.stat-card:nth-child(4) .stat-value').textContent = deadline;
+      }
+      
+      // Clear form
+      document.getElementById('statUnis').value = '';
+      document.getElementById('statCourses').value = '';
+      document.getElementById('statStudents').value = '';
+      document.getElementById('statDeadline').value = '';
+      
+      alert('Statistics updated successfully!');
+    }
   </script>
-    </body>
+</body>
 </html>
