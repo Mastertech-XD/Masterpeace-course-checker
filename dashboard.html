@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Dashboard - KUCCPS Qualification Checker</title>
+  <style>
+    /* Reuse your existing styles with dashboard-specific additions */
+    :root {
+      --neon-blue: #0ff;
+      --neon-pink: #f0f;
+      --neon-purple: #90f;
+      --neon-green: #0f0;
+      --dark-bg: #000;
+      --light-bg: #f8f9fa;
+      --primary-color: #0056b3;
+      --secondary-color: #6c757d;
+      --success-color: #28a745;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--dark-bg);
+      color: white;
+      line-height: 1.6;
+    }
+
+    /* Header with user profile */
+    .dashboard-header {
+      background: rgba(0, 33, 71, 0.7);
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .user-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(0, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .user-info h2 {
+      color: var(--neon-blue);
+      margin-bottom: 5px;
+    }
+
+    .user-info p {
+      color: var(--neon-green);
+      font-size: 14px;
+    }
+
+    .logout-btn {
+      background: rgba(255, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .logout-btn:hover {
+      background: rgba(255, 0, 0, 0.8);
+    }
+
+    /* Dashboard content */
+    .dashboard-container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .dashboard-section {
+      background: rgba(0, 33, 71, 0.5);
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 30px;
+      border: 1px solid rgba(0, 255, 255, 0.2);
+    }
+
+    .section-title {
+      color: var(--neon-pink);
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Qualification status card */
+    .status-card {
+      background: rgba(0, 86, 179, 0.3);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .status-icon {
+      font-size: 2.5rem;
+      color: var(--neon-green);
+    }
+
+    .status-content h3 {
+      margin-bottom: 10px;
+      color: var(--neon-blue);
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 5px 10px;
+      background: var(--success-color);
+      color: white;
+      border-radius: 20px;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    /* Saved courses */
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .course-card {
+      background: rgba(0, 86, 179, 0.3);
+      border-radius: 10px;
+      padding: 15px;
+      transition: all 0.3s;
+      border: 1px solid rgba(0, 255, 255, 0.1);
+    }
+
+    .course-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      border-color: var(--neon-blue);
+    }
+
+    .course-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--neon-blue);
+    }
+
+    .course-university {
+      font-size: 14px;
+      color: var(--neon-green);
+      margin-bottom: 8px;
+    }
+
+    .course-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      margin-top: 15px;
+    }
+
+    .course-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .action-btn {
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .primary-btn {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+    }
+
+    .secondary-btn {
+      background: transparent;
+      color: var(--neon-blue);
+      border: 1px solid var(--neon-blue);
+    }
+
+    /* Stats cards */
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .stat-card {
+      background: rgba(0, 33, 71, 0.5);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      border: 1px solid rgba(0, 255, 255, 0.1);
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--neon-blue);
+      margin: 10px 0;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: var(--neon-green);
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 30px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 10px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--neon-blue);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -30px;
+      top: 5px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--neon-pink);
+      border: 2px solid var(--neon-blue);
+    }
+
+    .timeline-date {
+      color: var(--neon-green);
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .timeline-content {
+      background: rgba(0, 86, 179, 0.2);
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    /* Light mode styles */
+    body.light {
+      background-color: var(--light-bg);
+      color: #333;
+    }
+
+    body.light .dashboard-header {
+      background: rgba(200, 220, 255, 0.9);
+    }
+
+    body.light .user-info h2 {
+      color: var(--primary-color);
+    }
+
+    body.light .section-title {
+      color: var(--neon-purple);
+    }
+
+    body.light .dashboard-section {
+      background: rgba(255, 255, 255, 0.8);
+      color: #333;
+    }
+
+    body.light .course-title {
+      color: var(--primary-color);
+    }
+
+    body.light .course-university {
+      color: #666;
+    }
+
+    @media (max-width: 768px) {
+      .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+      
+      .courses-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .status-card {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <!-- Dashboard Header -->
+  <header class="dashboard-header">
+    <div class="user-profile">
+      <div class="user-avatar">
+        <i class="fas fa-user"></i>
+      </div>
+      <div class="user-info">
+        <h2 id="dashboard-username">John Doe</h2>
+        <p id="dashboard-kuccps">KUCCPS No: KCPS12345678</p>
+      </div>
+    </div>
+    <button class="logout-btn" id="logoutBtn">
+      <i class="fas fa-sign-out-alt"></i> Logout
+    </button>
+  </header>
+
+  <!-- Dashboard Content -->
+  <div class="dashboard-container">
+    <!-- Qualification Status -->
+    <div class="dashboard-section">
+      <h2 class="section-title"><i class="fas fa-clipboard-check"></i> My Qualification Status</h2>
+      
+      <div class="status-card">
+        <div class="status-icon">
+          <i class="fas fa-graduation-cap"></i>
+        </div>
+        <div class="status-content">
+          <h3>Degree Program Eligibility</h3>
+          <p>Based on your KCSE results and subject combinations, you qualify for 12 degree programs.</p>
+          <span class="status-badge">Good Standing</span>
+        </div>
+      </div>
+      
+      <div class="stats-container">
+        <div class="stat-card">
+          <i class="fas fa-university"></i>
+          <div class="stat-value">12</div>
+          <div class="stat-label">Qualified Degree Programs</div>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-certificate"></i>
+          <div class="stat-value">8</div>
+          <div class="stat-label">Qualified Diploma Programs</div>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-star"></i>
+          <div class="stat-value">4.2</div>
+          <div class="stat-label">Average Cluster Points</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Saved Courses -->
+    <div class="dashboard-section">
+      <h2 class="section-title"><i class="fas fa-bookmark"></i> My Saved Courses</h2>
+      
+      <div class="courses-grid">
+        <div class="course-card">
+          <div class="course-title">Computer Science</div>
+          <div class="course-university">Jomo Kenyatta University</div>
+          <div class="course-meta">
+            <span><i class="fas fa-star" style="color: var(--neon-green);"></i> 45.2 Cutoff</span>
+            <span><i class="fas fa-check-circle" style="color: var(--neon-green);"></i> Qualified</span>
+          </div>
+          <div class="course-actions">
+            <button class="action-btn primary-btn">Apply Now</button>
+            <button class="action-btn secondary-btn">Compare</button>
+          </div>
+        </div>
+        
+        <div class="course-card">
+          <div class="course-title">Electrical Engineering</div>
+          <div class="course-university">University of Nairobi</div>
+          <div class="course-meta">
+            <span><i class="fas fa-star" style="color: var(--neon-green);"></i> 43.8 Cutoff</span>
+            <span><i class="fas fa-check-circle" style="color: var(--neon-green);"></i> Qualified</span>
+          </div>
+          <div class="course-actions">
+            <button class="action-btn primary-btn">Apply Now</button>
+            <button class="action-btn secondary-btn">Compare</button>
+          </div>
+        </div>
+        
+        <div class="course-card">
+          <div class="course-title">Medicine & Surgery</div>
+          <div class="course-university">Kenyatta University</div>
+          <div class="course-meta">
+            <span><i class="fas fa-star" style="color: #ff6b6b;"></i> 46.1 Cutoff</span>
+            <span><i class="fas fa-exclamation-circle" style="color: #ff6b6b;"></i> Borderline</span>
+          </div>
+          <div class="course-actions">
+            <button class="action-btn primary-btn">View Alternatives</button>
+            <button class="action-btn secondary-btn">Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Placement Timeline -->
+    <div class="dashboard-section">
+      <h2 class="section-title"><i class="fas fa-calendar-alt"></i> Placement Timeline</h2>
+      
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-date">June 15, 2024</div>
+          <div class="timeline-content">
+            <strong>Application Period Opens</strong>
+            <p>KUCCPS portal opens for first revision of course applications.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-date">July 30, 2024</div>
+          <div class="timeline-content">
+            <strong>Application Deadline</strong>
+            <p>Last day to submit your course applications through KUCCPS.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-date">August 25, 2024</div>
+          <div class="timeline-content">
+            <strong>Placement Results</strong>
+            <p>Expected release date for official placement results.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-date">September 2024</div>
+          <div class="timeline-content">
+            <strong>Reporting to Institutions</strong>
+            <p>Successful candidates report to their assigned institutions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recommendations -->
+    <div class="dashboard-section">
+      <h2 class="section-title"><i class="fas fa-lightbulb"></i> Personalized Recommendations</h2>
+      
+      <div class="courses-grid">
+        <div class="course-card">
+          <div class="course-title">Software Engineering</div>
+          <div class="course-university">Technical University of Kenya</div>
+          <div class="course-meta">
+            <span><i class="fas fa-star" style="color: var(--neon-green);"></i> 42.5 Cutoff</span>
+            <span><i class="fas fa-check-circle" style="color: var(--neon-green);"></i> Strong Match</span>
+          </div>
+          <p style="margin-top: 10px; font-size: 14px;">Based on your interest in Computer Science and strong Math scores.</p>
+          <div class="course-actions">
+            <button class="action-btn primary-btn">Save Course</button>
+            <button class="action-btn secondary-btn">Details</button>
+          </div>
+        </div>
+        
+        <div class="course-card">
+          <div class="course-title">Biomedical Engineering</div>
+          <div class="course-university">Moi University</div>
+          <div class="course-meta">
+            <span><i class="fas fa-star" style="color: var(--neon-green);"></i> 41.8 Cutoff</span>
+            <span><i class="fas fa-check-circle" style="color: var(--neon-green);"></i> Good Match</span>
+          </div>
+          <p style="margin-top: 10px; font-size: 14px;">Matches your interest in both technology and healthcare fields.</p>
+          <div class="course-actions">
+            <button class="action-btn primary-btn">Save Course</button>
+            <button class="action-btn secondary-btn">Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check for saved theme preference
+      if (localStorage.getItem('theme') === 'light') {
+        document.body.classList.add('light');
+      }
+      
+      // Load user data
+      const currentUser = JSON.parse(sessionStorage.getItem('currentUser')) || {
+        name: 'Guest User',
+        kuccpsNumber: 'Not available'
+      };
+      
+      document.getElementById('dashboard-username').textContent = currentUser.name || currentUser.email || 'Guest User';
+      document.getElementById('dashboard-kuccps').textContent = `KUCCPS No: ${currentUser.kuccpsNumber || 'Not available'}`;
+      
+      // Logout functionality
+      document.getElementById('logoutBtn').addEventListener('click', function() {
+        sessionStorage.removeItem('currentUser');
+        window.location.href = 'index.html';
+      });
+      
+      // Course action buttons
+      document.querySelectorAll('.primary-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          alert('This would navigate to the application page in a full implementation');
+        });
+      });
+      
+      document.querySelectorAll('.secondary-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          alert('This would show course details in a full implementation');
+        });
+      });
+    });
+  </script>
+</body>
+  </html>
