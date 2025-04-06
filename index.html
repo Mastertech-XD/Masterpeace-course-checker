@@ -109,7 +109,7 @@
     @keyframes typing {
       0% { width: 0; }
       100% { width: 30ch; }
-      20% { width: 0; }
+      100% { width: 0; }
     }
 
     @keyframes blink-caret {
@@ -1686,6 +1686,254 @@
         });
       });
     }
-  </script>
+  </script><!-- Add this modal at the bottom of your HTML, before the closing </body> tag -->
+<div class="modal" id="adminLoginModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="modal-title">
+        <i class="fas fa-lock"></i> Admin Login
+      </div>
+      <button class="close-modal" onclick="hideModal('adminLoginModal')">&times;</button>
+    </div>
+    <form class="login-form" onsubmit="return checkAdminPassword(event)">
+      <div class="form-group">
+        <label class="form-label">Admin Password</label>
+        <input type="password" class="form-input" id="adminPassword" placeholder="Enter admin password" required>
+      </div>
+      <button type="submit" class="form-submit">Login</button>
+      <div id="adminLoginError" style="color: red; margin-top: 10px; display: none;">
+        Incorrect password. Please try again.
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal" id="adminPanelModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="modal-title">
+        <i class="fas fa-cogs"></i> Admin Panel
+      </div>
+      <button class="close-modal" onclick="hideModal('adminPanelModal')">&times;</button>
+    </div>
+    <div class="admin-panel-content">
+      <h3><i class="fas fa-bell"></i> Manage Notifications</h3>
+      <div class="form-group">
+        <label class="form-label">Notification Title</label>
+        <input type="text" class="form-input" id="notificationTitle" placeholder="Enter title">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Notification Content</label>
+        <textarea class="form-input" id="notificationContent" rows="3" placeholder="Enter content"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Notification Time</label>
+        <input type="text" class="form-input" id="notificationTime" placeholder="e.g. 2 hours ago">
+      </div>
+      <div class="form-group">
+        <label>
+          <input type="checkbox" id="notificationUnread"> Mark as unread
+        </label>
+      </div>
+      <button class="form-submit" onclick="addNotification()">
+        <i class="fas fa-plus"></i> Add Notification
+      </button>
+      
+      <h3 style="margin-top: 30px;"><i class="fas fa-star"></i> Featured Courses</h3>
+      <div class="form-group">
+        <label class="form-label">Course Title</label>
+        <input type="text" class="form-input" id="featuredCourseTitle" placeholder="Enter course title">
+      </div>
+      <div class="form-group">
+        <label class="form-label">University</label>
+        <input type="text" class="form-input" id="featuredCourseUni" placeholder="Enter university">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Cutoff Points</label>
+        <input type="text" class="form-input" id="featuredCourseCutoff" placeholder="Enter cutoff points">
+      </div>
+      <button class="form-submit" onclick="addFeaturedCourse()">
+        <i class="fas fa-plus"></i> Add Featured Course
+      </button>
+      
+      <h3 style="margin-top: 30px;"><i class="fas fa-chart-line"></i> Update Statistics</h3>
+      <div class="form-group">
+        <label class="form-label">Universities & Colleges</label>
+        <input type="number" class="form-input" id="statUnis" placeholder="Enter number">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Courses Available</label>
+        <input type="text" class="form-input" id="statCourses" placeholder="Enter number">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Students Placed</label>
+        <input type="text" class="form-input" id="statStudents" placeholder="Enter number">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Days to Deadline</label>
+        <input type="number" class="form-input" id="statDeadline" placeholder="Enter days">
+      </div>
+      <button class="form-submit" onclick="updateStatistics()">
+        <i class="fas fa-sync-alt"></i> Update Statistics
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Add this to your existing CSS -->
+<style>
+  .admin-panel-content {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-right: 10px;
+  }
+  
+  .admin-panel-content h3 {
+    margin-bottom: 15px;
+    color: var(--neon-blue);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .admin-panel-content textarea.form-input {
+    min-height: 100px;
+    resize: vertical;
+  }
+</style>
+
+<!-- Add this to your existing JavaScript -->
+<script>
+  // Admin password
+  const ADMIN_PASSWORD = "Robinson254";
+  
+  // Function to show admin login
+  function showAdminLogin() {
+    showModal('adminLoginModal');
+  }
+  
+  // Function to check admin password
+  function checkAdminPassword(event) {
+    event.preventDefault();
+    const password = document.getElementById('adminPassword').value;
+    const errorElement = document.getElementById('adminLoginError');
+    
+    if (password === ADMIN_PASSWORD) {
+      hideModal('adminLoginModal');
+      showModal('adminPanelModal');
+      errorElement.style.display = 'none';
+    } else {
+      errorElement.style.display = 'block';
+    }
+    return false;
+  }
+  
+  // Function to add notification
+  function addNotification() {
+    const title = document.getElementById('notificationTitle').value;
+    const content = document.getElementById('notificationContent').value;
+    const time = document.getElementById('notificationTime').value;
+    const unread = document.getElementById('notificationUnread').checked;
+    
+    if (!title || !content) {
+      alert('Please fill in all fields');
+      return;
+    }
+    
+    const notificationPanel = document.querySelector('.notification-panel');
+    const newNotification = document.createElement('div');
+    newNotification.className = `notification-item ${unread ? 'unread' : ''}`;
+    newNotification.innerHTML = `
+      <strong>${title}</strong>
+      <p>${content}</p>
+      <span class="notification-time">${time || 'Just now'}</span>
+    `;
+    
+    notificationPanel.insertBefore(newNotification, notificationPanel.firstChild.nextSibling);
+    
+    // Update badge count if unread
+    if (unread) {
+      const badge = document.querySelector('.notification-badge');
+      const currentCount = parseInt(badge.textContent) || 0;
+      badge.textContent = currentCount + 1;
+      badge.style.display = 'flex';
+    }
+    
+    // Clear form
+    document.getElementById('notificationTitle').value = '';
+    document.getElementById('notificationContent').value = '';
+    document.getElementById('notificationTime').value = '';
+    document.getElementById('notificationUnread').checked = false;
+    
+    alert('Notification added successfully!');
+  }
+  
+  // Function to add featured course
+  function addFeaturedCourse() {
+    const title = document.getElementById('featuredCourseTitle').value;
+    const uni = document.getElementById('featuredCourseUni').value;
+    const cutoff = document.getElementById('featuredCourseCutoff').value;
+    
+    if (!title || !uni) {
+      alert('Please fill in all required fields');
+      return;
+    }
+    
+    const coursesGrid = document.querySelector('.courses-grid');
+    const newCourse = document.createElement('div');
+    newCourse.className = 'course-card';
+    newCourse.onclick = function() { showLoader('course-detail.html'); };
+    newCourse.innerHTML = `
+      <div class="course-title">${title}</div>
+      <div class="course-university">${uni}</div>
+      <div class="course-cutoff">${cutoff ? 'Cutoff: ' + cutoff : ''}</div>
+    `;
+    
+    coursesGrid.appendChild(newCourse);
+    
+    // Clear form
+    document.getElementById('featuredCourseTitle').value = '';
+    document.getElementById('featuredCourseUni').value = '';
+    document.getElementById('featuredCourseCutoff').value = '';
+    
+    alert('Featured course added successfully!');
+  }
+  
+  // Function to update statistics
+  function updateStatistics() {
+    const unis = document.getElementById('statUnis').value;
+    const courses = document.getElementById('statCourses').value;
+    const students = document.getElementById('statStudents').value;
+    const deadline = document.getElementById('statDeadline').value;
+    
+    if (unis) {
+      document.querySelector('.stat-card:nth-child(1) .stat-value').textContent = unis;
+    }
+    if (courses) {
+      document.querySelector('.stat-card:nth-child(2) .stat-value').textContent = courses;
+    }
+    if (students) {
+      document.querySelector('.stat-card:nth-child(3) .stat-value').textContent = students;
+    }
+    if (deadline) {
+      document.querySelector('.stat-card:nth-child(4) .stat-value').textContent = deadline;
+    }
+    
+    // Clear form
+    document.getElementById('statUnis').value = '';
+    document.getElementById('statCourses').value = '';
+    document.getElementById('statStudents').value = '';
+    document.getElementById('statDeadline').value = '';
+    
+    alert('Statistics updated successfully!');
+  }
+  
+  // Add admin access button to your sidebar (add this inside your sidebar div)
+  /*
+  <button class="menu-btn" onclick="showAdminLogin()">
+    <i class="fas fa-user-shield"></i> Admin Panel
+  </button>
+  */
+</script>
 </body>
 </html>
