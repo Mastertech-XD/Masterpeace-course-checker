@@ -1,25 +1,419 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Points Calculator - KUCCPS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KUCCUPS Cluster Points Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #006633;
+            text-align: center;
+        }
+        .calculator {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #006633;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #004d26;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e6f7e6;
+            border-radius: 4px;
+            display: none;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
-  <!-- Header/navigation -->
-  <div class="container">
-    <h1>Cluster Points Calculator</h1>
+    <h1>KUCCUPS Cluster Points Calculator</h1>
     <div class="calculator">
-      <form id="pointsForm">
-        <!-- Subject inputs -->
-        <button type="submit">Calculate</button>
-      </form>
-      <div id="results"></div>
+        <div class="form-group">
+            <label for="kcse-grade">KCSE Overall Grade:</label>
+            <select id="kcse-grade">
+                <option value="12">A (12 points)</option>
+                <option value="11">A- (11 points)</option>
+                <option value="10">B+ (10 points)</option>
+                <option value="9">B (9 points)</option>
+                <option value="8">B- (8 points)</option>
+                <option value="7">C+ (7 points)</option>
+                <option value="6">C (6 points)</option>
+                <option value="5">C- (5 points)</option>
+                <option value="4">D+ (4 points)</option>
+                <option value="3">D (3 points)</option>
+                <option value="2">D- (2 points)</option>
+                <option value="1">E (1 point)</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="subject1">Subject 1:</label>
+            <select id="subject1" class="subject-select">
+                <option value="">-- Select Subject --</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="English">English</option>
+                <option value="Kiswahili">Kiswahili</option>
+                <option value="Biology">Biology</option>
+                <option value="Physics">Physics</option>
+                <option value="Chemistry">Chemistry</option>
+                <option value="Geography">Geography</option>
+                <option value="History">History</option>
+                <option value="CRE">CRE</option>
+                <option value="IRE">IRE</option>
+                <option value="HRE">HRE</option>
+                <option value="Home Science">Home Science</option>
+                <option value="Agriculture">Agriculture</option>
+                <option value="Business Studies">Business Studies</option>
+                <option value="Computer Studies">Computer Studies</option>
+                <option value="French">French</option>
+                <option value="German">German</option>
+                <option value="Arabic">Arabic</option>
+                <option value="Music">Music</option>
+                <option value="Art and Design">Art and Design</option>
+            </select>
+            <select id="subject1-grade" class="subject-grade">
+                <option value="12">A (12 points)</option>
+                <option value="11">A- (11 points)</option>
+                <option value="10">B+ (10 points)</option>
+                <option value="9">B (9 points)</option>
+                <option value="8">B- (8 points)</option>
+                <option value="7">C+ (7 points)</option>
+                <option value="6">C (6 points)</option>
+                <option value="5">C- (5 points)</option>
+                <option value="4">D+ (4 points)</option>
+                <option value="3">D (3 points)</option>
+                <option value="2">D- (2 points)</option>
+                <option value="1">E (1 point)</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="subject2">Subject 2:</label>
+            <select id="subject2" class="subject-select">
+                <option value="">-- Select Subject --</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="English">English</option>
+                <option value="Kiswahili">Kiswahili</option>
+                <option value="Biology">Biology</option>
+                <option value="Physics">Physics</option>
+                <option value="Chemistry">Chemistry</option>
+                <option value="Geography">Geography</option>
+                <option value="History">History</option>
+                <option value="CRE">CRE</option>
+                <option value="IRE">IRE</option>
+                <option value="HRE">HRE</option>
+                <option value="Home Science">Home Science</option>
+                <option value="Agriculture">Agriculture</option>
+                <option value="Business Studies">Business Studies</option>
+                <option value="Computer Studies">Computer Studies</option>
+                <option value="French">French</option>
+                <option value="German">German</option>
+                <option value="Arabic">Arabic</option>
+                <option value="Music">Music</option>
+                <option value="Art and Design">Art and Design</option>
+            </select>
+            <select id="subject2-grade" class="subject-grade">
+                <option value="12">A (12 points)</option>
+                <option value="11">A- (11 points)</option>
+                <option value="10">B+ (10 points)</option>
+                <option value="9">B (9 points)</option>
+                <option value="8">B- (8 points)</option>
+                <option value="7">C+ (7 points)</option>
+                <option value="6">C (6 points)</option>
+                <option value="5">C- (5 points)</option>
+                <option value="4">D+ (4 points)</option>
+                <option value="3">D (3 points)</option>
+                <option value="2">D- (2 points)</option>
+                <option value="1">E (1 point)</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="subject3">Subject 3:</label>
+            <select id="subject3" class="subject-select">
+                <option value="">-- Select Subject --</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="English">English</option>
+                <option value="Kiswahili">Kiswahili</option>
+                <option value="Biology">Biology</option>
+                <option value="Physics">Physics</option>
+                <option value="Chemistry">Chemistry</option>
+                <option value="Geography">Geography</option>
+                <option value="History">History</option>
+                <option value="CRE">CRE</option>
+                <option value="IRE">IRE</option>
+                <option value="HRE">HRE</option>
+                <option value="Home Science">Home Science</option>
+                <option value="Agriculture">Agriculture</option>
+                <option value="Business Studies">Business Studies</option>
+                <option value="Computer Studies">Computer Studies</option>
+                <option value="French">French</option>
+                <option value="German">German</option>
+                <option value="Arabic">Arabic</option>
+                <option value="Music">Music</option>
+                <option value="Art and Design">Art and Design</option>
+            </select>
+            <select id="subject3-grade" class="subject-grade">
+                <option value="12">A (12 points)</option>
+                <option value="11">A- (11 points)</option>
+                <option value="10">B+ (10 points)</option>
+                <option value="9">B (9 points)</option>
+                <option value="8">B- (8 points)</option>
+                <option value="7">C+ (7 points)</option>
+                <option value="6">C (6 points)</option>
+                <option value="5">C- (5 points)</option>
+                <option value="4">D+ (4 points)</option>
+                <option value="3">D (3 points)</option>
+                <option value="2">D- (2 points)</option>
+                <option value="1">E (1 point)</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="subject4">Subject 4:</label>
+            <select id="subject4" class="subject-select">
+                <option value="">-- Select Subject --</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="English">English</option>
+                <option value="Kiswahili">Kiswahili</option>
+                <option value="Biology">Biology</option>
+                <option value="Physics">Physics</option>
+                <option value="Chemistry">Chemistry</option>
+                <option value="Geography">Geography</option>
+                <option value="History">History</option>
+                <option value="CRE">CRE</option>
+                <option value="IRE">IRE</option>
+                <option value="HRE">HRE</option>
+                <option value="Home Science">Home Science</option>
+                <option value="Agriculture">Agriculture</option>
+                <option value="Business Studies">Business Studies</option>
+                <option value="Computer Studies">Computer Studies</option>
+                <option value="French">French</option>
+                <option value="German">German</option>
+                <option value="Arabic">Arabic</option>
+                <option value="Music">Music</option>
+                <option value="Art and Design">Art and Design</option>
+            </select>
+            <select id="subject4-grade" class="subject-grade">
+                <option value="12">A (12 points)</option>
+                <option value="11">A- (11 points)</option>
+                <option value="10">B+ (10 points)</option>
+                <option value="9">B (9 points)</option>
+                <option value="8">B- (8 points)</option>
+                <option value="7">C+ (7 points)</option>
+                <option value="6">C (6 points)</option>
+                <option value="5">C- (5 points)</option>
+                <option value="4">D+ (4 points)</option>
+                <option value="3">D (3 points)</option>
+                <option value="2">D- (2 points)</option>
+                <option value="1">E (1 point)</option>
+            </select>
+        </div>
+        
+        <button onclick="calculatePoints()">Calculate Cluster Points</button>
+        
+        <div id="result" class="result">
+            <h3>Results</h3>
+            <p>KCSE Points: <span id="kcse-points"></span></p>
+            <p>Cluster Points: <span id="cluster-points"></span></p>
+            <p>Total Points: <span id="total-points"></span></p>
+            
+            <h4>Selected Subjects and Grades:</h4>
+            <table id="selected-subjects">
+                <tr>
+                    <th>Subject</th>
+                    <th>Grade</th>
+                    <th>Points</th>
+                </tr>
+            </table>
+            
+            <h4>Cluster Points Calculation:</h4>
+            <p>Cluster Points = (Subject1 + Subject2 + Subject3 + Subject4) / 4 * 3</p>
+        </div>
+        
+        <h3>KUCCUPS Points System</h3>
+        <table>
+            <tr>
+                <th>Grade</th>
+                <th>Points</th>
+            </tr>
+            <tr>
+                <td>A</td>
+                <td>12</td>
+            </tr>
+            <tr>
+                <td>A-</td>
+                <td>11</td>
+            </tr>
+            <tr>
+                <td>B+</td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td>B</td>
+                <td>9</td>
+            </tr>
+            <tr>
+                <td>B-</td>
+                <td>8</td>
+            </tr>
+            <tr>
+                <td>C+</td>
+                <td>7</td>
+            </tr>
+            <tr>
+                <td>C</td>
+                <td>6</td>
+            </tr>
+            <tr>
+                <td>C-</td>
+                <td>5</td>
+            </tr>
+            <tr>
+                <td>D+</td>
+                <td>4</td>
+            </tr>
+            <tr>
+                <td>D</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>D-</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>E</td>
+                <td>1</td>
+            </tr>
+        </table>
     </div>
-  </div>
-  <!-- Footer -->
-  <script>
-    // Calculation logic would go here
-  </script>
+    
+    <script>
+        function calculatePoints() {
+            // Get values from form
+            const kcseGrade = parseInt(document.getElementById('kcse-grade').value);
+            const subject1 = document.getElementById('subject1').value;
+            const subject1Grade = parseInt(document.getElementById('subject1-grade').value);
+            const subject2 = document.getElementById('subject2').value;
+            const subject2Grade = parseInt(document.getElementById('subject2-grade').value);
+            const subject3 = document.getElementById('subject3').value;
+            const subject3Grade = parseInt(document.getElementById('subject3-grade').value);
+            const subject4 = document.getElementById('subject4').value;
+            const subject4Grade = parseInt(document.getElementById('subject4-grade').value);
+            
+            // Validate subject selection
+            if (!subject1 || !subject2 || !subject3 || !subject4) {
+                alert("Please select all four subjects");
+                return;
+            }
+            
+            // Calculate cluster points
+            const clusterPoints = (subject1Grade + subject2Grade + subject3Grade + subject4Grade) / 4 * 3;
+            
+            // Calculate total points
+            const totalPoints = kcseGrade + clusterPoints;
+            
+            // Display results
+            document.getElementById('kcse-points').textContent = kcseGrade;
+            document.getElementById('cluster-points').textContent = clusterPoints.toFixed(2);
+            document.getElementById('total-points').textContent = totalPoints.toFixed(2);
+            
+            // Display selected subjects
+            const subjectsTable = document.getElementById('selected-subjects');
+            // Clear existing rows (except header)
+            while (subjectsTable.rows.length > 1) {
+                subjectsTable.deleteRow(1);
+            }
+            
+            // Add rows for each subject
+            addSubjectRow(subjectsTable, subject1, subject1Grade);
+            addSubjectRow(subjectsTable, subject2, subject2Grade);
+            addSubjectRow(subjectsTable, subject3, subject3Grade);
+            addSubjectRow(subjectsTable, subject4, subject4Grade);
+            
+            // Show result div
+            document.getElementById('result').style.display = 'block';
+        }
+        
+        function addSubjectRow(table, subjectName, gradePoints) {
+            const row = table.insertRow();
+            const cell1 = row.insertCell(0);
+            const cell2 = row.insertCell(1);
+            const cell3 = row.insertCell(2);
+            
+            cell1.textContent = subjectName;
+            
+            // Convert points back to grade
+            const grade = getGradeFromPoints(gradePoints);
+            cell2.textContent = grade;
+            
+            cell3.textContent = gradePoints;
+        }
+        
+        function getGradeFromPoints(points) {
+            const gradeMap = {
+                12: "A",
+                11: "A-",
+                10: "B+",
+                9: "B",
+                8: "B-",
+                7: "C+",
+                6: "C",
+                5: "C-",
+                4: "D+",
+                3: "D",
+                2: "D-",
+                1: "E"
+            };
+            return gradeMap[points] || "";
+        }
+    </script>
 </body>
 </html>
