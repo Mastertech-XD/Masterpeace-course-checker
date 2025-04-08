@@ -4,118 +4,273 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>About Us - KUCCPS Qualification Checker</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
+    :root {
+      --primary: #25D366;
+      --secondary: #D44638;
+      --accent: #4CAF50;
+      --dark: #111;
+      --light: #f8f8f8;
+    }
+    
     body {
-      font-family: "Times New Roman", Times, serif;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       background-color: #000;
       color: white;
       margin: 0;
       padding: 0;
+      line-height: 1.6;
     }
 
     .container {
       max-width: 900px;
       margin: auto;
-      padding: 40px 20px;
+      padding: 40px 20px 100px;
       text-align: center;
     }
 
     h1 {
-      font-size: 36px;
-      margin-bottom: 20px;
-      border-bottom: 2px solid white;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      border-bottom: 3px solid var(--accent);
       display: inline-block;
       padding-bottom: 10px;
+      color: var(--light);
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
     }
 
     p {
-      font-size: 18px;
+      font-size: 1.1rem;
       line-height: 1.8;
       text-align: justify;
+      margin-bottom: 20px;
+    }
+
+    .highlight {
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    .mission-box {
+      background: rgba(76, 175, 80, 0.1);
+      border-left: 4px solid var(--accent);
+      padding: 20px;
+      margin: 30px 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .benefits {
+      background: rgba(0,0,0,0.3);
+      padding: 25px;
+      border-radius: 10px;
+      margin: 30px 0;
+      text-align: left;
+    }
+
+    .benefits h2 {
+      color: var(--accent);
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .benefits ul {
+      padding-left: 20px;
+    }
+
+    .benefits li {
+      margin-bottom: 12px;
+      position: relative;
+      padding-left: 30px;
+    }
+
+    .benefits li:before {
+      content: "✓";
+      color: var(--accent);
+      position: absolute;
+      left: 0;
+      font-weight: bold;
     }
 
     .contact {
-      margin-top: 20px;
+      margin-top: 40px;
+      padding: 20px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+    }
+
+    .contact h2 {
+      margin-bottom: 20px;
+      color: var(--light);
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
     }
 
     .social-link {
       display: inline-flex;
       align-items: center;
-      padding: 10px;
-      border-radius: 10px;
+      padding: 12px 20px;
+      border-radius: 50px;
       margin: 5px;
       text-decoration: none;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .social-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 10px rgba(0,0,0,0.2);
     }
 
     .whatsapp {
-      background-color: #25D366;
+      background-color: var(--primary);
     }
 
     .email {
-      background-color: #D44638;
+      background-color: var(--secondary);
     }
 
-    .social-link img {
-      width: 40px;
-      height: 40px;
+    .social-link i {
+      margin-right: 10px;
+      font-size: 1.2rem;
+    }
+
+    .team {
+      margin: 40px 0;
+    }
+
+    .team-member {
+      display: inline-block;
+      margin: 20px;
+      max-width: 200px;
+    }
+
+    .team-member img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent);
+    }
+
+    .team-member h3 {
+      margin: 10px 0 5px;
+      color: var(--light);
+    }
+
+    .team-member p {
+      text-align: center;
+      color: #aaa;
+      font-size: 0.9rem;
     }
 
     .footer {
       text-align: center;
       padding: 20px;
-      background: #111;
+      background: var(--dark);
       color: #aaa;
       position: fixed;
       bottom: 0;
       width: 100%;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px 15px 80px;
+      }
+      
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      p {
+        font-size: 1rem;
+        text-align: left;
+      }
+      
+      .social-links {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .social-link {
+        width: 80%;
+        justify-content: center;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>About Us</h1>
+    <h1>About KUCCPS Qualification Checker</h1>
     <p>
-      Welcome to the <strong>KUCCPS Qualification Checker</strong> – your ultimate tool for verifying academic eligibility for Kenyan university and college programs.
+      Welcome to the <span class="highlight">KUCCPS Qualification Checker</span> – your comprehensive digital platform for verifying academic eligibility for Kenyan university and college programs. We are dedicated to transforming the way students approach their higher education journey.
     </p>
+    
+    <div class="mission-box">
+      <p>Our mission is to democratize access to accurate course qualification information, empowering students to make data-driven decisions about their academic futures with confidence and clarity.</p>
+    </div>
+
     <p>
-      Choosing the right career path is one of the most important decisions in a student's life. Our goal is to simplify this process by providing an easy-to-use platform where students can check their qualifications for various courses offered through KUCCPS. Whether you’re aiming for a <strong>Degree, Diploma, Certificate, or KMTC</strong> program, we’ve got you covered.
+      Choosing the right career path is one of the most pivotal decisions in a student's life. Our platform simplifies this process through an intuitive interface that provides instant qualification verification for all programs offered through KUCCPS. Whether you're pursuing a <span class="highlight">Degree, Diploma, Certificate, or KMTC program</span>, our system delivers precise, up-to-date information tailored to your academic profile.
     </p>
-    <p>
-      Our system analyzes your academic performance, calculates cluster points, and matches them with the latest KUCCPS requirements. This ensures that you make well-informed decisions based on accurate data.
-    </p>
-    <p>
-      <strong>Why Choose Us?</strong>
-      <ul style="text-align: left; font-size: 18px;">
-        <li>✔ Instant course qualification checking</li>
-        <li>✔ Accurate cluster point calculations</li>
-        <li>✔ Up-to-date KUCCPS entry requirements</li>
-        <li>✔ Simple and user-friendly interface</li>
-        <li>✔ Expert guidance from professionals</li>
+    
+    <div class="benefits">
+      <h2>Why Choose Our Platform?</h2>
+      <ul>
+        <li><strong>Real-time qualification analysis</strong> with instant results</li>
+        <li><strong>Precision cluster point calculator</strong> using official KUCCPS algorithms</li>
+        <li>Comprehensive database of <strong>all current entry requirements</strong></li>
+        <li>Intuitive interface designed for <strong>seamless user experience</strong></li>
+        <li><strong>Expert-curated guidance</strong> from education professionals</li>
+        <li><strong>Mobile-optimized platform</strong> accessible anytime, anywhere</li>
+        <li><strong>Continuous updates</strong> reflecting the latest KUCCPS changes</li>
       </ul>
-    </p>
+    </div>
+
     <p>
-      This website is developed and maintained by <strong>Masterpeace Elite</strong>, a physicist and chemistry expert committed to helping students make informed career choices. Our passion is to bridge the gap between students and higher education opportunities by using technology to provide accurate and reliable information.
+      Our advanced system meticulously analyzes your academic performance, calculates cluster points according to official standards, and matches them against the most current KUCCPS program requirements. This rigorous process ensures you receive reliable, actionable information to guide your educational choices.
     </p>
+
+    <div class="team">
+      <h2>Our Team</h2>
+      <div class="team-member">
+        <img src="https://via.placeholder.com/150" alt="Masterpeace Elite">
+        <h3>Masterpeace Elite</h3>
+        <p>Founder & Lead Developer<br>Physics & Chemistry Expert</p>
+      </div>
+    </div>
+
     <p>
-      We look forward to <strong>inspiring students</strong> in selecting their courses appropriately, ensuring they step into their future careers with confidence.
+      Developed and maintained by <span class="highlight">Masterpeace Elite</span>, a passionate physicist and chemistry specialist, this platform represents the intersection of educational expertise and technological innovation. We're committed to bridging the information gap between students and higher education opportunities through reliable digital solutions.
     </p>
 
     <div class="contact">
-      <p>For more assistance, join our WhatsApp group or send us an email:</p>
+      <h2>Get In Touch</h2>
+      <p>Have questions or need assistance? Reach out to us through any of these channels:</p>
 
-      <a href="https://chat.whatsapp.com/LwQ9OExXO2yCRtoqXJfctP" class="social-link whatsapp" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Group">
-      </a>
+      <div class="social-links">
+        <a href="https://chat.whatsapp.com/LwQ9OExXO2yCRtoqXJfctP" class="social-link whatsapp" target="_blank">
+          <i class="fab fa-whatsapp"></i> WhatsApp Group
+        </a>
 
-      <a href="mailto:masterpeaceelite@gmail.com" class="social-link email">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.png" alt="Email">
-      </a>
-
+        <a href="mailto:masterpeaceelite@gmail.com" class="social-link email">
+          <i class="fas fa-envelope"></i> Email Us
+        </a>
+      </div>
     </div>
   </div>
 
   <div class="footer">
-    &copy; 2025 Masterpeace Elite. All rights reserved.
+    &copy; 2025 Masterpeace Elite. All rights reserved. | Empowering Students Through Technology
   </div>
 </body>
 </html>
