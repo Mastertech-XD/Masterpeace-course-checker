@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KUCCUPS Cluster Points Calculator</title>
+    <title>KUCCPS Weighted Cluster Points Calculator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -70,10 +70,16 @@
         th {
             background-color: #f2f2f2;
         }
+        .formula {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-left: 4px solid #006633;
+            font-family: monospace;
+        }
     </style>
 </head>
 <body>
-    <h1>KUCCUPS Cluster Points Calculator</h1>
+    <h1>KUCCPS Weighted Cluster Points Calculator</h1>
     <div class="calculator">
         <div class="form-group">
             <label for="kcse-grade">KCSE Overall Grade:</label>
@@ -257,13 +263,24 @@
             </select>
         </div>
         
-        <button onclick="calculatePoints()">Calculate Cluster Points</button>
+        <button onclick="calculateWeightedPoints()">Calculate Weighted Cluster Points</button>
         
         <div id="result" class="result">
             <h3>Results</h3>
-            <p>KCSE Points: <span id="kcse-points"></span></p>
-            <p>Cluster Points: <span id="cluster-points"></span></p>
-            <p>Total Points: <span id="total-points"></span></p>
+            <p>KCSE Mean Grade Points: <span id="kcse-points"></span></p>
+            <p>Sum of 4 Cluster Subjects (r): <span id="sum-subjects"></span> / 48</p>
+            <p>Total KCSE Points (t): <span id="total-kcse-points"></span> / 84</p>
+            <p>Weighted Cluster Points (C): <span id="weighted-cluster-points"></span></p>
+            <p>Total Placement Points: <span id="total-points"></span></p>
+            
+            <div class="formula">
+                <strong>Formula Used:</strong><br>
+                C = 48 × √( (r / 48) × (t / 84) )<br>
+                Where:<br>
+                - r = Sum of 4 cluster subject points<br>
+                - t = Total KCSE points (sum of 7 subjects, estimated from mean grade)<br>
+                - C = Final weighted cluster points
+            </div>
             
             <h4>Selected Subjects and Grades:</h4>
             <table id="selected-subjects">
@@ -273,12 +290,9 @@
                     <th>Points</th>
                 </tr>
             </table>
-            
-            <h4>Cluster Points Calculation:</h4>
-            <p>Cluster Points = (Subject1 + Subject2 + Subject3 + Subject4) / 4 * 3</p>
         </div>
         
-        <h3>KUCCUPS Points System</h3>
+        <h3>KUCCPS Points System</h3>
         <table>
             <tr>
                 <th>Grade</th>
@@ -336,9 +350,9 @@
     </div>
     
     <script>
-        function calculatePoints() {
+        function calculateWeightedPoints() {
             // Get values from form
-            const kcseGrade = parseInt(document.getElementById('kcse-grade').value);
+            const kcseMeanGradePoints = parseInt(document.getElementById('kcse-grade').value);
             const subject1 = document.getElementById('subject1').value;
             const subject1Grade = parseInt(document.getElementById('subject1-grade').value);
             const subject2 = document.getElementById('subject2').value;
@@ -350,19 +364,30 @@
             
             // Validate subject selection
             if (!subject1 || !subject2 || !subject3 || !subject4) {
-                alert("Please select all four subjects");
+                alert("Please select all four cluster subjects");
                 return;
             }
             
-            // Calculate cluster points
-            const clusterPoints = (subject1Grade + subject2Grade + subject3Grade + subject4Grade) / 4 * 3;
+            // Calculate r (sum of 4 cluster subjects)
+            const r = subject1Grade + subject2Grade + subject3Grade + subject4Grade;
+            const R = 48; // Maximum possible for 4 subjects
             
-            // Calculate total points
-            const totalPoints = kcseGrade + clusterPoints;
+            // Estimate t (total KCSE points from mean grade)
+            // Note: In reality, t should be sum of all 7 subjects, but we estimate from mean grade
+            const t = kcseMeanGradePoints * 7; // Approximation
+            const T = 84; // Maximum possible (12*7)
+            
+            // Calculate weighted cluster points (C)
+            const C = 48 * Math.sqrt((r / R) * (t / T));
+            
+            // Calculate total placement points
+            const totalPoints = kcseMeanGradePoints + C;
             
             // Display results
-            document.getElementById('kcse-points').textContent = kcseGrade;
-            document.getElementById('cluster-points').textContent = clusterPoints.toFixed(2);
+            document.getElementById('kcse-points').textContent = kcseMeanGradePoints;
+            document.getElementById('sum-subjects').textContent = r;
+            document.getElementById('total-kcse-points').textContent = t;
+            document.getElementById('weighted-cluster-points').textContent = C.toFixed(2);
             document.getElementById('total-points').textContent = totalPoints.toFixed(2);
             
             // Display selected subjects
