@@ -423,6 +423,13 @@
             100% { transform: rotate(360deg); }
         }
 
+        .status-message {
+            text-align: center;
+            margin-top: 15px;
+            color: var(--neon-blue);
+            font-weight: bold;
+        }
+
         @media (max-width: 600px) {
             .container {
                 padding: 15px;
@@ -596,10 +603,11 @@
                 <div id="mpesaForm" class="payment-form" style="display: none;">
                     <h3>M-Pesa Payment</h3>
                     <div class="form-row">
-                        <label for="mpesaNumber">Phone Number</label>
+                        <label for="mpesaNumber">Phone Number (2547XXXXXXXX)</label>
                         <input type="tel" id="mpesaNumber" placeholder="e.g. 254712345678">
                     </div>
                     <button class="pay-now-btn" onclick="processPayment('mpesa')">Pay with M-Pesa</button>
+                    <div class="status-message" id="mpesaStatus"></div>
                 </div>
                 
                 <div id="airtelForm" class="payment-form" style="display: none;">
@@ -2063,6 +2071,7 @@
         let selectedPaymentMethod = null;
         let currentMode = null;
         let paymentAmount = 100;
+        const BACKEND_URL = 'https://your-backend-domain.com'; // Replace with your backend URL
 
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
@@ -2163,6 +2172,7 @@
             document.getElementById('cardForm').style.display = 'none';
             document.getElementById('paymentSuccess').style.display = 'none';
             document.getElementById('paymentLoader').style.display = 'none';
+            document.getElementById('mpesaStatus').textContent = '';
             
             // Remove any previous selections
             const options = document.querySelectorAll('.payment-option');
@@ -2208,16 +2218,18 @@
         function processPayment(method) {
             // Validate inputs
             let valid = true;
+            let phoneNumber = '';
             
             if (method === 'mpesa') {
-                const phone = document.getElementById('mpesaNumber').value;
-                if (!phone || phone.length < 10) {
-                    alert("Please enter a valid M-Pesa phone number");
+                phoneNumber = document.getElementById('mpesaNumber').value;
+                if (!phoneNumber || phoneNumber.length < 10) {
+                    alert("Please enter a valid M-Pesa phone number (format: 2547XXXXXXXX)");
                     valid = false;
                 }
             } else if (method === 'airtel') {
-                const phone = document.getElementById('airtelNumber').value;
-                if (!phone || phone.length < 10) {
+                // Airtel Money would use a different API
+                phoneNumber = document.getElementById('airtelNumber').value;
+                if (!phoneNumber || phoneNumber.length < 10) {
                     alert("Please enter a valid Airtel Money phone number");
                     valid = false;
                 }
@@ -2249,6 +2261,69 @@
             document.getElementById('mpesaForm').style.display = 'none';
             document.getElementById('airtelForm').style.display = 'none';
             document.getElementById('cardForm').style.display = 'none';
+            
+            // For M-Pesa, call our backend endpoint
+            if (method === 'mpesa') {
+                initiateSTKPush(phoneNumber, paymentAmount);
+            } else if (method === 'airtel') {
+                // In a real implementation, you would call Airtel Money API
+                simulatePaymentProcessing();
+            } else if (method === 'card') {
+                // In a real implementation, you would call your card payment processor
+                simulatePaymentProcessing();
+            }
+        }
+
+        function initiateSTKPush(phone, amount) {
+            document.getElementById('mpesaStatus').textContent = 'Initiating payment request...';
+            
+            fetch(`${BACKEND_URL}/api/stkpush`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    phone: phone,
+                    amount: amount
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('mpesaStatus').textContent = 'Payment request sent to your phone. Please enter your M-Pesa PIN to complete payment.';
+                    
+                    // For demo purposes, we'll simulate a successful payment after a delay
+                    setTimeout(() => {
+                        document.getElementById('paymentLoader').style.display = 'none';
+                        document.getElementById('paymentSuccess').style.display = 'block';
+                        
+                        // After showing success, generate results
+                        setTimeout(() => {
+                            closeModal();
+                            if (currentMode === 'course') {
+                                checkQualification();
+                            } else if (currentMode === 'cluster') {
+                                checkClusterQualification();
+                            }
+                        }, 1500);
+                    }, 3000);
+                } else {
+                    document.getElementById('paymentLoader').style.display = 'none';
+                    document.getElementById('mpesaForm').style.display = 'block';
+                    document.getElementById('mpesaStatus').textContent = `Payment failed: ${data.error?.errorMessage || 'Unknown error'}`;
+                }
+            })
+            .catch(error => {
+                document.getElementById('paymentLoader').style.display = 'none';
+                document.getElementById('mpesaForm').style.display = 'block';
+                console.error('Error:', error);
+                document.getElementById('mpesaStatus').textContent = 'Payment request failed. Please try again.';
+            });
+        }
+
+        function simulatePaymentProcessing() {
+            // Show loading spinner
+            document.getElementById('paymentLoader').style.display = 'block';
             
             // Simulate payment processing (in a real app, this would call your payment API)
             setTimeout(() => {
