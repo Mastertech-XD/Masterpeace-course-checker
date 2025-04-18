@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KUCCPS Course Qualification Checker</title>
+    <title>KUCCPS Diploma Course Qualification Checker</title>
     <style>
         :root {
             --neon-blue: #0ff;
@@ -130,7 +130,7 @@
             color: #f44;
         }
 
-        .cutoff {
+        .requirements {
             color: var(--text-dim);
             font-size: 0.9em;
         }
@@ -161,82 +161,14 @@
             color: var(--neon-pink);
         }
 
-        .payment-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .payment-content {
-            background-color: var(--card-bg);
-            padding: 30px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 500px;
-            text-align: center;
-            border: 2px solid var(--neon-blue);
-            box-shadow: 0 0 20px var(--neon-blue);
-        }
-
-        .payment-options {
-            margin: 20px 0;
-        }
-
-        .payment-option {
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            margin: 10px 0;
-            background: rgba(0, 150, 150, 0.2);
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .payment-option:hover {
-            background: rgba(0, 200, 200, 0.3);
-        }
-
-        .payment-option input {
-            width: auto;
-            margin-right: 15px;
-        }
-
-        .payment-option label {
-            margin: 0;
-            flex-grow: 1;
-            text-align: left;
-            cursor: pointer;
-        }
-
-        .payment-details {
-            display: none;
-            margin-top: 20px;
-            padding: 15px;
-            background: rgba(0, 100, 100, 0.2);
-            border-radius: 5px;
-        }
-
-        .card-details {
+        .subject-inputs {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
         }
 
-        .card-details input {
-            width: 100%;
-        }
-
-        .expiry-cvv {
-            display: flex;
-            gap: 10px;
+        .subject-group {
+            margin-bottom: 10px;
         }
 
         @media (max-width: 600px) {
@@ -249,134 +181,177 @@
                 font-size: 24px;
             }
             
-            .card-details {
+            .subject-inputs {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <h1>KUCCPS Course Qualification Checker</h1>
+    <h1>KUCCPS Diploma Course Qualification Checker</h1>
     
     <div class="container">
         <div class="form-group">
-            <label for="courseSelect">Select Course:</label>
+            <label for="courseSelect">Select Diploma Course:</label>
             <select id="courseSelect">
-                <option value="">-- Select a course --</option>
+                <option value="">-- Select a diploma course --</option>
                 <!-- Courses will be populated by JavaScript -->
             </select>
         </div>
         
         <div class="form-group">
-            <label for="clusterPoints">Enter Your Cluster Points:</label>
-            <input type="number" id="clusterPoints" min="0" max="100" placeholder="Enter your points">
+            <label>Enter Your KCSE Subject Grades:</label>
+            <div class="subject-inputs">
+                <div class="subject-group">
+                    <label for="mathGrade">Mathematics:</label>
+                    <select id="mathGrade">
+                        <option value="">Select grade</option>
+                        <option value="A">A</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="B-">B-</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="C-">C-</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="D-">D-</option>
+                        <option value="E">E</option>
+                    </select>
+                </div>
+                
+                <div class="subject-group">
+                    <label for="englishGrade">English:</label>
+                    <select id="englishGrade">
+                        <option value="">Select grade</option>
+                        <option value="A">A</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="B-">B-</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="C-">C-</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="D-">D-</option>
+                        <option value="E">E</option>
+                    </select>
+                </div>
+                
+                <div class="subject-group">
+                    <label for="subject1Grade">Subject 1 (Relevant):</label>
+                    <select id="subject1Grade">
+                        <option value="">Select grade</option>
+                        <option value="A">A</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="B-">B-</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="C-">C-</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="D-">D-</option>
+                        <option value="E">E</option>
+                    </select>
+                </div>
+                
+                <div class="subject-group">
+                    <label for="subject2Grade">Subject 2 (Relevant):</label>
+                    <select id="subject2Grade">
+                        <option value="">Select grade</option>
+                        <option value="A">A</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="B-">B-</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="C-">C-</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="D-">D-</option>
+                        <option value="E">E</option>
+                    </select>
+                </div>
+            </div>
         </div>
         
-        <button onclick="validateAndPay()">Check Qualification (20 KSH)</button>
+        <button onclick="checkQualification()">Check Qualification</button>
         
         <div class="results" id="results" style="display: none;">
             <div class="course-header">
                 <span id="selectedCourseName"></span>
-                <span id="courseCluster"></span>
+                <span id="courseCategory"></span>
             </div>
             
             <div class="university-list" id="universityList"></div>
             
             <div class="suggestions" id="suggestions" style="display: none;">
-                <div class="suggestion-title">Suggested Universities (You Qualify):</div>
+                <div class="suggestion-title">Suggested Institutions (You Qualify):</div>
                 <div id="suggestionList"></div>
             </div>
         </div>
     </div>
 
-    <!-- Payment Modal -->
-    <div class="payment-modal" id="paymentModal">
-        <div class="payment-content">
-            <h2>Pay 20 KSH to View Results</h2>
-            <p>Please complete the payment to see which universities you qualify for.</p>
-            
-            <div class="payment-options">
-                <div class="payment-option" onclick="selectPayment('mpesa')">
-                    <input type="radio" name="paymentMethod" id="mpesa" checked>
-                    <label for="mpesa">M-Pesa</label>
-                </div>
-                <div class="payment-option" onclick="selectPayment('airtel')">
-                    <input type="radio" name="paymentMethod" id="airtel">
-                    <label for="airtel">Airtel Money</label>
-                </div>
-                <div class="payment-option" onclick="selectPayment('card')">
-                    <input type="radio" name="paymentMethod" id="card">
-                    <label for="card">Credit/Debit Card</label>
-                </div>
-            </div>
-            
-            <!-- Mobile Money Payment Details -->
-            <div class="payment-details" id="mobileMoneyDetails">
-                <div class="form-group">
-                    <label for="phoneNumber">Enter Phone Number:</label>
-                    <input type="tel" id="phoneNumber" placeholder="e.g. 254712345678" pattern="[0-9]{12}">
-                    <small>Format: 2547XXXXXXXX</small>
-                </div>
-                <button onclick="initiateMobilePayment()">Send Payment Request</button>
-            </div>
-            
-            <!-- Card Payment Details -->
-            <div class="payment-details" id="cardDetails">
-                <div class="form-group">
-                    <label for="cardNumber">Card Number:</label>
-                    <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" pattern="[0-9\s]{16,19}">
-                </div>
-                <div class="card-details">
-                    <div class="form-group">
-                        <label for="cardName">Name on Card:</label>
-                        <input type="text" id="cardName" placeholder="John Doe">
-                    </div>
-                    <div class="form-group">
-                        <label for="expiryDate">Expiry Date:</label>
-                        <input type="text" id="expiryDate" placeholder="MM/YY" pattern="\d{2}/\d{2}">
-                    </div>
-                    <div class="form-group">
-                        <label for="cvv">CVV:</label>
-                        <input type="text" id="cvv" placeholder="123" pattern="\d{3}">
-                    </div>
-                </div>
-                <button onclick="processCardPayment()">Pay with Card</button>
-            </div>
-            
-            <button onclick="closePaymentModal()" style="background-color: #f44; margin-top: 10px;">Cancel Payment</button>
-        </div>
-    </div>
-
     <script>
-        // Sample course data (truncated for brevity)
-        const courses = [
+        // Sample diploma course data
+        const diplomaCourses = [
             {
-                name: "Bachelor of Medicine & Bachelor of Surgery",
-                cluster: "Medicine",
-                universities: {
-                    "University Of Nairobi": 45.584,
-                    "Kenyatta University": 45.433,
-                    "Moi University": 45.087,
-                    "Jomo Kenyatta University": 45.048
+                name: "Diploma in Information Technology",
+                category: "Technical",
+                requirements: {
+                    "Mathematics": "C-",
+                    "English": "D+",
+                    "Physics": "D+",
+                    "Any Group II/III/IV/VI": "D+"
+                },
+                institutions: {
+                    "Kenya Technical Trainers College": { "Mathematics": "C-", "English": "D+" },
+                    "Nairobi Technical Training Institute": { "Mathematics": "C", "English": "C-" },
+                    "Mombasa Technical Training Institute": { "Mathematics": "C-", "English": "D+" }
                 }
             },
             {
-                name: "Bachelor of Science In Civil Engineering",
-                cluster: "Engineering",
-                universities: {
-                    "University of Nairobi": 43.463,
-                    "Jomo Kenyatta University": 42.618,
-                    "Kenyatta University": 42.574
+                name: "Diploma in Business Management",
+                category: "Business",
+                requirements: {
+                    "Mathematics": "D+",
+                    "English": "C-",
+                    "Any Group II": "D+",
+                    "Any Group II/III/IV": "D+"
+                },
+                institutions: {
+                    "Kenya Institute of Management": { "Mathematics": "D+", "English": "C-" },
+                    "Strathmore University": { "Mathematics": "C", "English": "C" },
+                    "Kenya Polytechnic": { "Mathematics": "D+", "English": "D+" }
+                }
+            },
+            {
+                name: "Diploma in Electrical Engineering",
+                category: "Engineering",
+                requirements: {
+                    "Mathematics": "C",
+                    "English": "D+",
+                    "Physics": "C-",
+                    "Chemistry": "D+"
+                },
+                institutions: {
+                    "Technical University of Kenya": { "Mathematics": "C", "English": "D+" },
+                    "Kisumu National Polytechnic": { "Mathematics": "C-", "English": "D+" },
+                    "Eldoret Technical Training Institute": { "Mathematics": "C", "English": "D" }
                 }
             }
-            // Add more courses as needed
         ];
 
-        // Payment variables
-        let selectedPaymentMethod = 'mpesa';
-        let paymentCompleted = false;
-        let selectedCourse = null;
-        let userPoints = 0;
+        // Grade point values
+        const gradePoints = {
+            "A": 12, "A-": 11, "B+": 10, "B": 9, "B-": 8,
+            "C+": 7, "C": 6, "C-": 5, "D+": 4, "D": 3, "D-": 2, "E": 1
+        };
 
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
@@ -384,7 +359,7 @@
             const courseSelect = document.getElementById('courseSelect');
             
             // Sort courses alphabetically
-            const sortedCourses = [...courses].sort((a, b) => a.name.localeCompare(b.name));
+            const sortedCourses = [...diplomaCourses].sort((a, b) => a.name.localeCompare(b.name));
             
             sortedCourses.forEach(course => {
                 const option = document.createElement('option');
@@ -392,221 +367,112 @@
                 option.textContent = course.name;
                 courseSelect.appendChild(option);
             });
-            
-            // Set default payment method
-            selectPayment('mpesa');
         });
 
-        function validateAndPay() {
+        function checkQualification() {
             const courseName = document.getElementById('courseSelect').value;
-            const clusterPoints = parseFloat(document.getElementById('clusterPoints').value);
+            const mathGrade = document.getElementById('mathGrade').value;
+            const englishGrade = document.getElementById('englishGrade').value;
+            const subject1Grade = document.getElementById('subject1Grade').value;
+            const subject2Grade = document.getElementById('subject2Grade').value;
             
             // Validate inputs
             if (!courseName) {
-                alert("Please select a course");
+                alert("Please select a diploma course");
                 return;
             }
             
-            if (isNaN(clusterPoints)) {
-                alert("Please enter valid cluster points");
+            if (!mathGrade || !englishGrade || !subject1Grade || !subject2Grade) {
+                alert("Please select grades for all subjects");
                 return;
             }
             
-            if (clusterPoints < 0 || clusterPoints > 100) {
-                alert("Cluster points must be between 0 and 100");
-                return;
-            }
-            
-            // Store the selected course and points
-            selectedCourse = courses.find(c => c.name === courseName);
-            userPoints = clusterPoints;
-            
-            // Show payment modal
-            document.getElementById('paymentModal').style.display = 'flex';
-        }
-
-        function selectPayment(method) {
-            selectedPaymentMethod = method;
-            document.querySelector(`input#${method}`).checked = true;
-            
-            // Hide all payment details first
-            document.querySelectorAll('.payment-details').forEach(el => {
-                el.style.display = 'none';
-            });
-            
-            // Show relevant payment details
-            if (method === 'mpesa' || method === 'airtel') {
-                document.getElementById('mobileMoneyDetails').style.display = 'block';
-            } else if (method === 'card') {
-                document.getElementById('cardDetails').style.display = 'block';
-            }
-        }
-
-        function initiateMobilePayment() {
-            const phoneNumber = document.getElementById('phoneNumber').value;
-            
-            if (!phoneNumber || !phoneNumber.match(/^2547\d{8}$/)) {
-                alert("Please enter a valid phone number in format 2547XXXXXXXX");
-                return;
-            }
-            
-            // In a real implementation, you would call M-Pesa/Airtel API here
-            // For demo, we'll simulate the payment request
-            
-            document.querySelector('#mobileMoneyDetails button').textContent = 'Sending request...';
-            document.querySelector('#mobileMoneyDetails button').disabled = true;
-            
-            // Simulate STK push/request
-            setTimeout(() => {
-                alert(`Payment request sent to ${phoneNumber}. Please complete payment on your phone.`);
-                document.querySelector('#mobileMoneyDetails button').textContent = 'Verify Payment';
-                document.querySelector('#mobileMoneyDetails button').onclick = verifyMobilePayment;
-            }, 2000);
-        }
-
-        function verifyMobilePayment() {
-            // In real implementation, you would check payment status with your backend
-            document.querySelector('#mobileMoneyDetails button').textContent = 'Verifying...';
-            
-            setTimeout(() => {
-                paymentCompleted = true;
-                closePaymentModal();
-                showResults();
-            }, 1500);
-        }
-
-        function processCardPayment() {
-            const cardNumber = document.getElementById('cardNumber').value;
-            const cardName = document.getElementById('cardName').value;
-            const expiryDate = document.getElementById('expiryDate').value;
-            const cvv = document.getElementById('cvv').value;
-            
-            // Basic validation
-            if (!cardNumber || !cardNumber.match(/^[\d\s]{16,19}$/)) {
-                alert("Please enter a valid card number");
-                return;
-            }
-            
-            if (!cardName) {
-                alert("Please enter name on card");
-                return;
-            }
-            
-            if (!expiryDate || !expiryDate.match(/^\d{2}\/\d{2}$/)) {
-                alert("Please enter valid expiry date (MM/YY)");
-                return;
-            }
-            
-            if (!cvv || !cvv.match(/^\d{3}$/)) {
-                alert("Please enter valid CVV");
-                return;
-            }
-            
-            // Simulate card processing
-            document.querySelector('#cardDetails button').textContent = 'Processing Payment...';
-            document.querySelector('#cardDetails button').disabled = true;
-            
-            setTimeout(() => {
-                paymentCompleted = true;
-                closePaymentModal();
-                showResults();
-            }, 2000);
-        }
-
-        function closePaymentModal() {
-            document.getElementById('paymentModal').style.display = 'none';
-            
-            // Reset payment forms
-            document.querySelector('#mobileMoneyDetails button').textContent = 'Send Payment Request';
-            document.querySelector('#mobileMoneyDetails button').disabled = false;
-            document.querySelector('#mobileMoneyDetails button').onclick = initiateMobilePayment;
-            
-            document.querySelector('#cardDetails button').textContent = 'Pay with Card';
-            document.querySelector('#cardDetails button').disabled = false;
-        }
-
-        function showResults() {
-            if (!paymentCompleted || !selectedCourse) return;
-            
-            const resultsDiv = document.getElementById('results');
-            const universityListDiv = document.getElementById('universityList');
-            const suggestionsDiv = document.getElementById('suggestions');
+            // Get the selected course
+            const selectedCourse = diplomaCourses.find(c => c.name === courseName);
             
             // Display course information
             document.getElementById('selectedCourseName').textContent = selectedCourse.name;
-            document.getElementById('courseCluster').textContent = `Cluster: ${selectedCourse.cluster}`;
+            document.getElementById('courseCategory').textContent = `Category: ${selectedCourse.category}`;
             
             // Display university qualifications
+            const universityListDiv = document.getElementById('universityList');
             universityListDiv.innerHTML = '';
-            let qualifiedUniversities = [];
             
-            // Convert universities object to array and sort by cutoff points (ascending)
-            const universitiesArray = Object.entries(selectedCourse.universities)
-                .map(([name, cutoff]) => ({ name, cutoff }))
-                .sort((a, b) => a.cutoff - b.cutoff);
+            let qualifiedInstitutions = [];
             
-            for (const university of universitiesArray) {
-                const qualifies = userPoints >= university.cutoff;
-                if (qualifies) qualifiedUniversities.push(university.name);
+            // Check qualification for each institution
+            for (const [institutionName, requirements] of Object.entries(selectedCourse.institutions)) {
+                // Check if user meets the minimum grades for this institution
+                const mathQualifies = gradePoints[mathGrade] >= gradePoints[requirements["Mathematics"]];
+                const englishQualifies = gradePoints[englishGrade] >= gradePoints[requirements["English"]];
                 
-                const uniDiv = document.createElement('div');
-                uniDiv.className = `university ${qualifies ? 'qualified' : 'not-qualified'}`;
-                uniDiv.innerHTML = `
-                    <span>${university.name}</span>
+                // For diploma, we typically just need to meet the minimum grade requirements
+                const qualifies = mathQualifies && englishQualifies;
+                
+                if (qualifies) qualifiedInstitutions.push(institutionName);
+                
+                const instDiv = document.createElement('div');
+                instDiv.className = `university ${qualifies ? 'qualified' : 'not-qualified'}`;
+                instDiv.innerHTML = `
+                    <span>${institutionName}</span>
                     <span>
                         ${qualifies ? '✅ Qualified' : '❌ Not Qualified'} 
-                        <span class="cutoff">(Cutoff: ${university.cutoff})</span>
+                        <span class="requirements">(Req: Math ${requirements["Mathematics"]}+, English ${requirements["English"]}+)</span>
                     </span>
                 `;
-                universityListDiv.appendChild(uniDiv);
+                universityListDiv.appendChild(instDiv);
             }
             
-            // Display suggestions if any qualified universities
+            // Display suggestions if any qualified institutions
             const suggestionListDiv = document.getElementById('suggestionList');
             suggestionListDiv.innerHTML = '';
             
-            if (qualifiedUniversities.length > 0) {
-                suggestionsDiv.style.display = 'block';
+            if (qualifiedInstitutions.length > 0) {
+                document.getElementById('suggestions').style.display = 'block';
                 
-                qualifiedUniversities.forEach(uni => {
+                qualifiedInstitutions.forEach(inst => {
                     const suggestionDiv = document.createElement('div');
                     suggestionDiv.className = 'suggestion-item';
-                    suggestionDiv.textContent = uni;
+                    suggestionDiv.textContent = inst;
                     suggestionListDiv.appendChild(suggestionDiv);
                 });
                 
                 // Add summary of qualification rate
-                const qualificationRate = Math.round((qualifiedUniversities.length / universitiesArray.length) * 100);
+                const qualificationRate = Math.round((qualifiedInstitutions.length / Object.keys(selectedCourse.institutions).length * 100);
                 const summaryDiv = document.createElement('div');
                 summaryDiv.style.marginTop = '10px';
                 summaryDiv.style.fontStyle = 'italic';
-                summaryDiv.textContent = `You qualify for ${qualifiedUniversities.length} out of ${universitiesArray.length} universities (${qualificationRate}%)`;
+                summaryDiv.textContent = `You qualify for ${qualifiedInstitutions.length} out of ${Object.keys(selectedCourse.institutions).length} institutions (${qualificationRate}%)`;
                 suggestionListDiv.appendChild(summaryDiv);
             } else {
-                suggestionsDiv.style.display = 'none';
+                // Find the institution with lowest requirements
+                let lowestMathReq = "A";
+                let lowestEnglishReq = "A";
                 
-                // Find the university with lowest cutoff
-                const lowestCutoff = universitiesArray[0].cutoff;
-                const neededPoints = (lowestCutoff - userPoints).toFixed(2);
+                for (const requirements of Object.values(selectedCourse.institutions)) {
+                    if (gradePoints[requirements["Mathematics"]] < gradePoints[lowestMathReq]) {
+                        lowestMathReq = requirements["Mathematics"];
+                    }
+                    if (gradePoints[requirements["English"]] < gradePoints[lowestEnglishReq]) {
+                        lowestEnglishReq = requirements["English"];
+                    }
+                }
                 
                 const noQualificationDiv = document.createElement('div');
                 noQualificationDiv.className = 'suggestion-item';
                 noQualificationDiv.innerHTML = `
-                    You don't qualify for any universities offering this course yet.
-                    <br>You need <span class="highlight">${neededPoints} more points</span> to qualify for ${universitiesArray[0].name}.
+                    You don't qualify for any institutions offering this diploma yet.
+                    <br>You need at least <span class="highlight">Math ${lowestMathReq}</span> and <span class="highlight">English ${lowestEnglishReq}</span> to qualify for some institutions.
                 `;
                 suggestionListDiv.appendChild(noQualificationDiv);
-                suggestionsDiv.style.display = 'block';
+                document.getElementById('suggestions').style.display = 'block';
             }
             
             // Show results
-            resultsDiv.style.display = 'block';
+            document.getElementById('results').style.display = 'block';
             
             // Scroll to results
-            resultsDiv.scrollIntoView({ behavior: 'smooth' });
-            
-            // Reset payment status
-            paymentCompleted = false;
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 </body>
