@@ -158,7 +158,7 @@
             transform: translateY(1px);
         }
         
-        #results {
+        #results, #payment-section {
             display: none;
             margin-top: 40px;
             padding: 25px;
@@ -194,9 +194,23 @@
             margin-bottom: 5px;
         }
         
-        .match-percentage {
-            color: var(--neon-green);
+        .qualification-status {
             font-weight: bold;
+            margin: 5px 0;
+        }
+        
+        .qualified {
+            color: var(--neon-green);
+        }
+        
+        .not-qualified {
+            color: #ff5555;
+        }
+        
+        .campuses {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-top: 5px;
         }
         
         .requirements {
@@ -233,6 +247,34 @@
             margin-right: 15px;
             font-size: 1.5rem;
             color: var(--neon-pink);
+        }
+        
+        #payment-form input {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        
+        .payment-options {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .payment-option {
+            padding: 10px;
+            border: 1px solid var(--neon-purple);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .payment-option.selected {
+            border-color: var(--neon-green);
+            background-color: rgba(0, 100, 200, 0.3);
+        }
+        
+        .hidden {
+            display: none;
         }
     </style>
 </head>
@@ -381,19 +423,48 @@
         </div>
     </div>
     
-    <div class="form-section">
-        <div class="section-title">
-            <div class="section-icon">📍</div>
-            <h2>SELECT COUNTY YOU PREFER TO STUDY IN 😊️</h2>
+    <button id="check-courses">CHECK QUALIFYING COURSES</button>
+    
+    <div id="payment-section" class="hidden">
+        <h2>Payment Information</h2>
+        <p>Complete payment to view your course qualifications</p>
+        
+        <div class="payment-options">
+            <div class="payment-option selected" data-method="mpesa">
+                <img src="https://via.placeholder.com/50?text=MPESA" alt="Mpesa">
+                <div>Mpesa</div>
+            </div>
+            <div class="payment-option" data-method="card">
+                <img src="https://via.placeholder.com/50?text=CARD" alt="Card">
+                <div>Credit Card</div>
+            </div>
+            <div class="payment-option" data-method="bank">
+                <img src="https://via.placeholder.com/50?text=BANK" alt="Bank">
+                <div>Bank Transfer</div>
+            </div>
         </div>
-        <div class="selection-grid" id="county-selection">
-            <!-- Counties will be added by JavaScript -->
-        </div>
+        
+        <form id="payment-form">
+            <div id="mpesa-fields">
+                <input type="tel" placeholder="Phone Number (2547...)" required>
+            </div>
+            
+            <div id="card-fields" class="hidden">
+                <input type="text" placeholder="Card Number" required>
+                <input type="text" placeholder="Expiry Date (MM/YY)" required>
+                <input type="text" placeholder="CVV" required>
+            </div>
+            
+            <div id="bank-fields" class="hidden">
+                <input type="text" placeholder="Bank Name" required>
+                <input type="text" placeholder="Account Number" required>
+            </div>
+            
+            <button type="submit">PAY KSH 500 TO VIEW RESULTS</button>
+        </form>
     </div>
     
-    <button id="find-courses">CHECK KMTC COURSES</button>
-    
-    <div id="results">
+    <div id="results" class="hidden">
         <h2>KMTC Courses You Qualify For</h2>
         <div id="course-results">
             <!-- Course matches will be displayed here -->
@@ -405,40 +476,19 @@
     </footer>
 
     <script>
-        // KMTC Campuses by County
-        const kmtcCampuses = [
-            "Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret", 
-            "Meru", "Kisii", "Machakos", "Garissa", "Kakamega", 
-            "Bomet", "Bungoma", "Busia", "Embu", "Kericho", 
-            "Kiambu", "Kilifi", "Kirinyaga", "Kitui", "Laikipia", 
-            "Lamu", "Makueni", "Mandera", "Marsabit", "Migori", 
-            "Murang'a", "Nyamira", "Nyeri", "Samburu", "Siaya", 
-            "Taita-Taveta", "Tana River", "Tharaka-Nithi", "Trans Nzoia", 
-            "Turkana", "Uasin Gishu", "Vihiga", "Wajir", "West Pokot"
-        ];
-        
-        // KMTC Courses Database with Requirements (All 26 Courses)
+        // KMTC Courses Database with Requirements and Campuses
         const kmtcCourses = [
             {
                 name: "DIPLOMA IN NUTRITION & DIETETICS",
                 requirements: {
-                    meanGrade: "C-",
+                    meanGrade: "C",
                     subjects: {
-                        biology: "D-",
+                        biology: "C-",
                         chemistry: "D+",
-                        english: "D+",
-                        math: "D",
+                        english: "C-"
                     },
-                        campuses: {
-                        "KENYA MEDICAL TRAINING COLLEGE - HOMA BAY CAMPUS HOMA BAY COUNTY",
-                        "KAREN - NAIROBI CAMPUS NAIROBI COUNTY",
-                        "LODWAR CAMPUS TURKANA COUNTY",
-                        "MAKUENI - MBUVO CAMPUS MAKUENI COUNTY",
-                        "MOLO CAMPUS NAKURU COUNTY",
-                        "NYANDARUA CAMPUS NYANDARUA COUNTY",
-                        "THIKA CAMPUS KIAMBU COUNTY"
-        },
-                    description: "3-year program training nutritionists for hospitals and communities."
+                    description: "3-year program training nutritionists for hospitals and communities.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret"]
                 },
             },
             {
@@ -449,7 +499,8 @@
                         english: "D+",
                         mathematics: "D+"
                     },
-                    description: "2-year program for health information management officers."
+                    description: "2-year program for health information management officers.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
                 },
             },
             {
@@ -461,7 +512,8 @@
                         biology: "C-",
                         mathematics: "C-"
                     },
-                    description: "3-year program for radiographers in medical imaging."
+                    description: "3-year program for radiographers in medical imaging.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu"]
                 },
             },
             {
@@ -473,7 +525,8 @@
                         chemistry: "C-",
                         mathematics: "D+"
                     },
-                    description: "3-year program for medical laboratory technologists."
+                    description: "3-year program for medical laboratory technologists.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret", "Meru"]
                 },
             },
             {
@@ -484,7 +537,8 @@
                         biology: "C-",
                         english: "C-"
                     },
-                    description: "3-year program for occupational therapists."
+                    description: "3-year program for occupational therapists.",
+                    campuses: ["Nairobi", "Mombasa"]
                 },
             },
             {
@@ -495,7 +549,8 @@
                         physics: "D+",
                         biology: "C-"
                     },
-                    description: "3-year program for orthopedic technologists."
+                    description: "3-year program for orthopedic technologists.",
+                    campuses: ["Nairobi"]
                 },
             },
             {
@@ -507,7 +562,8 @@
                         biology: "C-",
                         mathematics: "C-"
                     },
-                    description: "3-year program for pharmaceutical technologists."
+                    description: "3-year program for pharmaceutical technologists.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
                 },
             },
             {
@@ -518,7 +574,8 @@
                         biology: "C-",
                         physics: "D+"
                     },
-                    description: "3-year program for physiotherapists."
+                    description: "3-year program for physiotherapists.",
+                    campuses: ["Nairobi", "Mombasa"]
                 },
             },
             {
@@ -529,7 +586,8 @@
                         physics: "C-",
                         mathematics: "C-"
                     },
-                    description: "3-year program for medical equipment technicians."
+                    description: "3-year program for medical equipment technicians.",
+                    campuses: ["Nairobi"]
                 },
             },
             {
@@ -540,7 +598,8 @@
                         biology: "C-",
                         english: "C-"
                     },
-                    description: "3-year program for public health officers."
+                    description: "3-year program for public health officers.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret"]
                 },
             },
             {
@@ -551,7 +610,8 @@
                         biology: "C-",
                         physics: "D+"
                     },
-                    description: "3-year program for orthopedic trauma specialists."
+                    description: "3-year program for orthopedic trauma specialists.",
+                    campuses: ["Nairobi"]
                 },
             },
             {
@@ -561,7 +621,8 @@
                     subjects: {
                         english: "C-"
                     },
-                    description: "3-year program for medical social workers."
+                    description: "3-year program for medical social workers.",
+                    campuses: ["Nairobi", "Mombasa"]
                 },
             },
             {
@@ -571,7 +632,8 @@
                     subjects: {
                         english: "C-"
                     },
-                    description: "3-year program for health counselors."
+                    description: "3-year program for health counselors.",
+                    campuses: ["Nairobi", "Kisumu"]
                 },
             },
             {
@@ -581,7 +643,8 @@
                     subjects: {
                         biology: "D+"
                     },
-                    description: "2-year program for community health workers."
+                    description: "2-year program for community health workers.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret", "Garissa"]
                 },
             },
             {
@@ -591,7 +654,8 @@
                     subjects: {
                         biology: "C-"
                     },
-                    description: "3-year program for emergency medical technicians."
+                    description: "3-year program for emergency medical technicians.",
+                    campuses: ["Nairobi", "Mombasa"]
                 },
             },
             {
@@ -601,7 +665,8 @@
                     subjects: {
                         english: "D+"
                     },
-                    description: "1-year program for health records assistants."
+                    description: "1-year program for health records assistants.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
                 },
             },
             {
@@ -611,7 +676,8 @@
                     subjects: {
                         biology: "D+"
                     },
-                    description: "1-year program for nutrition assistants."
+                    description: "1-year program for nutrition assistants.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu"]
                 },
             },
             {
@@ -621,7 +687,8 @@
                     subjects: {
                         physics: "D+"
                     },
-                    description: "1-year program for medical equipment assistants."
+                    description: "1-year program for medical equipment assistants.",
+                    campuses: ["Nairobi"]
                 },
             },
             {
@@ -631,7 +698,8 @@
                     subjects: {
                         biology: "D+"
                     },
-                    description: "1-year program for orthopedic assistants."
+                    description: "1-year program for orthopedic assistants.",
+                    campuses: ["Nairobi"]
                 },
             },
             {
@@ -639,7 +707,8 @@
                 requirements: {
                     meanGrade: "D+",
                     subjects: {},
-                    description: "1-year program for public health assistants."
+                    description: "1-year program for public health assistants.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
                 },
             },
             {
@@ -647,7 +716,8 @@
                 requirements: {
                     meanGrade: "D",
                     subjects: {},
-                    description: "1-year program for community health volunteers."
+                    description: "1-year program for community health volunteers.",
+                    campuses: ["All Campuses"]
                 },
             },
             {
@@ -655,7 +725,8 @@
                 requirements: {
                     meanGrade: "D+",
                     subjects: {},
-                    description: "1-year program for emergency first responders."
+                    description: "1-year program for emergency first responders.",
+                    campuses: ["Nairobi", "Mombasa"]
                 },
             },
             {
@@ -665,7 +736,8 @@
                     subjects: {
                         english: "C-"
                     },
-                    description: "3-year program for speech therapists."
+                    description: "3-year program for speech therapists.",
+                    campuses: ["Nairobi"]
                 },
             },
             {
@@ -675,7 +747,8 @@
                     subjects: {
                         biology: "C-"
                     },
-                    description: "3-year program for mortuary technicians."
+                    description: "3-year program for mortuary technicians.",
+                    campuses: ["Nairobi", "Mombasa"]
                 },
             },
             {
@@ -685,7 +758,8 @@
                     subjects: {
                         english: "C-"
                     },
-                    description: "3-year program for health promotion officers."
+                    description: "3-year program for health promotion officers.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu"]
                 },
             },
             {
@@ -695,25 +769,30 @@
                     subjects: {
                         mathematics: "C-"
                     },
-                    description: "3-year program for health insurance administrators."
+                    description: "3-year program for health insurance administrators.",
+                    campuses: ["Nairobi"]
                 },
             }
         ];
-        
-        // Initialize county selection
-        const countySelection = document.getElementById('county-selection');
-        kmtcCampuses.forEach(county => {
-            const item = document.createElement('div');
-            item.className = 'selectable-item';
-            item.textContent = county;
-            item.addEventListener('click', function() {
-                this.classList.toggle('selected');
+
+        // Payment method selection
+        document.querySelectorAll('.payment-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.payment-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                this.classList.add('selected');
+                
+                // Show relevant payment fields
+                document.querySelectorAll('#payment-form > div').forEach(div => {
+                    div.classList.add('hidden');
+                });
+                document.getElementById(`${this.dataset.method}-fields`).classList.remove('hidden');
             });
-            countySelection.appendChild(item);
         });
-        
-        // Find matching courses
-        document.getElementById('find-courses').addEventListener('click', function() {
+
+        // Check qualifying courses
+        document.getElementById('check-courses').addEventListener('click', function() {
             // Get grades
             const grades = {
                 meanGrade: document.getElementById('mean-grade').value,
@@ -731,11 +810,32 @@
                 return;
             }
             
-            // Find matching courses
-            const matchedCourses = findMatchingCourses(grades);
+            // Store results in session
+            sessionStorage.setItem('kmtcGrades', JSON.stringify(grades));
             
-            // Display results
-            displayResults(matchedCourses);
+            // Show payment section
+            document.getElementById('payment-section').style.display = 'block';
+            document.getElementById('check-courses').style.display = 'none';
+            window.scrollTo(0, document.getElementById('payment-section').offsetTop);
+        });
+
+        // Process payment (simulated)
+        document.getElementById('payment-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulate payment processing
+            document.getElementById('payment-form').innerHTML = '<p>Processing payment...<p>';
+            
+            setTimeout(() => {
+                // After "payment" show results
+                const grades = JSON.parse(sessionStorage.getItem('kmtcGrades'));
+                const matchedCourses = findMatchingCourses(grades);
+                displayResults(matchedCourses);
+                
+                document.getElementById('payment-section').style.display = 'none';
+                document.getElementById('results').style.display = 'block';
+                window.scrollTo(0, document.getElementById('results').offsetTop);
+            }, 2000);
         });
         
         // Function to find matching courses
@@ -743,39 +843,28 @@
             const results = [];
             
             kmtcCourses.forEach(course => {
+                let qualifies = true;
+                
                 // Check mean grade requirement
                 if (!meetsGradeRequirement(grades.meanGrade, course.requirements.meanGrade)) {
-                    return;
+                    qualifies = false;
                 }
                 
                 // Check subject requirements
-                let subjectMatches = 0;
-                let totalRequiredSubjects = 0;
-                
                 for (const subject in course.requirements.subjects) {
-                    totalRequiredSubjects++;
                     const requiredGrade = course.requirements.subjects[subject];
                     const studentGrade = grades[subject];
                     
-                    if (studentGrade && meetsGradeRequirement(studentGrade, requiredGrade)) {
-                        subjectMatches++;
+                    if (!studentGrade || !meetsGradeRequirement(studentGrade, requiredGrade)) {
+                        qualifies = false;
+                        break;
                     }
                 }
                 
-                // Calculate match percentage
-                const matchPercentage = totalRequiredSubjects === 0 ? 100 : 
-                    Math.round((subjectMatches / totalRequiredSubjects) * 100);
-                
-                if (matchPercentage > 0) {
-                    results.push({
-                        course: course,
-                        matchPercentage: matchPercentage
-                    });
+                if (qualifies) {
+                    results.push(course);
                 }
             });
-            
-            // Sort by match percentage
-            results.sort((a, b) => b.matchPercentage - a.matchPercentage);
             
             return results;
         }
@@ -795,37 +884,45 @@
             resultsContainer.innerHTML = '';
             
             if (matchedCourses.length === 0) {
-                resultsContainer.innerHTML = '<p>No KMTC courses found matching your grades. Try improving your subject scores.</p>';
+                resultsContainer.innerHTML = '<p>You do not qualify for any KMTC courses based on your current grades.</p>';
             } else {
-                matchedCourses.forEach(result => {
+                matchedCourses.forEach(course => {
                     const courseDiv = document.createElement('div');
                     courseDiv.className = 'course-match';
                     
                     const title = document.createElement('div');
                     title.className = 'course-title';
-                    title.textContent = result.course.name;
+                    title.textContent = course.name;
                     
-                    const percentage = document.createElement('div');
-                    percentage.className = 'match-percentage';
-                    percentage.textContent = `Eligibility: ${result.matchPercentage}%`;
+                    const status = document.createElement('div');
+                    status.className = 'qualification-status qualified';
+                    status.textContent = '✅ QUALIFIED';
+                    
+                    const campuses = document.createElement('div');
+                    campuses.className = 'campuses';
+                    campuses.textContent = `Available at: ${course.campuses.join(', ')}`;
                     
                     const description = document.createElement('div');
-                    description.textContent = result.course.description;
+                    description.textContent = course.description;
                     
                     const requirements = document.createElement('div');
                     requirements.className = 'requirements';
-                    requirements.textContent = `Minimum: Mean Grade ${result.course.requirements.meanGrade}+`;
+                    
+                    let reqText = `Requirements: Mean Grade ${course.requirements.meanGrade}+`;
+                    for (const subject in course.requirements.subjects) {
+                        reqText += `, ${subject} ${course.requirements.subjects[subject]}+`;
+                    }
+                    requirements.textContent = reqText;
                     
                     courseDiv.appendChild(title);
-                    courseDiv.appendChild(percentage);
+                    courseDiv.appendChild(status);
+                    courseDiv.appendChild(campuses);
                     courseDiv.appendChild(description);
                     courseDiv.appendChild(requirements);
                     
                     resultsContainer.appendChild(courseDiv);
                 });
             }
-            
-            document.getElementById('results').style.display = 'block';
         }
     </script>
 </body>
