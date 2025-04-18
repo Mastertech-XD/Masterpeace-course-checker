@@ -199,6 +199,12 @@
             font-weight: bold;
         }
         
+        .requirements {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        
         footer {
             margin-top: 60px;
             text-align: center;
@@ -279,8 +285,8 @@
         </div>
         
         <div class="subject-group">
-            <label for="kiswahili" class="required">Kiswahili:</label>
-            <select id="kiswahili" required>
+            <label for="kiswahili">Kiswahili:</label>
+            <select id="kiswahili">
                 <option value="">Select Grade</option>
                 <option value="A">A</option>
                 <option value="A-">A-</option>
@@ -316,7 +322,7 @@
             </select>
         </div>
         
-        <h3>Sciences (Required for Medical Courses)</h3>
+        <h3>Sciences (Required for Most Medical Courses)</h3>
         <div class="subject-group">
             <label for="biology">Biology:</label>
             <select id="biology">
@@ -377,28 +383,18 @@
     
     <div class="form-section">
         <div class="section-title">
-            <div class="section-icon">🗺️</div>
-            <h2>SELECT COUNTY YOU PREFER TO STUDY IN</h2>
+            <div class="section-icon">📍</div>
+            <h2>SELECT COUNTY YOU PREFER TO STUDY IN 😊️</h2>
         </div>
         <div class="selection-grid" id="county-selection">
             <!-- Counties will be added by JavaScript -->
         </div>
     </div>
     
-    <div class="form-section">
-        <div class="section-title">
-            <div class="section-icon">🏥</div>
-            <h2>📈💭SELECT MEDICAL FIELD YOU PREFER🧬</h2>
-        </div>
-        <div class="selection-grid" id="field-selection">
-            <!-- Fields will be added by JavaScript -->
-        </div>
-    </div>
-    
-    <button id="find-courses">🌡️FIND KMTC COURSES💉</button>
+    <button id="find-courses">CHECK KMTC COURSES</button>
     
     <div id="results">
-        <h2>Recommended KMTC Courses Based on Your Grades</h2>
+        <h2>KMTC Courses You Qualify For</h2>
         <div id="course-results">
             <!-- Course matches will be displayed here -->
         </div>
@@ -421,32 +417,10 @@
             "Turkana", "Uasin Gishu", "Vihiga", "Wajir", "West Pokot"
         ];
         
-        // KMTC Medical Fields
-        const medicalFields = [
-            "Clinical Medicine", "Nursing", "Pharmacy", "Dentistry", 
-            "Medical Laboratory", "Radiography", "Health Records", 
-            "Community Health", "Nutrition", "Physiotherapy", 
-            "Optometry", "Health Education", "Public Health"
-        ];
-        
-        // KMTC Courses Database with Requirements
+        // KMTC Courses Database with Requirements (All 26 Courses)
         const kmtcCourses = [
             {
-                name: "Diploma in Clinical Medicine",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        biology: "C",
-                        chemistry: "C-",
-                        mathematics: "C-",
-                        english: "C-"
-                    },
-                    fields: ["Clinical Medicine"]
-                },
-                description: "3-year program training Clinical Officers for hospitals."
-            },
-            {
-                name: "Diploma in Nursing",
+                name: "DIPLOMA IN NUTRITION & DIETETICS",
                 requirements: {
                     meanGrade: "C",
                     subjects: {
@@ -454,25 +428,34 @@
                         chemistry: "D+",
                         english: "C-"
                     },
-                    fields: ["Nursing"]
+                    description: "3-year program training nutritionists for hospitals and communities."
                 },
-                description: "3-year program for registered nurses."
             },
             {
-                name: "Diploma in Pharmacy",
+                name: "DIPLOMA IN HEALTH RECORDS AND INFORMATION TECHNOLOGY",
+                requirements: {
+                    meanGrade: "C-",
+                    subjects: {
+                        english: "D+",
+                        mathematics: "D+"
+                    },
+                    description: "2-year program for health information management officers."
+                },
+            },
+            {
+                name: "DIPLOMA IN RADIOGRAPHY & IMAGING",
                 requirements: {
                     meanGrade: "C",
                     subjects: {
-                        chemistry: "C",
+                        physics: "C-",
                         biology: "C-",
                         mathematics: "C-"
                     },
-                    fields: ["Pharmacy"]
+                    description: "3-year program for radiographers in medical imaging."
                 },
-                description: "3-year program for pharmaceutical technologists."
             },
             {
-                name: "Diploma in Medical Laboratory",
+                name: "DIPLOMA IN MEDICAL LABORATORY SCIENCES",
                 requirements: {
                     meanGrade: "C",
                     subjects: {
@@ -480,45 +463,230 @@
                         chemistry: "C-",
                         mathematics: "D+"
                     },
-                    fields: ["Medical Laboratory"]
+                    description: "3-year program for medical laboratory technologists."
                 },
-                description: "3-year program for lab technologists."
             },
             {
-                name: "Certificate in Community Health",
-                requirements: {
-                    meanGrade: "D+",
-                    subjects: {
-                        biology: "D+",
-                        english: "D+"
-                    },
-                    fields: ["Community Health"]
-                },
-                description: "2-year program for community health workers."
-            },
-            {
-                name: "Diploma in Health Records",
-                requirements: {
-                    meanGrade: "C-",
-                    subjects: {
-                        english: "C-",
-                        mathematics: "D+"
-                    },
-                    fields: ["Health Records"]
-                },
-                description: "2-year program for health information officers."
-            },
-            {
-                name: "Diploma in Nutrition",
+                name: "DIPLOMA IN OCCUPATIONAL THERAPY",
                 requirements: {
                     meanGrade: "C",
                     subjects: {
                         biology: "C-",
-                        chemistry: "D+"
+                        english: "C-"
                     },
-                    fields: ["Nutrition"]
+                    description: "3-year program for occupational therapists."
                 },
-                description: "3-year program for nutritionists."
+            },
+            {
+                name: "DIPLOMA IN ORTHOPAEDIC TECHNOLOGY",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        physics: "D+",
+                        biology: "C-"
+                    },
+                    description: "3-year program for orthopedic technologists."
+                },
+            },
+            {
+                name: "DIPLOMA IN PHARMACY",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        chemistry: "C",
+                        biology: "C-",
+                        mathematics: "C-"
+                    },
+                    description: "3-year program for pharmaceutical technologists."
+                },
+            },
+            {
+                name: "DIPLOMA IN PHYSIOTHERAPY",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        biology: "C-",
+                        physics: "D+"
+                    },
+                    description: "3-year program for physiotherapists."
+                },
+            },
+            {
+                name: "DIPLOMA IN MEDICAL ENGINEERING",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        physics: "C-",
+                        mathematics: "C-"
+                    },
+                    description: "3-year program for medical equipment technicians."
+                },
+            },
+            {
+                name: "DIPLOMA IN PUBLIC HEALTH",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        biology: "C-",
+                        english: "C-"
+                    },
+                    description: "3-year program for public health officers."
+                },
+            },
+            {
+                name: "DIPLOMA IN ORTHOPEDIC & TRAUMA MEDICINE",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        biology: "C-",
+                        physics: "D+"
+                    },
+                    description: "3-year program for orthopedic trauma specialists."
+                },
+            },
+            {
+                name: "DIPLOMA IN MEDICAL SOCIAL WORK",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        english: "C-"
+                    },
+                    description: "3-year program for medical social workers."
+                },
+            },
+            {
+                name: "DIPLOMA IN HEALTH COUNSELLING",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        english: "C-"
+                    },
+                    description: "3-year program for health counselors."
+                },
+            },
+            {
+                name: "DIPLOMA IN COMMUNITY HEALTH",
+                requirements: {
+                    meanGrade: "C-",
+                    subjects: {
+                        biology: "D+"
+                    },
+                    description: "2-year program for community health workers."
+                },
+            },
+            {
+                name: "DIPLOMA IN EMERGENCY MEDICAL TECHNOLOGY",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        biology: "C-"
+                    },
+                    description: "3-year program for emergency medical technicians."
+                },
+            },
+            {
+                name: "CERTIFICATE IN HEALTH RECORDS AND INFORMATION TECHNOLOGY",
+                requirements: {
+                    meanGrade: "D+",
+                    subjects: {
+                        english: "D+"
+                    },
+                    description: "1-year program for health records assistants."
+                },
+            },
+            {
+                name: "CERTIFICATE IN NUTRITION & DIETETICS",
+                requirements: {
+                    meanGrade: "D+",
+                    subjects: {
+                        biology: "D+"
+                    },
+                    description: "1-year program for nutrition assistants."
+                },
+            },
+            {
+                name: "CERTIFICATE IN MEDICAL ENGINEERING",
+                requirements: {
+                    meanGrade: "D+",
+                    subjects: {
+                        physics: "D+"
+                    },
+                    description: "1-year program for medical equipment assistants."
+                },
+            },
+            {
+                name: "CERTIFICATE IN ORTHOPEDIC TRAUMA MEDICINE",
+                requirements: {
+                    meanGrade: "D+",
+                    subjects: {
+                        biology: "D+"
+                    },
+                    description: "1-year program for orthopedic assistants."
+                },
+            },
+            {
+                name: "CERTIFICATE IN PUBLIC HEALTH",
+                requirements: {
+                    meanGrade: "D+",
+                    subjects: {},
+                    description: "1-year program for public health assistants."
+                },
+            },
+            {
+                name: "CERTIFICATE IN COMMUNITY HEALTH ASSISTANT",
+                requirements: {
+                    meanGrade: "D",
+                    subjects: {},
+                    description: "1-year program for community health volunteers."
+                },
+            },
+            {
+                name: "CERTIFICATE IN MEDICAL EMERGENCY TECHNICIAN",
+                requirements: {
+                    meanGrade: "D+",
+                    subjects: {},
+                    description: "1-year program for emergency first responders."
+                },
+            },
+            {
+                name: "DIPLOMA IN SPEECH AND LANGUAGE THERAPY",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        english: "C-"
+                    },
+                    description: "3-year program for speech therapists."
+                },
+            },
+            {
+                name: "DIPLOMA IN MORTUARY SCIENCE",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        biology: "C-"
+                    },
+                    description: "3-year program for mortuary technicians."
+                },
+            },
+            {
+                name: "DIPLOMA IN HEALTH PROMOTION",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        english: "C-"
+                    },
+                    description: "3-year program for health promotion officers."
+                },
+            },
+            {
+                name: "DIPLOMA IN HEALTH INSURANCE MANAGEMENT",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        mathematics: "C-"
+                    },
+                    description: "3-year program for health insurance administrators."
+                },
             }
         ];
         
@@ -534,26 +702,8 @@
             countySelection.appendChild(item);
         });
         
-        // Initialize field selection
-        const fieldSelection = document.getElementById('field-selection');
-        medicalFields.forEach(field => {
-            const item = document.createElement('div');
-            item.className = 'selectable-item';
-            item.textContent = field;
-            item.addEventListener('click', function() {
-                this.classList.toggle('selected');
-            });
-            fieldSelection.appendChild(item);
-        });
-        
         // Find matching courses
         document.getElementById('find-courses').addEventListener('click', function() {
-            // Get selected fields
-            const selectedFields = [];
-            document.querySelectorAll('#field-selection .selected').forEach(item => {
-                selectedFields.push(item.textContent);
-            });
-            
             // Get grades
             const grades = {
                 meanGrade: document.getElementById('mean-grade').value,
@@ -566,35 +716,23 @@
             };
             
             // Validate required fields
-            if (!grades.meanGrade || !grades.english || !grades.kiswahili || !grades.mathematics) {
-                alert('Please fill in all required fields (Mean Grade, English, Kiswahili, Mathematics)');
-                return;
-            }
-            
-            if (selectedFields.length === 0) {
-                alert('Please select at least one medical field');
+            if (!grades.meanGrade || !grades.english || !grades.mathematics) {
+                alert('Please fill in all required fields (Mean Grade, English, Mathematics)');
                 return;
             }
             
             // Find matching courses
-            const matchedCourses = findMatchingCourses(grades, selectedFields);
+            const matchedCourses = findMatchingCourses(grades);
             
             // Display results
             displayResults(matchedCourses);
         });
         
         // Function to find matching courses
-        function findMatchingCourses(grades, selectedFields) {
+        function findMatchingCourses(grades) {
             const results = [];
             
             kmtcCourses.forEach(course => {
-                // Check if course matches any selected field
-                const fieldMatch = course.requirements.fields.some(field => 
-                    selectedFields.includes(field)
-                );
-                
-                if (!fieldMatch) return;
-                
                 // Check mean grade requirement
                 if (!meetsGradeRequirement(grades.meanGrade, course.requirements.meanGrade)) {
                     return;
@@ -615,9 +753,10 @@
                 }
                 
                 // Calculate match percentage
-                const matchPercentage = Math.round((subjectMatches / totalRequiredSubjects) * 100);
+                const matchPercentage = totalRequiredSubjects === 0 ? 100 : 
+                    Math.round((subjectMatches / totalRequiredSubjects) * 100);
                 
-                if (subjectMatches > 0) {
+                if (matchPercentage > 0) {
                     results.push({
                         course: course,
                         matchPercentage: matchPercentage
@@ -646,7 +785,7 @@
             resultsContainer.innerHTML = '';
             
             if (matchedCourses.length === 0) {
-                resultsContainer.innerHTML = '<p>No KMTC courses found matching your criteria. Try broadening your field selections.</p>';
+                resultsContainer.innerHTML = '<p>No KMTC courses found matching your grades. Try improving your subject scores.</p>';
             } else {
                 matchedCourses.forEach(result => {
                     const courseDiv = document.createElement('div');
@@ -658,14 +797,19 @@
                     
                     const percentage = document.createElement('div');
                     percentage.className = 'match-percentage';
-                    percentage.textContent = `Match: ${result.matchPercentage}%`;
+                    percentage.textContent = `Eligibility: ${result.matchPercentage}%`;
                     
                     const description = document.createElement('div');
                     description.textContent = result.course.description;
                     
+                    const requirements = document.createElement('div');
+                    requirements.className = 'requirements';
+                    requirements.textContent = `Minimum: Mean Grade ${result.course.requirements.meanGrade}+`;
+                    
                     courseDiv.appendChild(title);
                     courseDiv.appendChild(percentage);
                     courseDiv.appendChild(description);
+                    courseDiv.appendChild(requirements);
                     
                     resultsContainer.appendChild(courseDiv);
                 });
