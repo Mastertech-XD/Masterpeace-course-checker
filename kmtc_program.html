@@ -82,9 +82,9 @@
         }
         
         input {
-            padding: 10px;
-            margin: 8px 0;
-            border-radius: 5px;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 6px;
             border: 1px solid var(--neon-blue);
             background-color: rgba(0, 20, 40, 0.8);
             color: var(--light-text);
@@ -96,26 +96,26 @@
         input:focus {
             outline: none;
             border-color: var(--neon-green);
-            box-shadow: 0 0 10px var(--neon-green);
+            box-shadow: 0 0 15px var(--neon-green);
         }
         
         .payment-modes {
             display: flex;
             gap: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             flex-wrap: wrap;
+            justify-content: center;
         }
         
         .payment-mode {
-            padding: 15px;
+            padding: 15px 20px;
             border: 1px solid var(--neon-purple);
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             text-align: center;
-            transition: all 0.2s;
+            transition: all 0.3s;
             background-color: rgba(40, 0, 80, 0.3);
-            flex: 1;
-            min-width: 120px;
+            min-width: 140px;
             position: relative;
             overflow: hidden;
         }
@@ -138,14 +138,21 @@
         .payment-mode.selected {
             border-color: var(--neon-green);
             background-color: rgba(0, 100, 200, 0.3);
-            box-shadow: 0 0 15px var(--neon-green);
+            box-shadow: 0 0 20px var(--neon-green);
+            transform: translateY(-3px);
         }
         
         .payment-mode img {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 40px;
             object-fit: contain;
             margin-bottom: 10px;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.3));
+        }
+        
+        .payment-mode .label {
+            font-weight: bold;
+            font-size: 0.9rem;
         }
         
         .payment-form {
@@ -165,7 +172,7 @@
         button {
             background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
             color: white;
-            padding: 12px 30px;
+            padding: 14px 30px;
             border: none;
             border-radius: 30px;
             cursor: pointer;
@@ -255,6 +262,22 @@
             text-align: center;
             color: var(--neon-green);
         }
+        
+        .payment-success h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--neon-blue);
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -262,27 +285,30 @@
     
     <div class="form-section">
         <h2>Payment Information</h2>
-        <p>Complete payment to finalize your application</p>
+        <p>Complete payment to finalize your application (KES 500)</p>
         
         <div class="payment-modes">
             <div class="payment-mode selected" data-form="mpesa-form">
-                <img src="https://via.placeholder.com/50?text=MPESA" alt="Mpesa">
-                <div>Mpesa</div>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/M-PESA_LOGO-01.svg" alt="Mpesa">
+                <div class="label">M-Pesa</div>
             </div>
             <div class="payment-mode" data-form="card-form">
-                <img src="https://via.placeholder.com/50?text=CARD" alt="Card">
-                <div>Credit Card</div>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa">
+                <div class="label">Credit/Debit Card</div>
             </div>
             <div class="payment-mode" data-form="bank-form">
-                <img src="https://via.placeholder.com/50?text=BANK" alt="Bank">
-                <div>Bank Transfer</div>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Bank_icon.svg" alt="Bank">
+                <div class="label">Bank Transfer</div>
             </div>
         </div>
         
         <!-- Mpesa Payment Form -->
         <div id="mpesa-form" class="payment-form active">
             <form id="mpesa-payment">
-                <input type="tel" placeholder="Phone Number (2547...)" required>
+                <div class="form-group">
+                    <label for="mpesa-phone">Phone Number</label>
+                    <input type="tel" id="mpesa-phone" placeholder="2547XXXXXXXX" required pattern="254[0-9]{9}">
+                </div>
                 <button type="submit">PAY VIA MPESA</button>
             </form>
         </div>
@@ -290,10 +316,26 @@
         <!-- Card Payment Form -->
         <div id="card-form" class="payment-form">
             <form id="card-payment">
-                <input type="text" placeholder="Card Number" required>
-                <input type="text" placeholder="Expiry Date (MM/YY)" required>
-                <input type="text" placeholder="CVV" required>
-                <input type="text" placeholder="Cardholder Name" required>
+                <div class="form-group">
+                    <label for="card-number">Card Number</label>
+                    <input type="text" id="card-number" placeholder="4242 4242 4242 4242" required>
+                </div>
+                <div class="form-group">
+                    <label for="card-expiry">Expiry Date</label>
+                    <input type="text" id="card-expiry" placeholder="MM/YY" required>
+                </div>
+                <div class="form-group">
+                    <label for="card-cvv">CVV</label>
+                    <input type="text" id="card-cvv" placeholder="123" required>
+                </div>
+                <div class="form-group">
+                    <label for="card-name">Cardholder Name</label>
+                    <input type="text" id="card-name" placeholder="John Doe" required>
+                </div>
+                <div class="card-logos">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" width="60">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" width="60">
+                </div>
                 <button type="submit">PAY WITH CARD</button>
             </form>
         </div>
@@ -301,9 +343,18 @@
         <!-- Bank Payment Form -->
         <div id="bank-form" class="payment-form">
             <form id="bank-payment">
-                <input type="text" placeholder="Bank Name" required>
-                <input type="text" placeholder="Account Number" required>
-                <input type="text" placeholder="Transaction Reference" required>
+                <div class="form-group">
+                    <label for="bank-name">Bank Name</label>
+                    <input type="text" id="bank-name" placeholder="e.g. KCB, Equity, Cooperative" required>
+                </div>
+                <div class="form-group">
+                    <label for="account-number">Account Number</label>
+                    <input type="text" id="account-number" placeholder="Your account number" required>
+                </div>
+                <div class="form-group">
+                    <label for="transaction-ref">Transaction Reference</label>
+                    <input type="text" id="transaction-ref" placeholder="KMTC-2023-XXXX" required>
+                </div>
                 <button type="submit">INITIATE BANK TRANSFER</button>
             </form>
         </div>
@@ -317,7 +368,7 @@
             <h2>✅ Payment Successful!</h2>
             <p>Your application has been submitted successfully.</p>
             <p>You will receive a confirmation message shortly.</p>
-            <button onclick="window.location.href='kmtc_html.html'">BACK TO COURSES</button>
+            <button onclick="window.location.href='kmtc_program.html'">BACK TO COURSES</button>
         </div>
     </div>
     
@@ -376,6 +427,16 @@
                 console.log(`Processing ${method} payment...`);
             }, 3000);
         }
+
+        // Format card number input
+        document.getElementById('card-number').addEventListener('input', function(e) {
+            this.value = this.value.replace(/\s/g, '').replace(/(\d{4})/g, '$1 ').trim();
+        });
+
+        // Format expiry date input
+        document.getElementById('card-expiry').addEventListener('input', function(e) {
+            this.value = this.value.replace(/\D/g, '').replace(/(\d{2})(\d)/, '$1/$2').substring(0, 5);
+        });
     </script>
 </body>
 </html>
