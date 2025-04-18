@@ -81,11 +81,6 @@
             100% { background-position: 0 0; }
         }
         
-        .form-section:hover {
-            box-shadow: 0 0 25px rgba(128, 0, 255, 0.5);
-            border-color: var(--neon-blue);
-        }
-        
         select, input {
             padding: 10px;
             margin: 8px 0;
@@ -152,7 +147,6 @@
             background-color: rgba(40, 0, 40, 0.3);
             transition: all 0.3s;
             position: relative;
-            overflow: hidden;
         }
         
         .course-match::before {
@@ -304,6 +298,7 @@
             background-color: rgba(0, 40, 20, 0.5);
             box-shadow: 0 0 20px rgba(0, 255, 128, 0.3);
             position: relative;
+            display: none;
         }
         
         #results::before {
@@ -326,10 +321,26 @@
             display: none;
             background: linear-gradient(135deg, var(--neon-orange), var(--neon-yellow));
         }
+        
+        .payment-success {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 20px;
+            color: var(--neon-green);
+            border: 1px solid var(--neon-green);
+            border-radius: 8px;
+            background-color: rgba(0, 40, 20, 0.3);
+        }
     </style>
 </head>
 <body>
     <h1>KMTC COURSES CHECKER</h1>
+    
+    <div id="payment-success" class="payment-success">
+        <h2>✅ Payment Successful!</h2>
+        <p>Your payment has been processed successfully. Below are your course qualifications:</p>
+    </div>
     
     <div class="form-section">
         <div class="section-title">
@@ -475,7 +486,7 @@
     
     <button id="check-courses">CHECK QUALIFYING COURSES</button>
     
-    <div id="results" style="display: none;">
+    <div id="results">
         <h2>KMTC Courses You Qualify For</h2>
         <div id="course-results">
             <!-- Course matches will be displayed here -->
@@ -488,6 +499,25 @@
     </footer>
 
     <script>
+        // Check if returning from payment
+        const urlParams = new URLSearchParams(window.location.search);
+        const paymentSuccess = urlParams.get('payment');
+        
+        if (paymentSuccess === 'success') {
+            document.getElementById('payment-success').style.display = 'block';
+            
+            // Retrieve stored grades from sessionStorage
+            const storedGrades = sessionStorage.getItem('kmtcGrades');
+            if (storedGrades) {
+                const grades = JSON.parse(storedGrades);
+                const matchedCourses = findMatchingCourses(grades);
+                displayResults(matchedCourses);
+                document.getElementById('results').style.display = 'block';
+                document.getElementById('proceed-to-payment').style.display = 'none';
+                window.scrollTo(0, document.getElementById('payment-success').offsetTop);
+            }
+        }
+
         // KMTC Courses Database with Requirements and Campuses
         const kmtcCourses = [
             {
@@ -634,6 +664,9 @@
                 alert('Please fill in all required fields (Mean Grade, English, Mathematics)');
                 return;
             }
+            
+            // Store grades in sessionStorage
+            sessionStorage.setItem('kmtcGrades', JSON.stringify(grades));
             
             // Find matching courses
             const matchedCourses = findMatchingCourses(grades);
