@@ -82,9 +82,9 @@
         }
         
         input {
-            padding: 10px;
-            margin: 8px 0;
-            border-radius: 5px;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 6px;
             border: 1px solid var(--neon-blue);
             background-color: rgba(0, 20, 40, 0.8);
             color: var(--light-text);
@@ -96,29 +96,31 @@
         input:focus {
             outline: none;
             border-color: var(--neon-green);
-            box-shadow: 0 0 10px var(--neon-green);
+            box-shadow: 0 0 15px var(--neon-green);
         }
         
-        .payment-options {
+        .payment-modes {
             display: flex;
             gap: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
         
-        .payment-option {
-            padding: 15px;
+        .payment-mode {
+            padding: 15px 20px;
             border: 1px solid var(--neon-purple);
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             text-align: center;
-            transition: all 0.2s;
+            transition: all 0.3s;
             background-color: rgba(40, 0, 80, 0.3);
-            flex: 1;
+            min-width: 140px;
             position: relative;
             overflow: hidden;
         }
         
-        .payment-option::before {
+        .payment-mode::before {
             content: '';
             position: absolute;
             top: -1px;
@@ -133,23 +135,44 @@
             animation: glowing-border 4s linear infinite;
         }
         
-        .payment-option.selected {
+        .payment-mode.selected {
             border-color: var(--neon-green);
             background-color: rgba(0, 100, 200, 0.3);
-            box-shadow: 0 0 15px var(--neon-green);
+            box-shadow: 0 0 20px var(--neon-green);
+            transform: translateY(-3px);
         }
         
-        .payment-option img {
-            width: 50px;
-            height: 50px;
+        .payment-mode img {
+            width: 60px;
+            height: 40px;
             object-fit: contain;
             margin-bottom: 10px;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.3));
+        }
+        
+        .payment-mode .label {
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .payment-form {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .payment-form.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         button {
             background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
             color: white;
-            padding: 12px 30px;
+            padding: 14px 30px;
             border: none;
             border-radius: 30px;
             cursor: pointer;
@@ -212,7 +235,7 @@
             animation: glowing-border 3s linear infinite;
         }
         
-        #payment-processing {
+        .payment-processing {
             display: none;
             text-align: center;
             font-size: 1.2rem;
@@ -234,10 +257,26 @@
             100% { transform: rotate(360deg); }
         }
         
-        #payment-success {
+        .payment-success {
             display: none;
             text-align: center;
             color: var(--neon-green);
+        }
+        
+        .payment-success h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--neon-blue);
+            font-weight: bold;
         }
     </style>
 </head>
@@ -246,48 +285,86 @@
     
     <div class="form-section">
         <h2>Payment Information</h2>
-        <p>Complete payment to finalize your application</p>
+        <p>Complete payment to finalize your application (KES 500)</p>
         
-        <div class="payment-options">
-            <div class="payment-option selected" data-method="mpesa">
-                <img src="https://via.placeholder.com/50?text=MPESA" alt="Mpesa">
-                <div>Mpesa</div>
+        <div class="payment-modes">
+            <div class="payment-mode selected" data-form="mpesa-form">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/M-PESA_LOGO-01.svg" alt="Mpesa">
+                <div class="label">M-Pesa</div>
             </div>
-            <div class="payment-option" data-method="card">
-                <img src="https://via.placeholder.com/50?text=CARD" alt="Card">
-                <div>Credit Card</div>
+            <div class="payment-mode" data-form="card-form">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa">
+                <div class="label">Credit/Debit Card</div>
             </div>
-            <div class="payment-option" data-method="bank">
-                <img src="https://via.placeholder.com/50?text=BANK" alt="Bank">
-                <div>Bank Transfer</div>
+            <div class="payment-mode" data-form="bank-form">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Bank_icon.svg" alt="Bank">
+                <div class="label">Bank Transfer</div>
             </div>
         </div>
         
-        <form id="payment-form">
-            <div id="mpesa-fields">
-                <input type="tel" placeholder="Phone Number (2547...)" required>
-            </div>
-            
-            <div id="card-fields" class="hidden">
-                <input type="text" placeholder="Card Number" required>
-                <input type="text" placeholder="Expiry Date (MM/YY)" required>
-                <input type="text" placeholder="CVV" required>
-            </div>
-            
-            <div id="bank-fields" class="hidden">
-                <input type="text" placeholder="Bank Name" required>
-                <input type="text" placeholder="Account Number" required>
-            </div>
-            
-            <button type="submit">PAY KSH 500</button>
-        </form>
+        <!-- Mpesa Payment Form -->
+        <div id="mpesa-form" class="payment-form active">
+            <form id="mpesa-payment">
+                <div class="form-group">
+                    <label for="mpesa-phone">Phone Number</label>
+                    <input type="tel" id="mpesa-phone" placeholder="2547XXXXXXXX" required pattern="254[0-9]{9}">
+                </div>
+                <button type="submit">PAY VIA MPESA</button>
+            </form>
+        </div>
         
-        <div id="payment-processing">
+        <!-- Card Payment Form -->
+        <div id="card-form" class="payment-form">
+            <form id="card-payment">
+                <div class="form-group">
+                    <label for="card-number">Card Number</label>
+                    <input type="text" id="card-number" placeholder="4242 4242 4242 4242" required>
+                </div>
+                <div class="form-group">
+                    <label for="card-expiry">Expiry Date</label>
+                    <input type="text" id="card-expiry" placeholder="MM/YY" required>
+                </div>
+                <div class="form-group">
+                    <label for="card-cvv">CVV</label>
+                    <input type="text" id="card-cvv" placeholder="123" required>
+                </div>
+                <div class="form-group">
+                    <label for="card-name">Cardholder Name</label>
+                    <input type="text" id="card-name" placeholder="John Doe" required>
+                </div>
+                <div class="card-logos">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" width="60">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" width="60">
+                </div>
+                <button type="submit">PAY WITH CARD</button>
+            </form>
+        </div>
+        
+        <!-- Bank Payment Form -->
+        <div id="bank-form" class="payment-form">
+            <form id="bank-payment">
+                <div class="form-group">
+                    <label for="bank-name">Bank Name</label>
+                    <input type="text" id="bank-name" placeholder="e.g. KCB, Equity, Cooperative" required>
+                </div>
+                <div class="form-group">
+                    <label for="account-number">Account Number</label>
+                    <input type="text" id="account-number" placeholder="Your account number" required>
+                </div>
+                <div class="form-group">
+                    <label for="transaction-ref">Transaction Reference</label>
+                    <input type="text" id="transaction-ref" placeholder="KMTC-2023-XXXX" required>
+                </div>
+                <button type="submit">INITIATE BANK TRANSFER</button>
+            </form>
+        </div>
+        
+        <div class="payment-processing">
             <div class="spinner"></div>
             <p>Processing your payment...</p>
         </div>
         
-        <div id="payment-success">
+        <div class="payment-success">
             <h2>✅ Payment Successful!</h2>
             <p>Your application has been submitted successfully.</p>
             <p>You will receive a confirmation message shortly.</p>
@@ -300,35 +377,65 @@
     </footer>
 
     <script>
-        // Payment method selection
-        document.querySelectorAll('.payment-option').forEach(option => {
-            option.addEventListener('click', function() {
-                document.querySelectorAll('.payment-option').forEach(opt => {
-                    opt.classList.remove('selected');
+        // Payment mode selection
+        document.querySelectorAll('.payment-mode').forEach(mode => {
+            mode.addEventListener('click', function() {
+                // Update UI
+                document.querySelectorAll('.payment-mode').forEach(m => {
+                    m.classList.remove('selected');
                 });
                 this.classList.add('selected');
                 
-                // Show relevant payment fields
-                document.querySelectorAll('#payment-form > div').forEach(div => {
-                    div.classList.add('hidden');
+                // Hide all forms
+                document.querySelectorAll('.payment-form').forEach(form => {
+                    form.classList.remove('active');
                 });
-                document.getElementById(`${this.dataset.method}-fields`).classList.remove('hidden');
+                
+                // Show selected form
+                const formId = this.getAttribute('data-form');
+                document.getElementById(formId).classList.add('active');
             });
         });
 
-        // Process payment
-        document.getElementById('payment-form').addEventListener('submit', function(e) {
+        // Form submissions
+        document.getElementById('mpesa-payment').addEventListener('submit', function(e) {
             e.preventDefault();
-            
+            processPayment('Mpesa');
+        });
+        
+        document.getElementById('card-payment').addEventListener('submit', function(e) {
+            e.preventDefault();
+            processPayment('Credit Card');
+        });
+        
+        document.getElementById('bank-payment').addEventListener('submit', function(e) {
+            e.preventDefault();
+            processPayment('Bank Transfer');
+        });
+        
+        function processPayment(method) {
             // Show processing animation
-            document.getElementById('payment-form').style.display = 'none';
-            document.getElementById('payment-processing').style.display = 'block';
+            document.querySelector('.payment-processing').style.display = 'block';
+            document.querySelector('.payment-form.active').style.display = 'none';
             
             // Simulate payment processing
             setTimeout(() => {
-                document.getElementById('payment-processing').style.display = 'none';
-                document.getElementById('payment-success').style.display = 'block';
+                document.querySelector('.payment-processing').style.display = 'none';
+                document.querySelector('.payment-success').style.display = 'block';
+                
+                // In a real app, you would submit to a payment gateway here
+                console.log(`Processing ${method} payment...`);
             }, 3000);
+        }
+
+        // Format card number input
+        document.getElementById('card-number').addEventListener('input', function(e) {
+            this.value = this.value.replace(/\s/g, '').replace(/(\d{4})/g, '$1 ').trim();
+        });
+
+        // Format expiry date input
+        document.getElementById('card-expiry').addEventListener('input', function(e) {
+            this.value = this.value.replace(/\D/g, '').replace(/(\d{2})(\d)/, '$1/$2').substring(0, 5);
         });
     </script>
 </body>
