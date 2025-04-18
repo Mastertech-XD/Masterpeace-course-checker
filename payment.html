@@ -1,69 +1,335 @@
-<form id="paymentForm">
-    <label for="phoneNumber">Enter Phone Number:</label>
-    <input type="text" id="phoneNumber" name="phoneNumber" required placeholder="e.g., 254743727510">
-    <button type="button" id="payButton" onclick="processPayment()">Pay KSh 20</button>
-</form>
-
-<div id="paymentStatus"></div>
-
-<script>
-    function processPayment() {
-        const phoneNumber = document.getElementById('phoneNumber').value;
-
-        if (phoneNumber === "") {
-            alert("Please enter a valid phone number.");
-            return;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KMTC Payment</title>
+    <style>
+        :root {
+            --neon-blue: #08f;
+            --neon-pink: #f0f;
+            --neon-green: #0f8;
+            --neon-purple: #80f;
+            --neon-orange: #ff8c00;
+            --neon-yellow: #ff0;
+            --dark-bg: #111;
+            --light-text: #eee;
+            --glow: 0 0 10px;
         }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            color: var(--light-text);
+            background-color: var(--dark-bg);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 136, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 0, 255, 0.1) 0%, transparent 20%);
+        }
+        
+        h1, h2, h3 {
+            color: var(--neon-green);
+            text-shadow: var(--glow) var(--neon-green);
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            from { text-shadow: 0 0 5px var(--neon-green); }
+            to { text-shadow: 0 0 15px var(--neon-green), 0 0 30px var(--neon-green); }
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+            padding: 25px;
+            border: 1px solid var(--neon-purple);
+            border-radius: 8px;
+            background-color: rgba(20, 20, 40, 0.7);
+            box-shadow: 0 0 15px rgba(128, 0, 255, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .form-section::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            z-index: -1;
+            background: linear-gradient(45deg, 
+                var(--neon-blue), var(--neon-pink), var(--neon-green), var(--neon-orange));
+            background-size: 400%;
+            border-radius: 10px;
+            opacity: 0.7;
+            animation: glowing-border 3s linear infinite;
+        }
+        
+        @keyframes glowing-border {
+            0% { background-position: 0 0; }
+            50% { background-position: 400% 0; }
+            100% { background-position: 0 0; }
+        }
+        
+        input {
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: 1px solid var(--neon-blue);
+            background-color: rgba(0, 20, 40, 0.8);
+            color: var(--light-text);
+            font-size: 16px;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--neon-green);
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+        
+        .payment-options {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .payment-option {
+            padding: 15px;
+            border: 1px solid var(--neon-purple);
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+            background-color: rgba(40, 0, 80, 0.3);
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .payment-option::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            z-index: -1;
+            background: linear-gradient(45deg, 
+                var(--neon-blue), var(--neon-pink), var(--neon-green), var(--neon-orange));
+            background-size: 400%;
+            opacity: 0.3;
+            animation: glowing-border 4s linear infinite;
+        }
+        
+        .payment-option.selected {
+            border-color: var(--neon-green);
+            background-color: rgba(0, 100, 200, 0.3);
+            box-shadow: 0 0 15px var(--neon-green);
+        }
+        
+        .payment-option img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+        
+        button {
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 30px auto;
+            display: block;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 136, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        button::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            z-index: -1;
+            background: linear-gradient(45deg, 
+                var(--neon-blue), var(--neon-pink), var(--neon-green), var(--neon-orange));
+            background-size: 400%;
+            border-radius: 30px;
+            opacity: 0.7;
+            animation: glowing-border 3s linear infinite;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 136, 255, 0.6);
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
+        }
+        
+        button:active {
+            transform: translateY(1px);
+        }
+        
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid var(--neon-purple);
+            color: #aaa;
+            font-size: 0.9rem;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                var(--neon-blue), var(--neon-pink), var(--neon-green), var(--neon-orange));
+            background-size: 400%;
+            animation: glowing-border 3s linear infinite;
+        }
+        
+        #payment-processing {
+            display: none;
+            text-align: center;
+            font-size: 1.2rem;
+            margin: 20px 0;
+        }
+        
+        .spinner {
+            border: 5px solid rgba(0, 136, 255, 0.3);
+            border-radius: 50%;
+            border-top: 5px solid var(--neon-blue);
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        #payment-success {
+            display: none;
+            text-align: center;
+            color: var(--neon-green);
+        }
+    </style>
+</head>
+<body>
+    <h1>KMTC COURSE APPLICATION PAYMENT</h1>
+    
+    <div class="form-section">
+        <h2>Payment Information</h2>
+        <p>Complete payment to finalize your application</p>
+        
+        <div class="payment-options">
+            <div class="payment-option selected" data-method="mpesa">
+                <img src="https://via.placeholder.com/50?text=MPESA" alt="Mpesa">
+                <div>Mpesa</div>
+            </div>
+            <div class="payment-option" data-method="card">
+                <img src="https://via.placeholder.com/50?text=CARD" alt="Card">
+                <div>Credit Card</div>
+            </div>
+            <div class="payment-option" data-method="bank">
+                <img src="https://via.placeholder.com/50?text=BANK" alt="Bank">
+                <div>Bank Transfer</div>
+            </div>
+        </div>
+        
+        <form id="payment-form">
+            <div id="mpesa-fields">
+                <input type="tel" placeholder="Phone Number (2547...)" required>
+            </div>
+            
+            <div id="card-fields" class="hidden">
+                <input type="text" placeholder="Card Number" required>
+                <input type="text" placeholder="Expiry Date (MM/YY)" required>
+                <input type="text" placeholder="CVV" required>
+            </div>
+            
+            <div id="bank-fields" class="hidden">
+                <input type="text" placeholder="Bank Name" required>
+                <input type="text" placeholder="Account Number" required>
+            </div>
+            
+            <button type="submit">PAY KSH 500</button>
+        </form>
+        
+        <div id="payment-processing">
+            <div class="spinner"></div>
+            <p>Processing your payment...</p>
+        </div>
+        
+        <div id="payment-success">
+            <h2>✅ Payment Successful!</h2>
+            <p>Your application has been submitted successfully.</p>
+            <p>You will receive a confirmation message shortly.</p>
+            <button onclick="window.location.href='kmtc-checker.html'">BACK TO COURSES</button>
+        </div>
+    </div>
+    
+    <footer>
+        Copyright &copy; 2025 by Masterpeace Elite. All rights reserved.
+    </footer>
 
-        const paymentAmount = 20;
-        const shortcode = "YOUR_SHORTCODE";  // Replace with your Shortcode
-        const shortcodePassword = "YOUR_PASSWORD";  // Replace with your Shortcode password
-        const consumerKey = "jdW7WT0bUxjQVMGtsxMyiCNTsqRNgkiA23NMSFYEsGGGMo1E";  // Your Consumer Key
-        const consumerSecret = "8uXQqUcFYLiM4MGG0f9GHXlLANATXu5Y12iGYG1ty3j5B87H5SYlGzpQDXXYcfDL";  // Your Consumer Secret
-        const apiUrl = "https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest";  // MPesa API endpoint
-
-        // Generate the token first
-        fetch('https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials', {
-            method: 'GET',
-            headers: {
-                'Authorization': 'Basic ' + btoa(consumerKey + ':' + consumerSecret)
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            const accessToken = data.access_token;
-
-            // Now send the STK push request
-            fetch(apiUrl, {
-                method: 'POST',
-                headers: {
-                    'Authorization': 'Bearer ' + accessToken,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    "BusinessShortcode": shortcode,
-                    "LipaNaMpesaOnlineShortcode": shortcode,
-                    "LipaNaMpesaOnlineShortcodePassword": shortcodePassword,
-                    "PhoneNumber": phoneNumber,
-                    "Amount": paymentAmount,
-                    "AccountReference": "KUCCPSPayment",
-                    "TransactionDesc": "KUCCPS Qualification Check Payment",
-                    "CallBackURL": "https://yourdomain.com/paymentcallback"  // Your callback URL
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('paymentStatus').innerText = "Payment request sent successfully.";
-                console.log(data);  // For debugging purposes
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.getElementById('paymentStatus').innerText = "There was an error processing your payment.";
+    <script>
+        // Payment method selection
+        document.querySelectorAll('.payment-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.payment-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                this.classList.add('selected');
+                
+                // Show relevant payment fields
+                document.querySelectorAll('#payment-form > div').forEach(div => {
+                    div.classList.add('hidden');
+                });
+                document.getElementById(`${this.dataset.method}-fields`).classList.remove('hidden');
             });
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            document.getElementById('paymentStatus').innerText = "Failed to generate access token.";
         });
-    }
-</script>
+
+        // Process payment
+        document.getElementById('payment-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show processing animation
+            document.getElementById('payment-form').style.display = 'none';
+            document.getElementById('payment-processing').style.display = 'block';
+            
+            // Simulate payment processing
+            setTimeout(() => {
+                document.getElementById('payment-processing').style.display = 'none';
+                document.getElementById('payment-success').style.display = 'block';
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
