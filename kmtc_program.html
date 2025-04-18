@@ -499,6 +499,305 @@
     </footer>
 
     <script>
+        // KMTC Courses Database with Requirements and Campuses
+        const kmtcCourses = [
+            {
+                name: "DIPLOMA IN NUTRITION AND DIETETICS",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        biology: "C-",
+                        chemistry: "D+",
+                        english: "C-"
+                    },
+                    description: "3-year program training nutritionists for hospitals and communities.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret"]
+                }
+            },
+            {
+                name: "DIPLOMA IN HEALTH RECORDS AND INFORMATION TECHNOLOGY",
+                requirements: {
+                    meanGrade: "C-",
+                    subjects: {
+                        english: "D+",
+                        mathematics: "D+"
+                    },
+                    description: "2-year program for health information management officers.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
+                }
+            },
+            {
+                name: "DIPLOMA IN RADIOGRAPHY AND IMAGING",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        physics: "C-",
+                        biology: "C-",
+                        mathematics: "C-"
+                    },
+                    description: "3-year program for radiographers in medical imaging.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu"]
+                }
+            },
+            {
+                name: "DIPLOMA IN MEDICAL LABORATORY SCIENCES",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        biology: "C",
+                        chemistry: "C-",
+                        mathematics: "D+"
+                    },
+                    description: "3-year program for medical laboratory technologists.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret", "Meru"]
+                }
+            },
+            {
+                name: "DIPLOMA IN OCCUPATIONAL THERAPY",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        biology: "C-",
+                        english: "C-"
+                    },
+                    description: "3-year program for occupational therapists.",
+                    campuses: ["Nairobi", "Mombasa"]
+                }
+            },
+            {
+                name: "DIPLOMA IN ORTHOPEDIC TECHNOLOGY",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        physics: "D+",
+                        biology: "C-"
+                    },
+                    description: "3-year program for orthopedic technologists.",
+                    campuses: ["Nairobi"]
+                }
+            },
+            {
+                name: "DIPLOMA IN PHARMACY",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        chemistry: "C",
+                        biology: "C-",
+                        mathematics: "C-"
+                    },
+                    description: "3-year program for pharmaceutical technologists.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
+                }
+            },
+            {
+                name: "DIPLOMA IN PHYSIOTHERAPY",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        biology: "C-",
+                        physics: "D+"
+                    },
+                    description: "3-year program for physiotherapists.",
+                    campuses: ["Nairobi", "Mombasa"]
+                }
+            },
+            {
+                name: "DIPLOMA IN MEDICAL ENGINEERING",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        physics: "C-",
+                        mathematics: "C-"
+                    },
+                    description: "3-year program for medical equipment technicians.",
+                    campuses: ["Nairobi"]
+                }
+            },
+            {
+                name: "DIPLOMA IN PUBLIC HEALTH",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        biology: "C-",
+                        english: "C-"
+                    },
+                    description: "3-year program for public health officers.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret"]
+                }
+            },
+            {
+                name: "DIPLOMA IN ORTHOPEDIC AND TRAUMA MEDICINE",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        biology: "C-",
+                        physics: "D+"
+                    },
+                    description: "3-year program for orthopedic trauma specialists.",
+                    campuses: ["Nairobi"]
+                }
+            },
+            {
+                name: "DIPLOMA IN MEDICAL SOCIAL WORK",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        english: "C-"
+                    },
+                    description: "3-year program for medical social workers.",
+                    campuses: ["Nairobi", "Mombasa"]
+                }
+            },
+            {
+                name: "DIPLOMA IN HEALTH COUNSELLING",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        english: "C-"
+                    },
+                    description: "3-year program for health counselors.",
+                    campuses: ["Nairobi", "Kisumu"]
+                }
+            },
+            {
+                name: "DIPLOMA IN COMMUNITY HEALTH",
+                requirements: {
+                    meanGrade: "C-",
+                    subjects: {
+                        biology: "D+"
+                    },
+                    description: "2-year program for community health workers.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret", "Garissa"]
+                }
+            },
+            {
+                name: "DIPLOMA IN EMERGENCY MEDICAL TECHNOLOGY",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        biology: "C-"
+                    },
+                    description: "3-year program for emergency medical technicians.",
+                    campuses: ["Nairobi", "Mombasa"]
+                }
+            },
+            {
+                name: "CERTIFICATE IN HEALTH RECORDS AND INFORMATION TECHNOLOGY",
+                requirements: {
+                    meanGrade: "D+",
+                    subjects: {
+                        english: "D+"
+                    },
+                    description: "1-year program for health records assistants.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
+                }
+            },
+            {
+                name: "CERTIFICATE IN NUTRITION AND DIETETICS",
+                requirements: {
+                    meanGrade: "D+",
+                    subjects: {
+                        biology: "D+"
+                    },
+                    description: "1-year program for nutrition assistants.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu"]
+                }
+            },
+            {
+                name: "CERTIFICATE IN MEDICAL ENGINEERING",
+                requirements: {
+                    meanGrade: "D+",
+                    subjects: {
+                        physics: "D+"
+                    },
+                    description: "1-year program for medical equipment assistants.",
+                    campuses: ["Nairobi"]
+                }
+            },
+            {
+                name: "CERTIFICATE IN ORTHOPEDIC TRAUMA MEDICINE",
+                requirements: {
+                    meanGrade: "D+",
+                    subjects: {
+                        biology: "D+"
+                    },
+                    description: "1-year program for orthopedic assistants.",
+                    campuses: ["Nairobi"]
+                }
+            },
+            {
+                name: "CERTIFICATE IN PUBLIC HEALTH",
+                requirements: {
+                    meanGrade: "D+",
+                    subjects: {},
+                    description: "1-year program for public health assistants.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
+                }
+            },
+            {
+                name: "CERTIFICATE IN COMMUNITY HEALTH ASSISTANT",
+                requirements: {
+                    meanGrade: "D",
+                    subjects: {},
+                    description: "1-year program for community health volunteers.",
+                    campuses: ["All Campuses"]
+                }
+            },
+            {
+                name: "CERTIFICATE IN MEDICAL EMERGENCY TECHNICIAN",
+                requirements: {
+                    meanGrade: "D+",
+                    subjects: {},
+                    description: "1-year program for emergency first responders.",
+                    campuses: ["Nairobi", "Mombasa"]
+                }
+            },
+            {
+                name: "DIPLOMA IN SPEECH AND LANGUAGE THERAPY",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        english: "C-"
+                    },
+                    description: "3-year program for speech therapists.",
+                    campuses: ["Nairobi"]
+                }
+            },
+            {
+                name: "DIPLOMA IN MORTUARY SCIENCE",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        biology: "C-"
+                    },
+                    description: "3-year program for mortuary technicians.",
+                    campuses: ["Nairobi", "Mombasa"]
+                }
+            },
+            {
+                name: "DIPLOMA IN HEALTH PROMOTION",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        english: "C-"
+                    },
+                    description: "3-year program for health promotion officers.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu"]
+                }
+            },
+            {
+                name: "DIPLOMA IN HEALTH INSURANCE MANAGEMENT",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        mathematics: "C-"
+                    },
+                    description: "3-year program for health insurance administrators.",
+                    campuses: ["Nairobi"]
+                }
+            }
+        ];
+
         // Check if returning from payment
         const urlParams = new URLSearchParams(window.location.search);
         const paymentSuccess = urlParams.get('payment');
@@ -518,377 +817,6 @@
             }
         }
 
-        // KMTC Courses Database with Requirements and Campuses
-        const kmtcCourses = [
-            {
-                name: "DIPLOMA IN NUTRITION & DIETETICS",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        biology: "C-",
-                        chemistry: "D+",
-                        english: "C-"
-                    },
-                    description: "3-year program training nutritionists for hospitals and communities.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret"]
-                },
-            },
-            {
-                name: "DIPLOMA IN HEALTH RECORDS AND INFORMATION TECHNOLOGY",
-                requirements: {
-                    meanGrade: "C-",
-                    subjects: {
-                        english: "D+",
-                        mathematics: "D+"
-                    },
-                    description: "2-year program for health information management officers.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
-                },
-            },
-            {
-                name: "DIPLOMA IN RADIOGRAPHY & IMAGING",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        physics: "C-",
-                        biology: "C-",
-                        mathematics: "C-"
-                    },
-                    description: "3-year program for radiographers in medical imaging.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu"]
-                },
-            },
-            {
-                name: "DIPLOMA IN MEDICAL LABORATORY SCIENCES",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        biology: "C",
-                        chemistry: "C-",
-                        mathematics: "D+"
-                    },
-                    description: "3-year program for medical laboratory technologists.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret", "Meru"]
-                },
-            },
-            {
-                name: "DIPLOMA IN OCCUPATIONAL THERAPY",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        biology: "C-",
-                        english: "C-"
-                    },
-                    description: "3-year program for occupational therapists.",
-                    campuses: ["Nairobi", "Mombasa"]
-                },
-            },
-            {
-                name: "DIPLOMA IN ORTHOPAEDIC TECHNOLOGY",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        physics: "D+",
-                        biology: "C-"
-                    },
-                    description: "3-year program for orthopedic technologists.",
-                    campuses: ["Nairobi"]
-                },
-            },
-            {
-                name: "DIPLOMA IN PHARMACY",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        chemistry: "C",
-                        biology: "C-",
-                        mathematics: "C-"
-                    },
-                    description: "3-year program for pharmaceutical technologists.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
-                },
-                name: "DIPLOMA IN HEALTH RECORDS AND INFORMATION TECHNOLOGY",
-                requirements: {
-                    meanGrade: "C-",
-                    subjects: {
-                        english: "D+",
-                        mathematics: "D+"
-                    },
-                    description: "2-year program for health information management officers.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
-                },
-            },
-            {
-                name: "DIPLOMA IN RADIOGRAPHY & IMAGING",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        physics: "C-",
-                        biology: "C-",
-                        mathematics: "C-"
-                    },
-                    description: "3-year program for radiographers in medical imaging.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu"]
-                },
-            },
-            {
-                name: "DIPLOMA IN MEDICAL LABORATORY SCIENCES",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        biology: "C",
-                        chemistry: "C-",
-                        mathematics: "D+"
-                    },
-                    description: "3-year program for medical laboratory technologists.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret", "Meru"]
-                },
-            },
-            {
-                name: "DIPLOMA IN OCCUPATIONAL THERAPY",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        biology: "C-",
-                        english: "C-"
-                    },
-                    description: "3-year program for occupational therapists.",
-                    campuses: ["Nairobi", "Mombasa"]
-                },
-            },
-            {
-                name: "DIPLOMA IN ORTHOPAEDIC TECHNOLOGY",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        physics: "D+",
-                        biology: "C-"
-                    },
-                    description: "3-year program for orthopedic technologists.",
-                    campuses: ["Nairobi"]
-                },
-            },
-            {
-                name: "DIPLOMA IN PHARMACY",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        chemistry: "C",
-                        biology: "C-",
-                        mathematics: "C-"
-                    },
-                    description: "3-year program for pharmaceutical technologists.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
-                },
-            },
-            {
-                name: "DIPLOMA IN PHYSIOTHERAPY",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        biology: "C-",
-                        physics: "D+"
-                    },
-                    description: "3-year program for physiotherapists.",
-                    campuses: ["Nairobi", "Mombasa"]
-                },
-            },
-            {
-                name: "DIPLOMA IN MEDICAL ENGINEERING",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        physics: "C-",
-                        mathematics: "C-"
-                    },
-                    description: "3-year program for medical equipment technicians.",
-                    campuses: ["Nairobi"]
-                },
-            },
-            {
-                name: "DIPLOMA IN PUBLIC HEALTH",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        biology: "C-",
-                        english: "C-"
-                    },
-                    description: "3-year program for public health officers.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret"]
-                },
-            },
-            {
-                name: "DIPLOMA IN ORTHOPEDIC & TRAUMA MEDICINE",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        biology: "C-",
-                        physics: "D+"
-                    },
-                    description: "3-year program for orthopedic trauma specialists.",
-                    campuses: ["Nairobi"]
-                },
-            },
-            {
-                name: "DIPLOMA IN MEDICAL SOCIAL WORK",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        english: "C-"
-                    },
-                    description: "3-year program for medical social workers.",
-                    campuses: ["Nairobi", "Mombasa"]
-                },
-            },
-            {
-                name: "DIPLOMA IN HEALTH COUNSELLING",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        english: "C-"
-                    },
-                    description: "3-year program for health counselors.",
-                    campuses: ["Nairobi", "Kisumu"]
-                },
-            },
-            {
-                name: "DIPLOMA IN COMMUNITY HEALTH",
-                requirements: {
-                    meanGrade: "C-",
-                    subjects: {
-                        biology: "D+"
-                    },
-                    description: "2-year program for community health workers.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret", "Garissa"]
-                },
-            },
-            {
-                name: "DIPLOMA IN EMERGENCY MEDICAL TECHNOLOGY",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        biology: "C-"
-                    },
-                    description: "3-year program for emergency medical technicians.",
-                    campuses: ["Nairobi", "Mombasa"]
-                },
-            },
-            {
-                name: "CERTIFICATE IN HEALTH RECORDS AND INFORMATION TECHNOLOGY",
-                requirements: {
-                    meanGrade: "D+",
-                    subjects: {
-                        english: "D+"
-                    },
-                    description: "1-year program for health records assistants.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
-                },
-            },
-            {
-                name: "CERTIFICATE IN NUTRITION & DIETETICS",
-                requirements: {
-                    meanGrade: "D+",
-                    subjects: {
-                        biology: "D+"
-                    },
-                    description: "1-year program for nutrition assistants.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu"]
-                },
-            },
-            {
-                name: "CERTIFICATE IN MEDICAL ENGINEERING",
-                requirements: {
-                    meanGrade: "D+",
-                    subjects: {
-                        physics: "D+"
-                    },
-                    description: "1-year program for medical equipment assistants.",
-                    campuses: ["Nairobi"]
-                },
-            },
-            {
-                name: "CERTIFICATE IN ORTHOPEDIC TRAUMA MEDICINE",
-                requirements: {
-                    meanGrade: "D+",
-                    subjects: {
-                        biology: "D+"
-                    },
-                    description: "1-year program for orthopedic assistants.",
-                    campuses: ["Nairobi"]
-                },
-            },
-            {
-                name: "CERTIFICATE IN PUBLIC HEALTH",
-                requirements: {
-                    meanGrade: "D+",
-                    subjects: {},
-                    description: "1-year program for public health assistants.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
-                },
-            },
-            {
-                name: "CERTIFICATE IN COMMUNITY HEALTH ASSISTANT",
-                requirements: {
-                    meanGrade: "D",
-                    subjects: {},
-                    description: "1-year program for community health volunteers.",
-                    campuses: ["All Campuses"]
-                },
-            },
-            {
-                name: "CERTIFICATE IN MEDICAL EMERGENCY TECHNICIAN",
-                requirements: {
-                    meanGrade: "D+",
-                    subjects: {},
-                    description: "1-year program for emergency first responders.",
-                    campuses: ["Nairobi", "Mombasa"]
-                },
-            },
-            {
-                name: "DIPLOMA IN SPEECH AND LANGUAGE THERAPY",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        english: "C-"
-                    },
-                    description: "3-year program for speech therapists.",
-                    campuses: ["Nairobi"]
-                },
-            },
-            {
-                name: "DIPLOMA IN MORTUARY SCIENCE",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        biology: "C-"
-                    },
-                    description: "3-year program for mortuary technicians.",
-                    campuses: ["Nairobi", "Mombasa"]
-                },
-            },
-            {
-                name: "DIPLOMA IN HEALTH PROMOTION",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        english: "C-"
-                    },
-                    description: "3-year program for health promotion officers.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu"]
-                },
-            },
-            {
-                name: "DIPLOMA IN HEALTH INSURANCE MANAGEMENT",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        mathematics: "C-"
-                    },
-                    description: "3-year program for health insurance administrators.",
-                    campuses: ["Nairobi"]
-                },
-            }
-        ];
         // Check qualifying courses
         document.getElementById('check-courses').addEventListener('click', function() {
             // Get grades
@@ -908,6 +836,15 @@
                 return;
             }
             
+            // Validate grade values
+            const validGrades = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'E'];
+            for (const [subject, grade] of Object.entries(grades)) {
+                if (grade && !validGrades.includes(grade)) {
+                    alert(`Invalid grade value for ${subject}`);
+                    return;
+                }
+            }
+            
             // Store grades in sessionStorage
             sessionStorage.setItem('kmtcGrades', JSON.stringify(grades));
             
@@ -919,8 +856,11 @@
             
             // Show results section
             document.getElementById('results').style.display = 'block';
-            document.getElementById('proceed-to-payment').style.display = 'block';
-            window.scrollTo(0, document.getElementById('results').offsetTop);
+            document.getElementById('proceed-to-payment').style.display = matchedCourses.length > 0 ? 'block' : 'none';
+            window.scrollTo({
+                top: document.getElementById('results').offsetTop,
+                behavior: 'smooth'
+            });
         });
         
         // Function to find matching courses
