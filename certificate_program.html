@@ -3,95 +3,265 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KCSE Certificate Checker</title>
+    <title>KCSE Career Path Finder</title>
     <style>
+        :root {
+            --neon-blue: #08f;
+            --neon-pink: #f0f;
+            --neon-green: #0f8;
+            --neon-purple: #80f;
+            --dark-bg: #111;
+            --light-text: #eee;
+            --glow: 0 0 10px;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 20px;
-            color: #333;
+            color: var(--light-text);
+            background-color: var(--dark-bg);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 136, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 0, 255, 0.1) 0%, transparent 20%);
         }
+        
         h1, h2, h3 {
-            color: #2c3e50;
+            color: var(--neon-green);
+            text-shadow: var(--glow) var(--neon-green);
         }
+        
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            from { text-shadow: 0 0 5px var(--neon-green); }
+            to { text-shadow: 0 0 15px var(--neon-green), 0 0 30px var(--neon-green); }
+        }
+        
         .form-section {
             margin-bottom: 30px;
-            padding: 20px;
-            border: 1px solid #ddd;
+            padding: 25px;
+            border: 1px solid var(--neon-purple);
+            border-radius: 8px;
+            background-color: rgba(20, 20, 40, 0.7);
+            box-shadow: 0 0 15px rgba(128, 0, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .form-section:hover {
+            box-shadow: 0 0 25px rgba(128, 0, 255, 0.5);
+            border-color: var(--neon-blue);
+        }
+        
+        select, input {
+            padding: 10px;
+            margin: 8px 0;
             border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-        select {
-            padding: 8px;
-            width: 200px;
-            margin: 5px 0;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
-        .subject-group {
-            margin-bottom: 15px;
-        }
-        .county-list, .field-list {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-        }
-        .county-item, .field-item {
-            padding: 5px;
-        }
-        button {
-            background-color: #3498db;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+            border: 1px solid var(--neon-blue);
+            background-color: rgba(0, 20, 40, 0.8);
+            color: var(--light-text);
             font-size: 16px;
-            margin-top: 20px;
+            transition: all 0.3s;
         }
+        
+        select {
+            width: 220px;
+            background-image: linear-gradient(to bottom, rgba(0, 40, 80, 0.8), rgba(0, 20, 40, 0.8));
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--neon-green);
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+        
+        .subject-group {
+            margin-bottom: 18px;
+            padding: 10px;
+            border-left: 3px solid var(--neon-pink);
+            background-color: rgba(40, 0, 40, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .subject-group:hover {
+            background-color: rgba(60, 0, 60, 0.3);
+            border-left-width: 5px;
+        }
+        
+        label {
+            display: inline-block;
+            width: 250px;
+            color: var(--neon-blue);
+            font-weight: bold;
+        }
+        
+        .selection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+        
+        .selectable-item {
+            padding: 10px;
+            border: 1px solid var(--neon-purple);
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+            background-color: rgba(40, 0, 80, 0.3);
+        }
+        
+        .selectable-item:hover {
+            background-color: rgba(80, 0, 160, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(128, 0, 255, 0.4);
+        }
+        
+        .selectable-item.selected {
+            background-color: rgba(0, 100, 200, 0.5);
+            border-color: var(--neon-blue);
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+        
+        button {
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 30px auto;
+            display: block;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 136, 255, 0.4);
+        }
+        
         button:hover {
-            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 136, 255, 0.6);
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
         }
-        footer {
+        
+        button:active {
+            transform: translateY(1px);
+        }
+        
+        #results {
+            display: none;
             margin-top: 40px;
+            padding: 25px;
+            border: 1px solid var(--neon-green);
+            border-radius: 8px;
+            background-color: rgba(0, 40, 20, 0.5);
+            box-shadow: 0 0 20px rgba(0, 255, 128, 0.3);
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .course-match {
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid var(--neon-pink);
+            background-color: rgba(40, 0, 40, 0.3);
+            transition: all 0.3s;
+        }
+        
+        .course-match:hover {
+            background-color: rgba(60, 0, 60, 0.5);
+            transform: translateX(5px);
+        }
+        
+        .course-title {
+            color: var(--neon-blue);
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .match-percentage {
+            color: var(--neon-green);
+            font-weight: bold;
+        }
+        
+        footer {
+            margin-top: 60px;
             text-align: center;
             padding: 20px;
-            border-top: 1px solid #ddd;
-            color: #7f8c8d;
+            border-top: 1px solid var(--neon-purple);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .required::after {
+            content: " *";
+            color: var(--neon-pink);
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .section-title h2 {
+            margin: 0;
+        }
+        
+        .section-icon {
+            margin-right: 15px;
+            font-size: 1.5rem;
+            color: var(--neon-pink);
         }
     </style>
 </head>
 <body>
-    <h1>KCSE Certificate Checker</h1>
+    <h1>KCSE CAREER PATH FINDER</h1>
     
     <div class="form-section">
-        <h2>Enter KCSE Grades (Select for the subjects you have taken)</h2>
+        <div class="section-title">
+            <div class="section-icon">📊</div>
+            <h2>Enter Your KCSE Grades</h2>
+        </div>
         
         <div class="subject-group">
-            <label for="mean-grade">Mean Grade:</label>
-            <select id="mean-grade">
+            <label for="mean-grade" class="required">Mean Grade:</label>
+            <select id="mean-grade" required>
                 <option value="">Select Grade</option>
-                <option value="A">A</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B">B</option>
-                <option value="B-">B-</option>
-                <option value="C+">C+</option>
-                <option value="C">C</option>
-                <option value="C-">C-</option>
-                <option value="D+">D+</option>
-                <option value="D">D</option>
-                <option value="D-">D-</option>
-                <option value="E">E</option>
+                <option value="A">A (75-100)</option>
+                <option value="A-">A- (70-74)</option>
+                <option value="B+">B+ (65-69)</option>
+                <option value="B">B (60-64)</option>
+                <option value="B-">B- (55-59)</option>
+                <option value="C+">C+ (50-54)</option>
+                <option value="C">C (45-49)</option>
+                <option value="C-">C- (40-44)</option>
+                <option value="D+">D+ (35-39)</option>
+                <option value="D">D (30-34)</option>
+                <option value="D-">D- (25-29)</option>
+                <option value="E">E (0-24)</option>
             </select>
         </div>
         
         <h3>Core Subjects</h3>
         <div class="subject-group">
-            <label for="english">English:</label>
-            <select id="english">
+            <label for="english" class="required">English:</label>
+            <select id="english" required>
                 <option value="">Select Grade</option>
                 <option value="A">A</option>
                 <option value="A-">A-</option>
@@ -109,8 +279,8 @@
         </div>
         
         <div class="subject-group">
-            <label for="kiswahili">Kiswahili:</label>
-            <select id="kiswahili">
+            <label for="kiswahili" class="required">Kiswahili:</label>
+            <select id="kiswahili" required>
                 <option value="">Select Grade</option>
                 <option value="A">A</option>
                 <option value="A-">A-</option>
@@ -128,8 +298,8 @@
         </div>
         
         <div class="subject-group">
-            <label for="mathematics">Mathematics:</label>
-            <select id="mathematics">
+            <label for="mathematics" class="required">Mathematics:</label>
+            <select id="mathematics" required>
                 <option value="">Select Grade</option>
                 <option value="A">A</option>
                 <option value="A-">A-</option>
@@ -262,44 +432,6 @@
             </select>
         </div>
         
-        <div class="subject-group">
-            <label for="ire">Islamic Religious Education (IRE):</label>
-            <select id="ire">
-                <option value="">Select Grade</option>
-                <option value="A">A</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B">B</option>
-                <option value="B-">B-</option>
-                <option value="C+">C+</option>
-                <option value="C">C</option>
-                <option value="C-">C-</option>
-                <option value="D+">D+</option>
-                <option value="D">D</option>
-                <option value="D-">D-</option>
-                <option value="E">E</option>
-            </select>
-        </div>
-        
-        <div class="subject-group">
-            <label for="hre">Hindu Religious Education (HRE):</label>
-            <select id="hre">
-                <option value="">Select Grade</option>
-                <option value="A">A</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B">B</option>
-                <option value="B-">B-</option>
-                <option value="C+">C+</option>
-                <option value="C">C</option>
-                <option value="C-">C-</option>
-                <option value="D+">D+</option>
-                <option value="D">D</option>
-                <option value="D-">D-</option>
-                <option value="E">E</option>
-            </select>
-        </div>
-        
         <h3>Technical and Other Subjects</h3>
         <div class="subject-group">
             <label for="agriculture">Agriculture:</label>
@@ -341,7 +473,10 @@
     </div>
     
     <div class="form-section">
-        <h2>Technical Subjects</h2>
+        <div class="section-title">
+            <div class="section-icon">🔧</div>
+            <h2>Technical Subjects</h2>
+        </div>
         
         <div class="subject-group">
             <label for="building">Building and Construction:</label>
@@ -458,7 +593,7 @@
         </div>
         
         <div class="subject-group">
-            <label for="germany">Germany:</label>
+            <label for="germany">German:</label>
             <select id="germany">
                 <option value="">Select Grade</option>
                 <option value="A">A</option>
@@ -498,88 +633,328 @@
     </div>
     
     <div class="form-section">
-        <h2>SELECT COUNTY YOU PREFER TO SCHOOL IN 😊️</h2>
-        <div class="county-list">
-            <div class="county-item">Baringo</div>
-            <div class="county-item">Bomet</div>
-            <div class="county-item">Bungoma</div>
-            <div class="county-item">Busia</div>
-            <div class="county-item">Elgeyo-Marakwet</div>
-            <div class="county-item">Embu</div>
-            <div class="county-item">Garissa</div>
-            <div class="county-item">Homa Bay</div>
-            <div class="county-item">Isiolo</div>
-            <div class="county-item">Kajiado</div>
-            <div class="county-item">Kakamega</div>
-            <div class="county-item">Kericho</div>
-            <div class="county-item">Kiambu</div>
-            <div class="county-item">Kilifi</div>
-            <div class="county-item">Kirinyaga</div>
-            <div class="county-item">Kisii</div>
-            <div class="county-item">Kisumu</div>
-            <div class="county-item">Kitui</div>
-            <div class="county-item">Kwale</div>
-            <div class="county-item">Laikipia</div>
-            <div class="county-item">Lamu</div>
-            <div class="county-item">Machakos</div>
-            <div class="county-item">Makueni</div>
-            <div class="county-item">Mandera</div>
-            <div class="county-item">Meru</div>
-            <div class="county-item">Migori</div>
-            <div class="county-item">Marsabit</div>
-            <div class="county-item">Mombasa</div>
-            <div class="county-item">Murang'a</div>
-            <div class="county-item">Nairobi</div>
-            <div class="county-item">Nakuru</div>
-            <div class="county-item">Nandi</div>
-            <div class="county-item">Narok</div>
-            <div class="county-item">Nyamira</div>
-            <div class="county-item">Nyandarua</div>
-            <div class="county-item">Nyeri</div>
-            <div class="county-item">Samburu</div>
-            <div class="county-item">Siaya</div>
-            <div class="county-item">Taita-Taveta</div>
-            <div class="county-item">Tana River</div>
-            <div class="county-item">Tharaka-Nithi</div>
-            <div class="county-item">Trans Nzoia</div>
-            <div class="county-item">Turkana</div>
-            <div class="county-item">Uasin Gishu</div>
-            <div class="county-item">Vihiga</div>
-            <div class="county-item">Wajir</div>
-            <div class="county-item">West Pokot</div>
+        <div class="section-title">
+            <div class="section-icon">📍</div>
+            <h2>SELECT COUNTY YOU PREFER TO SCHOOL IN 😊️</h2>
+        </div>
+        <div class="selection-grid" id="county-selection">
+            <!-- Counties will be added by JavaScript -->
         </div>
     </div>
     
     <div class="form-section">
-        <h2>SELECT FIELD YOU PREFER ⚡</h2>
-        <div class="field-list">
-            <div class="field-item">ENGINEERING</div>
-            <div class="field-item">BUSINESS</div>
-            <div class="field-item">TECHNICAL</div>
-            <div class="field-item">CARPENTRY</div>
-            <div class="field-item">HOSPITALITY</div>
-            <div class="field-item">GOVERNMENT</div>
-            <div class="field-item">ICT</div>
-            <div class="field-item">FASHION</div>
-            <div class="field-item">SURVEY</div>
-            <div class="field-item">HOUSEKEEPING</div>
-            <div class="field-item">LIBRARY</div>
-            <div class="field-item">MARINE ENGINEERING</div>
-            <div class="field-item">TOURISM</div>
-            <div class="field-item">MEDICAL</div>
+        <div class="section-title">
+            <div class="section-icon">🎯</div>
+            <h2>SELECT FIELD YOU PREFER 😊</h2>
+        </div>
+        <div class="selection-grid" id="field-selection">
+            <!-- Fields will be added by JavaScript -->
         </div>
     </div>
     
-    <button id="proceed-button">Proceed to Payment</button>
+    <button id="find-courses">FIND MATCHING COURSES</button>
+    
+    <div id="results">
+        <h2>Recommended Courses Based on Your Profile</h2>
+        <div id="course-results">
+            <!-- Course matches will be displayed here -->
+        </div>
+    </div>
     
     <footer>
         Copyright &copy; 2025 by Masterpeace Elite. All rights reserved.
     </footer>
 
     <script>
-        document.getElementById('proceed-button').addEventListener('click', function() {
-            alert('Thank you for using the KCSE Certificate Checker. Payment functionality would be implemented here.');
+        // Data for counties and fields
+        const counties = [
+            "Baringo", "Bomet", "Bungoma", "Busia", "Elgeyo-Marakwet", 
+            "Embu", "Garissa", "Homa Bay", "Isiolo", "Kajiado", 
+            "Kakamega", "Kericho", "Kiambu", "Kilifi", "Kirinyaga", 
+            "Kisii", "Kisumu", "Kitui", "Kwale", "Laikipia", 
+            "Lamu", "Machakos", "Makueni", "Mandera", "Meru", 
+            "Migori", "Marsabit", "Mombasa", "Murang'a", "Nairobi", 
+            "Nakuru", "Nandi", "Narok", "Nyamira", "Nyandarua", 
+            "Nyeri", "Samburu", "Siaya", "Taita-Taveta", "Tana River", 
+            "Tharaka-Nithi", "Trans Nzoia", "Turkana", "Uasin Gishu", 
+            "Vihiga", "Wajir", "West Pokot"
+        ];
+        
+        const fields = [
+            "ENGINEERING", "BUSINESS", "TECHNICAL", "CARPENTRY", 
+            "HOSPITALITY", "GOVERNMENT", "ICT", "FASHION", 
+            "SURVEY", "HOUSEKEEPING", "LIBRARY", "MARINE ENGINEERING", 
+            "TOURISM", "MEDICAL"
+        ];
+        
+        // Sample course database with requirements
+        const courses = [
+            {
+                name: "Bachelor of Medicine and Surgery",
+                requirements: {
+                    meanGrade: "B+",
+                    subjects: {
+                        biology: "B+",
+                        chemistry: "B+",
+                        physics: "B",
+                        mathematics: "B+"
+                    },
+                    fields: ["MEDICAL"]
+                },
+                description: "5-year program training doctors for hospitals and clinics."
+            },
+            {
+                name: "Bachelor of Science in Computer Science",
+                requirements: {
+                    meanGrade: "B",
+                    subjects: {
+                        mathematics: "B",
+                        physics: "C+",
+                        computerStudies: "B-"
+                    },
+                    fields: ["ICT", "ENGINEERING"]
+                },
+                description: "4-year program covering software development and IT systems."
+            },
+            {
+                name: "Bachelor of Commerce",
+                requirements: {
+                    meanGrade: "B-",
+                    subjects: {
+                        mathematics: "C+",
+                        english: "B-"
+                    },
+                    fields: ["BUSINESS"]
+                },
+                description: "4-year business administration and management degree."
+            },
+            {
+                name: "Diploma in Electrical Engineering",
+                requirements: {
+                    meanGrade: "C+",
+                    subjects: {
+                        mathematics: "C+",
+                        physics: "C+",
+                        electricity: "C+"
+                    },
+                    fields: ["ENGINEERING", "TECHNICAL"]
+                },
+                description: "3-year technical program in electrical systems."
+            },
+            {
+                name: "Certificate in Hospitality Management",
+                requirements: {
+                    meanGrade: "D+",
+                    subjects: {
+                        homescience: "C-"
+                    },
+                    fields: ["HOSPITALITY"]
+                },
+                description: "2-year program for hotel and restaurant management."
+            },
+            {
+                name: "Bachelor of Architecture",
+                requirements: {
+                    meanGrade: "B",
+                    subjects: {
+                        mathematics: "B",
+                        physics: "C+",
+                        building: "B-"
+                    },
+                    fields: ["ENGINEERING"]
+                },
+                description: "5-year program in building design and construction."
+            },
+            {
+                name: "Diploma in Fashion Design",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        homescience: "C"
+                    },
+                    fields: ["FASHION"]
+                },
+                description: "2-year program in clothing and textile design."
+            },
+            {
+                name: "Bachelor of Science in Aviation",
+                requirements: {
+                    meanGrade: "B",
+                    subjects: {
+                        mathematics: "B",
+                        physics: "B-",
+                        aviation: "B-"
+                    },
+                    fields: ["TECHNICAL"]
+                },
+                description: "4-year program in aviation technology and piloting."
+            }
+        ];
+        
+        // Initialize county selection
+        const countySelection = document.getElementById('county-selection');
+        counties.forEach(county => {
+            const item = document.createElement('div');
+            item.className = 'selectable-item';
+            item.textContent = county;
+            item.addEventListener('click', function() {
+                this.classList.toggle('selected');
+            });
+            countySelection.appendChild(item);
         });
+        
+        // Initialize field selection
+        const fieldSelection = document.getElementById('field-selection');
+        fields.forEach(field => {
+            const item = document.createElement('div');
+            item.className = 'selectable-item';
+            item.textContent = field;
+            item.addEventListener('click', function() {
+                this.classList.toggle('selected');
+            });
+            fieldSelection.appendChild(item);
+        });
+        
+        // Find matching courses
+        document.getElementById('find-courses').addEventListener('click', function() {
+            // Get selected fields
+            const selectedFields = [];
+            document.querySelectorAll('#field-selection .selected').forEach(item => {
+                selectedFields.push(item.textContent);
+            });
+            
+            // Get grades
+            const grades = {
+                meanGrade: document.getElementById('mean-grade').value,
+                english: document.getElementById('english').value,
+                kiswahili: document.getElementById('kiswahili').value,
+                mathematics: document.getElementById('mathematics').value,
+                biology: document.getElementById('biology').value,
+                chemistry: document.getElementById('chemistry').value,
+                physics: document.getElementById('physics').value,
+                geography: document.getElementById('geography').value,
+                history: document.getElementById('history').value,
+                cre: document.getElementById('cre').value,
+                agriculture: document.getElementById('agriculture').value,
+                computerStudies: document.getElementById('computer-studies').value,
+                building: document.getElementById('building').value,
+                electricity: document.getElementById('electricity').value,
+                woodwork: document.getElementById('woodwork').value,
+                metalwork: document.getElementById('metalwork').value,
+                homescience: document.getElementById('homescience').value,
+                french: document.getElementById('french').value,
+                germany: document.getElementById('germany').value,
+                aviation: document.getElementById('aviation').value
+            };
+            
+            // Validate required fields
+            if (!grades.meanGrade || !grades.english || !grades.kiswahili || !grades.mathematics) {
+                alert('Please fill in all required fields (Mean Grade, English, Kiswahili, Mathematics)');
+                return;
+            }
+            
+            if (selectedFields.length === 0) {
+                alert('Please select at least one field of interest');
+                return;
+            }
+            
+            // Find matching courses
+            const matchedCourses = findMatchingCourses(grades, selectedFields);
+            
+            // Display results
+            displayResults(matchedCourses);
+        });
+        
+        // Function to find matching courses
+        function findMatchingCourses(grades, selectedFields) {
+            const results = [];
+            
+            courses.forEach(course => {
+                // Check if course matches any selected field
+                const fieldMatch = course.requirements.fields.some(field => 
+                    selectedFields.includes(field)
+                );
+                
+                if (!fieldMatch) return;
+                
+                // Check mean grade requirement
+                if (!meetsGradeRequirement(grades.meanGrade, course.requirements.meanGrade)) {
+                    return;
+                }
+                
+                // Check subject requirements
+                let subjectMatches = 0;
+                let totalRequiredSubjects = 0;
+                
+                for (const subject in course.requirements.subjects) {
+                    totalRequiredSubjects++;
+                    const requiredGrade = course.requirements.subjects[subject];
+                    const studentGrade = grades[subject];
+                    
+                    if (studentGrade && meetsGradeRequirement(studentGrade, requiredGrade)) {
+                        subjectMatches++;
+                    }
+                }
+                
+                // Calculate match percentage
+                const matchPercentage = Math.round((subjectMatches / totalRequiredSubjects) * 100);
+                
+                if (subjectMatches > 0) {
+                    results.push({
+                        course: course,
+                        matchPercentage: matchPercentage
+                    });
+                }
+            });
+            
+            // Sort by match percentage
+            results.sort((a, b) => b.matchPercentage - a.matchPercentage);
+            
+            return results;
+        }
+        
+        // Function to check if grade meets requirement
+        function meetsGradeRequirement(studentGrade, requiredGrade) {
+            const gradeOrder = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'E'];
+            const studentIndex = gradeOrder.indexOf(studentGrade);
+            const requiredIndex = gradeOrder.indexOf(requiredGrade);
+            
+            return studentIndex <= requiredIndex;
+        }
+        
+        // Function to display results
+        function displayResults(matchedCourses) {
+            const resultsContainer = document.getElementById('course-results');
+            resultsContainer.innerHTML = '';
+            
+            if (matchedCourses.length === 0) {
+                resultsContainer.innerHTML = '<p>No courses found matching your criteria. Try broadening your field selections.</p>';
+            } else {
+                matchedCourses.forEach(result => {
+                    const courseDiv = document.createElement('div');
+                    courseDiv.className = 'course-match';
+                    
+                    const title = document.createElement('div');
+                    title.className = 'course-title';
+                    title.textContent = result.course.name;
+                    
+                    const percentage = document.createElement('div');
+                    percentage.className = 'match-percentage';
+                    percentage.textContent = `Match: ${result.matchPercentage}%`;
+                    
+                    const description = document.createElement('div');
+                    description.textContent = result.course.description;
+                    
+                    courseDiv.appendChild(title);
+                    courseDiv.appendChild(percentage);
+                    courseDiv.appendChild(description);
+                    
+                    resultsContainer.appendChild(courseDiv);
+                });
+            }
+            
+            document.getElementById('results').style.display = 'block';
+        }
     </script>
 </body>
 </html>
