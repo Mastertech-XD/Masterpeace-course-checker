@@ -3,414 +3,675 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KUCCPS Course Qualification Checker</title>
+    <title>KMTC Courses Checker</title>
     <style>
         :root {
-            --neon-blue: #0ff;
+            --neon-blue: #08f;
             --neon-pink: #f0f;
+            --neon-green: #0f8;
+            --neon-purple: #80f;
             --dark-bg: #111;
-            --card-bg: rgba(34, 34, 34, 0.9);
-            --text-light: #fff;
-            --text-dim: #aaa;
+            --light-text: #eee;
+            --glow: 0 0 10px;
         }
         
         body {
-            background-color: var(--dark-bg);
-            color: var(--text-light);
-            font-family: 'Arial', sans-serif;
-            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
             padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
+            color: var(--light-text);
+            background-color: var(--dark-bg);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 136, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 0, 255, 0.1) 0%, transparent 20%);
         }
-
+        
+        h1, h2, h3 {
+            color: var(--neon-green);
+            text-shadow: var(--glow) var(--neon-green);
+        }
+        
         h1 {
-            color: var(--neon-blue);
-            text-shadow: 0 0 10px var(--neon-blue);
-            margin-bottom: 30px;
             text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite alternate;
         }
-
-        .container {
-            background: var(--card-bg);
-            border-radius: 10px;
+        
+        @keyframes pulse {
+            from { text-shadow: 0 0 5px var(--neon-green); }
+            to { text-shadow: 0 0 15px var(--neon-green), 0 0 30px var(--neon-green); }
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
             padding: 25px;
-            width: 90%;
-            max-width: 800px;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-            border: 1px solid var(--neon-blue);
+            border: 1px solid var(--neon-purple);
+            border-radius: 8px;
+            background-color: rgba(20, 20, 40, 0.7);
+            box-shadow: 0 0 15px rgba(128, 0, 255, 0.3);
+            transition: all 0.3s ease;
         }
-
-        .form-group {
-            margin-bottom: 20px;
+        
+        .form-section:hover {
+            box-shadow: 0 0 25px rgba(128, 0, 255, 0.5);
+            border-color: var(--neon-blue);
         }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--neon-blue);
-            font-weight: bold;
-        }
-
+        
         select, input {
-            width: 100%;
-            padding: 12px;
+            padding: 10px;
+            margin: 8px 0;
             border-radius: 5px;
-            border: 2px solid var(--neon-blue);
-            background-color: #333;
-            color: var(--text-light);
+            border: 1px solid var(--neon-blue);
+            background-color: rgba(0, 20, 40, 0.8);
+            color: var(--light-text);
             font-size: 16px;
             transition: all 0.3s;
         }
-
+        
+        select {
+            width: 220px;
+            background-image: linear-gradient(to bottom, rgba(0, 40, 80, 0.8), rgba(0, 20, 40, 0.8));
+        }
+        
         select:focus, input:focus {
             outline: none;
-            box-shadow: 0 0 10px var(--neon-blue);
-            border-color: var(--neon-pink);
+            border-color: var(--neon-green);
+            box-shadow: 0 0 10px var(--neon-green);
         }
-
-        button {
-            background-color: var(--neon-blue);
-            color: var(--dark-bg);
-            border: none;
-            padding: 12px 25px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 5px;
-            cursor: pointer;
+        
+        .subject-group {
+            margin-bottom: 18px;
+            padding: 10px;
+            border-left: 3px solid var(--neon-pink);
+            background-color: rgba(40, 0, 40, 0.2);
             transition: all 0.3s;
-            width: 100%;
-            margin-top: 10px;
         }
-
-        button:hover {
-            background-color: var(--neon-pink);
-            box-shadow: 0 0 15px var(--neon-pink);
-            transform: translateY(-2px);
+        
+        .subject-group:hover {
+            background-color: rgba(60, 0, 60, 0.3);
+            border-left-width: 5px;
         }
-
-        .results {
-            margin-top: 30px;
-            padding: 20px;
-            background: rgba(0, 100, 100, 0.2);
-            border-radius: 8px;
-            border-left: 4px solid var(--neon-blue);
-        }
-
-        .course-header {
+        
+        label {
+            display: inline-block;
+            width: 250px;
             color: var(--neon-blue);
-            font-size: 20px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            font-weight: bold;
         }
-
-        .university-list {
+        
+        .selection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
             margin-top: 15px;
         }
-
-        .university {
-            display: flex;
-            justify-content: space-between;
+        
+        .selectable-item {
             padding: 10px;
-            margin-bottom: 8px;
-            background: rgba(0, 50, 50, 0.3);
+            border: 1px solid var(--neon-purple);
             border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+            background-color: rgba(40, 0, 80, 0.3);
         }
-
-        .qualified {
-            color: #0f0;
+        
+        .selectable-item:hover {
+            background-color: rgba(80, 0, 160, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(128, 0, 255, 0.4);
+        }
+        
+        .selectable-item.selected {
+            background-color: rgba(0, 100, 200, 0.5);
+            border-color: var(--neon-blue);
+            color: white;
             font-weight: bold;
+            box-shadow: 0 0 15px var(--neon-blue);
         }
-
-        .not-qualified {
-            color: #f44;
-        }
-
-        .cutoff {
-            color: var(--text-dim);
-            font-size: 0.9em;
-        }
-
-        .suggestions {
-            margin-top: 30px;
-            padding: 15px;
-            background: rgba(0, 150, 150, 0.2);
-            border-radius: 8px;
-            border-left: 4px solid #0f0;
-        }
-
-        .suggestion-title {
-            color: #0f0;
+        
+        button {
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
             font-size: 18px;
-            margin-bottom: 10px;
-        }
-
-        .suggestion-item {
-            padding: 8px;
-            margin-bottom: 5px;
-            background: rgba(0, 100, 100, 0.3);
-            border-radius: 4px;
-        }
-
-        .highlight {
             font-weight: bold;
+            margin: 30px auto;
+            display: block;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 136, 255, 0.4);
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 136, 255, 0.6);
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
+        }
+        
+        button:active {
+            transform: translateY(1px);
+        }
+        
+        #results {
+            display: none;
+            margin-top: 40px;
+            padding: 25px;
+            border: 1px solid var(--neon-green);
+            border-radius: 8px;
+            background-color: rgba(0, 40, 20, 0.5);
+            box-shadow: 0 0 20px rgba(0, 255, 128, 0.3);
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .course-match {
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid var(--neon-pink);
+            background-color: rgba(40, 0, 40, 0.3);
+            transition: all 0.3s;
+        }
+        
+        .course-match:hover {
+            background-color: rgba(60, 0, 60, 0.5);
+            transform: translateX(5px);
+        }
+        
+        .course-title {
+            color: var(--neon-blue);
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .match-percentage {
+            color: var(--neon-green);
+            font-weight: bold;
+        }
+        
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid var(--neon-purple);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .required::after {
+            content: " *";
             color: var(--neon-pink);
         }
-
-        @media (max-width: 600px) {
-            .container {
-                padding: 15px;
-                width: 95%;
-            }
-            
-            h1 {
-                font-size: 24px;
-            }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .section-title h2 {
+            margin: 0;
+        }
+        
+        .section-icon {
+            margin-right: 15px;
+            font-size: 1.5rem;
+            color: var(--neon-pink);
         }
     </style>
 </head>
 <body>
-    <h1>KUCCPS Course Qualification Checker</h1>
+    <h1>KMTC COURSES CHECKER</h1>
     
-    <div class="container">
-        <div class="form-group">
-            <label for="courseSelect">Select Course:</label>
-            <select id="courseSelect">
-                <option value="">-- Select a course --</option>
-                <!-- Courses will be populated by JavaScript -->
+    <div class="form-section">
+        <div class="section-title">
+            <div class="section-icon">📊</div>
+            <h2>Enter Your KCSE Grades</h2>
+        </div>
+        
+        <div class="subject-group">
+            <label for="mean-grade" class="required">Mean Grade:</label>
+            <select id="mean-grade" required>
+                <option value="">Select Grade</option>
+                <option value="A">A (75-100)</option>
+                <option value="A-">A- (70-74)</option>
+                <option value="B+">B+ (65-69)</option>
+                <option value="B">B (60-64)</option>
+                <option value="B-">B- (55-59)</option>
+                <option value="C+">C+ (50-54)</option>
+                <option value="C">C (45-49)</option>
+                <option value="C-">C- (40-44)</option>
+                <option value="D+">D+ (35-39)</option>
+                <option value="D">D (30-34)</option>
+                <option value="D-">D- (25-29)</option>
+                <option value="E">E (0-24)</option>
             </select>
         </div>
         
-        <div class="form-group">
-            <label for="clusterPoints">Enter Your Cluster Points:</label>
-            <input type="number" id="clusterPoints" min="0" max="100" placeholder="Enter your points">
+        <h3>Core Subjects</h3>
+        <div class="subject-group">
+            <label for="english" class="required">English:</label>
+            <select id="english" required>
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
         </div>
         
-        <button onclick="checkQualification()">Check Qualification</button>
+        <div class="subject-group">
+            <label for="kiswahili" class="required">Kiswahili:</label>
+            <select id="kiswahili" required>
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
         
-        <div class="results" id="results" style="display: none;">
-            <div class="course-header">
-                <span id="selectedCourseName"></span>
-                <span id="courseCluster"></span>
-            </div>
-            
-            <div class="university-list" id="universityList"></div>
-            
-            <div class="suggestions" id="suggestions" style="display: none;">
-                <div class="suggestion-title">Suggested Universities (You Qualify):</div>
-                <div id="suggestionList"></div>
-            </div>
+        <div class="subject-group">
+            <label for="mathematics" class="required">Mathematics:</label>
+            <select id="mathematics" required>
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <h3>Sciences (Required for Medical Courses)</h3>
+        <div class="subject-group">
+            <label for="biology">Biology:</label>
+            <select id="biology">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="chemistry">Chemistry:</label>
+            <select id="chemistry">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="physics">Physics:</label>
+            <select id="physics">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
         </div>
     </div>
+    
+    <div class="form-section">
+        <div class="section-title">
+            <div class="section-icon">📍</div>
+            <h2>SELECT COUNTY YOU PREFER TO STUDY IN 😊️</h2>
+        </div>
+        <div class="selection-grid" id="county-selection">
+            <!-- Counties will be added by JavaScript -->
+        </div>
+    </div>
+    
+    <div class="form-section">
+        <div class="section-title">
+            <div class="section-icon">🏥</div>
+            <h2>SELECT MEDICAL FIELD YOU PREFER 😊</h2>
+        </div>
+        <div class="selection-grid" id="field-selection">
+            <!-- Fields will be added by JavaScript -->
+        </div>
+    </div>
+    
+    <button id="find-courses">FIND KMTC COURSES</button>
+    
+    <div id="results">
+        <h2>Recommended KMTC Courses Based on Your Grades</h2>
+        <div id="course-results">
+            <!-- Course matches will be displayed here -->
+        </div>
+    </div>
+    
+    <footer>
+        Copyright &copy; 2025 by Masterpeace Elite. All rights reserved.
+    </footer>
 
     <script>
-        // Course data with universities and cutoff points
-        const courses = [
+        // KMTC Campuses by County
+        const kmtcCampuses = [
+            "Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret", 
+            "Meru", "Kisii", "Machakos", "Garissa", "Kakamega", 
+            "Bomet", "Bungoma", "Busia", "Embu", "Kericho", 
+            "Kiambu", "Kilifi", "Kirinyaga", "Kitui", "Laikipia", 
+            "Lamu", "Makueni", "Mandera", "Marsabit", "Migori", 
+            "Murang'a", "Nyamira", "Nyeri", "Samburu", "Siaya", 
+            "Taita-Taveta", "Tana River", "Tharaka-Nithi", "Trans Nzoia", 
+            "Turkana", "Uasin Gishu", "Vihiga", "Wajir", "West Pokot"
+        ];
+        
+        // KMTC Medical Fields
+        const medicalFields = [
+            "Clinical Medicine", "Nursing", "Pharmacy", "Dentistry", 
+            "Medical Laboratory", "Radiography", "Health Records", 
+            "Community Health", "Nutrition", "Physiotherapy", 
+            "Optometry", "Health Education", "Public Health"
+        ];
+        
+        // KMTC Courses Database with Requirements
+        const kmtcCourses = [
             {
-                name: "Bachelor of Medicine & Bachelor of Surgery",
-                cluster: "Medicine",
-                universities: {
-                    "University Of Nairobi": 45.584,
-                    "Kenyatta University": 45.433,
-                    "Moi University": 45.087,
-                    "Jomo Kenyatta": 45.048,
-                    "Maseno University": 44.787,
-                    "Egerton University": 44.563
-                }
+                name: "Diploma in Clinical Medicine",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        biology: "C",
+                        chemistry: "C-",
+                        mathematics: "C-",
+                        english: "C-"
+                    },
+                    fields: ["Clinical Medicine"]
+                },
+                description: "3-year program training Clinical Officers for hospitals."
             },
             {
-                name: "Bachelor of Science In Civil Engineering",
-                cluster: "Engineering",
-                universities: {
-                    "University of Nairobi": 43.463,
-                    "Jomo Kenyatta": 42.618,
-                    "Kenyatta University": 42.574,
-                    "Technical University of Kenya": 41.924,
-                    "Dedan Kimathi University of Technology": 39.863,
-                    "Multimedia University of Kenya": 39.11
-                }
+                name: "Diploma in Nursing",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        biology: "C-",
+                        chemistry: "D+",
+                        english: "C-"
+                    },
+                    fields: ["Nursing"]
+                },
+                description: "3-year program for registered nurses."
             },
             {
-                name: "Bachelor of Science (Nursing)",
-                cluster: "Health Sciences",
-                universities: {
-                    "University of Nairobi": 43.676,
-                    "Kenyatta University": 43.051,
-                    "Jomo Kenyatta": 42.95,
-                    "Maseno University": 42.529,
-                    "Masinde Muliro University": 42.475,
-                    "Moi University": 42.39,
-                    "Egerton University": 42.166
-                }
+                name: "Diploma in Pharmacy",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        chemistry: "C",
+                        biology: "C-",
+                        mathematics: "C-"
+                    },
+                    fields: ["Pharmacy"]
+                },
+                description: "3-year program for pharmaceutical technologists."
             },
             {
-                name: "Bachelor of Science (Computer Science)",
-                cluster: "Computing",
-                universities: {
-                    "University of Nairobi": 44.825,
-                    "Jomo Kenyatta": 44.101,
-                    "Kenyatta University": 43.497,
-                    "Multimedia University of Kenya": 41.039,
-                    "Dedan Kimathi University of Technology": 39.746,
-                    "Moi University": 38.968,
-                    "Egerton University": 38.37
-                }
+                name: "Diploma in Medical Laboratory",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        biology: "C",
+                        chemistry: "C-",
+                        mathematics: "D+"
+                    },
+                    fields: ["Medical Laboratory"]
+                },
+                description: "3-year program for lab technologists."
             },
             {
-                name: "Bachelor of Education (Arts)",
-                cluster: "Education",
-                universities: {
-                    "Kenyatta University": 33.556,
-                    "University of Nairobi": 32.421,
-                    "Egerton University": 32.306,
-                    "Maseno University": 31.535,
-                    "Masinde Muliro University": 30.054,
-                    "Moi University": 30.04,
-                    "Kisii University": 29.991
-                }
-            },
-            // Add more courses here following the same format
-            {
-                name: "Bachelor of Commerce",
-                cluster: "Business",
-                universities: {
-                    "University of Nairobi": 34.426,
-                    "Kenyatta University": 32.613,
-                    "Jomo Kenyatta": 32.291,
-                    "Egerton University": 30.01,
-                    "Masinde Muliro University": 30.054,
-                    "Technical University of Kenya": 30.286,
-                    "Dedan Kimathi University of Technology": 24.388
-                }
+                name: "Certificate in Community Health",
+                requirements: {
+                    meanGrade: "D+",
+                    subjects: {
+                        biology: "D+",
+                        english: "D+"
+                    },
+                    fields: ["Community Health"]
+                },
+                description: "2-year program for community health workers."
             },
             {
-                name: "Bachelor of Science in Electrical & Electronic Engineering",
-                cluster: "Engineering",
-                universities: {
-                    "University of Nairobi": 43.003,
-                    "Kenyatta University": 42.275,
-                    "Jomo Kenyatta": 42.434,
-                    "Dedan Kimathi University of Technology": 38.823,
-                    "Egerton University": 36.804,
-                    "Technical University of Mombasa": 35.82
-                }
+                name: "Diploma in Health Records",
+                requirements: {
+                    meanGrade: "C-",
+                    subjects: {
+                        english: "C-",
+                        mathematics: "D+"
+                    },
+                    fields: ["Health Records"]
+                },
+                description: "2-year program for health information officers."
             },
             {
-                name: "Bachelor of Laws",
-                cluster: "Law",
-                universities: {
-                    "University of Nairobi": 42.014,
-                    "Kenyatta University": 41.643,
-                    "Jomo Kenyatta": 41.184,
-                    "Mount Kenya University": 40.474,
-                    "Moi University": 40.225,
-                    "Maseno University": 39.798,
-                    "Egerton University": 39.534
-                }
-            },
-            {
-                name: "Bachelor of Pharmacy",
-                cluster: "Health Sciences",
-                universities: {
-                    "University of Nairobi": 44.75,
-                    "Kenyatta University": 44.01,
-                    "Jomo Kenyatta": 43.872,
-                    "Maseno University": 43.308,
-                    "Kisii University": 43.111,
-                    "Mount Kenya University": 42.989,
-                    "Kabarak University": 41.093
-                }
+                name: "Diploma in Nutrition",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        biology: "C-",
+                        chemistry: "D+"
+                    },
+                    fields: ["Nutrition"]
+                },
+                description: "3-year program for nutritionists."
             }
         ];
-
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            // Populate course dropdown
-            const courseSelect = document.getElementById('courseSelect');
-            courses.forEach(course => {
-                const option = document.createElement('option');
-                option.value = course.name;
-                option.textContent = course.name;
-                courseSelect.appendChild(option);
+        
+        // Initialize county selection
+        const countySelection = document.getElementById('county-selection');
+        kmtcCampuses.forEach(county => {
+            const item = document.createElement('div');
+            item.className = 'selectable-item';
+            item.textContent = county;
+            item.addEventListener('click', function() {
+                this.classList.toggle('selected');
             });
+            countySelection.appendChild(item);
         });
-
-        function checkQualification() {
-            const courseName = document.getElementById('courseSelect').value;
-            const clusterPoints = parseFloat(document.getElementById('clusterPoints').value);
-            const resultsDiv = document.getElementById('results');
-            const universityListDiv = document.getElementById('universityList');
-            const suggestionsDiv = document.getElementById('suggestions');
+        
+        // Initialize field selection
+        const fieldSelection = document.getElementById('field-selection');
+        medicalFields.forEach(field => {
+            const item = document.createElement('div');
+            item.className = 'selectable-item';
+            item.textContent = field;
+            item.addEventListener('click', function() {
+                this.classList.toggle('selected');
+            });
+            fieldSelection.appendChild(item);
+        });
+        
+        // Find matching courses
+        document.getElementById('find-courses').addEventListener('click', function() {
+            // Get selected fields
+            const selectedFields = [];
+            document.querySelectorAll('#field-selection .selected').forEach(item => {
+                selectedFields.push(item.textContent);
+            });
             
-            // Validate inputs
-            if (!courseName) {
-                alert("Please select a course");
+            // Get grades
+            const grades = {
+                meanGrade: document.getElementById('mean-grade').value,
+                english: document.getElementById('english').value,
+                kiswahili: document.getElementById('kiswahili').value,
+                mathematics: document.getElementById('mathematics').value,
+                biology: document.getElementById('biology').value,
+                chemistry: document.getElementById('chemistry').value,
+                physics: document.getElementById('physics').value
+            };
+            
+            // Validate required fields
+            if (!grades.meanGrade || !grades.english || !grades.kiswahili || !grades.mathematics) {
+                alert('Please fill in all required fields (Mean Grade, English, Kiswahili, Mathematics)');
                 return;
             }
             
-            if (isNaN(clusterPoints) {
-                alert("Please enter valid cluster points");
+            if (selectedFields.length === 0) {
+                alert('Please select at least one medical field');
                 return;
             }
             
-            if (clusterPoints < 0 || clusterPoints > 100) {
-                alert("Cluster points must be between 0 and 100");
-                return;
-            }
+            // Find matching courses
+            const matchedCourses = findMatchingCourses(grades, selectedFields);
             
-            // Find the selected course
-            const selectedCourse = courses.find(c => c.name === courseName);
+            // Display results
+            displayResults(matchedCourses);
+        });
+        
+        // Function to find matching courses
+        function findMatchingCourses(grades, selectedFields) {
+            const results = [];
             
-            // Display course information
-            document.getElementById('selectedCourseName').textContent = selectedCourse.name;
-            document.getElementById('courseCluster').textContent = `Cluster: ${selectedCourse.cluster}`;
-            
-            // Display university qualifications
-            universityListDiv.innerHTML = '';
-            let qualifiedUniversities = [];
-            
-            for (const [university, cutoff] of Object.entries(selectedCourse.universities)) {
-                const qualifies = clusterPoints >= cutoff;
-                if (qualifies) qualifiedUniversities.push(university);
+            kmtcCourses.forEach(course => {
+                // Check if course matches any selected field
+                const fieldMatch = course.requirements.fields.some(field => 
+                    selectedFields.includes(field)
+                );
                 
-                const uniDiv = document.createElement('div');
-                uniDiv.className = `university ${qualifies ? 'qualified' : 'not-qualified'}`;
-                uniDiv.innerHTML = `
-                    <span>${university}</span>
-                    <span>
-                        ${qualifies ? '✅ Qualified' : '❌ Not Qualified'} 
-                        <span class="cutoff">(Cutoff: ${cutoff})</span>
-                    </span>
-                `;
-                universityListDiv.appendChild(uniDiv);
-            }
-            
-            // Display suggestions if any qualified universities
-            const suggestionListDiv = document.getElementById('suggestionList');
-            suggestionListDiv.innerHTML = '';
-            
-            if (qualifiedUniversities.length > 0) {
-                suggestionsDiv.style.display = 'block';
+                if (!fieldMatch) return;
                 
-                qualifiedUniversities.forEach(uni => {
-                    const suggestionDiv = document.createElement('div');
-                    suggestionDiv.className = 'suggestion-item';
-                    suggestionDiv.textContent = uni;
-                    suggestionListDiv.appendChild(suggestionDiv);
-                });
+                // Check mean grade requirement
+                if (!meetsGradeRequirement(grades.meanGrade, course.requirements.meanGrade)) {
+                    return;
+                }
+                
+                // Check subject requirements
+                let subjectMatches = 0;
+                let totalRequiredSubjects = 0;
+                
+                for (const subject in course.requirements.subjects) {
+                    totalRequiredSubjects++;
+                    const requiredGrade = course.requirements.subjects[subject];
+                    const studentGrade = grades[subject];
+                    
+                    if (studentGrade && meetsGradeRequirement(studentGrade, requiredGrade)) {
+                        subjectMatches++;
+                    }
+                }
+                
+                // Calculate match percentage
+                const matchPercentage = Math.round((subjectMatches / totalRequiredSubjects) * 100);
+                
+                if (subjectMatches > 0) {
+                    results.push({
+                        course: course,
+                        matchPercentage: matchPercentage
+                    });
+                }
+            });
+            
+            // Sort by match percentage
+            results.sort((a, b) => b.matchPercentage - a.matchPercentage);
+            
+            return results;
+        }
+        
+        // Function to check if grade meets requirement
+        function meetsGradeRequirement(studentGrade, requiredGrade) {
+            const gradeOrder = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'E'];
+            const studentIndex = gradeOrder.indexOf(studentGrade);
+            const requiredIndex = gradeOrder.indexOf(requiredGrade);
+            
+            return studentIndex <= requiredIndex;
+        }
+        
+        // Function to display results
+        function displayResults(matchedCourses) {
+            const resultsContainer = document.getElementById('course-results');
+            resultsContainer.innerHTML = '';
+            
+            if (matchedCourses.length === 0) {
+                resultsContainer.innerHTML = '<p>No KMTC courses found matching your criteria. Try broadening your field selections.</p>';
             } else {
-                suggestionsDiv.style.display = 'none';
+                matchedCourses.forEach(result => {
+                    const courseDiv = document.createElement('div');
+                    courseDiv.className = 'course-match';
+                    
+                    const title = document.createElement('div');
+                    title.className = 'course-title';
+                    title.textContent = result.course.name;
+                    
+                    const percentage = document.createElement('div');
+                    percentage.className = 'match-percentage';
+                    percentage.textContent = `Match: ${result.matchPercentage}%`;
+                    
+                    const description = document.createElement('div');
+                    description.textContent = result.course.description;
+                    
+                    courseDiv.appendChild(title);
+                    courseDiv.appendChild(percentage);
+                    courseDiv.appendChild(description);
+                    
+                    resultsContainer.appendChild(courseDiv);
+                });
             }
             
-            // Show results
-            resultsDiv.style.display = 'block';
-            
-            // Scroll to results
-            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('results').style.display = 'block';
         }
     </script>
 </body>
