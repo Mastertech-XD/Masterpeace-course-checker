@@ -836,15 +836,6 @@
                 return;
             }
             
-            // Validate grade values
-            const validGrades = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'E'];
-            for (const [subject, grade] of Object.entries(grades)) {
-                if (grade && !validGrades.includes(grade)) {
-                    alert(`Invalid grade value for ${subject}`);
-                    return;
-                }
-            }
-            
             // Store grades in sessionStorage
             sessionStorage.setItem('kmtcGrades', JSON.stringify(grades));
             
@@ -866,21 +857,23 @@
         // Function to find matching courses
         function findMatchingCourses(grades) {
             const results = [];
+            const gradeOrder = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'E'];
             
             kmtcCourses.forEach(course => {
                 let qualifies = true;
                 
                 // Check mean grade requirement
-                if (!meetsGradeRequirement(grades.meanGrade, course.requirements.meanGrade)) {
+                if (gradeOrder.indexOf(grades.meanGrade) > gradeOrder.indexOf(course.requirements.meanGrade)) {
                     qualifies = false;
                 }
                 
                 // Check subject requirements
-                for (const subject in course.requirements.subjects) {
-                    const requiredGrade = course.requirements.subjects[subject];
+                const requiredSubjects = course.requirements.subjects || {};
+                for (const subject in requiredSubjects) {
                     const studentGrade = grades[subject];
+                    const requiredGrade = requiredSubjects[subject];
                     
-                    if (!studentGrade || !meetsGradeRequirement(studentGrade, requiredGrade)) {
+                    if (!studentGrade || gradeOrder.indexOf(studentGrade) > gradeOrder.indexOf(requiredGrade)) {
                         qualifies = false;
                         break;
                     }
@@ -892,15 +885,6 @@
             });
             
             return results;
-        }
-        
-        // Function to check if grade meets requirement
-        function meetsGradeRequirement(studentGrade, requiredGrade) {
-            const gradeOrder = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'E'];
-            const studentIndex = gradeOrder.indexOf(studentGrade);
-            const requiredIndex = gradeOrder.indexOf(requiredGrade);
-            
-            return studentIndex <= requiredIndex;
         }
         
         // Function to display results
