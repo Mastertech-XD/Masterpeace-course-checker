@@ -10,6 +10,8 @@
             --neon-pink: #f0f;
             --neon-green: #0f8;
             --neon-purple: #80f;
+            --neon-orange: #ff8c00;
+            --neon-yellow: #ff0;
             --dark-bg: #111;
             --light-text: #eee;
             --glow: 0 0 10px;
@@ -53,6 +55,30 @@
             background-color: rgba(20, 20, 40, 0.7);
             box-shadow: 0 0 15px rgba(128, 0, 255, 0.3);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .form-section::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            z-index: -1;
+            background: linear-gradient(45deg, 
+                var(--neon-blue), var(--neon-pink), var(--neon-green), var(--neon-orange));
+            background-size: 400%;
+            border-radius: 10px;
+            opacity: 0.7;
+            animation: glowing-border 3s linear infinite;
+        }
+        
+        @keyframes glowing-border {
+            0% { background-position: 0 0; }
+            50% { background-position: 400% 0; }
+            100% { background-position: 0 0; }
         }
         
         .form-section:hover {
@@ -88,6 +114,23 @@
             border-left: 3px solid var(--neon-pink);
             background-color: rgba(40, 0, 40, 0.2);
             transition: all 0.3s;
+            position: relative;
+        }
+        
+        .subject-group::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            z-index: -1;
+            background: linear-gradient(45deg, 
+                var(--neon-pink), var(--neon-blue), var(--neon-yellow), var(--neon-orange));
+            background-size: 400%;
+            border-radius: 5px;
+            opacity: 0.5;
+            animation: glowing-border 4s linear infinite;
         }
         
         .subject-group:hover {
@@ -102,84 +145,29 @@
             font-weight: bold;
         }
         
-        .selection-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 12px;
-            margin-top: 15px;
-        }
-        
-        .selectable-item {
-            padding: 10px;
-            border: 1px solid var(--neon-purple);
-            border-radius: 5px;
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.2s;
-            background-color: rgba(40, 0, 80, 0.3);
-        }
-        
-        .selectable-item:hover {
-            background-color: rgba(80, 0, 160, 0.5);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(128, 0, 255, 0.4);
-        }
-        
-        .selectable-item.selected {
-            background-color: rgba(0, 100, 200, 0.5);
-            border-color: var(--neon-blue);
-            color: white;
-            font-weight: bold;
-            box-shadow: 0 0 15px var(--neon-blue);
-        }
-        
-        button {
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: bold;
-            margin: 30px auto;
-            display: block;
-            transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(0, 136, 255, 0.4);
-        }
-        
-        button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 136, 255, 0.6);
-            background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
-        }
-        
-        button:active {
-            transform: translateY(1px);
-        }
-        
-        #results, #payment-section {
-            display: none;
-            margin-top: 40px;
-            padding: 25px;
-            border: 1px solid var(--neon-green);
-            border-radius: 8px;
-            background-color: rgba(0, 40, 20, 0.5);
-            box-shadow: 0 0 20px rgba(0, 255, 128, 0.3);
-            animation: fadeIn 0.5s ease-out;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
         .course-match {
             padding: 15px;
             margin: 10px 0;
             border-left: 4px solid var(--neon-pink);
             background-color: rgba(40, 0, 40, 0.3);
             transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .course-match::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            z-index: -1;
+            background: linear-gradient(45deg, 
+                var(--neon-green), var(--neon-purple), var(--neon-blue), var(--neon-yellow));
+            background-size: 400%;
+            opacity: 0.5;
+            animation: glowing-border 5s linear infinite;
         }
         
         .course-match:hover {
@@ -201,10 +189,12 @@
         
         .qualified {
             color: var(--neon-green);
+            text-shadow: 0 0 5px var(--neon-green);
         }
         
         .not-qualified {
             color: #ff5555;
+            text-shadow: 0 0 5px #ff5555;
         }
         
         .campuses {
@@ -226,6 +216,20 @@
             border-top: 1px solid var(--neon-purple);
             color: #aaa;
             font-size: 0.9rem;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                var(--neon-blue), var(--neon-pink), var(--neon-green), var(--neon-orange));
+            background-size: 400%;
+            animation: glowing-border 3s linear infinite;
         }
         
         .required::after {
@@ -249,32 +253,78 @@
             color: var(--neon-pink);
         }
         
-        #payment-form input {
-            width: 100%;
-            margin-bottom: 15px;
-        }
-        
-        .payment-options {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .payment-option {
-            padding: 10px;
-            border: 1px solid var(--neon-purple);
-            border-radius: 5px;
+        button {
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 30px;
             cursor: pointer;
-            transition: all 0.2s;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 30px auto;
+            display: block;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 136, 255, 0.4);
+            position: relative;
+            overflow: hidden;
         }
         
-        .payment-option.selected {
-            border-color: var(--neon-green);
-            background-color: rgba(0, 100, 200, 0.3);
+        button::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            z-index: -1;
+            background: linear-gradient(45deg, 
+                var(--neon-blue), var(--neon-pink), var(--neon-green), var(--neon-orange));
+            background-size: 400%;
+            border-radius: 30px;
+            opacity: 0.7;
+            animation: glowing-border 3s linear infinite;
         }
         
-        .hidden {
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 136, 255, 0.6);
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
+        }
+        
+        button:active {
+            transform: translateY(1px);
+        }
+        
+        #results {
+            margin-top: 40px;
+            padding: 25px;
+            border: 1px solid var(--neon-green);
+            border-radius: 8px;
+            background-color: rgba(0, 40, 20, 0.5);
+            box-shadow: 0 0 20px rgba(0, 255, 128, 0.3);
+            position: relative;
+        }
+        
+        #results::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            z-index: -1;
+            background: linear-gradient(45deg, 
+                var(--neon-green), var(--neon-blue), var(--neon-yellow), var(--neon-pink));
+            background-size: 400%;
+            border-radius: 10px;
+            opacity: 0.7;
+            animation: glowing-border 4s linear infinite;
+        }
+        
+        #proceed-to-payment {
             display: none;
+            background: linear-gradient(135deg, var(--neon-orange), var(--neon-yellow));
         }
     </style>
 </head>
@@ -425,50 +475,12 @@
     
     <button id="check-courses">CHECK QUALIFYING COURSES</button>
     
-    <div id="payment-section" class="hidden">
-        <h2>Payment Information</h2>
-        <p>Complete payment to view your course qualifications</p>
-        
-        <div class="payment-options">
-            <div class="payment-option selected" data-method="mpesa">
-                <img src="https://via.placeholder.com/50?text=MPESA" alt="Mpesa">
-                <div>Mpesa</div>
-            </div>
-            <div class="payment-option" data-method="card">
-                <img src="https://via.placeholder.com/50?text=CARD" alt="Card">
-                <div>Credit Card</div>
-            </div>
-            <div class="payment-option" data-method="bank">
-                <img src="https://via.placeholder.com/50?text=BANK" alt="Bank">
-                <div>Bank Transfer</div>
-            </div>
-        </div>
-        
-        <form id="payment-form">
-            <div id="mpesa-fields">
-                <input type="tel" placeholder="Phone Number (2547...)" required>
-            </div>
-            
-            <div id="card-fields" class="hidden">
-                <input type="text" placeholder="Card Number" required>
-                <input type="text" placeholder="Expiry Date (MM/YY)" required>
-                <input type="text" placeholder="CVV" required>
-            </div>
-            
-            <div id="bank-fields" class="hidden">
-                <input type="text" placeholder="Bank Name" required>
-                <input type="text" placeholder="Account Number" required>
-            </div>
-            
-            <button type="submit">PAY KSH 500 TO VIEW RESULTS</button>
-        </form>
-    </div>
-    
-    <div id="results" class="hidden">
+    <div id="results" style="display: none;">
         <h2>KMTC Courses You Qualify For</h2>
         <div id="course-results">
             <!-- Course matches will be displayed here -->
         </div>
+        <button id="proceed-to-payment" onclick="window.location.href='payment.html'">PROCEED TO PAYMENT</button>
     </div>
     
     <footer>
@@ -601,195 +613,8 @@
                     description: "3-year program for public health officers.",
                     campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret"]
                 },
-            },
-            {
-                name: "DIPLOMA IN ORTHOPEDIC & TRAUMA MEDICINE",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        biology: "C-",
-                        physics: "D+"
-                    },
-                    description: "3-year program for orthopedic trauma specialists.",
-                    campuses: ["Nairobi"]
-                },
-            },
-            {
-                name: "DIPLOMA IN MEDICAL SOCIAL WORK",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        english: "C-"
-                    },
-                    description: "3-year program for medical social workers.",
-                    campuses: ["Nairobi", "Mombasa"]
-                },
-            },
-            {
-                name: "DIPLOMA IN HEALTH COUNSELLING",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        english: "C-"
-                    },
-                    description: "3-year program for health counselors.",
-                    campuses: ["Nairobi", "Kisumu"]
-                },
-            },
-            {
-                name: "DIPLOMA IN COMMUNITY HEALTH",
-                requirements: {
-                    meanGrade: "C-",
-                    subjects: {
-                        biology: "D+"
-                    },
-                    description: "2-year program for community health workers.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret", "Garissa"]
-                },
-            },
-            {
-                name: "DIPLOMA IN EMERGENCY MEDICAL TECHNOLOGY",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        biology: "C-"
-                    },
-                    description: "3-year program for emergency medical technicians.",
-                    campuses: ["Nairobi", "Mombasa"]
-                },
-            },
-            {
-                name: "CERTIFICATE IN HEALTH RECORDS AND INFORMATION TECHNOLOGY",
-                requirements: {
-                    meanGrade: "D+",
-                    subjects: {
-                        english: "D+"
-                    },
-                    description: "1-year program for health records assistants.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
-                },
-            },
-            {
-                name: "CERTIFICATE IN NUTRITION & DIETETICS",
-                requirements: {
-                    meanGrade: "D+",
-                    subjects: {
-                        biology: "D+"
-                    },
-                    description: "1-year program for nutrition assistants.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu"]
-                },
-            },
-            {
-                name: "CERTIFICATE IN MEDICAL ENGINEERING",
-                requirements: {
-                    meanGrade: "D+",
-                    subjects: {
-                        physics: "D+"
-                    },
-                    description: "1-year program for medical equipment assistants.",
-                    campuses: ["Nairobi"]
-                },
-            },
-            {
-                name: "CERTIFICATE IN ORTHOPEDIC TRAUMA MEDICINE",
-                requirements: {
-                    meanGrade: "D+",
-                    subjects: {
-                        biology: "D+"
-                    },
-                    description: "1-year program for orthopedic assistants.",
-                    campuses: ["Nairobi"]
-                },
-            },
-            {
-                name: "CERTIFICATE IN PUBLIC HEALTH",
-                requirements: {
-                    meanGrade: "D+",
-                    subjects: {},
-                    description: "1-year program for public health assistants.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
-                },
-            },
-            {
-                name: "CERTIFICATE IN COMMUNITY HEALTH ASSISTANT",
-                requirements: {
-                    meanGrade: "D",
-                    subjects: {},
-                    description: "1-year program for community health volunteers.",
-                    campuses: ["All Campuses"]
-                },
-            },
-            {
-                name: "CERTIFICATE IN MEDICAL EMERGENCY TECHNICIAN",
-                requirements: {
-                    meanGrade: "D+",
-                    subjects: {},
-                    description: "1-year program for emergency first responders.",
-                    campuses: ["Nairobi", "Mombasa"]
-                },
-            },
-            {
-                name: "DIPLOMA IN SPEECH AND LANGUAGE THERAPY",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        english: "C-"
-                    },
-                    description: "3-year program for speech therapists.",
-                    campuses: ["Nairobi"]
-                },
-            },
-            {
-                name: "DIPLOMA IN MORTUARY SCIENCE",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        biology: "C-"
-                    },
-                    description: "3-year program for mortuary technicians.",
-                    campuses: ["Nairobi", "Mombasa"]
-                },
-            },
-            {
-                name: "DIPLOMA IN HEALTH PROMOTION",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        english: "C-"
-                    },
-                    description: "3-year program for health promotion officers.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu"]
-                },
-            },
-            {
-                name: "DIPLOMA IN HEALTH INSURANCE MANAGEMENT",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        mathematics: "C-"
-                    },
-                    description: "3-year program for health insurance administrators.",
-                    campuses: ["Nairobi"]
-                },
             }
         ];
-
-        // Payment method selection
-        document.querySelectorAll('.payment-option').forEach(option => {
-            option.addEventListener('click', function() {
-                document.querySelectorAll('.payment-option').forEach(opt => {
-                    opt.classList.remove('selected');
-                });
-                this.classList.add('selected');
-                
-                // Show relevant payment fields
-                document.querySelectorAll('#payment-form > div').forEach(div => {
-                    div.classList.add('hidden');
-                });
-                document.getElementById(`${this.dataset.method}-fields`).classList.remove('hidden');
-            });
-        });
 
         // Check qualifying courses
         document.getElementById('check-courses').addEventListener('click', function() {
@@ -810,32 +635,16 @@
                 return;
             }
             
-            // Store results in session
-            sessionStorage.setItem('kmtcGrades', JSON.stringify(grades));
+            // Find matching courses
+            const matchedCourses = findMatchingCourses(grades);
             
-            // Show payment section
-            document.getElementById('payment-section').style.display = 'block';
-            document.getElementById('check-courses').style.display = 'none';
-            window.scrollTo(0, document.getElementById('payment-section').offsetTop);
-        });
-
-        // Process payment (simulated)
-        document.getElementById('payment-form').addEventListener('submit', function(e) {
-            e.preventDefault();
+            // Display results
+            displayResults(matchedCourses);
             
-            // Simulate payment processing
-            document.getElementById('payment-form').innerHTML = '<p>Processing payment...<p>';
-            
-            setTimeout(() => {
-                // After "payment" show results
-                const grades = JSON.parse(sessionStorage.getItem('kmtcGrades'));
-                const matchedCourses = findMatchingCourses(grades);
-                displayResults(matchedCourses);
-                
-                document.getElementById('payment-section').style.display = 'none';
-                document.getElementById('results').style.display = 'block';
-                window.scrollTo(0, document.getElementById('results').offsetTop);
-            }, 2000);
+            // Show results section
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('proceed-to-payment').style.display = 'block';
+            window.scrollTo(0, document.getElementById('results').offsetTop);
         });
         
         // Function to find matching courses
@@ -885,6 +694,7 @@
             
             if (matchedCourses.length === 0) {
                 resultsContainer.innerHTML = '<p>You do not qualify for any KMTC courses based on your current grades.</p>';
+                document.getElementById('proceed-to-payment').style.display = 'none';
             } else {
                 matchedCourses.forEach(course => {
                     const courseDiv = document.createElement('div');
