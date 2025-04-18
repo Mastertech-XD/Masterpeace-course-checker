@@ -171,6 +171,36 @@
             margin-bottom: 10px;
         }
 
+        .counties-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .county-option {
+            display: flex;
+            align-items: center;
+        }
+
+        .county-option input {
+            width: auto;
+            margin-right: 8px;
+        }
+
+        .county-option label {
+            margin: 0;
+            color: var(--text-light);
+            font-weight: normal;
+        }
+
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.9em;
+        }
+
         @media (max-width: 600px) {
             .container {
                 padding: 15px;
@@ -183,6 +213,10 @@
             
             .subject-inputs {
                 grid-template-columns: 1fr;
+            }
+            
+            .counties-container {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
@@ -241,8 +275,8 @@
                 </div>
                 
                 <div class="subject-group">
-                    <label for="subject1Grade">Subject 1 (Relevant):</label>
-                    <select id="subject1Grade">
+                    <label for="woodworkGrade">Woodwork:</label>
+                    <select id="woodworkGrade">
                         <option value="">Select grade</option>
                         <option value="A">A</option>
                         <option value="A-">A-</option>
@@ -260,8 +294,84 @@
                 </div>
                 
                 <div class="subject-group">
-                    <label for="subject2Grade">Subject 2 (Relevant):</label>
-                    <select id="subject2Grade">
+                    <label for="metalworkGrade">Metalwork:</label>
+                    <select id="metalworkGrade">
+                        <option value="">Select grade</option>
+                        <option value="A">A</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="B-">B-</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="C-">C-</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="D-">D-</option>
+                        <option value="E">E</option>
+                    </select>
+                </div>
+                
+                <div class="subject-group">
+                    <label for="homeScienceGrade">Home Science:</label>
+                    <select id="homeScienceGrade">
+                        <option value="">Select grade</option>
+                        <option value="A">A</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="B-">B-</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="C-">C-</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="D-">D-</option>
+                        <option value="E">E</option>
+                    </select>
+                </div>
+                
+                <div class="subject-group">
+                    <label for="frenchGrade">French:</label>
+                    <select id="frenchGrade">
+                        <option value="">Select grade</option>
+                        <option value="A">A</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="B-">B-</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="C-">C-</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="D-">D-</option>
+                        <option value="E">E</option>
+                    </select>
+                </div>
+                
+                <div class="subject-group">
+                    <label for="germanGrade">German:</label>
+                    <select id="germanGrade">
+                        <option value="">Select grade</option>
+                        <option value="A">A</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <option value="B-">B-</option>
+                        <option value="C+">C+</option>
+                        <option value="C">C</option>
+                        <option value="C-">C-</option>
+                        <option value="D+">D+</option>
+                        <option value="D">D</option>
+                        <option value="D-">D-</option>
+                        <option value="E">E</option>
+                    </select>
+                </div>
+                
+                <div class="subject-group">
+                    <label for="aviationGrade">Aviation:</label>
+                    <select id="aviationGrade">
                         <option value="">Select grade</option>
                         <option value="A">A</option>
                         <option value="A-">A-</option>
@@ -280,7 +390,14 @@
             </div>
         </div>
         
-        <button onclick="checkQualification()">Check Qualification</button>
+        <div class="form-group">
+            <label>Select Preferred Counties:</label>
+            <div class="counties-container" id="countiesContainer">
+                <!-- Counties will be populated by JavaScript -->
+            </div>
+        </div>
+        
+        <button onclick="checkQualification()">Proceed to Payment</button>
         
         <div class="results" id="results" style="display: none;">
             <div class="course-header">
@@ -294,6 +411,11 @@
                 <div class="suggestion-title">Suggested Institutions (You Qualify):</div>
                 <div id="suggestionList"></div>
             </div>
+        </div>
+        
+        <div class="footer">
+            Copyright © 2025 All rights reserved.<br>
+            Designed by ENG. Chester
         </div>
     </div>
 
@@ -310,9 +432,18 @@
                     "Any Group II/III/IV/VI": "D+"
                 },
                 institutions: {
-                    "Kenya Technical Trainers College": { "Mathematics": "C-", "English": "D+" },
-                    "Nairobi Technical Training Institute": { "Mathematics": "C", "English": "C-" },
-                    "Mombasa Technical Training Institute": { "Mathematics": "C-", "English": "D+" }
+                    "Kenya Technical Trainers College": { 
+                        "county": "Nairobi",
+                        "requirements": { "Mathematics": "C-", "English": "D+" }
+                    },
+                    "Nairobi Technical Training Institute": { 
+                        "county": "Nairobi",
+                        "requirements": { "Mathematics": "C", "English": "C-" }
+                    },
+                    "Mombasa Technical Training Institute": { 
+                        "county": "Mombasa",
+                        "requirements": { "Mathematics": "C-", "English": "D+" }
+                    }
                 }
             },
             {
@@ -325,9 +456,18 @@
                     "Any Group II/III/IV": "D+"
                 },
                 institutions: {
-                    "Kenya Institute of Management": { "Mathematics": "D+", "English": "C-" },
-                    "Strathmore University": { "Mathematics": "C", "English": "C" },
-                    "Kenya Polytechnic": { "Mathematics": "D+", "English": "D+" }
+                    "Kenya Institute of Management": { 
+                        "county": "Nairobi",
+                        "requirements": { "Mathematics": "D+", "English": "C-" }
+                    },
+                    "Strathmore University": { 
+                        "county": "Nairobi",
+                        "requirements": { "Mathematics": "C", "English": "C" }
+                    },
+                    "Kenya Polytechnic": { 
+                        "county": "Nairobi",
+                        "requirements": { "Mathematics": "D+", "English": "D+" }
+                    }
                 }
             },
             {
@@ -340,11 +480,32 @@
                     "Chemistry": "D+"
                 },
                 institutions: {
-                    "Technical University of Kenya": { "Mathematics": "C", "English": "D+" },
-                    "Kisumu National Polytechnic": { "Mathematics": "C-", "English": "D+" },
-                    "Eldoret Technical Training Institute": { "Mathematics": "C", "English": "D" }
+                    "Technical University of Kenya": { 
+                        "county": "Nairobi",
+                        "requirements": { "Mathematics": "C", "English": "D+" }
+                    },
+                    "Kisumu National Polytechnic": { 
+                        "county": "Kisumu",
+                        "requirements": { "Mathematics": "C-", "English": "D+" }
+                    },
+                    "Eldoret Technical Training Institute": { 
+                        "county": "Uasin Gishu",
+                        "requirements": { "Mathematics": "C", "English": "D" }
+                    }
                 }
             }
+        ];
+
+        // All Kenyan counties
+        const counties = [
+            "Baringo", "Bomet", "Bungoma", "Busia", "Elgeyo-Marakwet", "Embu",
+            "Garissa", "Homa Bay", "Isiolo", "Kajiado", "Kakamega", "Kericho",
+            "Kiambu", "Kilifi", "Kirinyaga", "Kisii", "Kisumu", "Kitui",
+            "Kwale", "Laikipia", "Lamu", "Machakos", "Makueni", "Mandera",
+            "Marsabit", "Meru", "Migori", "Mombasa", "Murang'a", "Nairobi",
+            "Nakuru", "Nandi", "Narok", "Nyamira", "Nyandarua", "Nyeri",
+            "Samburu", "Siaya", "Taita-Taveta", "Tana River", "Tharaka-Nithi", "Trans Nzoia",
+            "Turkana", "Uasin Gishu", "Vihiga", "Wajir", "West Pokot"
         ];
 
         // Grade point values
@@ -367,14 +528,30 @@
                 option.textContent = course.name;
                 courseSelect.appendChild(option);
             });
+            
+            // Populate counties checkboxes
+            const countiesContainer = document.getElementById('countiesContainer');
+            counties.forEach(county => {
+                const countyDiv = document.createElement('div');
+                countyDiv.className = 'county-option';
+                countyDiv.innerHTML = `
+                    <input type="checkbox" id="county-${county.replace(/\s+/g, '-')}" name="counties" value="${county}">
+                    <label for="county-${county.replace(/\s+/g, '-')}">${county}</label>
+                `;
+                countiesContainer.appendChild(countyDiv);
+            });
         });
 
         function checkQualification() {
             const courseName = document.getElementById('courseSelect').value;
             const mathGrade = document.getElementById('mathGrade').value;
             const englishGrade = document.getElementById('englishGrade').value;
-            const subject1Grade = document.getElementById('subject1Grade').value;
-            const subject2Grade = document.getElementById('subject2Grade').value;
+            
+            // Get all selected counties
+            const selectedCounties = [];
+            document.querySelectorAll('input[name="counties"]:checked').forEach(checkbox => {
+                selectedCounties.push(checkbox.value);
+            });
             
             // Validate inputs
             if (!courseName) {
@@ -382,8 +559,13 @@
                 return;
             }
             
-            if (!mathGrade || !englishGrade || !subject1Grade || !subject2Grade) {
-                alert("Please select grades for all subjects");
+            if (!mathGrade || !englishGrade) {
+                alert("Please select grades for Mathematics and English");
+                return;
+            }
+            
+            if (selectedCounties.length === 0) {
+                alert("Please select at least one preferred county");
                 return;
             }
             
@@ -401,23 +583,26 @@
             let qualifiedInstitutions = [];
             
             // Check qualification for each institution
-            for (const [institutionName, requirements] of Object.entries(selectedCourse.institutions)) {
+            for (const [institutionName, institutionData] of Object.entries(selectedCourse.institutions)) {
+                // Check if institution is in selected counties
+                const inSelectedCounty = selectedCounties.includes(institutionData.county);
+                
                 // Check if user meets the minimum grades for this institution
-                const mathQualifies = gradePoints[mathGrade] >= gradePoints[requirements["Mathematics"]];
-                const englishQualifies = gradePoints[englishGrade] >= gradePoints[requirements["English"]];
+                const mathQualifies = gradePoints[mathGrade] >= gradePoints[institutionData.requirements["Mathematics"]];
+                const englishQualifies = gradePoints[englishGrade] >= gradePoints[institutionData.requirements["English"]];
                 
                 // For diploma, we typically just need to meet the minimum grade requirements
-                const qualifies = mathQualifies && englishQualifies;
+                const qualifies = mathQualifies && englishQualifies && inSelectedCounty;
                 
                 if (qualifies) qualifiedInstitutions.push(institutionName);
                 
                 const instDiv = document.createElement('div');
                 instDiv.className = `university ${qualifies ? 'qualified' : 'not-qualified'}`;
                 instDiv.innerHTML = `
-                    <span>${institutionName}</span>
+                    <span>${institutionName} (${institutionData.county})</span>
                     <span>
                         ${qualifies ? '✅ Qualified' : '❌ Not Qualified'} 
-                        <span class="requirements">(Req: Math ${requirements["Mathematics"]}+, English ${requirements["English"]}+)</span>
+                        <span class="requirements">(Req: Math ${institutionData.requirements["Mathematics"]}+, English ${institutionData.requirements["English"]}+)</span>
                     </span>
                 `;
                 universityListDiv.appendChild(instDiv);
@@ -433,7 +618,7 @@
                 qualifiedInstitutions.forEach(inst => {
                     const suggestionDiv = document.createElement('div');
                     suggestionDiv.className = 'suggestion-item';
-                    suggestionDiv.textContent = inst;
+                    suggestionDiv.textContent = `${inst} (${selectedCourse.institutions[inst].county})`;
                     suggestionListDiv.appendChild(suggestionDiv);
                 });
                 
@@ -442,27 +627,31 @@
                 const summaryDiv = document.createElement('div');
                 summaryDiv.style.marginTop = '10px';
                 summaryDiv.style.fontStyle = 'italic';
-                summaryDiv.textContent = `You qualify for ${qualifiedInstitutions.length} out of ${Object.keys(selectedCourse.institutions).length} institutions (${qualificationRate}%)`;
+                summaryDiv.textContent = `You qualify for ${qualifiedInstitutions.length} out of ${Object.keys(selectedCourse.institutions).length} institutions in your selected counties (${qualificationRate}%)`;
                 suggestionListDiv.appendChild(summaryDiv);
             } else {
-                // Find the institution with lowest requirements
+                // Find the institution with lowest requirements in selected counties
                 let lowestMathReq = "A";
                 let lowestEnglishReq = "A";
+                let exampleInstitution = "";
                 
-                for (const requirements of Object.values(selectedCourse.institutions)) {
-                    if (gradePoints[requirements["Mathematics"]] < gradePoints[lowestMathReq]) {
-                        lowestMathReq = requirements["Mathematics"];
-                    }
-                    if (gradePoints[requirements["English"]] < gradePoints[lowestEnglishReq]) {
-                        lowestEnglishReq = requirements["English"];
+                for (const [instName, instData] of Object.entries(selectedCourse.institutions)) {
+                    if (selectedCounties.includes(instData.county)) {
+                        if (gradePoints[instData.requirements["Mathematics"]] < gradePoints[lowestMathReq]) {
+                            lowestMathReq = instData.requirements["Mathematics"];
+                        }
+                        if (gradePoints[instData.requirements["English"]] < gradePoints[lowestEnglishReq]) {
+                            lowestEnglishReq = instData.requirements["English"];
+                            exampleInstitution = instName;
+                        }
                     }
                 }
                 
                 const noQualificationDiv = document.createElement('div');
                 noQualificationDiv.className = 'suggestion-item';
                 noQualificationDiv.innerHTML = `
-                    You don't qualify for any institutions offering this diploma yet.
-                    <br>You need at least <span class="highlight">Math ${lowestMathReq}</span> and <span class="highlight">English ${lowestEnglishReq}</span> to qualify for some institutions.
+                    You don't qualify for any institutions offering this diploma in your selected counties yet.
+                    ${exampleInstitution ? `<br>For ${exampleInstitution}, you need at least <span class="highlight">Math ${lowestMathReq}</span> and <span class="highlight">English ${lowestEnglishReq}</span>.` : ''}
                 `;
                 suggestionListDiv.appendChild(noQualificationDiv);
                 document.getElementById('suggestions').style.display = 'block';
