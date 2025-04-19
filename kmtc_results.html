@@ -239,6 +239,11 @@
 <body>
     <h1>KMTC COURSES CHECKER</h1>
     
+    <div id="payment-success" class="payment-success">
+        <h2>✅ Payment Successful!</h2>
+        <p>Your payment has been processed successfully. Below are your course qualifications:</p>
+    </div>
+    
     <div class="form-section">
         <div class="section-title">
             <div class="section-icon">📊</div>
@@ -322,7 +327,7 @@
             </select>
         </div>
         
-        <h3>Sciences (Required for Most Medical Courses)</h3>
+        <h3>Sciences</h3>
         <div class="subject-group">
             <label for="biology">Biology:</label>
             <select id="biology">
@@ -379,22 +384,300 @@
                 <option value="E">E</option>
             </select>
         </div>
+        
+        <h3>Humanities</h3>
+        <div class="subject-group">
+            <label for="geography">Geography:</label>
+            <select id="geography">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="history">History and Government:</label>
+            <select id="history">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="cre">Christian Religious Education (CRE):</label>
+            <select id="cre">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="ire">Islamic Religious Education (IRE):</label>
+            <select id="ire">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="hre">Hindu Religious Education (HRE):</label>
+            <select id="hre">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <h3>Technical and Other Subjects</h3>
+        <div class="subject-group">
+            <label for="agriculture">Agriculture:</label>
+            <select id="agriculture">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="computer">Computer Studies:</label>
+            <select id="computer">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="art">Art and Design:</label>
+            <select id="art">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="business">Business Studies:</label>
+            <select id="business">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="music">Music:</label>
+            <select id="music">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <h3>Technical Subjects</h3>
+        <div class="subject-group">
+            <label for="building">Building and Construction:</label>
+            <select id="building">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="electricity">Electricity and Electronics:</label>
+            <select id="electricity">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="woodwork">Woodwork:</label>
+            <select id="woodwork">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="metalwork">Metalwork:</label>
+            <select id="metalwork">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="homescience">Home Science:</label>
+            <select id="homescience">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
     </div>
     
-    <div class="form-section">
-        <div class="section-title">
-            <div class="section-icon">📍</div>
-            <h2>SELECT COUNTY YOU PREFER TO STUDY IN 😊️</h2>
-        </div>
-        <div class="selection-grid" id="county-selection">
-            <!-- Counties will be added by JavaScript -->
-        </div>
-    </div>
-    
-    <button id="find-courses">CHECK KMTC COURSES</button>
+    <button id="check-courses">CHECK QUALIFYING COURSES</button>
     
     <div id="results">
-        <h2>KMTC Courses You Qualify For</h2>
+        <h2>KMTC Courses Qualification Results</h2>
         <div id="course-results">
             <!-- Course matches will be displayed here -->
         </div>
@@ -405,22 +688,10 @@
     </footer>
 
     <script>
-        // KMTC Campuses by County
-        const kmtcCampuses = [
-            "Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret", 
-            "Meru", "Kisii", "Machakos", "Garissa", "Kakamega", 
-            "Bomet", "Bungoma", "Busia", "Embu", "Kericho", 
-            "Kiambu", "Kilifi", "Kirinyaga", "Kitui", "Laikipia", 
-            "Lamu", "Makueni", "Mandera", "Marsabit", "Migori", 
-            "Murang'a", "Nyamira", "Nyeri", "Samburu", "Siaya", 
-            "Taita-Taveta", "Tana River", "Tharaka-Nithi", "Trans Nzoia", 
-            "Turkana", "Uasin Gishu", "Vihiga", "Wajir", "West Pokot"
-        ];
-        
-        // KMTC Courses Database with Requirements (All 26 Courses)
+        // KMTC Courses Database with Requirements and Campuses
         const kmtcCourses = [
             {
-                name: "DIPLOMA IN NUTRITION & DIETETICS",
+                name: "DIPLOMA IN NUTRITION AND DIETETICS",
                 requirements: {
                     meanGrade: "C",
                     subjects: {
@@ -428,8 +699,9 @@
                         chemistry: "D+",
                         english: "C-"
                     },
-                    description: "3-year program training nutritionists for hospitals and communities."
-                },
+                    description: "3-year program training nutritionists for hospitals and communities.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret"]
+                }
             },
             {
                 name: "DIPLOMA IN HEALTH RECORDS AND INFORMATION TECHNOLOGY",
@@ -439,11 +711,12 @@
                         english: "D+",
                         mathematics: "D+"
                     },
-                    description: "2-year program for health information management officers."
-                },
+                    description: "2-year program for health information management officers.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
+                }
             },
             {
-                name: "DIPLOMA IN RADIOGRAPHY & IMAGING",
+                name: "DIPLOMA IN RADIOGRAPHY AND IMAGING",
                 requirements: {
                     meanGrade: "C",
                     subjects: {
@@ -451,8 +724,9 @@
                         biology: "C-",
                         mathematics: "C-"
                     },
-                    description: "3-year program for radiographers in medical imaging."
-                },
+                    description: "3-year program for radiographers in medical imaging.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu"]
+                }
             },
             {
                 name: "DIPLOMA IN MEDICAL LABORATORY SCIENCES",
@@ -463,8 +737,9 @@
                         chemistry: "C-",
                         mathematics: "D+"
                     },
-                    description: "3-year program for medical laboratory technologists."
-                },
+                    description: "3-year program for medical laboratory technologists.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret", "Meru"]
+                }
             },
             {
                 name: "DIPLOMA IN OCCUPATIONAL THERAPY",
@@ -474,19 +749,21 @@
                         biology: "C-",
                         english: "C-"
                     },
-                    description: "3-year program for occupational therapists."
-                },
+                    description: "3-year program for occupational therapists.",
+                    campuses: ["Nairobi", "Mombasa"]
+                }
             },
             {
-                name: "DIPLOMA IN ORTHOPAEDIC TECHNOLOGY",
+                name: "DIPLOMA IN ORTHOPEDIC TECHNOLOGY",
                 requirements: {
                     meanGrade: "C",
                     subjects: {
                         physics: "D+",
                         biology: "C-"
                     },
-                    description: "3-year program for orthopedic technologists."
-                },
+                    description: "3-year program for orthopedic technologists.",
+                    campuses: ["Nairobi"]
+                }
             },
             {
                 name: "DIPLOMA IN PHARMACY",
@@ -497,8 +774,9 @@
                         biology: "C-",
                         mathematics: "C-"
                     },
-                    description: "3-year program for pharmaceutical technologists."
-                },
+                    description: "3-year program for pharmaceutical technologists.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
+                }
             },
             {
                 name: "DIPLOMA IN PHYSIOTHERAPY",
@@ -508,8 +786,9 @@
                         biology: "C-",
                         physics: "D+"
                     },
-                    description: "3-year program for physiotherapists."
-                },
+                    description: "3-year program for physiotherapists.",
+                    campuses: ["Nairobi", "Mombasa"]
+                }
             },
             {
                 name: "DIPLOMA IN MEDICAL ENGINEERING",
@@ -519,8 +798,9 @@
                         physics: "C-",
                         mathematics: "C-"
                     },
-                    description: "3-year program for medical equipment technicians."
-                },
+                    description: "3-year program for medical equipment technicians.",
+                    campuses: ["Nairobi"]
+                }
             },
             {
                 name: "DIPLOMA IN PUBLIC HEALTH",
@@ -530,19 +810,21 @@
                         biology: "C-",
                         english: "C-"
                     },
-                    description: "3-year program for public health officers."
-                },
+                    description: "3-year program for public health officers.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret"]
+                }
             },
             {
-                name: "DIPLOMA IN ORTHOPEDIC & TRAUMA MEDICINE",
+                name: "DIPLOMA IN ORTHOPEDIC AND TRAUMA MEDICINE",
                 requirements: {
                     meanGrade: "C",
                     subjects: {
                         biology: "C-",
                         physics: "D+"
                     },
-                    description: "3-year program for orthopedic trauma specialists."
-                },
+                    description: "3-year program for orthopedic trauma specialists.",
+                    campuses: ["Nairobi"]
+                }
             },
             {
                 name: "DIPLOMA IN MEDICAL SOCIAL WORK",
@@ -551,8 +833,9 @@
                     subjects: {
                         english: "C-"
                     },
-                    description: "3-year program for medical social workers."
-                },
+                    description: "3-year program for medical social workers.",
+                    campuses: ["Nairobi", "Mombasa"]
+                }
             },
             {
                 name: "DIPLOMA IN HEALTH COUNSELLING",
@@ -561,8 +844,9 @@
                     subjects: {
                         english: "C-"
                     },
-                    description: "3-year program for health counselors."
-                },
+                    description: "3-year program for health counselors.",
+                    campuses: ["Nairobi", "Kisumu"]
+                }
             },
             {
                 name: "DIPLOMA IN COMMUNITY HEALTH",
@@ -571,8 +855,9 @@
                     subjects: {
                         biology: "D+"
                     },
-                    description: "2-year program for community health workers."
-                },
+                    description: "2-year program for community health workers.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret", "Garissa"]
+                }
             },
             {
                 name: "DIPLOMA IN EMERGENCY MEDICAL TECHNOLOGY",
@@ -581,8 +866,9 @@
                     subjects: {
                         biology: "C-"
                     },
-                    description: "3-year program for emergency medical technicians."
-                },
+                    description: "3-year program for emergency medical technicians.",
+                    campuses: ["Nairobi", "Mombasa"]
+                }
             },
             {
                 name: "CERTIFICATE IN HEALTH RECORDS AND INFORMATION TECHNOLOGY",
@@ -591,18 +877,20 @@
                     subjects: {
                         english: "D+"
                     },
-                    description: "1-year program for health records assistants."
-                },
+                    description: "1-year program for health records assistants.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
+                }
             },
             {
-                name: "CERTIFICATE IN NUTRITION & DIETETICS",
+                name: "CERTIFICATE IN NUTRITION AND DIETETICS",
                 requirements: {
                     meanGrade: "D+",
                     subjects: {
                         biology: "D+"
                     },
-                    description: "1-year program for nutrition assistants."
-                },
+                    description: "1-year program for nutrition assistants.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu"]
+                }
             },
             {
                 name: "CERTIFICATE IN MEDICAL ENGINEERING",
@@ -611,8 +899,9 @@
                     subjects: {
                         physics: "D+"
                     },
-                    description: "1-year program for medical equipment assistants."
-                },
+                    description: "1-year program for medical equipment assistants.",
+                    campuses: ["Nairobi"]
+                }
             },
             {
                 name: "CERTIFICATE IN ORTHOPEDIC TRAUMA MEDICINE",
@@ -621,32 +910,36 @@
                     subjects: {
                         biology: "D+"
                     },
-                    description: "1-year program for orthopedic assistants."
-                },
+                    description: "1-year program for orthopedic assistants.",
+                    campuses: ["Nairobi"]
+                }
             },
             {
                 name: "CERTIFICATE IN PUBLIC HEALTH",
                 requirements: {
                     meanGrade: "D+",
                     subjects: {},
-                    description: "1-year program for public health assistants."
-                },
+                    description: "1-year program for public health assistants.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
+                }
             },
             {
                 name: "CERTIFICATE IN COMMUNITY HEALTH ASSISTANT",
                 requirements: {
                     meanGrade: "D",
                     subjects: {},
-                    description: "1-year program for community health volunteers."
-                },
+                    description: "1-year program for community health volunteers.",
+                    campuses: ["All Campuses"]
+                }
             },
             {
                 name: "CERTIFICATE IN MEDICAL EMERGENCY TECHNICIAN",
                 requirements: {
                     meanGrade: "D+",
                     subjects: {},
-                    description: "1-year program for emergency first responders."
-                },
+                    description: "1-year program for emergency first responders.",
+                    campuses: ["Nairobi", "Mombasa"]
+                }
             },
             {
                 name: "DIPLOMA IN SPEECH AND LANGUAGE THERAPY",
@@ -655,8 +948,9 @@
                     subjects: {
                         english: "C-"
                     },
-                    description: "3-year program for speech therapists."
-                },
+                    description: "3-year program for speech therapists.",
+                    campuses: ["Nairobi"]
+                }
             },
             {
                 name: "DIPLOMA IN MORTUARY SCIENCE",
@@ -665,8 +959,9 @@
                     subjects: {
                         biology: "C-"
                     },
-                    description: "3-year program for mortuary technicians."
-                },
+                    description: "3-year program for mortuary technicians.",
+                    campuses: ["Nairobi", "Mombasa"]
+                }
             },
             {
                 name: "DIPLOMA IN HEALTH PROMOTION",
@@ -675,8 +970,9 @@
                     subjects: {
                         english: "C-"
                     },
-                    description: "3-year program for health promotion officers."
-                },
+                    description: "3-year program for health promotion officers.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu"]
+                }
             },
             {
                 name: "DIPLOMA IN HEALTH INSURANCE MANAGEMENT",
@@ -685,11 +981,11 @@
                     subjects: {
                         mathematics: "C-"
                     },
-                    description: "3-year program for health insurance administrators."
-                },
+                    description: "3-year program for health insurance administrators.",
+                    campuses: ["Nairobi"]
+                }
             }
         ];
-        
         // Initialize county selection
         const countySelection = document.getElementById('county-selection');
         kmtcCampuses.forEach(county => {
