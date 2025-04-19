@@ -376,6 +376,10 @@
     </footer>
 
     <script>
+        // Get grades from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const gradesData = urlParams.get('grades');
+        
         // Payment mode selection
         document.querySelectorAll('.payment-mode').forEach(mode => {
             mode.addEventListener('click', function() {
@@ -422,14 +426,11 @@
                 document.querySelector('.payment-processing').style.display = 'none';
                 document.querySelector('.payment-success').style.display = 'block';
                 
-                // In a real app, you would submit to a payment gateway here
-                console.log(`Processing ${method} payment...`);
-                
-                // Redirect back to main page with payment success parameter after 3 seconds
+                // Redirect back to main page with payment success parameter and grades data
                 setTimeout(() => {
-                    window.location.href = 'kmtc_program.html?payment=success';
-                }, 3000);
-            }, 3000);
+                    window.location.href = `kmtc_program.html?payment=success&grades=${gradesData}`;
+                }, 2000);
+            }, 2000);
         }
 
         // Format card number input
