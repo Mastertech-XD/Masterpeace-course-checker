@@ -605,6 +605,9 @@
             }
         ];
 
+        // Grade order for comparison
+        const gradeOrder = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'E'];
+
         // Check qualifying courses
         document.getElementById('check-courses').addEventListener('click', function() {
             // Get grades
@@ -641,13 +644,15 @@
         // Function to find matching courses
         function findMatchingCourses(grades) {
             const results = [];
-            const gradeOrder = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'E'];
             
             kmtcCourses.forEach(course => {
                 let qualifies = true;
                 
                 // Check mean grade requirement
-                if (gradeOrder.indexOf(grades.meanGrade) > gradeOrder.indexOf(course.requirements.meanGrade)) {
+                const meanGradeIndex = gradeOrder.indexOf(grades.meanGrade);
+                const requiredMeanGradeIndex = gradeOrder.indexOf(course.requirements.meanGrade);
+                
+                if (meanGradeIndex > requiredMeanGradeIndex) {
                     qualifies = false;
                 }
                 
@@ -657,7 +662,16 @@
                     const studentGrade = grades[subject];
                     const requiredGrade = requiredSubjects[subject];
                     
-                    if (!studentGrade || gradeOrder.indexOf(studentGrade) > gradeOrder.indexOf(requiredGrade)) {
+                    // If subject is required but not provided by student
+                    if (!studentGrade) {
+                        qualifies = false;
+                        break;
+                    }
+                    
+                    const studentGradeIndex = gradeOrder.indexOf(studentGrade);
+                    const requiredGradeIndex = gradeOrder.indexOf(requiredGrade);
+                    
+                    if (studentGradeIndex > requiredGradeIndex) {
                         qualifies = false;
                         break;
                     }
@@ -668,8 +682,8 @@
                 }
             });
             
+            // Sort by mean grade requirement (easier courses first)
             return results.sort((a, b) => {
-                // Sort by mean grade requirement
                 return gradeOrder.indexOf(a.requirements.meanGrade) - gradeOrder.indexOf(b.requirements.meanGrade);
             });
         }
@@ -687,12 +701,32 @@
                 resultsContainer.innerHTML = `
                     <div class="course-card not-qualified">
                         <div class="course-title">No Qualified Courses</div>
-                        <div class="qualification-status">You don't qualify for any KMTC courses with your current grades</div>
+                        <div class="qualification-status">❌ You don't qualify for any KMTC courses with your current grades</div>
                         <div class="requirements">Try improving your grades in key subjects like Biology, Chemistry, and Mathematics</div>
                     </div>
                 `;
+                
+                // Show all courses as not qualified
+                kmtcCourses.forEach(course => {
+                    const courseDiv = document.createElement('div');
+                    courseDiv.className = 'course-card not-qualified';
+                    
+                    // Create requirements text
+                    let reqText = `Requirements: Mean Grade ${course.requirements.meanGrade}+`;
+                    for (const subject in course.requirements.subjects) {
+                        reqText += `, ${subject} ${course.requirements.subjects[subject]}+`;
+                    }
+                    
+                    courseDiv.innerHTML = `
+                        <div class="course-title">${course.name}</div>
+                        <div class="qualification-status">❌ NOT QUALIFIED</div>
+                        <div class="requirements">${reqText}</div>
+                    `;
+                    
+                    resultsContainer.appendChild(courseDiv);
+                });
             } else {
-                // Show qualified courses
+                // Show qualified courses first
                 matchedCourses.forEach(course => {
                     const courseDiv = document.createElement('div');
                     courseDiv.className = 'course-card qualified';
@@ -704,43 +738,52 @@
                     });
                     
                     // Create requirements text
-                    let reqText = `Mean Grade: ${course.requirements.meanGrade}+`;
+                    let reqText = `Requirements: Mean Grade ${course.requirements.meanGrade}+`;
                     for (const subject in course.requirements.subjects) {
-                        reqText += ` | ${subject}: ${course.requirements.subjects[subject]}+`;
+                        reqText += `, ${subject} ${course.requirements.subjects[subject]}+`;
                     }
                     
                     courseDiv.innerHTML = `
                         <div class="course-title">${course.name}</div>
                         <div class="qualification-status">✅ QUALIFIED</div>
                         <div class="description">${course.description}</div>
-                        <div class="campuses">${campusTags}</div>
+                        <div class="campuses">Available at: ${campusTags}</div>
                         <div class="requirements">${reqText}</div>
                     `;
                     
                     resultsContainer.appendChild(courseDiv);
                 });
-            }
-            
-            // Show non-qualified courses if none qualified
-            if (matchedCourses.length === 0) {
-                kmtcCourses.forEach(course => {
-                    const courseDiv = document.createElement('div');
-                    courseDiv.className = 'course-card not-qualified';
+                
+                // Show non-qualified courses with requirements
+                const nonQualifiedCourses = kmtcCourses.filter(course => 
+                    !matchedCourses.some(matched => matched.name === course.name));
+                
+                if (nonQualifiedCourses.length > 0) {
+                    const separator = document.createElement('h3');
+                    separator.textContent = 'Other KMTC Courses';
+                    separator.style.marginTop = '30px';
+                    separator.style.color = var('--light-blue');
+                    resultsContainer.appendChild(separator);
                     
-                    // Create requirements text
-                    let reqText = `Mean Grade: ${course.requirements.meanGrade}+`;
-                    for (const subject in course.requirements.subjects) {
-                        reqText += ` | ${subject}: ${course.requirements.subjects[subject]}+`;
-                    }
-                    
-                    courseDiv.innerHTML = `
-                        <div class="course-title">${course.name}</div>
-                        <div class="qualification-status">❌ NOT QUALIFIED</div>
-                        <div class="requirements">${reqText}</div>
-                    `;
-                    
-                    resultsContainer.appendChild(courseDiv);
-                });
+                    nonQualifiedCourses.forEach(course => {
+                        const courseDiv = document.createElement('div');
+                        courseDiv.className = 'course-card not-qualified';
+                        
+                        // Create requirements text
+                        let reqText = `Requirements: Mean Grade ${course.requirements.meanGrade}+`;
+                        for (const subject in course.requirements.subjects) {
+                            reqText += `, ${subject} ${course.requirements.subjects[subject]}+`;
+                        }
+                        
+                        courseDiv.innerHTML = `
+                            <div class="course-title">${course.name}</div>
+                            <div class="qualification-status">❌ NOT QUALIFIED</div>
+                            <div class="requirements">${reqText}</div>
+                        `;
+                        
+                        resultsContainer.appendChild(courseDiv);
+                    });
+                }
             }
         }
     </script>
