@@ -367,8 +367,7 @@
         <div class="payment-success">
             <h2>✅ Payment Successful!</h2>
             <p>Your application has been submitted successfully.</p>
-            <p>You will receive a confirmation message shortly.</p>
-            <button onclick="window.location.href='kmtc_program.html'">BACK TO COURSES</button>
+            <p>You will be redirected shortly to view your qualifications...</p>
         </div>
     </div>
     
@@ -425,6 +424,11 @@
                 
                 // In a real app, you would submit to a payment gateway here
                 console.log(`Processing ${method} payment...`);
+                
+                // Redirect back to main page with payment success parameter after 3 seconds
+                setTimeout(() => {
+                    window.location.href = 'kmtc_program.html?payment=success';
+                }, 3000);
             }, 3000);
         }
 
