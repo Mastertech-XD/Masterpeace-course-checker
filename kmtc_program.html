@@ -169,6 +169,14 @@
             transform: translateX(5px);
         }
         
+        .not-qualified-course {
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #ff5555;
+            background-color: rgba(60, 0, 0, 0.3);
+            transition: all 0.3s;
+        }
+        
         .course-title {
             color: var(--neon-blue);
             font-size: 1.2rem;
@@ -195,6 +203,11 @@
             color: #aaa;
             font-size: 0.9rem;
             margin-top: 5px;
+        }
+        
+        .county-highlight {
+            color: var(--neon-yellow);
+            font-weight: bold;
         }
         
         .requirements {
@@ -425,7 +438,7 @@
             </select>
         </div>
         
-        <h3>Sciences (Required for Most Medical Courses)</h3>
+        <h3>Sciences</h3>
         <div class="subject-group">
             <label for="biology">Biology:</label>
             <select id="biology">
@@ -482,16 +495,303 @@
                 <option value="E">E</option>
             </select>
         </div>
+        
+        <h3>Humanities</h3>
+        <div class="subject-group">
+            <label for="geography">Geography:</label>
+            <select id="geography">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="history">History and Government:</label>
+            <select id="history">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="cre">Christian Religious Education (CRE):</label>
+            <select id="cre">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="ire">Islamic Religious Education (IRE):</label>
+            <select id="ire">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="hre">Hindu Religious Education (HRE):</label>
+            <select id="hre">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <h3>Technical and Other Subjects</h3>
+        <div class="subject-group">
+            <label for="agriculture">Agriculture:</label>
+            <select id="agriculture">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="computer">Computer Studies:</label>
+            <select id="computer">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="art">Art and Design:</label>
+            <select id="art">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="business">Business Studies:</label>
+            <select id="business">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="music">Music:</label>
+            <select id="music">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <h3>Technical Subjects</h3>
+        <div class="subject-group">
+            <label for="building">Building and Construction:</label>
+            <select id="building">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="electricity">Electricity and Electronics:</label>
+            <select id="electricity">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="woodwork">Woodwork:</label>
+            <select id="woodwork">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="metalwork">Metalwork:</label>
+            <select id="metalwork">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="homescience">Home Science:</label>
+            <select id="homescience">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
     </div>
     
     <button id="check-courses">CHECK QUALIFYING COURSES</button>
     
     <div id="results">
-        <h2>KMTC Courses You Qualify For</h2>
+        <h2>KMTC Courses Qualification Results</h2>
         <div id="course-results">
             <!-- Course matches will be displayed here -->
         </div>
-        <button id="proceed-to-payment" onclick="window.location.href='payment.html'">PROCEED TO PAYMENT</button>
     </div>
     
     <footer>
@@ -812,7 +1112,6 @@
                 const matchedCourses = findMatchingCourses(grades);
                 displayResults(matchedCourses);
                 document.getElementById('results').style.display = 'block';
-                document.getElementById('proceed-to-payment').style.display = 'none';
                 window.scrollTo(0, document.getElementById('payment-success').offsetTop);
             }
         }
@@ -827,7 +1126,22 @@
                 mathematics: document.getElementById('mathematics').value,
                 biology: document.getElementById('biology').value,
                 chemistry: document.getElementById('chemistry').value,
-                physics: document.getElementById('physics').value
+                physics: document.getElementById('physics').value,
+                geography: document.getElementById('geography').value,
+                history: document.getElementById('history').value,
+                cre: document.getElementById('cre').value,
+                ire: document.getElementById('ire').value,
+                hre: document.getElementById('hre').value,
+                agriculture: document.getElementById('agriculture').value,
+                computer: document.getElementById('computer').value,
+                art: document.getElementById('art').value,
+                business: document.getElementById('business').value,
+                music: document.getElementById('music').value,
+                building: document.getElementById('building').value,
+                electricity: document.getElementById('electricity').value,
+                woodwork: document.getElementById('woodwork').value,
+                metalwork: document.getElementById('metalwork').value,
+                homescience: document.getElementById('homescience').value
             };
             
             // Validate required fields
@@ -842,16 +1156,18 @@
             // Find matching courses
             const matchedCourses = findMatchingCourses(grades);
             
-            // Display results
-            displayResults(matchedCourses);
-            
-            // Show results section
-            document.getElementById('results').style.display = 'block';
-            document.getElementById('proceed-to-payment').style.display = matchedCourses.length > 0 ? 'block' : 'none';
-            window.scrollTo({
-                top: document.getElementById('results').offsetTop,
-                behavior: 'smooth'
-            });
+            if (matchedCourses.length > 0) {
+                // Redirect to external payment page
+                window.location.href = 'payment.html';
+            } else {
+                // Show results immediately if no qualifications
+                displayResults(matchedCourses);
+                document.getElementById('results').style.display = 'block';
+                window.scrollTo({
+                    top: document.getElementById('results').offsetTop,
+                    behavior: 'smooth'
+                });
+            }
         });
         
         // Function to find matching courses
@@ -884,7 +1200,10 @@
                 }
             });
             
-            return results;
+            return results.sort((a, b) => {
+                // Sort by mean grade requirement
+                return gradeOrder.indexOf(a.requirements.meanGrade) - gradeOrder.indexOf(b.requirements.meanGrade);
+            });
         }
         
         // Function to display results
@@ -893,9 +1212,38 @@
             resultsContainer.innerHTML = '';
             
             if (matchedCourses.length === 0) {
-                resultsContainer.innerHTML = '<p>You do not qualify for any KMTC courses based on your current grades.</p>';
-                document.getElementById('proceed-to-payment').style.display = 'none';
+                resultsContainer.innerHTML = '<div class="not-qualified-course"><p>You do not qualify for any KMTC courses based on your current grades.</p></div>';
+                
+                // Show all courses as not qualified
+                kmtcCourses.forEach(course => {
+                    const courseDiv = document.createElement('div');
+                    courseDiv.className = 'not-qualified-course';
+                    
+                    const title = document.createElement('div');
+                    title.className = 'course-title';
+                    title.textContent = course.name;
+                    
+                    const status = document.createElement('div');
+                    status.className = 'qualification-status not-qualified';
+                    status.textContent = '❌ NOT QUALIFIED';
+                    
+                    const requirements = document.createElement('div');
+                    requirements.className = 'requirements';
+                    
+                    let reqText = `Requirements: Mean Grade ${course.requirements.meanGrade}+`;
+                    for (const subject in course.requirements.subjects) {
+                        reqText += `, ${subject} ${course.requirements.subjects[subject]}+`;
+                    }
+                    requirements.textContent = reqText;
+                    
+                    courseDiv.appendChild(title);
+                    courseDiv.appendChild(status);
+                    courseDiv.appendChild(requirements);
+                    
+                    resultsContainer.appendChild(courseDiv);
+                });
             } else {
+                // Show qualified courses first
                 matchedCourses.forEach(course => {
                     const courseDiv = document.createElement('div');
                     courseDiv.className = 'course-match';
@@ -910,7 +1258,14 @@
                     
                     const campuses = document.createElement('div');
                     campuses.className = 'campuses';
-                    campuses.textContent = `Available at: ${course.campuses.join(', ')}`;
+                    
+                    // Highlight counties
+                    let campusesText = 'Available at: ';
+                    course.campuses.forEach((campus, index) => {
+                        if (index > 0) campusesText += ', ';
+                        campusesText += `<span class="county-highlight">${campus}</span>`;
+                    });
+                    campuses.innerHTML = campusesText;
                     
                     const description = document.createElement('div');
                     description.textContent = course.description;
@@ -932,6 +1287,46 @@
                     
                     resultsContainer.appendChild(courseDiv);
                 });
+                
+                // Show non-qualified courses
+                const nonQualifiedCourses = kmtcCourses.filter(course => 
+                    !matchedCourses.some(matched => matched.name === course.name));
+                
+                if (nonQualifiedCourses.length > 0) {
+                    const separator = document.createElement('h3');
+                    separator.textContent = 'Courses You Don\'t Qualify For';
+                    separator.style.marginTop = '30px';
+                    separator.style.color = '#ff5555';
+                    resultsContainer.appendChild(separator);
+                    
+                    nonQualifiedCourses.forEach(course => {
+                        const courseDiv = document.createElement('div');
+                        courseDiv.className = 'not-qualified-course';
+                        
+                        const title = document.createElement('div');
+                        title.className = 'course-title';
+                        title.textContent = course.name;
+                        
+                        const status = document.createElement('div');
+                        status.className = 'qualification-status not-qualified';
+                        status.textContent = '❌ NOT QUALIFIED';
+                        
+                        const requirements = document.createElement('div');
+                        requirements.className = 'requirements';
+                        
+                        let reqText = `Requirements: Mean Grade ${course.requirements.meanGrade}+`;
+                        for (const subject in course.requirements.subjects) {
+                            reqText += `, ${subject} ${course.requirements.subjects[subject]}+`;
+                        }
+                        requirements.textContent = reqText;
+                        
+                        courseDiv.appendChild(title);
+                        courseDiv.appendChild(status);
+                        courseDiv.appendChild(requirements);
+                        
+                        resultsContainer.appendChild(courseDiv);
+                    });
+                }
             }
         }
     </script>
