@@ -1045,36 +1045,25 @@
                 }
                 
                 // Check subject requirements
-                let subjectMatches = 0;
-                let totalRequiredSubjects = 0;
+                let allRequirementsMet = true;
                 
                 for (const subject in course.requirements.subjects) {
-                    totalRequiredSubjects++;
                     const requiredGrade = course.requirements.subjects[subject];
                     const studentGrade = grades[subject];
                     
-                    if (studentGrade && meetsGradeRequirement(studentGrade, requiredGrade)) {
-                        subjectMatches++;
-                    } else if (!studentGrade && subjectMatches > 0) {
-                        // If subject is required but not provided by student, reduce match count
-                        subjectMatches--;
+                    if (!studentGrade || !meetsGradeRequirement(studentGrade, requiredGrade)) {
+                        allRequirementsMet = false;
+                        break;
                     }
                 }
                 
-                // Calculate match percentage
-                const matchPercentage = totalRequiredSubjects === 0 ? 100 : 
-                    Math.round((subjectMatches / totalRequiredSubjects) * 100);
-                
-                if (matchPercentage > 0) {
+                if (allRequirementsMet) {
                     results.push({
                         course: course,
-                        matchPercentage: matchPercentage
+                        matchPercentage: 100
                     });
                 }
             });
-            
-            // Sort by match percentage
-            results.sort((a, b) => b.matchPercentage - a.matchPercentage);
             
             return results;
         }
@@ -1085,6 +1074,7 @@
             const studentIndex = gradeOrder.indexOf(studentGrade);
             const requiredIndex = gradeOrder.indexOf(requiredGrade);
             
+            // A higher grade has a lower index (A is better than B)
             return studentIndex <= requiredIndex;
         }
         
