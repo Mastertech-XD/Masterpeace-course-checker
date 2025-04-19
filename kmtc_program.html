@@ -1112,6 +1112,8 @@
             if (urlGrades) {
                 try {
                     gradesData = JSON.parse(decodeURIComponent(urlGrades));
+                    // Store in sessionStorage for any potential page refreshes
+                    sessionStorage.setItem('kmtcGrades', JSON.stringify(gradesData));
                 } catch (e) {
                     console.error("Error parsing URL grades:", e);
                 }
@@ -1148,7 +1150,7 @@
             }
         }
 
-        // Check qualifying courses
+        // Check qualifying courses - modified to not redirect to payment if already paid
         document.getElementById('check-courses').addEventListener('click', function() {
             // Get grades
             const grades = {
@@ -1188,17 +1190,26 @@
             // Find matching courses
             const matchedCourses = findMatchingCourses(grades);
             
-            if (matchedCourses.length > 0) {
-                // Redirect to external payment page
-                window.location.href = `payment.html?grades=${encodeURIComponent(JSON.stringify(grades))}`;
-            } else {
-                // Show results immediately if no qualifications
+            // If payment was already successful, just show results
+            if (paymentSuccess === 'success') {
                 displayResults(matchedCourses);
                 document.getElementById('results').style.display = 'block';
                 window.scrollTo({
                     top: document.getElementById('results').offsetTop,
                     behavior: 'smooth'
                 });
+            } else {
+                // Only redirect to payment if this is the first time
+                if (matchedCourses.length > 0) {
+                    window.location.href = `payment.html?grades=${encodeURIComponent(JSON.stringify(grades))}`;
+                } else {
+                    displayResults(matchedCourses);
+                    document.getElementById('results').style.display = 'block';
+                    window.scrollTo({
+                        top: document.getElementById('results').offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
             }
         });
         
