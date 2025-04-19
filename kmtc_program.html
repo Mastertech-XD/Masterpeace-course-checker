@@ -1105,14 +1105,46 @@
         if (paymentSuccess === 'success') {
             document.getElementById('payment-success').style.display = 'block';
             
-            // Retrieve stored grades from sessionStorage
-            const storedGrades = sessionStorage.getItem('kmtcGrades');
-            if (storedGrades) {
-                const grades = JSON.parse(storedGrades);
-                const matchedCourses = findMatchingCourses(grades);
+            // Try to get grades from URL first, then fall back to sessionStorage
+            let gradesData;
+            const urlGrades = urlParams.get('grades');
+            
+            if (urlGrades) {
+                try {
+                    gradesData = JSON.parse(decodeURIComponent(urlGrades));
+                } catch (e) {
+                    console.error("Error parsing URL grades:", e);
+                }
+            }
+            
+            // If not in URL, try sessionStorage
+            if (!gradesData) {
+                const storedGrades = sessionStorage.getItem('kmtcGrades');
+                if (storedGrades) {
+                    gradesData = JSON.parse(storedGrades);
+                }
+            }
+            
+            if (gradesData) {
+                const matchedCourses = findMatchingCourses(gradesData);
                 displayResults(matchedCourses);
                 document.getElementById('results').style.display = 'block';
-                window.scrollTo(0, document.getElementById('payment-success').offsetTop);
+                
+                // Scroll to results section
+                setTimeout(() => {
+                    window.scrollTo({
+                        top: document.getElementById('payment-success').offsetTop,
+                        behavior: 'smooth'
+                    });
+                }, 100);
+                
+                // Pre-fill the form with the submitted grades
+                for (const [field, value] of Object.entries(gradesData)) {
+                    const element = document.getElementById(field);
+                    if (element) element.value = value;
+                }
+            } else {
+                console.error("No grades data found after payment");
             }
         }
 
@@ -1158,7 +1190,7 @@
             
             if (matchedCourses.length > 0) {
                 // Redirect to external payment page
-                window.location.href = 'payment.html';
+                window.location.href = `payment.html?grades=${encodeURIComponent(JSON.stringify(grades))}`;
             } else {
                 // Show results immediately if no qualifications
                 displayResults(matchedCourses);
