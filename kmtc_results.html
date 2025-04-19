@@ -5,59 +5,209 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KMTC Courses Checker</title>
     <style>
+        :root {
+            --neon-blue: #08f;
+            --neon-pink: #f0f;
+            --neon-green: #0f8;
+            --neon-purple: #80f;
+            --dark-bg: #111;
+            --light-text: #eee;
+            --glow: 0 0 10px;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f5f5f5;
+            color: var(--light-text);
+            background-color: var(--dark-bg);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 136, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 0, 255, 0.1) 0%, transparent 20%);
         }
+        
+        h1, h2, h3 {
+            color: var(--neon-green);
+            text-shadow: var(--glow) var(--neon-green);
+        }
+        
         h1 {
-            color: #2c3e50;
             text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite alternate;
         }
+        
+        @keyframes pulse {
+            from { text-shadow: 0 0 5px var(--neon-green); }
+            to { text-shadow: 0 0 15px var(--neon-green), 0 0 30px var(--neon-green); }
+        }
+        
         .form-section {
-            background: white;
-            padding: 20px;
+            margin-bottom: 30px;
+            padding: 25px;
+            border: 1px solid var(--neon-purple);
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+            background-color: rgba(20, 20, 40, 0.7);
+            box-shadow: 0 0 15px rgba(128, 0, 255, 0.3);
+            transition: all 0.3s ease;
         }
-        select {
-            padding: 8px;
-            width: 200px;
-            margin: 5px 0;
+        
+        .form-section:hover {
+            box-shadow: 0 0 25px rgba(128, 0, 255, 0.5);
+            border-color: var(--neon-blue);
         }
-        button {
-            background: #3498db;
-            color: white;
-            border: none;
-            padding: 10px 20px;
+        
+        select, input {
+            padding: 10px;
+            margin: 8px 0;
             border-radius: 5px;
-            cursor: pointer;
+            border: 1px solid var(--neon-blue);
+            background-color: rgba(0, 20, 40, 0.8);
+            color: var(--light-text);
             font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        select {
+            width: 220px;
+            background-image: linear-gradient(to bottom, rgba(0, 40, 80, 0.8), rgba(0, 20, 40, 0.8));
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--neon-green);
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+        
+        .subject-group {
+            margin-bottom: 18px;
+            padding: 10px;
+            border-left: 3px solid var(--neon-pink);
+            background-color: rgba(40, 0, 40, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .subject-group:hover {
+            background-color: rgba(60, 0, 60, 0.3);
+            border-left-width: 5px;
+        }
+        
+        label {
+            display: inline-block;
+            width: 250px;
+            color: var(--neon-blue);
+            font-weight: bold;
+        }
+        
+        .required::after {
+            content: " *";
+            color: var(--neon-pink);
+        }
+        
+        button {
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 30px auto;
             display: block;
-            margin: 20px auto;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 136, 255, 0.4);
         }
+        
         button:hover {
-            background: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 136, 255, 0.6);
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
         }
+        
+        button:active {
+            transform: translateY(1px);
+        }
+        
         #results {
             display: none;
-            background: white;
-            padding: 20px;
+            margin-top: 40px;
+            padding: 25px;
+            border: 1px solid var(--neon-green);
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background-color: rgba(0, 40, 20, 0.5);
+            box-shadow: 0 0 20px rgba(0, 255, 128, 0.3);
+            animation: fadeIn 0.5s ease-out;
         }
-        .course {
-            padding: 10px;
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .course-match {
+            padding: 15px;
             margin: 10px 0;
-            border-left: 4px solid #3498db;
-            background: #ecf0f1;
+            border-left: 4px solid var(--neon-pink);
+            background-color: rgba(40, 0, 40, 0.3);
+            transition: all 0.3s;
         }
+        
+        .course-match:hover {
+            background-color: rgba(60, 0, 60, 0.5);
+            transform: translateX(5px);
+        }
+        
         .course-title {
+            color: var(--neon-blue);
+            font-size: 1.2rem;
             font-weight: bold;
-            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .match-percentage {
+            color: var(--neon-green);
+            font-weight: bold;
+        }
+        
+        .requirements {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        
+        .campuses {
+            color: var(--neon-purple);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid var(--neon-purple);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .section-title h2 {
+            margin: 0;
+        }
+        
+        .section-icon {
+            margin-right: 15px;
+            font-size: 1.5rem;
+            color: var(--neon-pink);
         }
     </style>
 </head>
@@ -65,31 +215,34 @@
     <h1>KMTC COURSES CHECKER</h1>
     
     <div class="form-section">
-        <h2>Enter Your KCSE Grades</h2>
+        <div class="section-title">
+            <div class="section-icon">📊</div>
+            <h2>Enter Your KCSE Grades</h2>
+        </div>
         
-        <div>
-            <label for="mean-grade">Mean Grade:</label>
+        <div class="subject-group">
+            <label for="mean-grade" class="required">Mean Grade:</label>
             <select id="mean-grade" required>
                 <option value="">Select Grade</option>
-                <option value="A">A</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B">B</option>
-                <option value="B-">B-</option>
-                <option value="C+">C+</option>
-                <option value="C">C</option>
-                <option value="C-">C-</option>
-                <option value="D+">D+</option>
-                <option value="D">D</option>
-                <option value="D-">D-</option>
-                <option value="E">E</option>
+                <option value="A">A (75-100)</option>
+                <option value="A-">A- (70-74)</option>
+                <option value="B+">B+ (65-69)</option>
+                <option value="B">B (60-64)</option>
+                <option value="B-">B- (55-59)</option>
+                <option value="C+">C+ (50-54)</option>
+                <option value="C">C (45-49)</option>
+                <option value="C-">C- (40-44)</option>
+                <option value="D+">D+ (35-39)</option>
+                <option value="D">D (30-34)</option>
+                <option value="D-">D- (25-29)</option>
+                <option value="E">E (0-24)</option>
             </select>
         </div>
         
         <h3>Core Subjects</h3>
-        <div>
-            <label for="english">English:</label>
-            <select id="english">
+        <div class="subject-group">
+            <label for="english" class="required">English:</label>
+            <select id="english" required>
                 <option value="">Select Grade</option>
                 <option value="A">A</option>
                 <option value="A-">A-</option>
@@ -106,9 +259,28 @@
             </select>
         </div>
         
-        <div>
-            <label for="mathematics">Mathematics:</label>
-            <select id="mathematics">
+        <div class="subject-group">
+            <label for="kiswahili">Kiswahili:</label>
+            <select id="kiswahili">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="mathematics" class="required">Mathematics:</label>
+            <select id="mathematics" required>
                 <option value="">Select Grade</option>
                 <option value="A">A</option>
                 <option value="A-">A-</option>
@@ -126,7 +298,7 @@
         </div>
         
         <h3>Sciences</h3>
-        <div>
+        <div class="subject-group">
             <label for="biology">Biology:</label>
             <select id="biology">
                 <option value="">Select Grade</option>
@@ -145,7 +317,7 @@
             </select>
         </div>
         
-        <div>
+        <div class="subject-group">
             <label for="chemistry">Chemistry:</label>
             <select id="chemistry">
                 <option value="">Select Grade</option>
@@ -164,9 +336,297 @@
             </select>
         </div>
         
-        <div>
+        <div class="subject-group">
             <label for="physics">Physics:</label>
             <select id="physics">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <h3>Humanities</h3>
+        <div class="subject-group">
+            <label for="geography">Geography:</label>
+            <select id="geography">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="history">History and Government:</label>
+            <select id="history">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="cre">Christian Religious Education (CRE):</label>
+            <select id="cre">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="ire">Islamic Religious Education (IRE):</label>
+            <select id="ire">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="hre">Hindu Religious Education (HRE):</label>
+            <select id="hre">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <h3>Technical and Other Subjects</h3>
+        <div class="subject-group">
+            <label for="agriculture">Agriculture:</label>
+            <select id="agriculture">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="computer">Computer Studies:</label>
+            <select id="computer">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="art">Art and Design:</label>
+            <select id="art">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="business">Business Studies:</label>
+            <select id="business">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="music">Music:</label>
+            <select id="music">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <h3>Technical Subjects</h3>
+        <div class="subject-group">
+            <label for="building">Building and Construction:</label>
+            <select id="building">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="electricity">Electricity and Electronics:</label>
+            <select id="electricity">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="woodwork">Woodwork:</label>
+            <select id="woodwork">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="metalwork">Metalwork:</label>
+            <select id="metalwork">
+                <option value="">Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="homescience">Home Science:</label>
+            <select id="homescience">
                 <option value="">Select Grade</option>
                 <option value="A">A</option>
                 <option value="A-">A-</option>
@@ -187,141 +647,454 @@
     <button id="check-courses">CHECK QUALIFYING COURSES</button>
     
     <div id="results">
-        <h2>Your Qualified Courses</h2>
-        <div id="course-results"></div>
+        <h2>KMTC Courses Qualification Results</h2>
+        <div id="course-results">
+            <!-- Course matches will be displayed here -->
+        </div>
     </div>
+    
+    <footer>
+        Copyright &copy; 2025 by Masterpeace Elite. All rights reserved.
+    </footer>
 
     <script>
-        // KMTC Courses Database with Requirements
+        // KMTC Courses Database with Requirements and Campuses
         const kmtcCourses = [
             {
-                name: "Diploma in Nutrition and Dietetics",
+                name: "DIPLOMA IN NUTRITION AND DIETETICS",
                 requirements: {
                     meanGrade: "C",
                     subjects: {
                         biology: "C-",
                         chemistry: "D+",
                         english: "C-"
-                    }
+                    },
+                    description: "3-year program training nutritionists for hospitals and communities.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret"]
                 }
             },
             {
-                name: "Diploma in Health Records and Information Technology",
+                name: "DIPLOMA IN HEALTH RECORDS AND INFORMATION TECHNOLOGY",
                 requirements: {
                     meanGrade: "C-",
                     subjects: {
                         english: "D+",
                         mathematics: "D+"
-                    }
+                    },
+                    description: "2-year program for health information management officers.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
                 }
             },
             {
-                name: "Diploma in Medical Laboratory Sciences",
+                name: "DIPLOMA IN RADIOGRAPHY AND IMAGING",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        physics: "C-",
+                        biology: "C-",
+                        mathematics: "C-"
+                    },
+                    description: "3-year program for radiographers in medical imaging.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu"]
+                }
+            },
+            {
+                name: "DIPLOMA IN MEDICAL LABORATORY SCIENCES",
                 requirements: {
                     meanGrade: "C",
                     subjects: {
                         biology: "C",
                         chemistry: "C-",
                         mathematics: "D+"
-                    }
+                    },
+                    description: "3-year program for medical laboratory technologists.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret", "Meru"]
                 }
             },
             {
-                name: "Diploma in Pharmacy",
+                name: "DIPLOMA IN OCCUPATIONAL THERAPY",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        biology: "C-",
+                        english: "C-"
+                    },
+                    description: "3-year program for occupational therapists.",
+                    campuses: ["Nairobi", "Mombasa"]
+                }
+            },
+            {
+                name: "DIPLOMA IN ORTHOPEDIC TECHNOLOGY",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        physics: "D+",
+                        biology: "C-"
+                    },
+                    description: "3-year program for orthopedic technologists.",
+                    campuses: ["Nairobi"]
+                }
+            },
+            {
+                name: "DIPLOMA IN PHARMACY",
                 requirements: {
                     meanGrade: "C",
                     subjects: {
                         chemistry: "C",
                         biology: "C-",
                         mathematics: "C-"
-                    }
+                    },
+                    description: "3-year program for pharmaceutical technologists.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
                 }
             },
             {
-                name: "Diploma in Community Health",
+                name: "DIPLOMA IN PHYSIOTHERAPY",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        biology: "C-",
+                        physics: "D+"
+                    },
+                    description: "3-year program for physiotherapists.",
+                    campuses: ["Nairobi", "Mombasa"]
+                }
+            },
+            {
+                name: "DIPLOMA IN MEDICAL ENGINEERING",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        physics: "C-",
+                        mathematics: "C-"
+                    },
+                    description: "3-year program for medical equipment technicians.",
+                    campuses: ["Nairobi"]
+                }
+            },
+            {
+                name: "DIPLOMA IN PUBLIC HEALTH",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        biology: "C-",
+                        english: "C-"
+                    },
+                    description: "3-year program for public health officers.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret"]
+                }
+            },
+            {
+                name: "DIPLOMA IN ORTHOPEDIC AND TRAUMA MEDICINE",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        biology: "C-",
+                        physics: "D+"
+                    },
+                    description: "3-year program for orthopedic trauma specialists.",
+                    campuses: ["Nairobi"]
+                }
+            },
+            {
+                name: "DIPLOMA IN MEDICAL SOCIAL WORK",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        english: "C-"
+                    },
+                    description: "3-year program for medical social workers.",
+                    campuses: ["Nairobi", "Mombasa"]
+                }
+            },
+            {
+                name: "DIPLOMA IN HEALTH COUNSELLING",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        english: "C-"
+                    },
+                    description: "3-year program for health counselors.",
+                    campuses: ["Nairobi", "Kisumu"]
+                }
+            },
+            {
+                name: "DIPLOMA IN COMMUNITY HEALTH",
                 requirements: {
                     meanGrade: "C-",
                     subjects: {
                         biology: "D+"
-                    }
+                    },
+                    description: "2-year program for community health workers.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret", "Garissa"]
                 }
             },
             {
-                name: "Certificate in Health Records and Information Technology",
+                name: "DIPLOMA IN EMERGENCY MEDICAL TECHNOLOGY",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        biology: "C-"
+                    },
+                    description: "3-year program for emergency medical technicians.",
+                    campuses: ["Nairobi", "Mombasa"]
+                }
+            },
+            {
+                name: "CERTIFICATE IN HEALTH RECORDS AND INFORMATION TECHNOLOGY",
                 requirements: {
                     meanGrade: "D+",
                     subjects: {
                         english: "D+"
-                    }
+                    },
+                    description: "1-year program for health records assistants.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
+                }
+            },
+            {
+                name: "CERTIFICATE IN NUTRITION AND DIETETICS",
+                requirements: {
+                    meanGrade: "D+",
+                    subjects: {
+                        biology: "D+"
+                    },
+                    description: "1-year program for nutrition assistants.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu"]
+                }
+            },
+            {
+                name: "CERTIFICATE IN MEDICAL ENGINEERING",
+                requirements: {
+                    meanGrade: "D+",
+                    subjects: {
+                        physics: "D+"
+                    },
+                    description: "1-year program for medical equipment assistants.",
+                    campuses: ["Nairobi"]
+                }
+            },
+            {
+                name: "CERTIFICATE IN ORTHOPEDIC TRAUMA MEDICINE",
+                requirements: {
+                    meanGrade: "D+",
+                    subjects: {
+                        biology: "D+"
+                    },
+                    description: "1-year program for orthopedic assistants.",
+                    campuses: ["Nairobi"]
+                }
+            },
+            {
+                name: "CERTIFICATE IN PUBLIC HEALTH",
+                requirements: {
+                    meanGrade: "D+",
+                    subjects: {
+                        biology: "C-"
+                    },
+                    description: "1-year program for public health assistants.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
+                }
+            },
+            {
+                name: "CERTIFICATE IN COMMUNITY HEALTH ASSISTANT",
+                requirements: {
+                    meanGrade: "D",
+                    subjects: {
+                        biology: "D-"
+                    },
+                    description: "1-year program for community health volunteers.",
+                    campuses: ["All Campuses"]
+                }
+            },
+            {
+                name: "CERTIFICATE IN MEDICAL EMERGENCY TECHNICIAN",
+                requirements: {
+                    meanGrade: "D+",
+                    subjects: {
+                        biology: "C-"
+                    },
+                    description: "1-year program for emergency first responders.",
+                    campuses: ["Nairobi", "Mombasa"]
+                }
+            },
+            {
+                name: "DIPLOMA IN SPEECH AND LANGUAGE THERAPY",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        english: "C-"
+                    },
+                    description: "3-year program for speech therapists.",
+                    campuses: ["Nairobi"]
+                }
+            },
+            {
+                name: "DIPLOMA IN MORTUARY SCIENCE",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        biology: "C-"
+                    },
+                    description: "3-year program for mortuary technicians.",
+                    campuses: ["Nairobi", "Mombasa"]
+                }
+            },
+            {
+                name: "DIPLOMA IN HEALTH PROMOTION",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        english: "C-"
+                    },
+                    description: "3-year program for health promotion officers.",
+                    campuses: ["Nairobi", "Mombasa", "Kisumu"]
+                }
+            },
+            {
+                name: "DIPLOMA IN HEALTH INSURANCE MANAGEMENT",
+                requirements: {
+                    meanGrade: "C",
+                    subjects: {
+                        mathematics: "C-"
+                    },
+                    description: "3-year program for health insurance administrators.",
+                    campuses: ["Nairobi"]
                 }
             }
         ];
 
-        // Grade comparison function
-        function isGradeSufficient(studentGrade, requiredGrade) {
+        // Grade comparison function - FIXED VERSION
+        function meetsGradeRequirement(studentGrade, requiredGrade) {
             const gradeOrder = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'E'];
-            return gradeOrder.indexOf(studentGrade) <= gradeOrder.indexOf(requiredGrade);
+            const studentIndex = gradeOrder.indexOf(studentGrade);
+            const requiredIndex = gradeOrder.indexOf(requiredGrade);
+            
+            // A higher grade has a lower index (A is index 0, E is index 11)
+            return studentIndex <= requiredIndex;
         }
 
-        // Check courses button click
+        // Find matching courses
         document.getElementById('check-courses').addEventListener('click', function() {
-            // Get selected grades
+            // Get grades
             const grades = {
                 meanGrade: document.getElementById('mean-grade').value,
                 english: document.getElementById('english').value,
+                kiswahili: document.getElementById('kiswahili').value,
                 mathematics: document.getElementById('mathematics').value,
                 biology: document.getElementById('biology').value,
                 chemistry: document.getElementById('chemistry').value,
-                physics: document.getElementById('physics').value
+                physics: document.getElementById('physics').value,
+                geography: document.getElementById('geography').value,
+                history: document.getElementById('history').value,
+                cre: document.getElementById('cre').value,
+                ire: document.getElementById('ire').value,
+                hre: document.getElementById('hre').value,
+                agriculture: document.getElementById('agriculture').value,
+                computer: document.getElementById('computer').value,
+                art: document.getElementById('art').value,
+                business: document.getElementById('business').value,
+                music: document.getElementById('music').value,
+                building: document.getElementById('building').value,
+                electricity: document.getElementById('electricity').value,
+                woodwork: document.getElementById('woodwork').value,
+                metalwork: document.getElementById('metalwork').value,
+                homescience: document.getElementById('homescience').value
             };
             
-            // Validate input
-            if (!grades.meanGrade) {
-                alert("Please select your mean grade");
+            // Validate required fields
+            if (!grades.meanGrade || !grades.english || !grades.mathematics) {
+                alert('Please fill in all required fields (Mean Grade, English, Mathematics)');
                 return;
             }
             
-            // Find qualifying courses
-            const qualifiedCourses = kmtcCourses.filter(course => {
-                // Check mean grade
-                if (!isGradeSufficient(grades.meanGrade, course.requirements.meanGrade)) {
-                    return false;
+            // Find matching courses
+            const matchedCourses = findMatchingCourses(grades);
+            
+            // Display results
+            displayResults(matchedCourses);
+        });
+        
+        // Function to find matching courses - FIXED VERSION
+        function findMatchingCourses(grades) {
+            const results = [];
+            
+            kmtcCourses.forEach(course => {
+                // Check mean grade requirement first
+                if (!meetsGradeRequirement(grades.meanGrade, course.requirements.meanGrade)) {
+                    return; // Skip this course if mean grade not met
                 }
                 
-                // Check subject requirements
+                // Check all subject requirements
+                let allSubjectsMet = true;
                 for (const subject in course.requirements.subjects) {
-                    const studentGrade = grades[subject];
                     const requiredGrade = course.requirements.subjects[subject];
+                    const studentGrade = grades[subject];
                     
-                    if (!studentGrade || !isGradeSufficient(studentGrade, requiredGrade)) {
-                        return false;
+                    if (!studentGrade || !meetsGradeRequirement(studentGrade, requiredGrade)) {
+                        allSubjectsMet = false;
+                        break;
                     }
                 }
                 
-                return true;
+                if (allSubjectsMet) {
+                    results.push({
+                        course: course,
+                        matchPercentage: 100 // 100% match since all requirements are met
+                    });
+                }
             });
             
-            // Display results
-            displayResults(qualifiedCourses);
-        });
+            return results;
+        }
         
-        // Display results function
-        function displayResults(courses) {
+        // Function to display results
+        function displayResults(matchedCourses) {
             const resultsContainer = document.getElementById('course-results');
             resultsContainer.innerHTML = '';
             
-            if (courses.length === 0) {
-                resultsContainer.innerHTML = '<p>No courses found matching your grades.</p>';
+            if (matchedCourses.length === 0) {
+                resultsContainer.innerHTML = '<p>No KMTC courses found matching your grades. Try improving your subject scores.</p>';
             } else {
-                courses.forEach(course => {
+                matchedCourses.forEach(result => {
                     const courseDiv = document.createElement('div');
-                    courseDiv.className = 'course';
+                    courseDiv.className = 'course-match';
                     
                     const title = document.createElement('div');
                     title.className = 'course-title';
-                    title.textContent = course.name;
+                    title.textContent = result.course.name;
+                    
+                    const percentage = document.createElement('div');
+                    percentage.className = 'match-percentage';
+                    percentage.textContent = `Eligibility: ${result.matchPercentage}%`;
+                    
+                    const description = document.createElement('div');
+                    description.textContent = result.course.description;
+                    
+                    const requirements = document.createElement('div');
+                    requirements.className = 'requirements';
+                    
+                    let reqText = `Minimum: Mean Grade ${result.course.requirements.meanGrade}+`;
+                    if (Object.keys(result.course.requirements.subjects).length > 0) {
+                        reqText += " with ";
+                        const subjectReqs = [];
+                        for (const subject in result.course.requirements.subjects) {
+                            subjectReqs.push(`${subject} ${result.course.requirements.subjects[subject]}+`);
+                        }
+                        reqText += subjectReqs.join(", ");
+                    }
+                    
+                    requirements.textContent = reqText;
+                    
+                    const campuses = document.createElement('div');
+                    campuses.className = 'campuses';
+                    campuses.textContent = `Available at: ${result.course.campuses.join(", ")}`;
                     
                     courseDiv.appendChild(title);
+                    courseDiv.appendChild(percentage);
+                    courseDiv.appendChild(description);
+                    courseDiv.appendChild(requirements);
+                    courseDiv.appendChild(campuses);
+                    
                     resultsContainer.appendChild(courseDiv);
                 });
             }
