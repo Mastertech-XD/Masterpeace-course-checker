@@ -986,20 +986,9 @@
                 }
             }
         ];
-        // Initialize county selection
-        const kmtcCampuses = ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret", "Meru", "Garissa"]; // etc.
-        kmtcCampuses.forEach(county => {
-            const item = document.createElement('div');
-            item.className = 'selectable-item';
-            item.textContent = county;
-            item.addEventListener('click', function() {
-                this.classList.toggle('selected');
-            });
-            countySelection.appendChild(item);
-        });
-        
+
         // Find matching courses
-        document.getElementById('find-courses').addEventListener('click', function() {
+        document.getElementById('check-courses').addEventListener('click', function() {
             // Get grades
             const grades = {
                 meanGrade: document.getElementById('mean-grade').value,
@@ -1008,7 +997,22 @@
                 mathematics: document.getElementById('mathematics').value,
                 biology: document.getElementById('biology').value,
                 chemistry: document.getElementById('chemistry').value,
-                physics: document.getElementById('physics').value
+                physics: document.getElementById('physics').value,
+                geography: document.getElementById('geography').value,
+                history: document.getElementById('history').value,
+                cre: document.getElementById('cre').value,
+                ire: document.getElementById('ire').value,
+                hre: document.getElementById('hre').value,
+                agriculture: document.getElementById('agriculture').value,
+                computer: document.getElementById('computer').value,
+                art: document.getElementById('art').value,
+                business: document.getElementById('business').value,
+                music: document.getElementById('music').value,
+                building: document.getElementById('building').value,
+                electricity: document.getElementById('electricity').value,
+                woodwork: document.getElementById('woodwork').value,
+                metalwork: document.getElementById('metalwork').value,
+                homescience: document.getElementById('homescience').value
             };
             
             // Validate required fields
@@ -1045,6 +1049,9 @@
                     
                     if (studentGrade && meetsGradeRequirement(studentGrade, requiredGrade)) {
                         subjectMatches++;
+                    } else if (!studentGrade && subjectMatches > 0) {
+                        // If subject is required but not provided by student, reduce match count
+                        subjectMatches--;
                     }
                 }
                 
@@ -1100,12 +1107,28 @@
                     
                     const requirements = document.createElement('div');
                     requirements.className = 'requirements';
-                    requirements.textContent = `Minimum: Mean Grade ${result.course.requirements.meanGrade}+`;
+                    
+                    let reqText = `Minimum: Mean Grade ${result.course.requirements.meanGrade}+`;
+                    if (Object.keys(result.course.requirements.subjects).length > 0) {
+                        reqText += " with ";
+                        const subjectReqs = [];
+                        for (const subject in result.course.requirements.subjects) {
+                            subjectReqs.push(`${subject} ${result.course.requirements.subjects[subject]}+`);
+                        }
+                        reqText += subjectReqs.join(", ");
+                    }
+                    
+                    requirements.textContent = reqText;
+                    
+                    const campuses = document.createElement('div');
+                    campuses.className = 'campuses';
+                    campuses.textContent = `Available at: ${result.course.campuses.join(", ")}`;
                     
                     courseDiv.appendChild(title);
                     courseDiv.appendChild(percentage);
                     courseDiv.appendChild(description);
                     courseDiv.appendChild(requirements);
+                    courseDiv.appendChild(campuses);
                     
                     resultsContainer.appendChild(courseDiv);
                 });
