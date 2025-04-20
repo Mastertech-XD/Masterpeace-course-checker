@@ -210,6 +210,13 @@
             font-size: 1.5rem;
             color: var(--neon-pink);
         }
+        
+        .no-results {
+            color: var(--neon-pink);
+            text-align: center;
+            padding: 20px;
+            font-size: 1.1rem;
+        }
     </style>
 </head>
 <body>
@@ -490,7 +497,7 @@
                     const requiredGrade = course.requirements.subjects[subject];
                     const studentGrade = grades[subject];
                     
-                    if (!isGradeSufficient(studentGrade, requiredGrade)) {
+                    if (!studentGrade || !isGradeSufficient(studentGrade, requiredGrade)) {
                         allRequirementsMet = false;
                         break;
                     }
@@ -505,13 +512,18 @@
             displayResults(qualifiedCourses);
         });
         
-        // Display results function - UPDATED to show qualification status only
+        // Display results function
         function displayResults(courses) {
             const resultsContainer = document.getElementById('course-results');
             resultsContainer.innerHTML = '';
             
             if (courses.length === 0) {
-                resultsContainer.innerHTML = '<p>No courses found matching your grades. Try improving your subject scores.</p>';
+                resultsContainer.innerHTML = `
+                    <div class="no-results">
+                        <p>No courses found matching your grades.</p>
+                        <p>Try improving your subject scores or checking certificate courses.</p>
+                    </div>
+                `;
             } else {
                 // Add a heading showing qualification status
                 const statusHeading = document.createElement('h3');
@@ -566,6 +578,13 @@
             
             document.getElementById('results').style.display = 'block';
         }
+
+        // Set default values for testing (remove in production)
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('mean-grade').value = 'A-';
+            document.getElementById('english').value = 'B-';
+            document.getElementById('mathematics').value = 'B-';
+        });
     </script>
 </body>
 </html>
