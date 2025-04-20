@@ -25,10 +25,29 @@
             color: var(--light-text);
             background-color: var(--dark-bg);
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(0, 227, 255, 0.08) 0%, transparent 55%),
-                radial-gradient(circle at 90% 80%, rgba(157, 0, 255, 0.1) 0%, transparent 60%),
+                url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'),
+                radial-gradient(circle at 10% 20%, rgba(0, 227, 255, 0.08) 0%, transparent 25%),
+                radial-gradient(circle at 90% 80%, rgba(157, 0, 255, 0.1) 0%, transparent 30%),
                 linear-gradient(to bottom, #0a0a14, #14141f);
+            background-size: cover;
             background-attachment: fixed;
+            background-position: center;
+            background-blend-mode: overlay;
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: inherit;
+            filter: blur(8px);
+            z-index: -1;
+            opacity: 0.7;
         }
         
         @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&display=swap');
@@ -51,6 +70,8 @@
             background-clip: text;
             color: transparent;
             text-shadow: 0 0 15px rgba(0, 225, 255, 0.5);
+            position: relative;
+            z-index: 1;
         }
         
         @keyframes pulse {
@@ -64,16 +85,21 @@
             padding: 30px;
             border: 1px solid var(--neon-purple);
             border-radius: 12px;
-            background-color: rgba(20, 15, 40, 0.6);
-            box-shadow: 0 0 25px rgba(157, 0, 255, 0.2);
+            background-color: rgba(20, 15, 40, 0.8);
+            box-shadow: 0 0 25px rgba(157, 0, 255, 0.3);
             transition: all 0.4s ease;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(5px);
+            position: relative;
+            z-index: 1;
+            border-top: 1px solid rgba(157, 0, 255, 0.5);
+            border-left: 1px solid rgba(157, 0, 255, 0.3);
         }
         
         .form-section:hover {
-            box-shadow: 0 0 35px rgba(157, 0, 255, 0.4);
+            box-shadow: 0 0 35px rgba(157, 0, 255, 0.5);
             border-color: var(--electric-blue);
             transform: translateY(-3px);
+            background-color: rgba(20, 15, 40, 0.9);
         }
         
         select, input {
@@ -81,18 +107,19 @@
             margin: 10px 0;
             border-radius: 8px;
             border: 1px solid var(--neon-blue);
-            background-color: rgba(0, 30, 60, 0.5);
+            background-color: rgba(0, 30, 60, 0.7);
             color: var(--light-text);
             font-size: 16px;
             transition: all 0.3s;
             font-family: 'Rajdhani', sans-serif;
             font-weight: 500;
             width: 240px;
-            box-shadow: inset 0 0 10px rgba(0, 195, 255, 0.1);
+            box-shadow: inset 0 0 10px rgba(0, 195, 255, 0.2),
+                        0 0 10px rgba(0, 195, 255, 0.1);
         }
         
         select {
-            background-image: linear-gradient(to bottom, rgba(0, 60, 100, 0.6), rgba(0, 30, 60, 0.7));
+            background-image: linear-gradient(to bottom, rgba(0, 60, 100, 0.7), rgba(0, 30, 60, 0.8));
             appearance: none;
             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300e1ff'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
             background-repeat: no-repeat;
@@ -104,22 +131,24 @@
             outline: none;
             border-color: var(--neon-green);
             box-shadow: 0 0 15px var(--neon-green),
-                        inset 0 0 10px rgba(0, 255, 157, 0.2);
+                        inset 0 0 10px rgba(0, 255, 157, 0.3);
         }
         
         .subject-group {
             margin-bottom: 20px;
             padding: 15px;
             border-left: 3px solid var(--neon-pink);
-            background-color: rgba(60, 0, 80, 0.15);
+            background-color: rgba(60, 0, 80, 0.25);
             transition: all 0.4s;
             border-radius: 0 8px 8px 0;
+            backdrop-filter: blur(2px);
         }
         
         .subject-group:hover {
-            background-color: rgba(80, 0, 100, 0.25);
+            background-color: rgba(80, 0, 100, 0.35);
             border-left-width: 5px;
             transform: translateX(5px);
+            box-shadow: 5px 0 15px rgba(255, 0, 247, 0.2);
         }
         
         label {
@@ -150,7 +179,7 @@
             margin: 40px auto;
             display: block;
             transition: all 0.4s;
-            box-shadow: 0 5px 25px rgba(0, 225, 255, 0.4);
+            box-shadow: 0 5px 25px rgba(0, 225, 255, 0.5);
             font-family: 'Rajdhani', sans-serif;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -174,7 +203,7 @@
         
         button:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 35px rgba(0, 225, 255, 0.6);
+            box-shadow: 0 10px 35px rgba(0, 225, 255, 0.8);
         }
         
         button:hover::before {
@@ -191,10 +220,12 @@
             padding: 30px;
             border: 1px solid var(--neon-green);
             border-radius: 12px;
-            background-color: rgba(0, 50, 40, 0.4);
-            box-shadow: 0 0 30px rgba(0, 255, 157, 0.3);
+            background-color: rgba(0, 50, 40, 0.5);
+            box-shadow: 0 0 30px rgba(0, 255, 157, 0.4);
             animation: fadeIn 0.6s ease-out;
             backdrop-filter: blur(8px);
+            position: relative;
+            z-index: 1;
         }
         
         @keyframes fadeIn {
@@ -206,15 +237,16 @@
             padding: 20px;
             margin: 15px 0;
             border-left: 4px solid var(--neon-pink);
-            background-color: rgba(60, 0, 80, 0.3);
+            background-color: rgba(60, 0, 80, 0.4);
             transition: all 0.4s;
             border-radius: 0 8px 8px 0;
+            backdrop-filter: blur(3px);
         }
         
         .course-match:hover {
-            background-color: rgba(80, 0, 100, 0.5);
+            background-color: rgba(80, 0, 100, 0.6);
             transform: translateX(8px);
-            box-shadow: 5px 0 15px rgba(255, 0, 247, 0.3);
+            box-shadow: 5px 0 20px rgba(255, 0, 247, 0.4);
         }
         
         .course-title {
@@ -223,7 +255,7 @@
             font-weight: bold;
             margin-bottom: 8px;
             font-family: 'Rajdhani', sans-serif;
-            text-shadow: 0 0 10px rgba(0, 225, 255, 0.4);
+            text-shadow: 0 0 10px rgba(0, 225, 255, 0.5);
         }
         
         .qualification-status {
@@ -242,7 +274,7 @@
         }
         
         .requirements {
-            color: #ccc;
+            color: #ddd;
             font-size: 0.95rem;
             margin-top: 10px;
             line-height: 1.6;
@@ -269,6 +301,9 @@
             color: #aaa;
             font-size: 0.9rem;
             text-shadow: 0 0 5px rgba(157, 0, 255, 0.3);
+            backdrop-filter: blur(2px);
+            position: relative;
+            z-index: 1;
         }
         
         .section-title {
@@ -298,15 +333,15 @@
             padding: 30px;
             border: 1px solid var(--neon-pink);
             border-radius: 12px;
-            background-color: rgba(80, 0, 50, 0.3);
+            background-color: rgba(80, 0, 50, 0.4);
             margin: 20px 0;
             animation: pulsePink 2s infinite alternate;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(5px);
         }
         
         @keyframes pulsePink {
-            0% { box-shadow: 0 0 15px rgba(255, 0, 247, 0.2); }
-            100% { box-shadow: 0 0 30px rgba(255, 0, 247, 0.4); }
+            0% { box-shadow: 0 0 15px rgba(255, 0, 247, 0.3); }
+            100% { box-shadow: 0 0 30px rgba(255, 0, 247, 0.6); }
         }
         
         .no-results h3 {
@@ -339,9 +374,37 @@
             position: absolute;
             left: -20px;
         }
+
+        /* Floating particles effect */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--neon-blue);
+            border-radius: 50%;
+            filter: blur(1px);
+            opacity: 0.7;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-100px) translateX(100px); }
+            100% { transform: translateY(0) translateX(0); }
+        }
     </style>
 </head>
 <body>
+    <div class="particles" id="particles"></div>
+    
     <h1>KMTC COURSES CHECKER</h1>
     
     <div class="form-section">
@@ -573,7 +636,7 @@
             }
         ];
 
-        // Grade comparison function
+        // Correct grade comparison function
         function isGradeSufficient(studentGrade, requiredGrade) {
             if (!studentGrade || !requiredGrade) return false;
             
@@ -581,7 +644,37 @@
             const studentIndex = gradeOrder.indexOf(studentGrade);
             const requiredIndex = gradeOrder.indexOf(requiredGrade);
             
+            // Student grade is sufficient if its index is <= required index
             return studentIndex <= requiredIndex;
+        }
+
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 5 + 2;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                const color = `hsl(${Math.random() * 60 + 180}, 100%, 70%)`;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.background = color;
+                
+                particlesContainer.appendChild(particle);
+            }
         }
 
         // Check courses button click
@@ -608,25 +701,26 @@
             const qualifiedCourses = [];
             
             kmtcCourses.forEach(course => {
-                // Check mean grade requirement first
+                // 1. First check mean grade requirement
                 if (!isGradeSufficient(grades.meanGrade, course.requirements.meanGrade)) {
                     return; // Skip if mean grade not met
                 }
                 
-                // Check all subject requirements
-                let allRequirementsMet = true;
+                // 2. Check all subject requirements
+                let meetsAllRequirements = true;
+                
                 for (const subject in course.requirements.subjects) {
                     const requiredGrade = course.requirements.subjects[subject];
                     const studentGrade = grades[subject];
                     
-                    // Only check if student took the subject
-                    if (studentGrade && !isGradeSufficient(studentGrade, requiredGrade)) {
-                        allRequirementsMet = false;
+                    // Student must have this subject and meet the minimum grade
+                    if (!studentGrade || !isGradeSufficient(studentGrade, requiredGrade)) {
+                        meetsAllRequirements = false;
                         break;
                     }
                 }
                 
-                if (allRequirementsMet) {
+                if (meetsAllRequirements) {
                     qualifiedCourses.push(course);
                 }
             });
@@ -714,6 +808,11 @@
                 behavior: 'smooth' 
             });
         }
+
+        // Initialize particles and other effects when page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+        });
     </script>
 </body>
 </html>
