@@ -3,303 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌟 MasterTech-MD Session Generator</title>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <style>
-        :root {
-            --primary: #6e48aa;
-            --secondary: #9d50bb;
-            --accent: #4776e6;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            color: white;
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-            text-align: center;
-        }
-        
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #ff8a00, #da1b60);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-        
-        @keyframes glow {
-            from { text-shadow: 0 0 10px #ff8a00; }
-            to { text-shadow: 0 0 20px #da1b60, 0 0 30px #ff8a00; }
-        }
-        
-        .card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 2rem;
-            margin: 2rem 0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: transform 0.3s ease;
-        }
-        
-        .card:hover {
-            transform: translateY(-10px);
-        }
-        
-        #qr-container {
-            margin: 2rem auto;
-            position: relative;
-        }
-        
-        #qr {
-            width: 250px;
-            height: 250px;
-            border: 15px solid white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        #session-container {
-            display: none;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            padding: 1.5rem;
-            border-radius: 15px;
-            margin: 2rem 0;
-            animation: fadeIn 1s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        #session-id {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: white;
-            word-break: break-all;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 1rem;
-            border-radius: 10px;
-            font-family: monospace;
-        }
-        
-        .btn {
-            background: linear-gradient(to right, var(--primary), var(--accent));
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            font-size: 1.1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .btn:active {
-            transform: translateY(1px);
-        }
-        
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to right, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-        }
-        
-        .btn:hover::after {
-            transform: translateX(100%);
-        }
-        
-        .floating {
-            animation: floating 3s ease-in-out infinite;
-        }
-        
-        @keyframes floating {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
-        
-        .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-        
-        .social-links {
-            margin-top: 2rem;
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-        }
-        
-        .social-link {
-            color: white;
-            font-size: 1.5rem;
-            transition: transform 0.3s ease;
-        }
-        
-        .social-link:hover {
-            transform: scale(1.2) rotate(10deg);
-        }
-        
-        .whatsapp-channel {
-            margin-top: 2rem;
-            padding: 1rem;
-            background: rgba(37, 211, 102, 0.2);
-            border-radius: 15px;
-            animation: fadeIn 1s ease;
-        }
-    </style>
+    <title>MasterTech-MD Session Generator</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="particles" id="particles-js"></div>
-    
-    <div class="container">
-        <h1 class="floating">MasterTech-MD Session Generator</h1>
-        
-        <div class="card">
-            <p style="font-size: 1.2rem;">Generate secure session for your WhatsApp bot</p>
-            
-            <div id="qr-container">
-                <p>Scan this QR code with your WhatsApp device:</p>
-                <img id="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=Initializing...">
-            </div>
-            
-            <button id="generate-btn" class="btn">
-                <span id="btn-text">Generate Session</span>
-                <span id="btn-loader" style="display:none;">⌛ Loading...</span>
-            </button>
-            
-            <div id="session-container">
-                <p>Your Session ID:</p>
-                <p id="session-id"></p>
-                <p>Use this in your bot configuration</p>
-                
-                <div class="whatsapp-channel">
-                    <p>Join our WhatsApp channel for updates:</p>
-                    <a href="https://whatsapp.com/channel/0029VaYOURCHANNEL" target="_blank" style="color: #25D366; font-weight: bold;">
-                        MasterTech Updates
-                    </a>
+    <div class="cyberpunk-container">
+        <div class="terminal">
+            <div class="terminal-header">
+                <div class="buttons">
+                    <span class="red"></span>
+                    <span class="yellow"></span>
+                    <span class="green"></span>
                 </div>
+                <h1>SESSION GENERATOR v3.0</h1>
             </div>
-        </div>
-        
-        <div class="social-links">
-            <a href="#" class="social-link">⭐</a>
-            <a href="#" class="social-link">💬</a>
-            <a href="#" class="social-link">🔗</a>
+            
+            <div class="content">
+                <div id="qr-display" class="qr-glitch">
+                    <img id="qr-code" src="" alt="QR Code">
+                    <div class="glitch-layers">
+                        <div class="glitch"></div>
+                        <div class="glitch"></div>
+                    </div>
+                </div>
+                
+                <div id="session-display" class="hidden">
+                    <div class="success-animation">
+                        <svg class="checkmark" viewBox="0 0 52 52">
+                            <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+                            <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                        </svg>
+                    </div>
+                    <div class="session-id" id="session-id"></div>
+                    <div class="whatsapp-notice">
+                        <p>Session details sent to your WhatsApp</p>
+                        <a href="#" id="channel-link" class="channel-pulse">
+                            Join Official Channel
+                        </a>
+                    </div>
+                </div>
+                
+                <button id="generate-btn" class="neon-button">
+                    <span class="text">INITIATE SESSION</span>
+                    <span class="gradient"></span>
+                    <span class="dodge"></span>
+                </button>
+            </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-        // Initialize particles.js
-        particlesJS("particles-js", {
-            "particles": {
-                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
-                "color": { "value": "#ffffff" },
-                "shape": { "type": "circle" },
-                "opacity": { "value": 0.5, "random": true },
-                "size": { "value": 3, "random": true },
-                "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 },
-                "move": { "enable": true, "speed": 2, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
-            },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": {
-                    "onhover": { "enable": true, "mode": "repulse" },
-                    "onclick": { "enable": true, "mode": "push" }
-                }
-            }
-        });
-
-        document.getElementById('generate-btn').addEventListener('click', generateSession);
-
-        async function generateSession() {
-            const btn = document.getElementById('generate-btn');
-            const btnText = document.getElementById('btn-text');
-            const btnLoader = document.getElementById('btn-loader');
-            
-            btnText.style.display = 'none';
-            btnLoader.style.display = 'inline';
-            btn.disabled = true;
-            
-            try {
-                // Simulate API call (replace with actual fetch to your backend)
-                await new Promise(resolve => setTimeout(resolve, 1500));
-                
-                // Generate random session ID
-                const sessionId = generateSessionId();
-                document.getElementById('session-id').textContent = sessionId;
-                
-                // Generate new QR code
-                const qrData = `https://mastertech-md.session/auth?session=${sessionId}`;
-                document.getElementById('qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(qrData)}`;
-                
-                // Show success
-                document.getElementById('session-container').style.display = 'block';
-                confetti({
-                    particleCount: 100,
-                    spread: 70,
-                    origin: { y: 0.6 }
-                });
-                
-                // Send WhatsApp message (simulated)
-                setTimeout(() => {
-                    alert(`Session sent to your WhatsApp! Check your messages for session ID and channel link.`);
-                }, 500);
-                
-            } catch (error) {
-                console.error(error);
-                alert('Error generating session. Please try again.');
-            } finally {
-                btnText.style.display = 'inline';
-                btnLoader.style.display = 'none';
-                btn.disabled = false;
-            }
-        }
-        
-        function generateSessionId() {
-            return 'MT-' + Math.random().toString(36).substring(2, 15) + 
-                   Math.random().toString(36).substring(2, 15);
-        }
-    </script>
+    
+    <canvas id="matrix"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
