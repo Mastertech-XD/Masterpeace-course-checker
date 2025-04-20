@@ -168,9 +168,10 @@
             margin-bottom: 5px;
         }
         
-        .match-percentage {
+        .qualification-status {
             color: var(--neon-green);
             font-weight: bold;
+            margin: 5px 0;
         }
         
         .requirements {
@@ -443,7 +444,7 @@
             }
         ];
 
-        // Grade comparison function - FIXED VERSION
+        // Grade comparison function
         function isGradeSufficient(studentGrade, requiredGrade) {
             if (!studentGrade || !requiredGrade) return false;
             
@@ -454,7 +455,7 @@
             return studentIndex <= requiredIndex;
         }
 
-        // Check courses button click - FIXED VERSION
+        // Check courses button click
         document.getElementById('check-courses').addEventListener('click', function() {
             // Get all grade selections
             const grades = {
@@ -504,7 +505,7 @@
             displayResults(qualifiedCourses);
         });
         
-        // Display results function
+        // Display results function - UPDATED to show qualification status only
         function displayResults(courses) {
             const resultsContainer = document.getElementById('course-results');
             resultsContainer.innerHTML = '';
@@ -512,6 +513,12 @@
             if (courses.length === 0) {
                 resultsContainer.innerHTML = '<p>No courses found matching your grades. Try improving your subject scores.</p>';
             } else {
+                // Add a heading showing qualification status
+                const statusHeading = document.createElement('h3');
+                statusHeading.textContent = 'You qualify for the following courses:';
+                statusHeading.style.color = 'var(--neon-green)';
+                resultsContainer.appendChild(statusHeading);
+                
                 courses.forEach(course => {
                     const courseDiv = document.createElement('div');
                     courseDiv.className = 'course-match';
@@ -520,9 +527,10 @@
                     title.className = 'course-title';
                     title.textContent = course.name;
                     
-                    const percentage = document.createElement('div');
-                    percentage.className = 'match-percentage';
-                    percentage.textContent = `Eligibility: 100%`;
+                    const status = document.createElement('div');
+                    status.className = 'qualification-status';
+                    status.innerHTML = '<strong>✓ Qualified</strong>';
+                    status.style.color = 'var(--neon-green)';
                     
                     const description = document.createElement('div');
                     description.textContent = course.description;
@@ -547,7 +555,7 @@
                     campuses.textContent = `Available at: ${course.campuses.join(", ")}`;
                     
                     courseDiv.appendChild(title);
-                    courseDiv.appendChild(percentage);
+                    courseDiv.appendChild(status);
                     courseDiv.appendChild(description);
                     courseDiv.appendChild(requirements);
                     courseDiv.appendChild(campuses);
