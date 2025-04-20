@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KMTC Courses Checker</title>
+    <title>KMTC Courses Checker - Results</title>
     <style>
         :root {
             --neon-blue: #00f3ff;
@@ -186,7 +186,7 @@
         }
         
         #results {
-            display: none;
+            display: block;
             margin-top: 40px;
             padding: 30px;
             border: 1px solid var(--neon-green);
@@ -338,16 +338,6 @@
             color: var(--electric-blue);
             position: absolute;
             left: -20px;
-        }
-        
-        /* Glow effects for all neon elements */
-        [class*="neon-"], .electric-blue {
-            animation: glow 3s ease-in-out infinite alternate;
-        }
-        
-        @keyframes glow {
-            from { filter: drop-shadow(0 0 5px currentColor); }
-            to { filter: drop-shadow(0 0 15px currentColor); }
         }
     </style>
 </head>
