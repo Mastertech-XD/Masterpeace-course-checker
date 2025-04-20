@@ -6,354 +6,219 @@
     <title>KMTC Courses Checker</title>
     <style>
         :root {
-            --neon-blue: #08f;
-            --neon-pink: #f0f;
-            --neon-green: #0f8;
-            --neon-purple: #80f;
-            --neon-orange: #ff8c00;
-            --neon-yellow: #ff0;
-            --dark-bg: #111;
-            --light-text: #eee;
+            --neon-blue: #00f3ff;
+            --neon-pink: #ff00f7;
+            --neon-green: #00ff9d;
+            --neon-purple: #9d00ff;
+            --dark-bg: #0a0a14;
+            --light-text: #f0f0ff;
             --glow: 0 0 10px;
+            --electric-blue: #00e1ff;
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            max-width: 900px;
+            font-family: 'Rajdhani', 'Segoe UI', sans-serif;
+            line-height: 1.7;
+            max-width: 920px;
             margin: 0 auto;
             padding: 20px;
             color: var(--light-text);
             background-color: var(--dark-bg);
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(0, 136, 255, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(255, 0, 255, 0.1) 0%, transparent 20%);
+                radial-gradient(circle at 10% 20%, rgba(0, 227, 255, 0.08) 0%, transparent 25%),
+                radial-gradient(circle at 90% 80%, rgba(157, 0, 255, 0.1) 0%, transparent 30%),
+                linear-gradient(to bottom, #0a0a14, #14141f);
+            background-attachment: fixed;
         }
         
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&display=swap');
+        
         h1, h2, h3 {
-            color: var(--neon-green);
-            text-shadow: var(--glow) var(--neon-green);
+            color: var(--electric-blue);
+            text-shadow: var(--glow) var(--electric-blue);
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
         }
         
         h1 {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin-bottom: 30px;
             animation: pulse 2s infinite alternate;
+            background: linear-gradient(90deg, var(--neon-green), var(--electric-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px rgba(0, 225, 255, 0.5);
         }
         
         @keyframes pulse {
-            from { text-shadow: 0 0 5px var(--neon-green); }
-            to { text-shadow: 0 0 15px var(--neon-green), 0 0 30px var(--neon-green); }
+            0% { text-shadow: 0 0 10px var(--electric-blue); }
+            50% { text-shadow: 0 0 25px var(--electric-blue); }
+            100% { text-shadow: 0 0 10px var(--electric-blue), 0 0 40px var(--neon-purple); }
         }
         
         .form-section {
             margin-bottom: 30px;
-            padding: 25px;
+            padding: 30px;
             border: 1px solid var(--neon-purple);
-            border-radius: 8px;
-            background-color: rgba(20, 20, 40, 0.7);
-            box-shadow: 0 0 15px rgba(128, 0, 255, 0.3);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            border-radius: 12px;
+            background-color: rgba(20, 15, 40, 0.6);
+            box-shadow: 0 0 25px rgba(157, 0, 255, 0.2);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(8px);
         }
         
-        .form-section::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            z-index: -1;
-            background: linear-gradient(45deg, 
-                var(--neon-blue), var(--neon-pink), var(--neon-green), var(--neon-orange));
-            background-size: 400%;
-            border-radius: 10px;
-            opacity: 0.7;
-            animation: glowing-border 3s linear infinite;
-        }
-        
-        @keyframes glowing-border {
-            0% { background-position: 0 0; }
-            50% { background-position: 400% 0; }
-            100% { background-position: 0 0; }
+        .form-section:hover {
+            box-shadow: 0 0 35px rgba(157, 0, 255, 0.4);
+            border-color: var(--electric-blue);
+            transform: translateY(-3px);
         }
         
         select, input {
-            padding: 10px;
-            margin: 8px 0;
-            border-radius: 5px;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border-radius: 8px;
             border: 1px solid var(--neon-blue);
-            background-color: rgba(0, 20, 40, 0.8);
+            background-color: rgba(0, 30, 60, 0.5);
             color: var(--light-text);
             font-size: 16px;
             transition: all 0.3s;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 500;
+            width: 240px;
+            box-shadow: inset 0 0 10px rgba(0, 195, 255, 0.1);
         }
         
         select {
-            width: 220px;
-            background-image: linear-gradient(to bottom, rgba(0, 40, 80, 0.8), rgba(0, 20, 40, 0.8));
+            background-image: linear-gradient(to bottom, rgba(0, 60, 100, 0.6), rgba(0, 30, 60, 0.7));
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300e1ff'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 20px;
         }
         
         select:focus, input:focus {
             outline: none;
             border-color: var(--neon-green);
-            box-shadow: 0 0 10px var(--neon-green);
+            box-shadow: 0 0 15px var(--neon-green),
+                        inset 0 0 10px rgba(0, 255, 157, 0.2);
         }
         
         .subject-group {
-            margin-bottom: 18px;
-            padding: 10px;
+            margin-bottom: 20px;
+            padding: 15px;
             border-left: 3px solid var(--neon-pink);
-            background-color: rgba(40, 0, 40, 0.2);
-            transition: all 0.3s;
-            position: relative;
-        }
-        
-        .subject-group::before {
-            content: '';
-            position: absolute;
-            top: -1px;
-            left: -1px;
-            right: -1px;
-            bottom: -1px;
-            z-index: -1;
-            background: linear-gradient(45deg, 
-                var(--neon-pink), var(--neon-blue), var(--neon-yellow), var(--neon-orange));
-            background-size: 400%;
-            border-radius: 5px;
-            opacity: 0.5;
-            animation: glowing-border 4s linear infinite;
+            background-color: rgba(60, 0, 80, 0.15);
+            transition: all 0.4s;
+            border-radius: 0 8px 8px 0;
         }
         
         .subject-group:hover {
-            background-color: rgba(60, 0, 60, 0.3);
+            background-color: rgba(80, 0, 100, 0.25);
             border-left-width: 5px;
+            transform: translateX(5px);
         }
         
         label {
             display: inline-block;
-            width: 250px;
-            color: var(--neon-blue);
+            width: 260px;
+            color: var(--electric-blue);
             font-weight: bold;
-        }
-        
-        .course-match {
-            padding: 15px;
-            margin: 10px 0;
-            border-left: 4px solid var(--neon-pink);
-            background-color: rgba(40, 0, 40, 0.3);
-            transition: all 0.3s;
-            position: relative;
-        }
-        
-        .course-match::before {
-            content: '';
-            position: absolute;
-            top: -1px;
-            left: -1px;
-            right: -1px;
-            bottom: -1px;
-            z-index: -1;
-            background: linear-gradient(45deg, 
-                var(--neon-green), var(--neon-purple), var(--neon-blue), var(--neon-yellow));
-            background-size: 400%;
-            opacity: 0.5;
-            animation: glowing-border 5s linear infinite;
-        }
-        
-        .course-match:hover {
-            background-color: rgba(60, 0, 60, 0.5);
-            transform: translateX(5px);
-        }
-        
-        .not-qualified-course {
-            padding: 15px;
-            margin: 10px 0;
-            border-left: 4px solid #ff5555;
-            background-color: rgba(60, 0, 0, 0.3);
-            transition: all 0.3s;
-        }
-        
-        .course-title {
-            color: var(--neon-blue);
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        
-        .qualification-status {
-            font-weight: bold;
-            margin: 5px 0;
-        }
-        
-        .qualified {
-            color: var(--neon-green);
-            text-shadow: 0 0 5px var(--neon-green);
-        }
-        
-        .not-qualified {
-            color: #ff5555;
-            text-shadow: 0 0 5px #ff5555;
-        }
-        
-        .campuses {
-            color: #aaa;
-            font-size: 0.9rem;
-            margin-top: 5px;
-        }
-        
-        .county-highlight {
-            color: var(--neon-yellow);
-            font-weight: bold;
-        }
-        
-        .requirements {
-            color: #aaa;
-            font-size: 0.9rem;
-            margin-top: 5px;
-        }
-        
-        footer {
-            margin-top: 60px;
-            text-align: center;
-            padding: 20px;
-            border-top: 1px solid var(--neon-purple);
-            color: #aaa;
-            font-size: 0.9rem;
-            position: relative;
-        }
-        
-        footer::before {
-            content: '';
-            position: absolute;
-            top: -1px;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, 
-                var(--neon-blue), var(--neon-pink), var(--neon-green), var(--neon-orange));
-            background-size: 400%;
-            animation: glowing-border 3s linear infinite;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            text-shadow: 0 0 8px rgba(0, 225, 255, 0.3);
         }
         
         .required::after {
             content: " *";
             color: var(--neon-pink);
-        }
-        
-        .section-title {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .section-title h2 {
-            margin: 0;
-        }
-        
-        .section-icon {
-            margin-right: 15px;
-            font-size: 1.5rem;
-            color: var(--neon-pink);
+            text-shadow: 0 0 8px var(--neon-pink);
         }
         
         button {
             background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
             color: white;
-            padding: 12px 30px;
+            padding: 15px 40px;
             border: none;
-            border-radius: 30px;
+            border-radius: 50px;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 1.1rem;
             font-weight: bold;
-            margin: 30px auto;
+            margin: 40px auto;
             display: block;
-            transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(0, 136, 255, 0.4);
+            transition: all 0.4s;
+            box-shadow: 0 5px 25px rgba(0, 225, 255, 0.4);
+            font-family: 'Rajdhani', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             position: relative;
             overflow: hidden;
+            z-index: 1;
         }
         
         button::before {
             content: '';
             position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
+            opacity: 0;
+            transition: opacity 0.4s;
             z-index: -1;
-            background: linear-gradient(45deg, 
-                var(--neon-blue), var(--neon-pink), var(--neon-green), var(--neon-orange));
-            background-size: 400%;
-            border-radius: 30px;
-            opacity: 0.7;
-            animation: glowing-border 3s linear infinite;
         }
         
         button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 136, 255, 0.6);
-            background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
+            transform: translateY(-5px);
+            box-shadow: 0 10px 35px rgba(0, 225, 255, 0.6);
+        }
+        
+        button:hover::before {
+            opacity: 1;
         }
         
         button:active {
-            transform: translateY(1px);
+            transform: translateY(2px);
         }
         
-        #results {
-            margin-top: 40px;
-            padding: 25px;
-            border: 1px solid var(--neon-green);
-            border-radius: 8px;
-            background-color: rgba(0, 40, 20, 0.5);
-            box-shadow: 0 0 20px rgba(0, 255, 128, 0.3);
-            position: relative;
-            display: none;
-        }
-        
-        #results::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            z-index: -1;
-            background: linear-gradient(45deg, 
-                var(--neon-green), var(--neon-blue), var(--neon-yellow), var(--neon-pink));
-            background-size: 400%;
-            border-radius: 10px;
-            opacity: 0.7;
-            animation: glowing-border 4s linear infinite;
-        }
-        
-        #proceed-to-payment {
-            display: none;
-            background: linear-gradient(135deg, var(--neon-orange), var(--neon-yellow));
-        }
-        
-        .payment-success {
-            display: none;
+        footer {
+            margin-top: 80px;
             text-align: center;
-            padding: 20px;
-            margin-bottom: 20px;
-            color: var(--neon-green);
-            border: 1px solid var(--neon-green);
-            border-radius: 8px;
-            background-color: rgba(0, 40, 20, 0.3);
+            padding: 25px;
+            border-top: 1px solid var(--neon-purple);
+            color: #aaa;
+            font-size: 0.9rem;
+            text-shadow: 0 0 5px rgba(157, 0, 255, 0.3);
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .section-title h2 {
+            margin: 0;
+            background: linear-gradient(90deg, var(--neon-pink), var(--electric-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .section-icon {
+            margin-right: 15px;
+            font-size: 1.8rem;
+            color: var(--electric-blue);
+            filter: drop-shadow(0 0 5px var(--electric-blue));
         }
     </style>
 </head>
 <body>
     <h1>KMTC COURSES CHECKER</h1>
-    
-    <div id="payment-success" class="payment-success">
-        <h2>✅ Payment Successful!</h2>
-        <p>Your payment has been processed successfully. Below are your course qualifications:</p>
-    </div>
     
     <div class="form-section">
         <div class="section-title">
@@ -364,7 +229,7 @@
         <div class="subject-group">
             <label for="mean-grade" class="required">Mean Grade:</label>
             <select id="mean-grade" required>
-                <option value="">Select Grade</option>
+                <option value="" selected disabled>Select Grade</option>
                 <option value="A">A (75-100)</option>
                 <option value="A-">A- (70-74)</option>
                 <option value="B+">B+ (65-69)</option>
@@ -384,26 +249,7 @@
         <div class="subject-group">
             <label for="english" class="required">English:</label>
             <select id="english" required>
-                <option value="">Select Grade</option>
-                <option value="A">A</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B">B</option>
-                <option value="B-">B-</option>
-                <option value="C+">C+</option>
-                <option value="C">C</option>
-                <option value="C-">C-</option>
-                <option value="D+">D+</option>
-                <option value="D">D</option>
-                <option value="D-">D-</option>
-                <option value="E">E</option>
-            </select>
-        </div>
-        
-        <div class="subject-group">
-            <label for="kiswahili">Kiswahili:</label>
-            <select id="kiswahili">
-                <option value="">Select Grade</option>
+                <option value="" selected disabled>Select Grade</option>
                 <option value="A">A</option>
                 <option value="A-">A-</option>
                 <option value="B+">B+</option>
@@ -422,7 +268,7 @@
         <div class="subject-group">
             <label for="mathematics" class="required">Mathematics:</label>
             <select id="mathematics" required>
-                <option value="">Select Grade</option>
+                <option value="" selected disabled>Select Grade</option>
                 <option value="A">A</option>
                 <option value="A-">A-</option>
                 <option value="B+">B+</option>
@@ -442,7 +288,7 @@
         <div class="subject-group">
             <label for="biology">Biology:</label>
             <select id="biology">
-                <option value="">Select Grade</option>
+                <option value="" selected disabled>Select Grade</option>
                 <option value="A">A</option>
                 <option value="A-">A-</option>
                 <option value="B+">B+</option>
@@ -461,7 +307,7 @@
         <div class="subject-group">
             <label for="chemistry">Chemistry:</label>
             <select id="chemistry">
-                <option value="">Select Grade</option>
+                <option value="" selected disabled>Select Grade</option>
                 <option value="A">A</option>
                 <option value="A-">A-</option>
                 <option value="B+">B+</option>
@@ -480,199 +326,7 @@
         <div class="subject-group">
             <label for="physics">Physics:</label>
             <select id="physics">
-                <option value="">Select Grade</option>
-                <option value="A">A</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B">B</option>
-                <option value="B-">B-</option>
-                <option value="C+">C+</option>
-                <option value="C">C</option>
-                <option value="C-">C-</option>
-                <option value="D+">D+</option>
-                <option value="D">D</option>
-                <option value="D-">D-</option>
-                <option value="E">E</option>
-            </select>
-        </div>
-        
-        <h3>Humanities</h3>
-        <div class="subject-group">
-            <label for="geography">Geography:</label>
-            <select id="geography">
-                <option value="">Select Grade</option>
-                <option value="A">A</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B">B</option>
-                <option value="B-">B-</option>
-                <option value="C+">C+</option>
-                <option value="C">C</option>
-                <option value="C-">C-</option>
-                <option value="D+">D+</option>
-                <option value="D">D</option>
-                <option value="D-">D-</option>
-                <option value="E">E</option>
-            </select>
-        </div>
-        
-        <div class="subject-group">
-            <label for="history">History and Government:</label>
-            <select id="history">
-                <option value="">Select Grade</option>
-                <option value="A">A</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B">B</option>
-                <option value="B-">B-</option>
-                <option value="C+">C+</option>
-                <option value="C">C</option>
-                <option value="C-">C-</option>
-                <option value="D+">D+</option>
-                <option value="D">D</option>
-                <option value="D-">D-</option>
-                <option value="E">E</option>
-            </select>
-        </div>
-        
-        <div class="subject-group">
-            <label for="cre">Christian Religious Education (CRE):</label>
-            <select id="cre">
-                <option value="">Select Grade</option>
-                <option value="A">A</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B">B</option>
-                <option value="B-">B-</option>
-                <option value="C+">C+</option>
-                <option value="C">C</option>
-                <option value="C-">C-</option>
-                <option value="D+">D+</option>
-                <option value="D">D</option>
-                <option value="D-">D-</option>
-                <option value="E">E</option>
-            </select>
-        </div>
-        
-        <div class="subject-group">
-            <label for="ire">Islamic Religious Education (IRE):</label>
-            <select id="ire">
-                <option value="">Select Grade</option>
-                <option value="A">A</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B">B</option>
-                <option value="B-">B-</option>
-                <option value="C+">C+</option>
-                <option value="C">C</option>
-                <option value="C-">C-</option>
-                <option value="D+">D+</option>
-                <option value="D">D</option>
-                <option value="D-">D-</option>
-                <option value="E">E</option>
-            </select>
-        </div>
-        
-        <div class="subject-group">
-            <label for="hre">Hindu Religious Education (HRE):</label>
-            <select id="hre">
-                <option value="">Select Grade</option>
-                <option value="A">A</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B">B</option>
-                <option value="B-">B-</option>
-                <option value="C+">C+</option>
-                <option value="C">C</option>
-                <option value="C-">C-</option>
-                <option value="D+">D+</option>
-                <option value="D">D</option>
-                <option value="D-">D-</option>
-                <option value="E">E</option>
-            </select>
-        </div>
-        
-        <h3>Technical and Other Subjects</h3>
-        <div class="subject-group">
-            <label for="agriculture">Agriculture:</label>
-            <select id="agriculture">
-                <option value="">Select Grade</option>
-                <option value="A">A</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B">B</option>
-                <option value="B-">B-</option>
-                <option value="C+">C+</option>
-                <option value="C">C</option>
-                <option value="C-">C-</option>
-                <option value="D+">D+</option>
-                <option value="D">D</option>
-                <option value="D-">D-</option>
-                <option value="E">E</option>
-            </select>
-        </div>
-        
-        <div class="subject-group">
-            <label for="computer">Computer Studies:</label>
-            <select id="computer">
-                <option value="">Select Grade</option>
-                <option value="A">A</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B">B</option>
-                <option value="B-">B-</option>
-                <option value="C+">C+</option>
-                <option value="C">C</option>
-                <option value="C-">C-</option>
-                <option value="D+">D+</option>
-                <option value="D">D</option>
-                <option value="D-">D-</option>
-                <option value="E">E</option>
-            </select>
-        </div>
-        
-        <div class="subject-group">
-            <label for="art">Art and Design:</label>
-            <select id="art">
-                <option value="">Select Grade</option>
-                <option value="A">A</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B">B</option>
-                <option value="B-">B-</option>
-                <option value="C+">C+</option>
-                <option value="C">C</option>
-                <option value="C-">C-</option>
-                <option value="D+">D+</option>
-                <option value="D">D</option>
-                <option value="D-">D-</option>
-                <option value="E">E</option>
-            </select>
-        </div>
-        
-        <div class="subject-group">
-            <label for="business">Business Studies:</label>
-            <select id="business">
-                <option value="">Select Grade</option>
-                <option value="A">A</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B">B</option>
-                <option value="B-">B-</option>
-                <option value="C+">C+</option>
-                <option value="C">C</option>
-                <option value="C-">C-</option>
-                <option value="D+">D+</option>
-                <option value="D">D</option>
-                <option value="D-">D-</option>
-                <option value="E">E</option>
-            </select>
-        </div>
-        
-        <div class="subject-group">
-            <label for="music">Music:</label>
-            <select id="music">
-                <option value="">Select Grade</option>
+                <option value="" selected disabled>Select Grade</option>
                 <option value="A">A</option>
                 <option value="A-">A-</option>
                 <option value="B+">B+</option>
@@ -692,26 +346,7 @@
         <div class="subject-group">
             <label for="building">Building and Construction:</label>
             <select id="building">
-                <option value="">Select Grade</option>
-                <option value="A">A</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B">B</option>
-                <option value="B-">B-</option>
-                <option value="C+">C+</option>
-                <option value="C">C</option>
-                <option value="C-">C-</option>
-                <option value="D+">D+</option>
-                <option value="D">D</option>
-                <option value="D-">D-</option>
-                <option value="E">E</option>
-            </select>
-        </div>
-        
-        <div class="subject-group">
-            <label for="electricity">Electricity and Electronics:</label>
-            <select id="electricity">
-                <option value="">Select Grade</option>
+                <option value="" selected disabled>Select Grade</option>
                 <option value="A">A</option>
                 <option value="A-">A-</option>
                 <option value="B+">B+</option>
@@ -730,45 +365,7 @@
         <div class="subject-group">
             <label for="woodwork">Woodwork:</label>
             <select id="woodwork">
-                <option value="">Select Grade</option>
-                <option value="A">A</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B">B</option>
-                <option value="B-">B-</option>
-                <option value="C+">C+</option>
-                <option value="C">C</option>
-                <option value="C-">C-</option>
-                <option value="D+">D+</option>
-                <option value="D">D</option>
-                <option value="D-">D-</option>
-                <option value="E">E</option>
-            </select>
-        </div>
-        
-        <div class="subject-group">
-            <label for="metalwork">Metalwork:</label>
-            <select id="metalwork">
-                <option value="">Select Grade</option>
-                <option value="A">A</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B">B</option>
-                <option value="B-">B-</option>
-                <option value="C+">C+</option>
-                <option value="C">C</option>
-                <option value="C-">C-</option>
-                <option value="D+">D+</option>
-                <option value="D">D</option>
-                <option value="D-">D-</option>
-                <option value="E">E</option>
-            </select>
-        </div>
-        
-        <div class="subject-group">
-            <label for="homescience">Home Science:</label>
-            <select id="homescience">
-                <option value="">Select Grade</option>
+                <option value="" selected disabled>Select Grade</option>
                 <option value="A">A</option>
                 <option value="A-">A-</option>
                 <option value="B+">B+</option>
@@ -785,593 +382,10 @@
         </div>
     </div>
     
-    <button id="check-courses">CHECK QUALIFYING COURSES</button>
-    
-    <div id="results">
-        <h2>KMTC Courses Qualification Results</h2>
-        <div id="course-results">
-            <!-- Course matches will be displayed here -->
-        </div>
-    </div>
+    <button id="check-courses" onclick="window.location.href='payment.html'"Proceed to payment"</button>
     
     <footer>
         Copyright &copy; 2025 by Masterpeace Elite. All rights reserved.
     </footer>
-
-    <script>
-        // KMTC Courses Database with Requirements and Campuses
-        const kmtcCourses = [
-            {
-                name: "DIPLOMA IN NUTRITION AND DIETETICS",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        biology: "C-",
-                        chemistry: "D+",
-                        english: "C-"
-                    },
-                    description: "3-year program training nutritionists for hospitals and communities.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret"]
-                }
-            },
-            {
-                name: "DIPLOMA IN HEALTH RECORDS AND INFORMATION TECHNOLOGY",
-                requirements: {
-                    meanGrade: "C-",
-                    subjects: {
-                        english: "D+",
-                        mathematics: "D+"
-                    },
-                    description: "2-year program for health information management officers.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
-                }
-            },
-            {
-                name: "DIPLOMA IN RADIOGRAPHY AND IMAGING",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        physics: "C-",
-                        biology: "C-",
-                        mathematics: "C-"
-                    },
-                    description: "3-year program for radiographers in medical imaging.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu"]
-                }
-            },
-            {
-                name: "DIPLOMA IN MEDICAL LABORATORY SCIENCES",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        biology: "C",
-                        chemistry: "C-",
-                        mathematics: "D+"
-                    },
-                    description: "3-year program for medical laboratory technologists.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret", "Meru"]
-                }
-            },
-            {
-                name: "DIPLOMA IN OCCUPATIONAL THERAPY",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        biology: "C-",
-                        english: "C-"
-                    },
-                    description: "3-year program for occupational therapists.",
-                    campuses: ["Nairobi", "Mombasa"]
-                }
-            },
-            {
-                name: "DIPLOMA IN ORTHOPEDIC TECHNOLOGY",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        physics: "D+",
-                        biology: "C-"
-                    },
-                    description: "3-year program for orthopedic technologists.",
-                    campuses: ["Nairobi"]
-                }
-            },
-            {
-                name: "DIPLOMA IN PHARMACY",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        chemistry: "C",
-                        biology: "C-",
-                        mathematics: "C-"
-                    },
-                    description: "3-year program for pharmaceutical technologists.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
-                }
-            },
-            {
-                name: "DIPLOMA IN PHYSIOTHERAPY",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        biology: "C-",
-                        physics: "D+"
-                    },
-                    description: "3-year program for physiotherapists.",
-                    campuses: ["Nairobi", "Mombasa"]
-                }
-            },
-            {
-                name: "DIPLOMA IN MEDICAL ENGINEERING",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        physics: "C-",
-                        mathematics: "C-"
-                    },
-                    description: "3-year program for medical equipment technicians.",
-                    campuses: ["Nairobi"]
-                }
-            },
-            {
-                name: "DIPLOMA IN PUBLIC HEALTH",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        biology: "C-",
-                        english: "C-"
-                    },
-                    description: "3-year program for public health officers.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret"]
-                }
-            },
-            {
-                name: "DIPLOMA IN ORTHOPEDIC AND TRAUMA MEDICINE",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        biology: "C-",
-                        physics: "D+"
-                    },
-                    description: "3-year program for orthopedic trauma specialists.",
-                    campuses: ["Nairobi"]
-                }
-            },
-            {
-                name: "DIPLOMA IN MEDICAL SOCIAL WORK",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        english: "C-"
-                    },
-                    description: "3-year program for medical social workers.",
-                    campuses: ["Nairobi", "Mombasa"]
-                }
-            },
-            {
-                name: "DIPLOMA IN HEALTH COUNSELLING",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        english: "C-"
-                    },
-                    description: "3-year program for health counselors.",
-                    campuses: ["Nairobi", "Kisumu"]
-                }
-            },
-            {
-                name: "DIPLOMA IN COMMUNITY HEALTH",
-                requirements: {
-                    meanGrade: "C-",
-                    subjects: {
-                        biology: "D+"
-                    },
-                    description: "2-year program for community health workers.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret", "Garissa"]
-                }
-            },
-            {
-                name: "DIPLOMA IN EMERGENCY MEDICAL TECHNOLOGY",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        biology: "C-"
-                    },
-                    description: "3-year program for emergency medical technicians.",
-                    campuses: ["Nairobi", "Mombasa"]
-                }
-            },
-            {
-                name: "CERTIFICATE IN HEALTH RECORDS AND INFORMATION TECHNOLOGY",
-                requirements: {
-                    meanGrade: "D+",
-                    subjects: {
-                        english: "D+"
-                    },
-                    description: "1-year program for health records assistants.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
-                }
-            },
-            {
-                name: "CERTIFICATE IN NUTRITION AND DIETETICS",
-                requirements: {
-                    meanGrade: "D+",
-                    subjects: {
-                        biology: "D+"
-                    },
-                    description: "1-year program for nutrition assistants.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu"]
-                }
-            },
-            {
-                name: "CERTIFICATE IN MEDICAL ENGINEERING",
-                requirements: {
-                    meanGrade: "D+",
-                    subjects: {
-                        physics: "D+"
-                    },
-                    description: "1-year program for medical equipment assistants.",
-                    campuses: ["Nairobi"]
-                }
-            },
-            {
-                name: "CERTIFICATE IN ORTHOPEDIC TRAUMA MEDICINE",
-                requirements: {
-                    meanGrade: "D+",
-                    subjects: {
-                        biology: "D+"
-                    },
-                    description: "1-year program for orthopedic assistants.",
-                    campuses: ["Nairobi"]
-                }
-            },
-            {
-                name: "CERTIFICATE IN PUBLIC HEALTH",
-                requirements: {
-                    meanGrade: "D+",
-                    subjects: {},
-                    description: "1-year program for public health assistants.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
-                }
-            },
-            {
-                name: "CERTIFICATE IN COMMUNITY HEALTH ASSISTANT",
-                requirements: {
-                    meanGrade: "D",
-                    subjects: {},
-                    description: "1-year program for community health volunteers.",
-                    campuses: ["All Campuses"]
-                }
-            },
-            {
-                name: "CERTIFICATE IN MEDICAL EMERGENCY TECHNICIAN",
-                requirements: {
-                    meanGrade: "D+",
-                    subjects: {},
-                    description: "1-year program for emergency first responders.",
-                    campuses: ["Nairobi", "Mombasa"]
-                }
-            },
-            {
-                name: "DIPLOMA IN SPEECH AND LANGUAGE THERAPY",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        english: "C-"
-                    },
-                    description: "3-year program for speech therapists.",
-                    campuses: ["Nairobi"]
-                }
-            },
-            {
-                name: "DIPLOMA IN MORTUARY SCIENCE",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        biology: "C-"
-                    },
-                    description: "3-year program for mortuary technicians.",
-                    campuses: ["Nairobi", "Mombasa"]
-                }
-            },
-            {
-                name: "DIPLOMA IN HEALTH PROMOTION",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        english: "C-"
-                    },
-                    description: "3-year program for health promotion officers.",
-                    campuses: ["Nairobi", "Mombasa", "Kisumu"]
-                }
-            },
-            {
-                name: "DIPLOMA IN HEALTH INSURANCE MANAGEMENT",
-                requirements: {
-                    meanGrade: "C",
-                    subjects: {
-                        mathematics: "C-"
-                    },
-                    description: "3-year program for health insurance administrators.",
-                    campuses: ["Nairobi"]
-                }
-            }
-        ];
-
-        // Check if returning from payment
-        const urlParams = new URLSearchParams(window.location.search);
-        const paymentSuccess = urlParams.get('payment');
-        
-        if (paymentSuccess === 'success') {
-            document.getElementById('payment-success').style.display = 'block';
-            
-            // Try to get grades from URL first, then fall back to sessionStorage
-            let gradesData;
-            const urlGrades = urlParams.get('grades');
-            
-            if (urlGrades) {
-                try {
-                    gradesData = JSON.parse(decodeURIComponent(urlGrades));
-                    // Store in sessionStorage for any potential page refreshes
-                    sessionStorage.setItem('kmtcGrades', JSON.stringify(gradesData));
-                } catch (e) {
-                    console.error("Error parsing URL grades:", e);
-                }
-            }
-            
-            // If not in URL, try sessionStorage
-            if (!gradesData) {
-                const storedGrades = sessionStorage.getItem('kmtcGrades');
-                if (storedGrades) {
-                    gradesData = JSON.parse(storedGrades);
-                }
-            }
-            
-            if (gradesData) {
-                const matchedCourses = findMatchingCourses(gradesData);
-                displayResults(matchedCourses);
-                document.getElementById('results').style.display = 'block';
-                
-                // Scroll to results section
-                setTimeout(() => {
-                    window.scrollTo({
-                        top: document.getElementById('payment-success').offsetTop,
-                        behavior: 'smooth'
-                    });
-                }, 100);
-                
-                // Pre-fill the form with the submitted grades
-                for (const [field, value] of Object.entries(gradesData)) {
-                    const element = document.getElementById(field);
-                    if (element) element.value = value;
-                }
-            } else {
-                console.error("No grades data found after payment");
-            }
-        }
-
-        // Check qualifying courses - modified to not redirect to payment if already paid
-        document.getElementById('check-courses').addEventListener('click', function() {
-            // Get grades
-            const grades = {
-                meanGrade: document.getElementById('mean-grade').value,
-                english: document.getElementById('english').value,
-                kiswahili: document.getElementById('kiswahili').value,
-                mathematics: document.getElementById('mathematics').value,
-                biology: document.getElementById('biology').value,
-                chemistry: document.getElementById('chemistry').value,
-                physics: document.getElementById('physics').value,
-                geography: document.getElementById('geography').value,
-                history: document.getElementById('history').value,
-                cre: document.getElementById('cre').value,
-                ire: document.getElementById('ire').value,
-                hre: document.getElementById('hre').value,
-                agriculture: document.getElementById('agriculture').value,
-                computer: document.getElementById('computer').value,
-                art: document.getElementById('art').value,
-                business: document.getElementById('business').value,
-                music: document.getElementById('music').value,
-                building: document.getElementById('building').value,
-                electricity: document.getElementById('electricity').value,
-                woodwork: document.getElementById('woodwork').value,
-                metalwork: document.getElementById('metalwork').value,
-                homescience: document.getElementById('homescience').value
-            };
-            
-            // Validate required fields
-            if (!grades.meanGrade || !grades.english || !grades.mathematics) {
-                alert('Please fill in all required fields (Mean Grade, English, Mathematics)');
-                return;
-            }
-            
-            // Store grades in sessionStorage
-            sessionStorage.setItem('kmtcGrades', JSON.stringify(grades));
-            
-            // Find matching courses
-            const matchedCourses = findMatchingCourses(grades);
-            
-            // If payment was already successful, just show results
-            if (paymentSuccess === 'success') {
-                displayResults(matchedCourses);
-                document.getElementById('results').style.display = 'block';
-                window.scrollTo({
-                    top: document.getElementById('results').offsetTop,
-                    behavior: 'smooth'
-                });
-            } else {
-                // Only redirect to payment if this is the first time
-                if (matchedCourses.length > 0) {
-                    window.location.href = `payment.html?grades=${encodeURIComponent(JSON.stringify(grades))}`;
-                } else {
-                    displayResults(matchedCourses);
-                    document.getElementById('results').style.display = 'block';
-                    window.scrollTo({
-                        top: document.getElementById('results').offsetTop,
-                        behavior: 'smooth'
-                    });
-                }
-            }
-        });
-        
-        // Function to find matching courses
-        function findMatchingCourses(grades) {
-            const results = [];
-            const gradeOrder = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'E'];
-            
-            kmtcCourses.forEach(course => {
-                let qualifies = true;
-                
-                // Check mean grade requirement
-                if (gradeOrder.indexOf(grades.meanGrade) > gradeOrder.indexOf(course.requirements.meanGrade)) {
-                    qualifies = false;
-                }
-                
-                // Check subject requirements
-                const requiredSubjects = course.requirements.subjects || {};
-                for (const subject in requiredSubjects) {
-                    const studentGrade = grades[subject];
-                    const requiredGrade = requiredSubjects[subject];
-                    
-                    if (!studentGrade || gradeOrder.indexOf(studentGrade) > gradeOrder.indexOf(requiredGrade)) {
-                        qualifies = false;
-                        break;
-                    }
-                }
-                
-                if (qualifies) {
-                    results.push(course);
-                }
-            });
-            
-            return results.sort((a, b) => {
-                // Sort by mean grade requirement
-                return gradeOrder.indexOf(a.requirements.meanGrade) - gradeOrder.indexOf(b.requirements.meanGrade);
-            });
-        }
-        
-        // Function to display results
-        function displayResults(matchedCourses) {
-            const resultsContainer = document.getElementById('course-results');
-            resultsContainer.innerHTML = '';
-            
-            if (matchedCourses.length === 0) {
-                resultsContainer.innerHTML = '<div class="not-qualified-course"><p>You do not qualify for any KMTC courses based on your current grades.</p></div>';
-                
-                // Show all courses as not qualified
-                kmtcCourses.forEach(course => {
-                    const courseDiv = document.createElement('div');
-                    courseDiv.className = 'not-qualified-course';
-                    
-                    const title = document.createElement('div');
-                    title.className = 'course-title';
-                    title.textContent = course.name;
-                    
-                    const status = document.createElement('div');
-                    status.className = 'qualification-status not-qualified';
-                    status.textContent = '❌ NOT QUALIFIED';
-                    
-                    const requirements = document.createElement('div');
-                    requirements.className = 'requirements';
-                    
-                    let reqText = `Requirements: Mean Grade ${course.requirements.meanGrade}+`;
-                    for (const subject in course.requirements.subjects) {
-                        reqText += `, ${subject} ${course.requirements.subjects[subject]}+`;
-                    }
-                    requirements.textContent = reqText;
-                    
-                    courseDiv.appendChild(title);
-                    courseDiv.appendChild(status);
-                    courseDiv.appendChild(requirements);
-                    
-                    resultsContainer.appendChild(courseDiv);
-                });
-            } else {
-                // Show qualified courses first
-                matchedCourses.forEach(course => {
-                    const courseDiv = document.createElement('div');
-                    courseDiv.className = 'course-match';
-                    
-                    const title = document.createElement('div');
-                    title.className = 'course-title';
-                    title.textContent = course.name;
-                    
-                    const status = document.createElement('div');
-                    status.className = 'qualification-status qualified';
-                    status.textContent = '✅ QUALIFIED';
-                    
-                    const campuses = document.createElement('div');
-                    campuses.className = 'campuses';
-                    
-                    // Highlight counties
-                    let campusesText = 'Available at: ';
-                    course.campuses.forEach((campus, index) => {
-                        if (index > 0) campusesText += ', ';
-                        campusesText += `<span class="county-highlight">${campus}</span>`;
-                    });
-                    campuses.innerHTML = campusesText;
-                    
-                    const description = document.createElement('div');
-                    description.textContent = course.description;
-                    
-                    const requirements = document.createElement('div');
-                    requirements.className = 'requirements';
-                    
-                    let reqText = `Requirements: Mean Grade ${course.requirements.meanGrade}+`;
-                    for (const subject in course.requirements.subjects) {
-                        reqText += `, ${subject} ${course.requirements.subjects[subject]}+`;
-                    }
-                    requirements.textContent = reqText;
-                    
-                    courseDiv.appendChild(title);
-                    courseDiv.appendChild(status);
-                    courseDiv.appendChild(campuses);
-                    courseDiv.appendChild(description);
-                    courseDiv.appendChild(requirements);
-                    
-                    resultsContainer.appendChild(courseDiv);
-                });
-                
-                // Show non-qualified courses
-                const nonQualifiedCourses = kmtcCourses.filter(course => 
-                    !matchedCourses.some(matched => matched.name === course.name));
-                
-                if (nonQualifiedCourses.length > 0) {
-                    const separator = document.createElement('h3');
-                    separator.textContent = 'Courses You Don\'t Qualify For';
-                    separator.style.marginTop = '30px';
-                    separator.style.color = '#ff5555';
-                    resultsContainer.appendChild(separator);
-                    
-                    nonQualifiedCourses.forEach(course => {
-                        const courseDiv = document.createElement('div');
-                        courseDiv.className = 'not-qualified-course';
-                        
-                        const title = document.createElement('div');
-                        title.className = 'course-title';
-                        title.textContent = course.name;
-                        
-                        const status = document.createElement('div');
-                        status.className = 'qualification-status not-qualified';
-                        status.textContent = '❌ NOT QUALIFIED';
-                        
-                        const requirements = document.createElement('div');
-                        requirements.className = 'requirements';
-                        
-                        let reqText = `Requirements: Mean Grade ${course.requirements.meanGrade}+`;
-                        for (const subject in course.requirements.subjects) {
-                            reqText += `, ${subject} ${course.requirements.subjects[subject]}+`;
-                        }
-                        requirements.textContent = reqText;
-                        
-                        courseDiv.appendChild(title);
-                        courseDiv.appendChild(status);
-                        courseDiv.appendChild(requirements);
-                        
-                        resultsContainer.appendChild(courseDiv);
-                    });
-                }
-            }
-        }
-    </script>
 </body>
 </html>
