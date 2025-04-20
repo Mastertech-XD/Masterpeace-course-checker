@@ -4,56 +4,529 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MasterTech-MD Session Generator</title>
-    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        /* Cyberpunk Theme */
+        :root {
+            --neon-blue: #0ff;
+            --neon-pink: #f0f;
+            --dark-bg: #0a0a12;
+            --terminal-bg: rgba(0, 20, 30, 0.9);
+            --glow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+        
+        body {
+            background: var(--dark-bg);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* Matrix Background */
+        #matrix {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        /* Terminal Styling */
+        .terminal {
+            width: 95%;
+            max-width: 600px;
+            background: var(--terminal-bg);
+            border: 1px solid var(--neon-blue);
+            box-shadow: var(--glow);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .terminal-header {
+            background: linear-gradient(to right, #0f0f1a, #003366);
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--neon-blue);
+        }
+        
+        .dots {
+            display: flex;
+            gap: 8px;
+            margin-right: 15px;
+        }
+        
+        .dots span {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+        }
+        
+        .red { background: #ff5f56; }
+        .yellow { background: #ffbd2e; }
+        .green { background: #27c93f; }
+        
+        .terminal-header h1 {
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            color: var(--neon-blue);
+            text-shadow: var(--glow);
+        }
+        
+        /* Tab System */
+        .tab-container {
+            display: flex;
+            border-bottom: 1px solid #333;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 15px;
+            background: #111;
+            border: none;
+            color: #aaa;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .tab.active {
+            color: var(--neon-blue);
+            background: var(--terminal-bg);
+            border-bottom: 2px solid var(--neon-blue);
+        }
+        
+        .tab-content {
+            padding: 30px 20px;
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* QR Code Styling */
+        .qr-glitch-container {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            margin: 0 auto 30px;
+            border: 3px solid var(--neon-blue);
+            box-shadow: var(--glow);
+            overflow: hidden;
+        }
+        
+        #qr-code {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: white;
+            padding: 10px;
+        }
+        
+        .glitch-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                transparent 48%,
+                rgba(0, 255, 255, 0.1) 49%,
+                rgba(0, 255, 255, 0.1) 51%,
+                transparent 52%
+            );
+            background-size: 200% 200%;
+            animation: glitch 2s linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes glitch {
+            0% { background-position: 0 0; opacity: 0.8; }
+            20% { background-position: -5% -10%; opacity: 0.6; }
+            40% { background-position: 10% 5%; opacity: 0.4; }
+            60% { background-position: -5% 0; opacity: 0.6; }
+            80% { background-position: 15% -5%; opacity: 0.8; }
+            100% { background-position: 0 0; opacity: 1; }
+        }
+        
+        /* Phone Input Styling */
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        
+        #phone-input {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--neon-blue);
+            padding: 15px;
+            color: white;
+            font-size: 1rem;
+            text-align: center;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            transition: all 0.3s;
+        }
+        
+        #phone-input:focus {
+            outline: none;
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+        
+        /* Button Styling */
+        .neon-btn {
+            position: relative;
+            background: transparent;
+            color: var(--neon-blue);
+            border: 2px solid var(--neon-blue);
+            padding: 15px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+            overflow: hidden;
+            margin: 0 auto;
+            display: block;
+            box-shadow: var(--glow);
+        }
+        
+        .neon-btn:hover {
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+        
+        .neon-btn.pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 10px var(--neon-blue); }
+            50% { box-shadow: 0 0 20px var(--neon-blue); }
+            100% { box-shadow: 0 0 10px var(--neon-blue); }
+        }
+        
+        /* Result Display */
+        #result-display {
+            text-align: center;
+            padding: 30px;
+            display: none;
+        }
+        
+        .success-animation {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 30px;
+        }
+        
+        .checkmark {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: block;
+            stroke-width: 4;
+            stroke: var(--neon-blue);
+            stroke-miterlimit: 10;
+            box-shadow: var(--glow);
+            animation: fill 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both;
+        }
+        
+        .checkmark-circle {
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-width: 4;
+            stroke-miterlimit: 10;
+            stroke: var(--neon-blue);
+            fill: none;
+            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+        
+        .checkmark-check {
+            transform-origin: 50% 50%;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+        }
+        
+        @keyframes stroke {
+            100% { stroke-dashoffset: 0; }
+        }
+        
+        @keyframes scale {
+            0%, 100% { transform: none; }
+            50% { transform: scale3d(1.1, 1.1, 1); }
+        }
+        
+        @keyframes fill {
+            100% { box-shadow: inset 0 0 0 100px transparent; }
+        }
+        
+        .session-id {
+            font-size: 1.5rem;
+            margin: 20px 0;
+            color: var(--neon-blue);
+            word-break: break-all;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--neon-blue);
+        }
+        
+        .whatsapp-notice {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        .channel-btn {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--neon-pink);
+            text-decoration: none;
+            font-weight: bold;
+            animation: colorPulse 2s infinite;
+            text-shadow: 0 0 5px var(--neon-pink);
+        }
+        
+        @keyframes colorPulse {
+            0%, 100% { color: var(--neon-pink); }
+            50% { color: var(--neon-blue); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .terminal {
+                width: 100%;
+                border-radius: 0;
+            }
+            
+            .qr-glitch-container {
+                width: 200px;
+                height: 200px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="cyberpunk-container">
-        <div class="terminal">
-            <div class="terminal-header">
-                <div class="buttons">
-                    <span class="red"></span>
-                    <span class="yellow"></span>
-                    <span class="green"></span>
-                </div>
-                <h1>SESSION GENERATOR v3.0</h1>
+    <canvas id="matrix"></canvas>
+    
+    <div class="terminal">
+        <div class="terminal-header">
+            <div class="dots">
+                <span class="red"></span>
+                <span class="yellow"></span>
+                <span class="green"></span>
             </div>
-            
-            <div class="content">
-                <div id="qr-display" class="qr-glitch">
-                    <img id="qr-code" src="" alt="QR Code">
-                    <div class="glitch-layers">
-                        <div class="glitch"></div>
-                        <div class="glitch"></div>
-                    </div>
-                </div>
-                
-                <div id="session-display" class="hidden">
-                    <div class="success-animation">
-                        <svg class="checkmark" viewBox="0 0 52 52">
-                            <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
-                            <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-                        </svg>
-                    </div>
-                    <div class="session-id" id="session-id"></div>
-                    <div class="whatsapp-notice">
-                        <p>Session details sent to your WhatsApp</p>
-                        <a href="#" id="channel-link" class="channel-pulse">
-                            Join Official Channel
-                        </a>
-                    </div>
-                </div>
-                
-                <button id="generate-btn" class="neon-button">
-                    <span class="text">INITIATE SESSION</span>
-                    <span class="gradient"></span>
-                    <span class="dodge"></span>
+            <h1>MASTERTECH SESSION v4.0</h1>
+        </div>
+        
+        <div class="tab-container">
+            <button class="tab active" data-tab="qr">QR Method</button>
+            <button class="tab" data-tab="phone">Phone Method</button>
+        </div>
+        
+        <div id="qr-tab" class="tab-content active">
+            <div class="qr-glitch-container">
+                <img id="qr-code" class="qr-glitch" src="" alt="QR Code">
+                <div class="glitch-overlay"></div>
+            </div>
+            <button id="generate-qr" class="neon-btn pulse">
+                GENERATE QR CODE
+            </button>
+        </div>
+        
+        <div id="phone-tab" class="tab-content">
+            <div class="input-group">
+                <input type="tel" id="phone-input" placeholder="+1234567890">
+                <button id="send-code" class="neon-btn">
+                    SEND TO WHATSAPP
                 </button>
             </div>
         </div>
+        
+        <div id="result-display" class="hidden">
+            <div class="success-animation">
+                <svg class="checkmark" viewBox="0 0 52 52">
+                    <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+                    <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+            </div>
+            <div class="session-id" id="session-id"></div>
+            <div class="whatsapp-notice">
+                <p>Session details sent to your WhatsApp</p>
+                <a href="#" id="channel-link" class="channel-btn">
+                    JOIN OFFICIAL CHANNEL
+                </a>
+            </div>
+        </div>
     </div>
-    
-    <canvas id="matrix"></canvas>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <script src="script.js"></script>
+
+    <script>
+        // Matrix Background
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const chars = "01";
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+        
+        for(let i = 0; i < columns; i++) {
+            drops[i] = Math.random() * -100;
+        }
+        
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#0f0';
+            ctx.font = fontSize + 'px monospace';
+            
+            for(let i = 0; i < drops.length; i++) {
+                const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                
+                drops[i]++;
+            }
+        }
+        
+        setInterval(drawMatrix, 33);
+        
+        // Tab Switching
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.getAttribute('data-tab');
+                
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.getElementById(`${tabId}-tab`).classList.add('active');
+            });
+        });
+        
+        // QR Generation
+        document.getElementById('generate-qr').addEventListener('click', async () => {
+            const qrBtn = document.getElementById('generate-qr');
+            qrBtn.disabled = true;
+            qrBtn.textContent = 'GENERATING...';
+            
+            try {
+                const response = await fetch('/qr-session');
+                const data = await response.json();
+                
+                if(data.qr) {
+                    document.getElementById('qr-code').src = data.qr;
+                }
+                
+                if(data.sessionId) {
+                    showResult(data.sessionId);
+                    confetti({
+                        particleCount: 150,
+                        spread: 70,
+                        origin: { y: 0.6 }
+                    });
+                }
+            } catch (error) {
+                alert('Error generating QR: ' + error.message);
+            } finally {
+                qrBtn.disabled = false;
+                qrBtn.textContent = 'GENERATE QR CODE';
+            }
+        });
+        
+        // Phone Method
+        document.getElementById('send-code').addEventListener('click', async () => {
+            const phoneInput = document.getElementById('phone-input');
+            const sendBtn = document.getElementById('send-code');
+            
+            if(!phoneInput.value.match(/^\+\d{10,15}$/)) {
+                alert('Please enter a valid phone number with country code (e.g. +254712346765)');
+                return;
+            }
+            
+            sendBtn.disabled = true;
+            sendBtn.textContent = 'SENDING...';
+            
+            try {
+                const response = await fetch('/phone-session', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        phone: phoneInput.value
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if(data.success) {
+                    showResult(data.sessionId);
+                    document.getElementById('channel-link').href = data.channelLink;
+                    confetti({
+                        particleCount: 150,
+                        spread: 70,
+                        origin: { y: 0.6 }
+                    });
+                } else {
+                    throw new Error(data.error || 'Failed to send code');
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            } finally {
+                sendBtn.disabled = false;
+                sendBtn.textContent = 'SEND TO WHATSAPP';
+            }
+        });
+        
+        function showResult(sessionId) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            document.getElementById('result-display').classList.add('active');
+            document.getElementById('session-id').textContent = sessionId;
+            
+            // Play success sound
+            const audio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3');
+            audio.volume = 0.3;
+            audio.play();
+        }
+    </script>
 </body>
 </html>
