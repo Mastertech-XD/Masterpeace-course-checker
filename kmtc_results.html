@@ -1824,6 +1824,31 @@
         // KMTC course data with subject requirements
         const kmtcCourses = [
             {
+                name: "DIPLOMA IN NUTRITION & DIETETICS",
+                requirements: {
+                    meanGrade: "C-",
+                    compulsorySubjects: [
+                        { name: "English", minGrade: "D+" },
+                        { name: "Kiswahili", minGrade: "D+" },
+                        { name: "Biology", minGrade: "D+" },
+                        { name: "Chemistry", minGrade: "C+" },
+                        { name: "Mathematics":, minGrade: "D" }
+                    ],
+                    optionalSubjects: [
+                        { name: "Mathematics", minGrade: "C" },
+                        { name: "Physics", minGrade: "C" }
+                    ],
+                    subjectAlternatives: [
+                        { 
+                            requirement: "Either English or Kiswahili",
+                            subjects: ["English", "Kiswahili"],
+                            minGrade: "D+"
+                        }
+                    ]
+                },
+                campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
+            },
+            {
                 name: "Diploma in Clinical Medicine",
                 requirements: {
                     meanGrade: "C",
