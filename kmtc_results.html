@@ -3,243 +3,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KMTC Course Qualification Checker</title>
+    <title>KMTC Courses Checker</title>
     <style>
         :root {
-            --neon-blue: #0ff;
-            --neon-pink: #f0f;
-            --dark-bg: #111;
-            --card-bg: rgba(34, 34, 34, 0.9);
-            --text-light: #fff;
-            --text-dim: #aaa;
+            --neon-blue: #00f3ff;
+            --neon-pink: #ff00f7;
+            --neon-green: #00ff9d;
+            --neon-purple: #9d00ff;
+            --dark-bg: #0a0a14;
+            --light-text: #f0f0ff;
+            --glow: 0 0 10px;
+            --electric-blue: #00e1ff;
         }
         
         body {
-            background-color: var(--dark-bg);
-            color: var(--text-light);
-            font-family: 'Arial', sans-serif;
-            margin: 0;
+            font-family: 'Rajdhani', 'Segoe UI', sans-serif;
+            line-height: 1.7;
+            max-width: 920px;
+            margin: 0 auto;
             padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
+            color: var(--light-text);
+            background-color: var(--dark-bg);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 227, 255, 0.08) 0%, transparent 25%),
+                radial-gradient(circle at 90% 80%, rgba(157, 0, 255, 0.1) 0%, transparent 30%),
+                linear-gradient(to bottom, #0a0a14, #14141f);
+            background-attachment: fixed;
         }
-
+        
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&display=swap');
+        
+        h1, h2, h3 {
+            color: var(--electric-blue);
+            text-shadow: var(--glow) var(--electric-blue);
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
         h1 {
-            color: var(--neon-blue);
-            text-shadow: 0 0 10px var(--neon-blue);
-            margin-bottom: 30px;
             text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite alternate;
+            background: linear-gradient(90deg, var(--neon-green), var(--electric-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px rgba(0, 225, 255, 0.5);
         }
-
-        .container {
-            background: var(--card-bg);
-            border-radius: 10px;
-            padding: 25px;
-            width: 90%;
-            max-width: 800px;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-            border: 1px solid var(--neon-blue);
-            margin-bottom: 20px;
+        
+        @keyframes pulse {
+            0% { text-shadow: 0 0 10px var(--electric-blue); }
+            50% { text-shadow: 0 0 25px var(--electric-blue); }
+            100% { text-shadow: 0 0 10px var(--electric-blue), 0 0 40px var(--neon-purple); }
         }
-
-        .mode-selector {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
+        
+        .form-section {
+            margin-bottom: 30px;
+            padding: 30px;
+            border: 1px solid var(--neon-purple);
+            border-radius: 12px;
+            background-color: rgba(20, 15, 40, 0.6);
+            box-shadow: 0 0 25px rgba(157, 0, 255, 0.2);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(8px);
         }
-
-        .mode-btn {
-            background-color: var(--card-bg);
-            color: var(--neon-blue);
-            border: 2px solid var(--neon-blue);
-            padding: 10px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
+        
+        .form-section:hover {
+            box-shadow: 0 0 35px rgba(157, 0, 255, 0.4);
+            border-color: var(--electric-blue);
+            transform: translateY(-3px);
         }
-
-        .mode-btn:first-child {
-            border-radius: 5px 0 0 5px;
-        }
-
-        .mode-btn:last-child {
-            border-radius: 0 5px 5px 0;
-        }
-
-        .mode-btn.active {
-            background-color: var(--neon-blue);
-            color: var(--dark-bg);
-            box-shadow: 0 0 10px var(--neon-blue);
-        }
-
-        .mode-btn:hover:not(.active) {
-            background-color: rgba(0, 255, 255, 0.2);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .subject-category {
-            margin-bottom: 25px;
-            border-bottom: 1px solid var(--neon-blue);
-            padding-bottom: 10px;
-        }
-
-        .subject-category h3 {
-            color: var(--neon-pink);
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--neon-blue);
-            font-weight: bold;
-        }
-
+        
         select, input {
-            width: 100%;
-            padding: 12px;
-            border-radius: 5px;
-            border: 2px solid var(--neon-blue);
-            background-color: #333;
-            color: var(--text-light);
+            padding: 12px 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid var(--neon-blue);
+            background-color: rgba(0, 30, 60, 0.5);
+            color: var(--light-text);
             font-size: 16px;
             transition: all 0.3s;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 500;
+            width: 240px;
+            box-shadow: inset 0 0 10px rgba(0, 195, 255, 0.1);
         }
-
+        
+        select {
+            background-image: linear-gradient(to bottom, rgba(0, 60, 100, 0.6), rgba(0, 30, 60, 0.7));
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300e1ff'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 20px;
+        }
+        
         select:focus, input:focus {
             outline: none;
-            box-shadow: 0 0 10px var(--neon-blue);
-            border-color: var(--neon-pink);
+            border-color: var(--neon-green);
+            box-shadow: 0 0 15px var(--neon-green),
+                        inset 0 0 10px rgba(0, 255, 157, 0.2);
         }
-
-        button {
-            background-color: var(--neon-blue);
-            color: var(--dark-bg);
-            border: none;
-            padding: 12px 25px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s;
-            width: 100%;
-            margin-top: 10px;
-        }
-
-        button:hover {
-            background-color: var(--neon-pink);
-            box-shadow: 0 0 15px var(--neon-pink);
-            transform: translateY(-2px);
-        }
-
-        .results {
-            margin-top: 30px;
-            padding: 20px;
-            background: rgba(0, 100, 100, 0.2);
-            border-radius: 8px;
-            border-left: 4px solid var(--neon-blue);
-        }
-
-        .course-header {
-            color: var(--neon-blue);
-            font-size: 20px;
-            margin-bottom: 15px;
-        }
-
-        .course-list {
-            margin-top: 15px;
-        }
-
-        .course-item {
+        
+        .subject-group {
+            margin-bottom: 20px;
             padding: 15px;
-            margin-bottom: 10px;
-            background: rgba(0, 50, 50, 0.3);
-            border-radius: 5px;
-            border-left: 4px solid #0f0;
+            border-left: 3px solid var(--neon-pink);
+            background-color: rgba(60, 0, 80, 0.15);
+            transition: all 0.4s;
+            border-radius: 0 8px 8px 0;
         }
-
-        .course-name {
+        
+        .subject-group:hover {
+            background-color: rgba(80, 0, 100, 0.25);
+            border-left-width: 5px;
+            transform: translateX(5px);
+        }
+        
+        label {
+            display: inline-block;
+            width: 260px;
+            color: var(--electric-blue);
             font-weight: bold;
-            color: var(--neon-blue);
-            margin-bottom: 5px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            text-shadow: 0 0 8px rgba(0, 225, 255, 0.3);
         }
-
-        .course-campuses {
-            font-style: italic;
-            color: var(--text-dim);
-            margin-top: 5px;
-        }
-
-        .subject-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .subject-input {
-            flex: 1;
-            min-width: 120px;
-        }
-
-        .subject-input label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .grade-select {
-            width: 100%;
-            padding: 8px;
-            border-radius: 5px;
-            border: 1px solid var(--neon-blue);
-            background-color: #333;
-            color: var(--text-light);
-        }
-
-        .qualified-count {
-            margin-top: 15px;
-            font-style: italic;
+        
+        .required::after {
+            content: " *";
             color: var(--neon-pink);
+            text-shadow: 0 0 8px var(--neon-pink);
         }
-
-        .requirements {
-            margin-top: 15px;
-            padding: 10px;
-            background: rgba(100, 0, 100, 0.2);
-            border-radius: 5px;
-            border-left: 4px solid var(--neon-pink);
+        
+        button {
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin: 40px auto;
+            display: block;
+            transition: all 0.4s;
+            box-shadow: 0 5px 25px rgba(0, 225, 255, 0.4);
+            font-family: 'Rajdhani', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
-
-        .requirement-item {
-            margin-bottom: 5px;
+        
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: -1;
         }
-
+        
+        button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 35px rgba(0, 225, 255, 0.6);
+        }
+        
+        button:hover::before {
+            opacity: 1;
+        }
+        
+        button:active {
+            transform: translateY(2px);
+        }
+        
         footer {
-            margin-top: 30px;
-            color: var(--text-dim);
+            margin-top: 80px;
             text-align: center;
-            font-size: 14px;
+            padding: 25px;
+            border-top: 1px solid var(--neon-purple);
+            color: #aaa;
+            font-size: 0.9rem;
+            text-shadow: 0 0 5px rgba(157, 0, 255, 0.3);
         }
-
-        @media (max-width: 600px) {
-            .container {
-                padding: 15px;
-                width: 95%;
-            }
-            
-            h1 {
-                font-size: 24px;
-            }
-            
-            .subject-input {
-                min-width: 100%;
-            }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .section-title h2 {
+            margin: 0;
+            background: linear-gradient(90deg, var(--neon-pink), var(--electric-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .section-icon {
+            margin-right: 15px;
+            font-size: 1.8rem;
+            color: var(--electric-blue);
+            filter: drop-shadow(0 0 5px var(--electric-blue));
         }
     </style>
 </head>
