@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KMTC Course Qualification Checker</title>
+    <title>KMTC COURSE QUALIFICATION CHECKER</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -17,7 +17,7 @@
             --card-bg: rgba(15, 15, 25, 0.98);
             --text-light: #f0f0ff;
             --text-dim: #b0b0c0;
-            --glow-intensity: 20.6;
+            --glow-intensity: 1.9;
             --transition-base: cubic-bezier(0.16, 1, 0.3, 1);
         }
         
@@ -62,6 +62,7 @@
             color: transparent;
             padding: 0 1.5rem;
             line-height: 1.2;
+            text-transform: uppercase;
         }
 
         @keyframes titleGlow {
@@ -174,6 +175,7 @@
             min-width: 240px;
             text-align: center;
             transform-style: preserve-3d;
+            text-transform: uppercase;
         }
 
         .mode-btn::before {
@@ -309,6 +311,7 @@
             font-family: 'Orbitron', sans-serif;
             letter-spacing: 0.8px;
             text-shadow: 0 0 10px var(--neon-pink);
+            text-transform: uppercase;
         }
 
         .subject-category h3::before {
@@ -327,6 +330,17 @@
             0% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.7); }
             50% { transform: scale(1.3); opacity: 0.9; box-shadow: 0 0 0 10px rgba(0, 240, 255, 0); }
             100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(0, 240, 255, 0); }
+        }
+
+        .subject-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .subject-input {
+            margin-bottom: 1rem;
         }
 
         .button-container {
@@ -441,6 +455,7 @@
             font-family: 'Orbitron', sans-serif;
             letter-spacing: 1px;
             transform: translateZ(40px);
+            text-transform: uppercase;
         }
 
         .course-header::before {
@@ -516,6 +531,7 @@
             font-family: 'Orbitron', sans-serif;
             letter-spacing: 0.5px;
             transform: translateZ(30px);
+            text-transform: uppercase;
         }
 
         .course-name::before {
@@ -554,6 +570,20 @@
             font-size: 1.2rem;
         }
 
+        .campuses-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .campus-item {
+            background: rgba(0, 240, 255, 0.1);
+            padding: 0.3rem 0.8rem;
+            border-radius: 5px;
+            border: 1px solid rgba(0, 240, 255, 0.3);
+        }
+
         .qualified-count {
             margin-top: 3rem;
             color: var(--neon-pink);
@@ -564,6 +594,13 @@
             letter-spacing: 1.5px;
             text-shadow: 0 0 10px var(--neon-pink);
             transform: translateZ(30px);
+        }
+
+        .total-courses {
+            display: block;
+            font-size: 1rem;
+            color: var(--text-dim);
+            margin-top: 0.5rem;
         }
 
         @keyframes pulse {
@@ -627,6 +664,44 @@
             top: 0;
         }
 
+        .highlight {
+            color: var(--neon-green);
+            font-weight: 600;
+        }
+
+        .optional-subjects, .subject-alternatives {
+            margin: 1rem 0;
+            padding-left: 1rem;
+            border-left: 2px solid var(--neon-purple);
+        }
+
+        .view-details-btn {
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--neon-blue);
+            border: 1px solid var(--neon-blue);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        .view-details-btn:hover {
+            background: rgba(0, 240, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 240, 255, 0.3);
+        }
+
+        .no-courses {
+            border-left-color: var(--neon-pink);
+        }
+
+        .no-courses .course-name {
+            color: var(--neon-pink);
+        }
+
         /* Floating particles background */
         .particles-container {
             position: fixed;
@@ -650,7 +725,6 @@
 
         /* Loading animation */
         .loader {
-            display: none;
             position: fixed;
             top: 0;
             left: 0;
@@ -664,10 +738,12 @@
             flex-direction: column;
             opacity: 0;
             transition: opacity 0.5s ease;
+            display: none;
         }
 
         .loader.active {
             opacity: 1;
+            display: flex;
         }
 
         .loader-spinner {
@@ -863,18 +939,18 @@
     </style>
 </head>
 <body>
-    <h1>KMTC Course Qualification Checker</h1>
+    <h1>KMTC COURSE QUALIFICATION CHECKER</h1>
     
     <div class="container">
         <div class="mode-selector">
-            <button class="mode-btn active" id="autoModeBtn">Check All Courses</button>
-            <button class="mode-btn" id="manualModeBtn">Check Specific Course</button>
+            <button class="mode-btn active" id="autoModeBtn">CHECK ALL COURSES</button>
+            <button class="mode-btn" id="manualModeBtn">CHECK SPECIFIC COURSE</button>
         </div>
         
         <!-- Auto Check Mode Content -->
         <div id="autoModeContent">
             <div class="form-group">
-                <label for="meanGrade">Enter Your KCSE Mean Grade:</label>
+                <label for="meanGrade">ENTER YOUR KCSE MEAN GRADE:</label>
                 <select id="meanGrade">
                     <option value="">-- Select your mean grade --</option>
                     <option value="A">A</option>
@@ -893,10 +969,10 @@
             </div>
             
             <div class="subject-category">
-                <h3>Core Subjects</h3>
+                <h3>CORE SUBJECTS</h3>
                 <div class="subject-row">
                     <div class="subject-input">
-                        <label for="english">English</label>
+                        <label for="english">ENGLISH</label>
                         <select id="english" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -915,7 +991,7 @@
                     </div>
                     
                     <div class="subject-input">
-                        <label for="kiswahili">Kiswahili</label>
+                        <label for="kiswahili">KISWAHILI</label>
                         <select id="kiswahili" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -934,7 +1010,7 @@
                     </div>
                     
                     <div class="subject-input">
-                        <label for="maths">Mathematics</label>
+                        <label for="maths">MATHEMATICS</label>
                         <select id="maths" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -955,10 +1031,10 @@
             </div>
             
             <div class="subject-category">
-                <h3>Sciences</h3>
+                <h3>SCIENCES</h3>
                 <div class="subject-row">
                     <div class="subject-input">
-                        <label for="biology">Biology</label>
+                        <label for="biology">BIOLOGY</label>
                         <select id="biology" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -977,7 +1053,7 @@
                     </div>
                     
                     <div class="subject-input">
-                        <label for="chemistry">Chemistry</label>
+                        <label for="chemistry">CHEMISTRY</label>
                         <select id="chemistry" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -996,7 +1072,7 @@
                     </div>
                     
                     <div class="subject-input">
-                        <label for="physics">Physics</label>
+                        <label for="physics">PHYSICS</label>
                         <select id="physics" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1017,10 +1093,10 @@
             </div>
             
             <div class="subject-category">
-                <h3>Humanities</h3>
+                <h3>HUMANITIES</h3>
                 <div class="subject-row">
                     <div class="subject-input">
-                        <label for="geography">Geography</label>
+                        <label for="geography">GEOGRAPHY</label>
                         <select id="geography" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1039,7 +1115,7 @@
                     </div>
                     
                     <div class="subject-input">
-                        <label for="history">History and Government</label>
+                        <label for="history">HISTORY AND GOVERNMENT</label>
                         <select id="history" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1058,7 +1134,7 @@
                     </div>
                     
                     <div class="subject-input">
-                        <label for="cre">Christian Religious Education (CRE)</label>
+                        <label for="cre">CHRISTIAN RELIGIOUS EDUCATION (CRE)</label>
                         <select id="cre" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1079,7 +1155,7 @@
                 
                 <div class="subject-row">
                     <div class="subject-input">
-                        <label for="ire">Islamic Religious Education (IRE)</label>
+                        <label for="ire">ISLAMIC RELIGIOUS EDUCATION (IRE)</label>
                         <select id="ire" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1098,7 +1174,7 @@
                     </div>
                     
                     <div class="subject-input">
-                        <label for="hre">Hindu Religious Education (HRE)</label>
+                        <label for="hre">HINDU RELIGIOUS EDUCATION (HRE)</label>
                         <select id="hre" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1119,10 +1195,10 @@
             </div>
             
             <div class="subject-category">
-                <h3>Technical and Other Subjects</h3>
+                <h3>TECHNICAL AND OTHER SUBJECTS</h3>
                 <div class="subject-row">
                     <div class="subject-input">
-                        <label for="agriculture">Agriculture</label>
+                        <label for="agriculture">AGRICULTURE</label>
                         <select id="agriculture" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1141,7 +1217,7 @@
                     </div>
                     
                     <div class="subject-input">
-                        <label for="computer">Computer Studies</label>
+                        <label for="computer">COMPUTER STUDIES</label>
                         <select id="computer" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1160,7 +1236,7 @@
                     </div>
                     
                     <div class="subject-input">
-                        <label for="art">Art and Design</label>
+                        <label for="art">ART AND DESIGN</label>
                         <select id="art" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1181,7 +1257,7 @@
                 
                 <div class="subject-row">
                     <div class="subject-input">
-                        <label for="business">Business Studies</label>
+                        <label for="business">BUSINESS STUDIES</label>
                         <select id="business" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1200,7 +1276,7 @@
                     </div>
                     
                     <div class="subject-input">
-                        <label for="music">Music</label>
+                        <label for="music">MUSIC</label>
                         <select id="music" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1221,10 +1297,10 @@
             </div>
             
             <div class="subject-category">
-                <h3>Technical Subjects</h3>
+                <h3>TECHNICAL SUBJECTS</h3>
                 <div class="subject-row">
                     <div class="subject-input">
-                        <label for="building">Building and Construction</label>
+                        <label for="building">BUILDING AND CONSTRUCTION</label>
                         <select id="building" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1243,7 +1319,7 @@
                     </div>
                     
                     <div class="subject-input">
-                        <label for="electricity">Electricity and Electronics</label>
+                        <label for="electricity">ELECTRICITY AND ELECTRONICS</label>
                         <select id="electricity" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1262,7 +1338,7 @@
                     </div>
                     
                     <div class="subject-input">
-                        <label for="woodwork">Woodwork</label>
+                        <label for="woodwork">WOODWORK</label>
                         <select id="woodwork" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1283,7 +1359,7 @@
                 
                 <div class="subject-row">
                     <div class="subject-input">
-                        <label for="metalwork">Metalwork</label>
+                        <label for="metalwork">METALWORK</label>
                         <select id="metalwork" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1302,7 +1378,7 @@
                     </div>
                     
                     <div class="subject-input">
-                        <label for="homescience">Home Science</label>
+                        <label for="homescience">HOME SCIENCE</label>
                         <select id="homescience" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1322,11 +1398,13 @@
                 </div>
             </div>
             
-            <button onclick="checkAllQualifications()">Check Which Courses I Qualify For</button>
+            <div class="button-container">
+                <button onclick="checkAllQualifications()">CHECK WHICH COURSES I QUALIFY FOR</button>
+            </div>
             
             <div class="results" id="autoResults" style="display: none;">
                 <div class="course-header">
-                    Courses You Qualify For:
+                    COURSES YOU QUALIFY FOR:
                 </div>
                 
                 <div class="course-list" id="autoCourseList"></div>
@@ -1338,7 +1416,7 @@
         <!-- Manual Check Mode Content -->
         <div id="manualModeContent" style="display: none;">
             <div class="form-group">
-                <label for="manualCourseSelect">Select KMTC Course:</label>
+                <label for="manualCourseSelect">SELECT KMTC COURSE:</label>
                 <select id="manualCourseSelect">
                     <option value="">-- Select a course --</option>
                     <!-- Courses will be populated by JavaScript -->
@@ -1346,7 +1424,7 @@
             </div>
             
             <div class="form-group">
-                <label for="manualMeanGrade">Enter Your KCSE Mean Grade:</label>
+                <label for="manualMeanGrade">ENTER YOUR KCSE MEAN GRADE:</label>
                 <select id="manualMeanGrade">
                     <option value="">-- Select your mean grade --</option>
                     <option value="A">A</option>
@@ -1366,10 +1444,10 @@
             
             <!-- Core Subjects -->
             <div class="subject-category">
-                <h3>Core Subjects</h3>
+                <h3>CORE SUBJECTS</h3>
                 <div class="subject-row">
                     <div class="subject-input">
-                        <label for="manualEnglish">English</label>
+                        <label for="manualEnglish">ENGLISH</label>
                         <select id="manualEnglish" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1388,7 +1466,7 @@
                     </div>
                     
                     <div class="subject-input">
-                        <label for="manualKiswahili">Kiswahili</label>
+                        <label for="manualKiswahili">KISWAHILI</label>
                         <select id="manualKiswahili" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1407,7 +1485,7 @@
                     </div>
                     
                     <div class="subject-input">
-                        <label for="manualMaths">Mathematics</label>
+                        <label for="manualMaths">MATHEMATICS</label>
                         <select id="manualMaths" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1429,10 +1507,10 @@
             
             <!-- Sciences -->
             <div class="subject-category">
-                <h3>Sciences</h3>
+                <h3>SCIENCES</h3>
                 <div class="subject-row">
                     <div class="subject-input">
-                        <label for="manualBiology">Biology</label>
+                        <label for="manualBiology">BIOLOGY</label>
                         <select id="manualBiology" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1451,7 +1529,7 @@
                     </div>
                     
                     <div class="subject-input">
-                        <label for="manualChemistry">Chemistry</label>
+                        <label for="manualChemistry">CHEMISTRY</label>
                         <select id="manualChemistry" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1470,7 +1548,7 @@
                     </div>
                     
                     <div class="subject-input">
-                        <label for="manualPhysics">Physics</label>
+                        <label for="manualPhysics">PHYSICS</label>
                         <select id="manualPhysics" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1492,10 +1570,10 @@
             
             <!-- Humanities -->
             <div class="subject-category">
-                <h3>Humanities</h3>
+                <h3>HUMANITIES</h3>
                 <div class="subject-row">
                     <div class="subject-input">
-                        <label for="manualGeography">Geography</label>
+                        <label for="manualGeography">GEOGRAPHY</label>
                         <select id="manualGeography" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1514,7 +1592,7 @@
                     </div>
                     
                     <div class="subject-input">
-                        <label for="manualHistory">History and Government</label>
+                        <label for="manualHistory">HISTORY AND GOVERNMENT</label>
                         <select id="manualHistory" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1533,7 +1611,7 @@
                     </div>
                     
                     <div class="subject-input">
-                        <label for="manualCre">Christian Religious Education (CRE)</label>
+                        <label for="manualCre">CHRISTIAN RELIGIOUS EDUCATION (CRE)</label>
                         <select id="manualCre" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1554,7 +1632,7 @@
                 
                 <div class="subject-row">
                     <div class="subject-input">
-                        <label for="manualIre">Islamic Religious Education (IRE)</label>
+                        <label for="manualIre">ISLAMIC RELIGIOUS EDUCATION (IRE)</label>
                         <select id="manualIre" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1573,7 +1651,7 @@
                     </div>
                     
                     <div class="subject-input">
-                        <label for="manualHre">Hindu Religious Education (HRE)</label>
+                        <label for="manualHre">HINDU RELIGIOUS EDUCATION (HRE)</label>
                         <select id="manualHre" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1595,10 +1673,10 @@
             
             <!-- Technical and Other Subjects -->
             <div class="subject-category">
-                <h3>Technical and Other Subjects</h3>
+                <h3>TECHNICAL AND OTHER SUBJECTS</h3>
                 <div class="subject-row">
                     <div class="subject-input">
-                        <label for="manualAgriculture">Agriculture</label>
+                        <label for="manualAgriculture">AGRICULTURE</label>
                         <select id="manualAgriculture" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1617,7 +1695,7 @@
                     </div>
                     
                     <div class="subject-input">
-                        <label for="manualComputer">Computer Studies</label>
+                        <label for="manualComputer">COMPUTER STUDIES</label>
                         <select id="manualComputer" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1636,7 +1714,7 @@
                     </div>
                     
                     <div class="subject-input">
-                        <label for="manualArt">Art and Design</label>
+                        <label for="manualArt">ART AND DESIGN</label>
                         <select id="manualArt" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1657,7 +1735,7 @@
                 
                 <div class="subject-row">
                     <div class="subject-input">
-                        <label for="manualBusiness">Business Studies</label>
+                        <label for="manualBusiness">BUSINESS STUDIES</label>
                         <select id="manualBusiness" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1676,7 +1754,7 @@
                     </div>
                     
                     <div class="subject-input">
-                        <label for="manualMusic">Music</label>
+                        <label for="manualMusic">MUSIC</label>
                         <select id="manualMusic" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1698,10 +1776,10 @@
             
             <!-- Technical Subjects -->
             <div class="subject-category">
-                <h3>Technical Subjects</h3>
+                <h3>TECHNICAL SUBJECTS</h3>
                 <div class="subject-row">
                     <div class="subject-input">
-                        <label for="manualBuilding">Building and Construction</label>
+                        <label for="manualBuilding">BUILDING AND CONSTRUCTION</label>
                         <select id="manualBuilding" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1720,7 +1798,7 @@
                     </div>
                     
                     <div class="subject-input">
-                        <label for="manualElectricity">Electricity and Electronics</label>
+                        <label for="manualElectricity">ELECTRICITY AND ELECTRONICS</label>
                         <select id="manualElectricity" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1739,7 +1817,7 @@
                     </div>
                     
                     <div class="subject-input">
-                        <label for="manualWoodwork">Woodwork</label>
+                        <label for="manualWoodwork">WOODWORK</label>
                         <select id="manualWoodwork" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1760,7 +1838,7 @@
                 
                 <div class="subject-row">
                     <div class="subject-input">
-                        <label for="manualMetalwork">Metalwork</label>
+                        <label for="manualMetalwork">METALWORK</label>
                         <select id="manualMetalwork" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1779,7 +1857,7 @@
                     </div>
                     
                     <div class="subject-input">
-                        <label for="manualHomescience">Home Science</label>
+                        <label for="manualHomescience">HOME SCIENCE</label>
                         <select id="manualHomescience" class="grade-select">
                             <option value="">Select Grade</option>
                             <option value="A">A</option>
@@ -1799,7 +1877,9 @@
                 </div>
             </div>
             
-            <button onclick="checkManualQualification()">Check Qualification</button>
+            <div class="button-container">
+                <button onclick="checkManualQualification()">CHECK QUALIFICATION</button>
+            </div>
             
             <div class="results" id="manualResults" style="display: none;">
                 <div class="course-header">
@@ -1807,7 +1887,7 @@
                 </div>
                 
                 <div class="requirements" id="requirements">
-                    <h3>Course Requirements:</h3>
+                    <h3 class="requirements-title">COURSE REQUIREMENTS:</h3>
                     <div id="requirementsList"></div>
                 </div>
                 
@@ -1817,14 +1897,247 @@
     </div>
     
     <footer>
-        &copy; 2025 Created by Sir. Masterpeace Elite
+        &copy; 2025 CREATED BY SIR. MASTERPEACE ELITE
     </footer>
 
     <script>
         // KMTC course data with subject requirements
         const kmtcCourses = [
             {
-                name: "DIPLOMA IN NUTRITION & DIETETICS",
+                name: "DIPLOMA IN CLINICAL MEDICINE",
+                requirements: {
+                    meanGrade: "C",
+                    compulsorySubjects: [
+                        { 
+                            requirement: "Either English or Kiswahili",
+                            alternatives: [
+                                { name: "English", minGrade: "C" },
+                                { name: "Kiswahili", minGrade: "C" }
+                            ]
+                        },
+                        { name: "Biology", minGrade: "C" },
+                        { name: "Chemistry", minGrade: "C" },
+                        { 
+                            requirement: "Either Mathematics or Physics",
+                            alternatives: [
+                                { name: "Mathematics", minGrade: "C" },
+                                { name: "Physics", minGrade: "C" }
+                            ]
+                        }
+                    ]
+                },
+                campuses: ["NAIROBI", "MOMBASA", "KISUMU", "NAKURU"]
+            },
+            {
+                name: "DIPLOMA IN NURSING",
+                requirements: {
+                    meanGrade: "C",
+                    compulsorySubjects: [
+                        { 
+                            requirement: "Either English or Kiswahili",
+                            alternatives: [
+                                { name: "English", minGrade: "C" },
+                                { name: "Kiswahili", minGrade: "C" }
+                            ]
+                        },
+                        { name: "Biology", minGrade: "C" },
+                        { 
+                            requirement: "Either Chemistry or Physics or Mathematics",
+                            alternatives: [
+                                { name: "Chemistry", minGrade: "C" },
+                                { name: "Physics", minGrade: "C" },
+                                { name: "Mathematics", minGrade: "C" }
+                            ]
+                        }
+                    ]
+                },
+                campuses: ["NAIROBI", "MOMBASA", "KISUMU", "NAKURU", "ELDORET"]
+            },
+            {
+                name: "DIPLOMA IN MEDICAL LABORATORY SCIENCES",
+                requirements: {
+                    meanGrade: "C",
+                    compulsorySubjects: [
+                        { 
+                            requirement: "Either English or Kiswahili",
+                            alternatives: [
+                                { name: "English", minGrade: "C" },
+                                { name: "Kiswahili", minGrade: "C" }
+                            ]
+                        },
+                        { name: "Biology", minGrade: "C" },
+                        { name: "Chemistry", minGrade: "C" },
+                        { 
+                            requirement: "Either Mathematics or Physics",
+                            alternatives: [
+                                { name: "Mathematics", minGrade: "C" },
+                                { name: "Physics", minGrade: "C" }
+                            ]
+                        }
+                    ]
+                },
+                campuses: ["NAIROBI", "MOMBASA", "KISUMU"]
+            },
+            {
+                name: "DIPLOMA IN PHARMACY",
+                requirements: {
+                    meanGrade: "C",
+                    compulsorySubjects: [
+                        { 
+                            requirement: "Either English or Kiswahili",
+                            alternatives: [
+                                { name: "English", minGrade: "C" },
+                                { name: "Kiswahili", minGrade: "C" }
+                            ]
+                        },
+                        { name: "Biology", minGrade: "C" },
+                        { name: "Chemistry", minGrade: "C" },
+                        { 
+                            requirement: "Either Mathematics or Physics",
+                            alternatives: [
+                                { name: "Mathematics", minGrade: "C" },
+                                { name: "Physics", minGrade: "C" }
+                            ]
+                        }
+                    ]
+                },
+                campuses: ["NAIROBI", "MOMBASA"]
+            },
+            {
+                name: "DIPLOMA IN COMMUNITY HEALTH NURSING",
+                requirements: {
+                    meanGrade: "C",
+                    compulsorySubjects: [
+                        { 
+                            requirement: "Either English or Kiswahili",
+                            alternatives: [
+                                { name: "English", minGrade: "C" },
+                                { name: "Kiswahili", minGrade: "C" }
+                            ]
+                        },
+                        { name: "Biology", minGrade: "C" },
+                        { 
+                            requirement: "Either Chemistry or Physics or Mathematics",
+                            alternatives: [
+                                { name: "Chemistry", minGrade: "C" },
+                                { name: "Physics", minGrade: "C" },
+                                { name: "Mathematics", minGrade: "C" }
+                            ]
+                        }
+                    ]
+                },
+                campuses: ["NAIROBI", "KISUMU", "NAKURU", "ELDORET"]
+            },
+            {
+                name: "DIPLOMA IN HEALTH RECORDS AND INFORMATION",
+                requirements: {
+                    meanGrade: "C-",
+                    compulsorySubjects: [
+                        { 
+                            requirement: "Either English or Kiswahili",
+                            alternatives: [
+                                { name: "English", minGrade: "C-" },
+                                { name: "Kiswahili", minGrade: "C-" }
+                            ]
+                        },
+                        { name: "Mathematics", minGrade: "C-" }
+                    ]
+                },
+                campuses: ["NAIROBI", "MOMBASA", "KISUMU"]
+            },
+            {
+                name: "DIPLOMA IN DENTAL TECHNOLOGY",
+                requirements: {
+                    meanGrade: "C",
+                    compulsorySubjects: [
+                        { 
+                            requirement: "Either English or Kiswahili",
+                            alternatives: [
+                                { name: "English", minGrade: "C" },
+                                { name: "Kiswahili", minGrade: "C" }
+                            ]
+                        },
+                        { name: "Biology", minGrade: "C" },
+                        { name: "Chemistry", minGrade: "C" },
+                        { 
+                            requirement: "Either Mathematics or Physics",
+                            alternatives: [
+                                { name: "Mathematics", minGrade: "C" },
+                                { name: "Physics", minGrade: "C" }
+                            ]
+                        }
+                    ]
+                },
+                campuses: ["NAIROBI"]
+            },
+            {
+                name: "DIPLOMA IN PHYSIOTHERAPY",
+                requirements: {
+                    meanGrade: "C",
+                    compulsorySubjects: [
+                        { 
+                            requirement: "Either English or Kiswahili",
+                            alternatives: [
+                                { name: "English", minGrade: "C" },
+                                { name: "Kiswahili", minGrade: "C" }
+                            ]
+                        },
+                        { name: "Biology", minGrade: "C" },
+                        { 
+                            requirement: "Either Chemistry or Physics or Mathematics",
+                            alternatives: [
+                                { name: "Chemistry", minGrade: "C" },
+                                { name: "Physics", minGrade: "C" },
+                                { name: "Mathematics", minGrade: "C" }
+                            ]
+                        }
+                    ]
+                },
+                campuses: ["NAIROBI", "MOMBASA"]
+            },
+            {
+                name: "DIPLOMA IN MEDICAL IMAGING SCIENCES",
+                requirements: {
+                    meanGrade: "C",
+                    compulsorySubjects: [
+                        { 
+                            requirement: "Either English or Kiswahili",
+                            alternatives: [
+                                { name: "English", minGrade: "C" },
+                                { name: "Kiswahili", minGrade: "C" }
+                            ]
+                        },
+                        { name: "Biology", minGrade: "C" },
+                        { name: "Physics", minGrade: "C" },
+                        { 
+                            requirement: "Either Chemistry or Mathematics",
+                            alternatives: [
+                                { name: "Chemistry", minGrade: "C" },
+                                { name: "Mathematics", minGrade: "C" }
+                            ]
+                        }
+                    ]
+                },
+                campuses: ["NAIROBI", "KISUMU"]
+            },
+            {
+                name: "DIPLOMA IN HEALTH PROMOTION",
+                requirements: {
+                    meanGrade: "C-",
+                    compulsorySubjects: [
+                        { 
+                            requirement: "Either English or Kiswahili",
+                            alternatives: [
+                                { name: "English", minGrade: "C-" },
+                                { name: "Kiswahili", minGrade: "C-" }
+                            ]
+                        }
+                    ]
+                },
+                campuses: ["NAIROBI", "MOMBASA", "KISUMU"]
+            },
+            {
+                name: "DIPLOMA IN NUTRITION AND DIETETICS",
                 requirements: {
                     meanGrade: "C-",
                     compulsorySubjects: [
@@ -1840,176 +2153,7 @@
                         { name: "Mathematics", minGrade: "D" }
                     ]
                 },
-                campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
-            },
-            {
-                name: "Diploma in Clinical Medicine",
-                requirements: {
-                    meanGrade: "C",
-                    compulsorySubjects: [
-                        { name: "English", minGrade: "C" },
-                        { name: "Kiswahili", minGrade: "C" },
-                        { name: "Biology", minGrade: "C" },
-                        { name: "Chemistry", minGrade: "C" }
-                    ],
-                    optionalSubjects: [
-                        { name: "Mathematics", minGrade: "C" },
-                        { name: "Physics", minGrade: "C" }
-                    ],
-                    subjectAlternatives: [
-                        { 
-                            requirement: "Either Mathematics or Physics",
-                            subjects: ["Mathematics", "Physics"],
-                            minGrade: "C"
-                        }
-                    ]
-                },
-                campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
-            },
-            {
-                name: "Diploma in Nursing",
-                requirements: {
-                    meanGrade: "C",
-                    compulsorySubjects: [
-                        { name: "English", minGrade: "C" },
-                        { name: "Kiswahili", minGrade: "C" },
-                        { name: "Biology", minGrade: "C" }
-                    ],
-                    optionalSubjects: [
-                        { name: "Chemistry", minGrade: "C" },
-                        { name: "Mathematics", minGrade: "C" },
-                        { name: "Physics", minGrade: "C" }
-                    ]
-                },
-                campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret"]
-            },
-            {
-                name: "Diploma in Medical Laboratory Sciences",
-                requirements: {
-                    meanGrade: "C",
-                    compulsorySubjects: [
-                        { name: "English", minGrade: "C" },
-                        { name: "Kiswahili", minGrade: "C" },
-                        { name: "Biology", minGrade: "C" },
-                        { name: "Chemistry", minGrade: "C" }
-                    ],
-                    optionalSubjects: [
-                        { name: "Mathematics", minGrade: "C" },
-                        { name: "Physics", minGrade: "C" }
-                    ]
-                },
-                campuses: ["Nairobi", "Mombasa", "Kisumu"]
-            },
-            {
-                name: "Diploma in Pharmacy",
-                requirements: {
-                    meanGrade: "C",
-                    compulsorySubjects: [
-                        { name: "English", minGrade: "C" },
-                        { name: "Kiswahili", minGrade: "C" },
-                        { name: "Biology", minGrade: "C" },
-                        { name: "Chemistry", minGrade: "C" }
-                    ],
-                    optionalSubjects: [
-                        { name: "Mathematics", minGrade: "C" },
-                        { name: "Physics", minGrade: "C" }
-                    ]
-                },
-                campuses: ["Nairobi", "Mombasa"]
-            },
-            {
-                name: "Diploma in Community Health Nursing",
-                requirements: {
-                    meanGrade: "C",
-                    compulsorySubjects: [
-                        { name: "English", minGrade: "C" },
-                        { name: "Kiswahili", minGrade: "C" },
-                        { name: "Biology", minGrade: "C" }
-                    ],
-                    optionalSubjects: [
-                        { name: "Chemistry", minGrade: "C" },
-                        { name: "Mathematics", minGrade: "C" },
-                        { name: "Physics", minGrade: "C" }
-                    ]
-                },
-                campuses: ["Nairobi", "Kisumu", "Nakuru", "Eldoret"]
-            },
-            {
-                name: "Diploma in Health Records and Information",
-                requirements: {
-                    meanGrade: "C-",
-                    compulsorySubjects: [
-                        { name: "English", minGrade: "C-" },
-                        { name: "Kiswahili", minGrade: "C-" }
-                    ],
-                    optionalSubjects: [
-                        { name: "Mathematics", minGrade: "C-" }
-                    ]
-                },
-                campuses: ["Nairobi", "Mombasa", "Kisumu"]
-            },
-            {
-                name: "Diploma in Dental Technology",
-                requirements: {
-                    meanGrade: "C",
-                    compulsorySubjects: [
-                        { name: "English", minGrade: "C" },
-                        { name: "Kiswahili", minGrade: "C" },
-                        { name: "Biology", minGrade: "C" },
-                        { name: "Chemistry", minGrade: "C" }
-                    ],
-                    optionalSubjects: [
-                        { name: "Mathematics", minGrade: "C" },
-                        { name: "Physics", minGrade: "C" }
-                    ]
-                },
-                campuses: ["Nairobi"]
-            },
-            {
-                name: "Diploma in Physiotherapy",
-                requirements: {
-                    meanGrade: "C",
-                    compulsorySubjects: [
-                        { name: "English", minGrade: "C" },
-                        { name: "Kiswahili", minGrade: "C" },
-                        { name: "Biology", minGrade: "C" }
-                    ],
-                    optionalSubjects: [
-                        { name: "Chemistry", minGrade: "C" },
-                        { name: "Mathematics", minGrade: "C" },
-                        { name: "Physics", minGrade: "C" }
-                    ]
-                },
-                campuses: ["Nairobi", "Mombasa"]
-            },
-            {
-                name: "Diploma in Medical Imaging Sciences",
-                requirements: {
-                    meanGrade: "C",
-                    compulsorySubjects: [
-                        { name: "English", minGrade: "C" },
-                        { name: "Kiswahili", minGrade: "C" },
-                        { name: "Biology", minGrade: "C" },
-                        { name: "Physics", minGrade: "C" }
-                    ],
-                    optionalSubjects: [
-                        { name: "Chemistry", minGrade: "C" },
-                        { name: "Mathematics", minGrade: "C" }
-                    ]
-                },
-                campuses: ["Nairobi", "Kisumu"]
-            },
-            {
-                name: "Diploma in Health Promotion",
-                requirements: {
-                    meanGrade: "C-",
-                    compulsorySubjects: [
-                        { name: "English", minGrade: "C-" },
-                        { name: "Kiswahili", minGrade: "C-" }
-                    ],
-                    optionalSubjects: []
-                },
-                campuses: ["Nairobi", "Mombasa", "Kisumu"]
+                campuses: ["NAIROBI", "MOMBASA", "KISUMU", "NAKURU"]
             }
         ];
 
@@ -2087,7 +2231,7 @@
             
             // Validate inputs
             if (!meanGrade) {
-                alert("Please select your mean grade");
+                alert("PLEASE SELECT YOUR MEAN GRADE");
                 return;
             }
             
@@ -2109,12 +2253,12 @@
             const meanGrade = document.getElementById('manualMeanGrade').value;
             
             if (!courseName) {
-                alert("Please select a KMTC course");
+                alert("PLEASE SELECT A KMTC COURSE");
                 return;
             }
             
             if (!meanGrade) {
-                alert("Please select your mean grade");
+                alert("PLEASE SELECT YOUR MEAN GRADE");
                 return;
             }
             
@@ -2151,21 +2295,34 @@
             
             // Display requirements
             const requirementsList = document.getElementById('requirementsList');
-            requirementsList.innerHTML = `
-                <div class="requirement-item"><strong>Minimum Mean Grade:</strong> ${selectedCourse.requirements.meanGrade}</div>
-                <div class="requirement-item"><strong>Compulsory Subjects:</strong> 
-                    ${selectedCourse.requirements.compulsorySubjects.map(s => `${s.name} (${s.minGrade}+)`).join(', ')}
-                </div>
-                ${selectedCourse.requirements.optionalSubjects.length > 0 ? 
-                  `<div class="requirement-item"><strong>Optional Subjects:</strong> 
-                      ${selectedCourse.requirements.optionalSubjects.map(s => `${s.name} (${s.minGrade}+)`).join(', ')}
-                  </div>` : ''}
-                ${selectedCourse.requirements.subjectAlternatives ? 
-                  `<div class="requirement-item"><strong>Subject Alternatives:</strong> 
-                      ${selectedCourse.requirements.subjectAlternatives.map(a => `${a.requirement} (${a.minGrade}+)`).join(', ')}
-                  </div>` : ''}
-                <div class="requirement-item"><strong>Available Campuses:</strong> ${selectedCourse.campuses.join(", ")}</div>
-            `;
+            requirementsList.innerHTML = '';
+            
+            // Add mean grade requirement
+            const meanGradeItem = document.createElement('div');
+            meanGradeItem.className = 'requirement-item';
+            meanGradeItem.innerHTML = `<strong>MINIMUM MEAN GRADE:</strong> ${selectedCourse.requirements.meanGrade}+`;
+            requirementsList.appendChild(meanGradeItem);
+            
+            // Add compulsory subjects
+            selectedCourse.requirements.compulsorySubjects.forEach(req => {
+                const reqItem = document.createElement('div');
+                reqItem.className = 'requirement-item';
+                
+                if (req.alternatives) {
+                    const alternatives = req.alternatives.map(a => `${a.name} (${a.minGrade}+)`).join(' OR ');
+                    reqItem.innerHTML = `<strong>${req.requirement.toUpperCase()}:</strong> ${alternatives}`;
+                } else {
+                    reqItem.innerHTML = `<strong>${req.name.toUpperCase()}:</strong> ${req.minGrade}+`;
+                }
+                
+                requirementsList.appendChild(reqItem);
+            });
+            
+            // Add campuses
+            const campusesItem = document.createElement('div');
+            campusesItem.className = 'requirement-item';
+            campusesItem.innerHTML = `<strong>AVAILABLE CAMPUSES:</strong> ${selectedCourse.campuses.join(", ")}`;
+            requirementsList.appendChild(campusesItem);
             
             // Check qualification
             const qualificationStatus = document.getElementById('qualificationStatus');
@@ -2176,9 +2333,9 @@
                 const statusDiv = document.createElement('div');
                 statusDiv.className = 'course-item';
                 statusDiv.innerHTML = `
-                    ❌ You do not meet the minimum mean grade requirement for this course.
-                    <br>Required: <span class="highlight">${selectedCourse.requirements.meanGrade}+</span>
-                    <br>Your Grade: <span class="highlight">${meanGrade}</span>
+                    ❌ YOU DO NOT MEET THE MINIMUM MEAN GRADE REQUIREMENT FOR THIS COURSE.
+                    <br>REQUIRED: <span class="highlight">${selectedCourse.requirements.meanGrade}+</span>
+                    <br>YOUR GRADE: <span class="highlight">${meanGrade}</span>
                 `;
                 qualificationStatus.appendChild(statusDiv);
                 document.getElementById('manualResults').style.display = 'block';
@@ -2186,69 +2343,53 @@
             }
             
             // Check compulsory subjects
-            const missingCompulsory = [];
+            const missingRequirements = [];
+            
             for (const subjectReq of selectedCourse.requirements.compulsorySubjects) {
-                const studentGrade = grades[subjectReq.name.toLowerCase()];
-                if (!studentGrade || !isGradeSufficient(studentGrade, subjectReq.minGrade)) {
-                    missingCompulsory.push(`${subjectReq.name} (${subjectReq.minGrade}+)`);
+                if (subjectReq.alternatives) {
+                    // For either/or subjects
+                    let anyAlternativeMet = false;
+                    
+                    for (const alternative of subjectReq.alternatives) {
+                        const studentGrade = grades[alternative.name.toLowerCase()];
+                        if (studentGrade && isGradeSufficient(studentGrade, alternative.minGrade)) {
+                            anyAlternativeMet = true;
+                            break;
+                        }
+                    }
+                    
+                    if (!anyAlternativeMet) {
+                        const alternatives = subjectReq.alternatives.map(a => `${a.name} (${a.minGrade}+)`).join(' OR ');
+                        missingRequirements.push(`${subjectReq.requirement.toUpperCase()}: ${alternatives}`);
+                    }
+                } else {
+                    // For regular compulsory subjects
+                    const studentGrade = grades[subjectReq.name.toLowerCase()];
+                    if (!studentGrade || !isGradeSufficient(studentGrade, subjectReq.minGrade)) {
+                        missingRequirements.push(`${subjectReq.name.toUpperCase()} (${subjectReq.minGrade}+)`);
+                    }
                 }
             }
             
-            if (missingCompulsory.length > 0) {
+            if (missingRequirements.length > 0) {
                 const statusDiv = document.createElement('div');
                 statusDiv.className = 'course-item';
                 statusDiv.innerHTML = `
-                    ❌ You are missing required subjects or don't meet grade requirements:
-                    <br><span class="highlight">${missingCompulsory.join(", ")}</span>
+                    ❌ YOU ARE MISSING REQUIRED SUBJECTS OR DON'T MEET GRADE REQUIREMENTS:
+                    <br><span class="highlight">${missingRequirements.join("<br>")}</span>
                 `;
                 qualificationStatus.appendChild(statusDiv);
                 document.getElementById('manualResults').style.display = 'block';
                 return;
             }
             
-            // Check subject alternatives if they exist
-            if (selectedCourse.requirements.subjectAlternatives) {
-                let alternativesMet = true;
-                
-                for (const alternative of selectedCourse.requirements.subjectAlternatives) {
-                    let anySubjectMet = false;
-                    
-                    for (const subject of alternative.subjects) {
-                        const studentGrade = grades[subject.toLowerCase()];
-                        if (studentGrade && isGradeSufficient(studentGrade, alternative.minGrade)) {
-                            anySubjectMet = true;
-                            break;
-                        }
-                    }
-                    
-                    if (!anySubjectMet) {
-                        alternativesMet = false;
-                        break;
-                    }
-                }
-                
-                if (!alternativesMet) {
-                    const statusDiv = document.createElement('div');
-                    statusDiv.className = 'course-item';
-                    statusDiv.innerHTML = `
-                        ❌ You don't meet the subject alternative requirements:
-                        <br><span class="highlight">
-                            ${selectedCourse.requirements.subjectAlternatives.map(a => `${a.requirement} (${a.minGrade}+)`).join(", ")}
-                        </span>
-                    `;
-                    qualificationStatus.appendChild(statusDiv);
-                    document.getElementById('manualResults').style.display = 'block';
-                    return;
-                }
-            }
-            
             // If we get here, the student qualifies
             const statusDiv = document.createElement('div');
             statusDiv.className = 'course-item';
             statusDiv.innerHTML = `
-                ✅ <span class="highlight">You QUALIFY for this course!</span>
-                <br>You meet all the requirements for ${selectedCourse.name}.
-                <br>This course is offered at: ${selectedCourse.campuses.join(", ")}
+                ✅ <span class="highlight">YOU QUALIFY FOR THIS COURSE!</span>
+                <br>YOU MEET ALL THE REQUIREMENTS FOR ${selectedCourse.name}.
+                <br>THIS COURSE IS OFFERED AT: ${selectedCourse.campuses.join(", ")}
             `;
             qualificationStatus.appendChild(statusDiv);
             
@@ -2260,152 +2401,116 @@
         }
 
         function checkCourseQualification(course, meanGrade, grades) {
-    // 1. Check mean grade first
-    if (!isGradeSufficient(meanGrade, course.requirements.meanGrade)) {
-        return false;
-    }
-
-    // 2. Check compulsory subjects (with alternatives)
-    for (const subjectReq of course.requirements.compulsorySubjects) {
-        if (subjectReq.alternatives) {
-            // For either/or subjects
-            let anyAlternativeMet = false;
-            for (const alternative of subjectReq.alternatives) {
-                const studentGrade = grades[alternative.name.toLowerCase()];
-                if (studentGrade && isGradeSufficient(studentGrade, alternative.minGrade)) {
-                    anyAlternativeMet = true;
-                    break;
-                }
-            }
-            if (!anyAlternativeMet) return false;
-        } else {
-            // For regular compulsory subjects
-            const studentGrade = grades[subjectReq.name.toLowerCase()];
-            if (!studentGrade || !isGradeSufficient(studentGrade, subjectReq.minGrade)) {
+            // 1. Check mean grade first
+            if (!isGradeSufficient(meanGrade, course.requirements.meanGrade)) {
                 return false;
             }
-        }
-    }
 
-    // 3. Check additional subject alternatives if they exist
-    if (course.requirements.subjectAlternatives) {
-        for (const alternativeGroup of course.requirements.subjectAlternatives) {
-            let anySubjectMet = false;
-            for (const subject of alternativeGroup.alternatives) {
-                const studentGrade = grades[subject.name.toLowerCase()];
-                if (studentGrade && isGradeSufficient(studentGrade, subject.minGrade)) {
-                    anySubjectMet = true;
-                    break;
+            // 2. Check compulsory subjects (with alternatives)
+            for (const subjectReq of course.requirements.compulsorySubjects) {
+                if (subjectReq.alternatives) {
+                    // For either/or subjects
+                    let anyAlternativeMet = false;
+                    
+                    for (const alternative of subjectReq.alternatives) {
+                        const studentGrade = grades[alternative.name.toLowerCase()];
+                        if (studentGrade && isGradeSufficient(studentGrade, alternative.minGrade)) {
+                            anyAlternativeMet = true;
+                            break;
+                        }
+                    }
+                    
+                    if (!anyAlternativeMet) return false;
+                } else {
+                    // For regular compulsory subjects
+                    const studentGrade = grades[subjectReq.name.toLowerCase()];
+                    if (!studentGrade || !isGradeSufficient(studentGrade, subjectReq.minGrade)) {
+                        return false;
+                    }
                 }
             }
-            if (!anySubjectMet) return false;
-        }
-    }
 
-    return true;
+            return true;
         }
+
         function displayQualifiedCourses(qualifiedCourses, mode) {
-    const courseListDiv = document.getElementById(`${mode}CourseList`);
-    const qualifiedCountDiv = document.getElementById(`${mode}QualifiedCount`);
-    const resultsDiv = document.getElementById(`${mode}Results`);
-    
-    courseListDiv.innerHTML = '';
-    
-    if (qualifiedCourses.length === 0) {
-        courseListDiv.innerHTML = `
-            <div class="course-item no-courses">
-                <div class="course-name">No Qualified Courses</div>
-                <div class="course-details">
-                    You do not qualify for any KMTC courses with your current grades.
-                    Consider improving your grades in the required subjects.
-                </div>
-            </div>
-        `;
-        qualifiedCountDiv.textContent = '';
-    } else {
-        qualifiedCourses.forEach(course => {
-            const courseDiv = document.createElement('div');
-            courseDiv.className = 'course-item';
+            const courseListDiv = document.getElementById(`${mode}CourseList`);
+            const qualifiedCountDiv = document.getElementById(`${mode}QualifiedCount`);
+            const resultsDiv = document.getElementById(`${mode}Results`);
             
-            // Format campuses with bullet points
-            const campusesList = course.campuses.map(campus => 
-                `<span class="campus-item">${campus}</span>`
-            ).join('');
+            courseListDiv.innerHTML = '';
             
-            // Format compulsory subjects
-            const compulsorySubjects = course.requirements.compulsorySubjects.map(req => {
-                if (req.alternatives) {
-                    return `${req.requirement}: ${req.alternatives.map(a => 
-                        `${a.name} (${a.minGrade}+)`
-                    ).join(' or ')}`;
-                }
-                return `${req.name} (${req.minGrade}+)`;
-            }).join(', ');
-            
-            // Format optional subjects if they exist
-            let optionalSubjects = '';
-            if (course.requirements.optionalSubjects?.length > 0) {
-                optionalSubjects = `<div class="optional-subjects">
-                    <strong>Plus one of:</strong> ${course.requirements.optionalSubjects.map(s => 
-                        `${s.name} (${s.minGrade}+)`
-                    ).join(', ')}
-                </div>`;
+            if (qualifiedCourses.length === 0) {
+                courseListDiv.innerHTML = `
+                    <div class="course-item no-courses">
+                        <div class="course-name">NO QUALIFIED COURSES</div>
+                        <div class="course-details">
+                            YOU DO NOT QUALIFY FOR ANY KMTC COURSES WITH YOUR CURRENT GRADES.
+                            CONSIDER IMPROVING YOUR GRADES IN THE REQUIRED SUBJECTS.
+                        </div>
+                    </div>
+                `;
+                qualifiedCountDiv.textContent = '';
+            } else {
+                qualifiedCourses.forEach(course => {
+                    const courseDiv = document.createElement('div');
+                    courseDiv.className = 'course-item';
+                    
+                    // Format campuses with bullet points
+                    const campusesList = course.campuses.map(campus => 
+                        `<span class="campus-item">${campus}</span>`
+                    ).join('');
+                    
+                    // Format compulsory subjects
+                    const requirementsList = course.requirements.compulsorySubjects.map(req => {
+                        if (req.alternatives) {
+                            return `${req.requirement.toUpperCase()}: ${req.alternatives.map(a => 
+                                `${a.name} (${a.minGrade}+)`
+                            ).join(' OR ')}`;
+                        }
+                        return `${req.name.toUpperCase()} (${req.minGrade}+)`;
+                    }).join('<br>');
+                    
+                    courseDiv.innerHTML = `
+                        <div class="course-name">${course.name}</div>
+                        <div class="course-requirements">
+                            <div class="requirement-item">
+                                <strong>MINIMUM MEAN GRADE:</strong> ${course.requirements.meanGrade}+
+                            </div>
+                            <div class="requirement-item">
+                                <strong>REQUIRED SUBJECTS:</strong><br>${requirementsList}
+                            </div>
+                        </div>
+                        <div class="course-campuses">
+                            <strong>AVAILABLE AT:</strong>
+                            <div class="campuses-container">${campusesList}</div>
+                        </div>
+                        <button class="view-details-btn" data-course="${course.name}">VIEW DETAILS</button>
+                    `;
+                    
+                    courseListDiv.appendChild(courseDiv);
+                });
+                
+                qualifiedCountDiv.innerHTML = `
+                    <span class="qualified-count">YOU QUALIFY FOR ${qualifiedCourses.length}</span>
+                    <span class="total-courses">OUT OF ${kmtcCourses.length} KMTC COURSES</span>
+                `;
             }
             
-            // Format subject alternatives if they exist
-            let subjectAlternatives = '';
-            if (course.requirements.subjectAlternatives?.length > 0) {
-                subjectAlternatives = `<div class="subject-alternatives">
-                    ${course.requirements.subjectAlternatives.map(alt => 
-                        `<strong>${alt.requirement}:</strong> ${alt.alternatives.map(a => 
-                            `${a.name} (${a.minGrade}+)`
-                        ).join(' or ')}`
-                    ).join('<br>')}
-                </div>`;
-            }
+            // Show results
+            resultsDiv.style.display = 'block';
             
-            courseDiv.innerHTML = `
-                <div class="course-name">${course.name}</div>
-                <div class="course-requirements">
-                    <div class="requirement-item">
-                        <strong>Minimum Mean Grade:</strong> ${course.requirements.meanGrade}+
-                    </div>
-                    <div class="requirement-item">
-                        <strong>Required Subjects:</strong> ${compulsorySubjects}
-                    </div>
-                    ${optionalSubjects}
-                    ${subjectAlternatives}
-                </div>
-                <div class="course-campuses">
-                    <strong>Available at:</strong>
-                    <div class="campuses-container">${campusesList}</div>
-                </div>
-                <button class="view-details-btn" data-course="${course.name}">View Details</button>
-            `;
+            // Add click handlers for detail buttons
+            document.querySelectorAll('.view-details-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const courseName = this.getAttribute('data-course');
+                    // Implement your detail view logic here
+                    alert(`SHOWING DETAILS FOR: ${courseName}`);
+                });
+            });
             
-            courseListDiv.appendChild(courseDiv);
-        });
-        
-        qualifiedCountDiv.innerHTML = `
-            <span class="qualified-count">You qualify for ${qualifiedCourses.length}</span>
-            <span class="total-courses">out of ${kmtcCourses.length} KMTC courses</span>
-        `;
-    }
-    
-    // Show results
-    resultsDiv.style.display = 'block';
-    
-    // Add click handlers for detail buttons
-    document.querySelectorAll('.view-details-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const courseName = this.getAttribute('data-course');
-            // Implement your detail view logic here
-            alert(`Showing details for: ${courseName}`);
-        });
-    });
-    
-    // Scroll to results
-    resultsDiv.scrollIntoView({ behavior: 'smooth' });
+            // Scroll to results
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 </body>
