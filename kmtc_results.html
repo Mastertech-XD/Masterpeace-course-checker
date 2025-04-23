@@ -17,7 +17,7 @@
             --card-bg: rgba(15, 15, 25, 0.98);
             --text-light: #f0f0ff;
             --text-dim: #b0b0c0;
-            --glow-intensity: 0.9;
+            --glow-intensity: 1.9;
             --transition-base: cubic-bezier(0.16, 1, 0.3, 1);
         }
         
@@ -1828,22 +1828,10 @@
                 requirements: {
                     meanGrade: "C-",
                     compulsorySubjects: [
-                        { name: "English", minGrade: "D+" },
-                        { name: "Kiswahili", minGrade: "D+" },
+                        { name: "Either English or Kiswahili", minGrade: "D+" },
                         { name: "Biology", minGrade: "D+" },
                         { name: "Chemistry", minGrade: "C+" },
                         { name: "Mathematics", minGrade: "D" }
-                    ],
-                    optionalSubjects: [
-                        { name: "Mathematics", minGrade: "C" },
-                        { name: "Physics", minGrade: "C" }
-                    ],
-                    subjectAlternatives: [
-                        { 
-                            requirement: "Either English or Kiswahili",
-                            subjects: ["English", "Kiswahili"],
-                            minGrade: "D+"
-                        }
                     ]
                 },
                 campuses: ["Nairobi", "Mombasa", "Kisumu", "Nakuru"]
