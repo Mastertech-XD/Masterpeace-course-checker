@@ -1828,7 +1828,13 @@
                 requirements: {
                     meanGrade: "C-",
                     compulsorySubjects: [
-                        { name: "Either English or Kiswahili", minGrade: "D+" },
+                        { 
+                            requirement: "Either English or Kiswahili",
+                            alternatives: [
+                                { name: "English", minGrade: "D+" },
+                                { name: "Kiswahili", minGrade: "D+" }
+                            ]
+                        },
                         { name: "Biology", minGrade: "D+" },
                         { name: "Chemistry", minGrade: "C+" },
                         { name: "Mathematics", minGrade: "D" }
