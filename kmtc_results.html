@@ -2299,44 +2299,107 @@
     return true;
         }
         function displayQualifiedCourses(qualifiedCourses, mode) {
-            const courseListDiv = document.getElementById(`${mode}CourseList`);
-            const qualifiedCountDiv = document.getElementById(`${mode}QualifiedCount`);
-            const resultsDiv = document.getElementById(`${mode}Results`);
+    const courseListDiv = document.getElementById(`${mode}CourseList`);
+    const qualifiedCountDiv = document.getElementById(`${mode}QualifiedCount`);
+    const resultsDiv = document.getElementById(`${mode}Results`);
+    
+    courseListDiv.innerHTML = '';
+    
+    if (qualifiedCourses.length === 0) {
+        courseListDiv.innerHTML = `
+            <div class="course-item no-courses">
+                <div class="course-name">No Qualified Courses</div>
+                <div class="course-details">
+                    You do not qualify for any KMTC courses with your current grades.
+                    Consider improving your grades in the required subjects.
+                </div>
+            </div>
+        `;
+        qualifiedCountDiv.textContent = '';
+    } else {
+        qualifiedCourses.forEach(course => {
+            const courseDiv = document.createElement('div');
+            courseDiv.className = 'course-item';
             
-            courseListDiv.innerHTML = '';
+            // Format campuses with bullet points
+            const campusesList = course.campuses.map(campus => 
+                `<span class="campus-item">${campus}</span>`
+            ).join('');
             
-            if (qualifiedCourses.length === 0) {
-                courseListDiv.innerHTML = '<div class="course-item">You do not qualify for any KMTC courses with your current grades.</div>';
-                qualifiedCountDiv.textContent = '';
-            } else {
-                qualifiedCourses.forEach(course => {
-                    const courseDiv = document.createElement('div');
-                    courseDiv.className = 'course-item';
-                    
-                    const campusesList = course.campuses.map(campus => `• ${campus}`).join('<br>');
-                    
-                    courseDiv.innerHTML = `
-                        <div class="course-name">${course.name}</div>
-                        <div><strong>Minimum Mean Grade:</strong> ${course.requirements.meanGrade}</div>
-                        <div><strong>Required Subjects:</strong> 
-                            ${course.requirements.compulsorySubjects.map(s => `${s.name} (${s.minGrade}+)`).join(', ')}
-                            ${course.requirements.optionalSubjects.length > 0 ? 
-                              `<br><strong>Plus one of:</strong> ${course.requirements.optionalSubjects.map(s => `${s.name} (${s.minGrade}+)`).join(', ')}` : ''}
-                        </div>
-                        <div class="course-campuses"><strong>Available at:</strong><br>${campusesList}</div>
-                    `;
-                    
-                    courseListDiv.appendChild(courseDiv);
-                });
-                
-                qualifiedCountDiv.textContent = `You qualify for ${qualifiedCourses.length} out of ${kmtcCourses.length} KMTC courses`;
+            // Format compulsory subjects
+            const compulsorySubjects = course.requirements.compulsorySubjects.map(req => {
+                if (req.alternatives) {
+                    return `${req.requirement}: ${req.alternatives.map(a => 
+                        `${a.name} (${a.minGrade}+)`
+                    ).join(' or ')}`;
+                }
+                return `${req.name} (${req.minGrade}+)`;
+            }).join(', ');
+            
+            // Format optional subjects if they exist
+            let optionalSubjects = '';
+            if (course.requirements.optionalSubjects?.length > 0) {
+                optionalSubjects = `<div class="optional-subjects">
+                    <strong>Plus one of:</strong> ${course.requirements.optionalSubjects.map(s => 
+                        `${s.name} (${s.minGrade}+)`
+                    ).join(', ')}
+                </div>`;
             }
             
-            // Show results
-            resultsDiv.style.display = 'block';
+            // Format subject alternatives if they exist
+            let subjectAlternatives = '';
+            if (course.requirements.subjectAlternatives?.length > 0) {
+                subjectAlternatives = `<div class="subject-alternatives">
+                    ${course.requirements.subjectAlternatives.map(alt => 
+                        `<strong>${alt.requirement}:</strong> ${alt.alternatives.map(a => 
+                            `${a.name} (${a.minGrade}+)`
+                        ).join(' or ')}`
+                    ).join('<br>')}
+                </div>`;
+            }
             
-            // Scroll to results
-            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+            courseDiv.innerHTML = `
+                <div class="course-name">${course.name}</div>
+                <div class="course-requirements">
+                    <div class="requirement-item">
+                        <strong>Minimum Mean Grade:</strong> ${course.requirements.meanGrade}+
+                    </div>
+                    <div class="requirement-item">
+                        <strong>Required Subjects:</strong> ${compulsorySubjects}
+                    </div>
+                    ${optionalSubjects}
+                    ${subjectAlternatives}
+                </div>
+                <div class="course-campuses">
+                    <strong>Available at:</strong>
+                    <div class="campuses-container">${campusesList}</div>
+                </div>
+                <button class="view-details-btn" data-course="${course.name}">View Details</button>
+            `;
+            
+            courseListDiv.appendChild(courseDiv);
+        });
+        
+        qualifiedCountDiv.innerHTML = `
+            <span class="qualified-count">You qualify for ${qualifiedCourses.length}</span>
+            <span class="total-courses">out of ${kmtcCourses.length} KMTC courses</span>
+        `;
+    }
+    
+    // Show results
+    resultsDiv.style.display = 'block';
+    
+    // Add click handlers for detail buttons
+    document.querySelectorAll('.view-details-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const courseName = this.getAttribute('data-course');
+            // Implement your detail view logic here
+            alert(`Showing details for: ${courseName}`);
+        });
+    });
+    
+    // Scroll to results
+    resultsDiv.scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 </body>
