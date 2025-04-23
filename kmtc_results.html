@@ -2254,41 +2254,50 @@
         }
 
         function checkCourseQualification(course, meanGrade, grades) {
-            // Check mean grade first
-            if (!isGradeSufficient(meanGrade, course.requirements.meanGrade)) {
+    // 1. Check mean grade first
+    if (!isGradeSufficient(meanGrade, course.requirements.meanGrade)) {
+        return false;
+    }
+
+    // 2. Check compulsory subjects (with alternatives)
+    for (const subjectReq of course.requirements.compulsorySubjects) {
+        if (subjectReq.alternatives) {
+            // For either/or subjects
+            let anyAlternativeMet = false;
+            for (const alternative of subjectReq.alternatives) {
+                const studentGrade = grades[alternative.name.toLowerCase()];
+                if (studentGrade && isGradeSufficient(studentGrade, alternative.minGrade)) {
+                    anyAlternativeMet = true;
+                    break;
+                }
+            }
+            if (!anyAlternativeMet) return false;
+        } else {
+            // For regular compulsory subjects
+            const studentGrade = grades[subjectReq.name.toLowerCase()];
+            if (!studentGrade || !isGradeSufficient(studentGrade, subjectReq.minGrade)) {
                 return false;
             }
-            
-            // Check compulsory subjects
-            for (const subjectReq of course.requirements.compulsorySubjects) {
-                const studentGrade = grades[subjectReq.name.toLowerCase()];
-                if (!studentGrade || !isGradeSufficient(studentGrade, subjectReq.minGrade)) {
-                    return false;
-                }
-            }
-            
-            // Check subject alternatives if they exist
-            if (course.requirements.subjectAlternatives) {
-                for (const alternative of course.requirements.subjectAlternatives) {
-                    let anySubjectMet = false;
-                    
-                    for (const subject of alternative.subjects) {
-                        const studentGrade = grades[subject.toLowerCase()];
-                        if (studentGrade && isGradeSufficient(studentGrade, alternative.minGrade)) {
-                            anySubjectMet = true;
-                            break;
-                        }
-                    }
-                    
-                    if (!anySubjectMet) {
-                        return false;
-                    }
-                }
-            }
-            
-            return true;
         }
+    }
 
+    // 3. Check additional subject alternatives if they exist
+    if (course.requirements.subjectAlternatives) {
+        for (const alternativeGroup of course.requirements.subjectAlternatives) {
+            let anySubjectMet = false;
+            for (const subject of alternativeGroup.alternatives) {
+                const studentGrade = grades[subject.name.toLowerCase()];
+                if (studentGrade && isGradeSufficient(studentGrade, subject.minGrade)) {
+                    anySubjectMet = true;
+                    break;
+                }
+            }
+            if (!anySubjectMet) return false;
+        }
+    }
+
+    return true;
+        }
         function displayQualifiedCourses(qualifiedCourses, mode) {
             const courseListDiv = document.getElementById(`${mode}CourseList`);
             const qualifiedCountDiv = document.getElementById(`${mode}QualifiedCount`);
