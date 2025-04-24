@@ -1433,7 +1433,47 @@
             <div class="form-group">
                 <label for="clusterPointsMode">Enter Your Cluster Points:</label>
                 <input type="number" id="clusterPointsMode" min="0" max="100" placeholder="Enter your points">
-            </div>
+            </div
+                <!-- Add this inside the courseModeContent div, after the cluster points input -->
+            <div class="form-group">
+                <label>Enter Your KCSE Subject Grades</label>
+            <div class="subject-inputs">
+                    <div class="subject-row">
+                    <select class="subject-select">
+                    <option value="">Select Subject</option>
+                    <option value="Math">Mathematics</option>
+                    <option value="Eng">English</option>
+                    <option value="Kisw">Kiswahili</option>
+                    <option value="Bio">Biology</option>
+                    <option value="Chem">Chemistry</option>
+                    <option value="Phy">Physics</option>
+                    <option value="Hist">History</option>
+                    <option value="Geo">Geography</option>
+                    <option value="CRE">CRE</option>
+                    <option value="IRE">IRE</option>
+                    <option value="Comp">Computer Studies</option>
+                    <option value="Bus">Business Studies</option>
+                    <option value="Agric">Agriculture</option>
+                </select>
+                    <select class="grade-select">
+                    <option value="">Grade</option>
+                    <option value="A">A</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B">B</option>
+                    <option value="B-">B-</option>
+                    <option value="C+">C+</option>
+                    <option value="C">C</option>
+                    <option value="C-">C-</option>
+                    <option value="D+">D+</option>
+                    <option value="D">D</option>
+                    <option value="D-">D-</option>
+                </select>
+                        <button class="remove-subject" onclick="removeSubject(this)">×</button>
+                    </div>
+                </div>
+                <button type="button" onclick="addSubject()" style="margin-top: 10px;">+ Add Another Subject</button>
+    </div>
             
             <button onclick="showPaymentModal('cluster')">Check Eligible Courses (KES 200)</button>
             
