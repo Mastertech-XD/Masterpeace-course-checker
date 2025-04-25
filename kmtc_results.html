@@ -1902,632 +1902,647 @@
 
     <script>
         // KMTC course data with subject requirements
-       const kmtcCourses = [
-    /* CERTIFICATE COURSES */
-    {
-        "name": "CERTIFICATE IN COMMUNITY HEALTH ASSISTANT",
-        "requirements": {
-            "meanGrade": "C-",
-            "compulsorySubjects": [
-                { 
-                    "requirement": "Either English or Kiswahili",
-                    "alternatives": [
-                        { "name": "English", "minGrade": "D+" },
-                        { "name": "Kiswahili", "minGrade": "D+" }
+        const kmtcCourses = [
+            /* CERTIFICATE COURSES */
+            {
+                "name": "CERTIFICATE IN COMMUNITY HEALTH ASSISTANT",
+                "requirements": {
+                    "meanGrade": "C-",
+                    "compulsorySubjects": [
+                        { 
+                            "requirement": "Either English or Kiswahili",
+                            "alternatives": [
+                                { "name": "english", "minGrade": "D+" },
+                                { "name": "kiswahili", "minGrade": "D+" }
+                            ]
+                        },
+                        { 
+                            "requirement": "Either Mathematics or Physics or Agriculture or Chemistry",
+                            "alternatives": [
+                                { "name": "maths", "minGrade": "D" },
+                                { "name": "physics", "minGrade": "D" },
+                                { "name": "agriculture", "minGrade": "D" },
+                                { "name": "chemistry", "minGrade": "D" }
+                            ]
+                        },
+                        { "name": "biology", "minGrade": "D" }
                     ]
                 },
-                { 
-                    "requirement": "Either Mathematics or Physics or Agriculture or Chemistry",
-                    "alternatives": [
-                        { "name": "Mathematics", "minGrade": "D" },
-                        { "name": "Physics", "minGrade": "D" },
-                        { "name": "Agriculture", "minGrade": "D" },
-                        { "name": "Chemistry", "minGrade": "D" }
+                "campuses": ["NAIROBI", "KISUMU", "NAKURU", "ELDORET"]
+            },
+            {
+                "name": "CERTIFICATE IN HEALTH RECORDS AND INFORMATION TECHNOLOGY",
+                "requirements": {
+                    "meanGrade": "C-",
+                    "compulsorySubjects": [
+                        { 
+                            "requirement": "Either English or Kiswahili",
+                            "alternatives": [
+                                { "name": "english", "minGrade": "C-" },
+                                { "name": "kiswahili", "minGrade": "C-" }
+                            ]
+                        },
+                        { 
+                            "requirement": "Either Physics or Chemistry or Geography or Agriculture or Computer or Business",
+                            "alternatives": [
+                                { "name": "physics", "minGrade": "D+" },
+                                { "name": "chemistry", "minGrade": "D+" },
+                                { "name": "geography", "minGrade": "D+" },
+                                { "name": "agriculture", "minGrade": "D+" },
+                                { "name": "computer", "minGrade": "D+" },
+                                { "name": "business", "minGrade": "D+" }
+                            ]
+                        },
+                        { "name": "maths", "minGrade": "D" },
+                        { "name": "biology", "minGrade": "D-" }
                     ]
                 },
-                { "name": "Biology", "minGrade": "D" }
-            ]
-        },
-        "campuses": ["NAIROBI", "KISUMU", "NAKURU", "ELDORET"]
-    },
-    {
-        "name": "CERTIFICATE IN HEALTH RECORDS AND INFORMATION TECHNOLOGY",
-        "requirements": {
-            "meanGrade": "C-",
-            "compulsorySubjects": [
-                { 
-                    "requirement": "Either English or Kiswahili",
-                    "alternatives": [
-                        { "name": "English", "minGrade": "C-" },
-                        { "name": "Kiswahili", "minGrade": "C-" }
+                "campuses": ["NAIROBI", "MOMBASA", "ISIOLO"]
+            },
+            {
+                "name": "CERTIFICATE IN MEDICAL EMERGENCY TECHNICIAN",
+                "requirements": {
+                    "meanGrade": "C-",
+                    "compulsorySubjects": [
+                        { "name": "biology", "minGrade": "D" }
                     ]
                 },
-                { 
-                    "requirement": "Either Physics or Chemistry or Geography or Agriculture or Computer or Business",
-                    "alternatives": [
-                        { "name": "Physics", "minGrade": "D+" },
-                        { "name": "Chemistry", "minGrade": "D+" },
-                        { "name": "Geography", "minGrade": "D+" },
-                        { "name": "Agriculture", "minGrade": "D+" },
-                        { "name": "Computer", "minGrade": "D+" },
-                        { "name": "Business", "minGrade": "D+" }
+                "campuses": ["NAIROBI", "MOMBASA"]
+            },
+            {
+                "name": "CERTIFICATE IN MEDICAL ENGINEERING",
+                "requirements": {
+                    "meanGrade": "D+",
+                    "compulsorySubjects": [
+                        { 
+                            "requirement": "Either English or Kiswahili",
+                            "alternatives": [
+                                { "name": "english", "minGrade": "D+" },
+                                { "name": "kiswahili", "minGrade": "D+" }
+                            ]
+                        },
+                        { 
+                            "requirement": "Either physics or Biology or Chemistry",
+                            "alternatives": [
+                                { "name": "physics", "minGrade": "D-" },
+                                { "name": "biology", "minGrade": "D-" },
+                                { "name": "chemistry", "minGrade": "D-" }
+                            ]
+                        },
+                        { "name": "maths", "minGrade": "D" }
                     ]
                 },
-                { "name": "Mathematics", "minGrade": "D" },
-                { "name": "Biology", "minGrade": "D-" }
-            ]
-        },
-        "campuses": ["NAIROBI", "MOMBASA", "ISIOLO"]
-    },
-    {
-        "name": "CERTIFICATE IN MEDICAL EMERGENCY TECHNICIAN",
-        "requirements": {
-            "meanGrade": "C-",
-            "compulsorySubjects": [
-                { "name": "Biology", "minGrade": "D" }
-            ]
-        },
-        "campuses": ["NAIROBI", "MOMBASA"]
-    },
-    {
-        "name": "CERTIFICATE IN MEDICAL ENGINEERING",
-        "requirements": {
-            "meanGrade": "D+",
-            "compulsorySubjects": [
-                { 
-                    "requirement": "Either English or Kiswahili",
-                    "alternatives": [
-                        { "name": "English", "minGrade": "D+" },
-                        { "name": "Kiswahili", "minGrade": "D+" }
+                "campuses": ["NAIROBI"]
+            },
+            {
+                "name": "CERTIFICATE IN NUTRITION AND DIETETICS",
+                "requirements": {
+                    "meanGrade": "D+",
+                    "compulsorySubjects": [
+                        { 
+                            "requirement": "Either English or Kiswahili",
+                            "alternatives": [
+                                { "name": "english", "minGrade": "D+" },
+                                { "name": "kiswahili", "minGrade": "D+" }
+                            ]
+                        },
+                        { 
+                            "requirement": "Either Mathematics or Physics or Agriculture",
+                            "alternatives": [
+                                { "name": "maths", "minGrade": "D" },
+                                { "name": "physics", "minGrade": "D" },
+                                { "name": "agriculture", "minGrade": "D" }
+                            ]
+                        },
+                        { "name": "biology", "minGrade": "D" },
+                        { "name": "chemistry", "minGrade": "D" }
                     ]
                 },
-                { 
-                    "requirement": "Either physics or Biology or Chemistry",
-                    "alternatives": [
-                        { "name": "physics", "minGrade": "D-" },
-                        { "name": "Biology", "minGrade": "D-" },
-                        { "name": "Chemistry", "minGrade": "D-" }
+                "campuses": ["NAIROBI", "MOMBASA", "KISUMU"]
+            },
+            {
+                "name": "CERTIFICATE IN ORTHOPAEDIC TRAUMA MEDICINE",
+                "requirements": {
+                    "meanGrade": "C-",
+                    "compulsorySubjects": [
+                        { 
+                            "requirement": "Either English or Kiswahili",
+                            "alternatives": [
+                                { "name": "english", "minGrade": "C-" },
+                                { "name": "kiswahili", "minGrade": "C-" }
+                            ]
+                        },
+                        { 
+                            "requirement": "Either Mathematics or Physics or Chemistry or Woodwork or Computer or Agriculture",
+                            "alternatives": [
+                                { "name": "maths", "minGrade": "C-" },
+                                { "name": "physics", "minGrade": "C-" },
+                                { "name": "chemistry", "minGrade": "C-" },
+                                { "name": "woodwork", "minGrade": "C-" },
+                                { "name": "computer", "minGrade": "C-" },
+                                { "name": "agriculture", "minGrade": "C-" }
+                            ]
+                        },
+                        { "name": "biology", "minGrade": "C-" }
                     ]
                 },
-                { "name": "Mathematics", "minGrade": "D" }
-            ]
-        },
-        "campuses": ["NAIROBI"]
-    },
-    {
-        "name": "CERTIFICATE IN NUTRITION AND DIETETICS",
-        "requirements": {
-            "meanGrade": "D+",
-            "compulsorySubjects": [
-                { 
-                    "requirement": "Either English or Kiswahili",
-                    "alternatives": [
-                        { "name": "English", "minGrade": "D+" },
-                        { "name": "Kiswahili", "minGrade": "D+" }
+                "campuses": ["NAIROBI"]
+            },
+            {
+                "name": "CERTIFICATE IN PUBLIC HEALTH",
+                "requirements": {
+                    "meanGrade": "C-",
+                    "compulsorySubjects": [
+                        { 
+                            "requirement": "Either English or Kiswahili",
+                            "alternatives": [
+                                { "name": "english", "minGrade": "C-" },
+                                { "name": "kiswahili", "minGrade": "C-" }
+                            ]
+                        },
+                        { 
+                            "requirement": "Either Mathematics or Physics or Chemistry",
+                            "alternatives": [
+                                { "name": "maths", "minGrade": "D" },
+                                { "name": "physics", "minGrade": "D" },
+                                { "name": "chemistry", "minGrade": "D" }
+                            ]
+                        },
+                        { "name": "biology", "minGrade": "C-" }
                     ]
                 },
-                { 
-                    "requirement": "Either Mathematics or Physics or Agriculture",
-                    "alternatives": [
-                        { "name": "Mathematics", "minGrade": "D" },
-                        { "name": "Physics", "minGrade": "D" },
-                        { "name": "Agriculture", "minGrade": "D" }
-                    ]
-                },
-                { "name": "Biology", "minGrade": "D" },
-                { "name": "Chemistry", "minGrade": "D" }
-            ]
-        },
-        "campuses": ["NAIROBI", "MOMBASA", "KISUMU"]
-    },
-    {
-        "name": "CERTIFICATE IN ORTHOPAEDIC TRAUMA MEDICINE",
-        "requirements": {
-            "meanGrade": "C-",
-            "compulsorySubjects": [
-                { 
-                    "requirement": "Either English or Kiswahili",
-                    "alternatives": [
-                        { "name": "English", "minGrade": "C-" },
-                        { "name": "Kiswahili", "minGrade": "C-" }
-                    ]
-                },
-                { 
-                    "requirement": "Either Mathematics or Physics or Chemistry or Wood work or Computer or Agriculture",
-                    "alternatives": [
-                        { "name": "Mathematics", "minGrade": "C-" },
-                        { "name": "Physics", "minGrade": "C-" },
-                        { "name": "Chemistry", "minGrade": "C-" },
-                        { "name": "Woodwork", "minGrade": "C-" },
-                        { "name": "Computer", "minGrade": "C-" },
-                        { "name": "Agriculture", "minGrade": "C-" }
-                    ]
-                },
-                { "name": "Biology", "minGrade": "C-" }
-            ]
-        },
-        "campuses": ["NAIROBI"]
-    },
-    {
-        "name": "CERTIFICATE IN PUBLIC HEALTH",
-        "requirements": {
-            "meanGrade": "C-",
-            "compulsorySubjects": [
-                { 
-                    "requirement": "Either English or Kiswahili",
-                    "alternatives": [
-                        { "name": "English", "minGrade": "C-" },
-                        { "name": "Kiswahili", "minGrade": "C-" }
-                    ]
-                },
-                { 
-                    "requirement": "Either Mathematics or Physics or Chemistry",
-                    "alternatives": [
-                        { "name": "Mathematics", "minGrade": "D" },
-                        { "name": "Physics", "minGrade": "D" },
-                        { "name": "Chemistry", "minGrade": "D" }
-                    ]
-                },
-                { "name": "Biology", "minGrade": "C-" }
-            ]
-        },
-        "campuses": ["NAIROBI", "MOMBASA", "KISUMU", "NAKURU"]
-    },
+                "campuses": ["NAIROBI", "MOMBASA", "KISUMU", "NAKURU"]
+            },
 
-    /* DIPLOMA COURSES */
-    {
-        "name": "DIPLOMA IN COMMUNITY HEALTH",
-        "requirements": {
-            "meanGrade": "C",
-            "compulsorySubjects": [
-                { 
-                    "requirement": "Either English or Kiswahili",
-                    "alternatives": [
-                        { "name": "English", "minGrade": "C-" },
-                        { "name": "Kiswahili", "minGrade": "C-" }
+            /* DIPLOMA COURSES */
+            {
+                "name": "DIPLOMA IN COMMUNITY HEALTH",
+                "requirements": {
+                    "meanGrade": "C",
+                    "compulsorySubjects": [
+                        { 
+                            "requirement": "Either English or Kiswahili",
+                            "alternatives": [
+                                { "name": "english", "minGrade": "C-" },
+                                { "name": "kiswahili", "minGrade": "C-" }
+                            ]
+                        },
+                        { "name": "biology", "minGrade": "C-" }
                     ]
                 },
-                { "name": "Biology", "minGrade": "C-" }
-            ]
-        },
-        "campuses": ["NAIROBI", "KISUMU", "NAKURU", "ELDORET"]
-    },
-    {
-        "name": "DIPLOMA IN EMERGENCY MEDICAL TECHNOLOGY",
-        "requirements": {
-            "meanGrade": "C",
-            "compulsorySubjects": [
-                { "name": "Biology", "minGrade": "D+" }
-            ]
-        },
-        "campuses": ["NAIROBI", "MOMBASA"]
-    },
-    {
-        "name": "DIPLOMA IN HEALTH COUNSELLING",
-        "requirements": {
-            "meanGrade": "C",
-            "compulsorySubjects": [
-                { 
-                    "requirement": "Either English or Kiswahili",
-                    "alternatives": [
-                        { "name": "English", "minGrade": "C" },
-                        { "name": "Kiswahili", "minGrade": "C" }
+                "campuses": ["NAIROBI", "KISUMU", "NAKURU", "ELDORET"]
+            },
+            {
+                "name": "DIPLOMA IN EMERGENCY MEDICAL TECHNOLOGY",
+                "requirements": {
+                    "meanGrade": "C",
+                    "compulsorySubjects": [
+                        { "name": "biology", "minGrade": "D+" }
                     ]
                 },
-                { 
-                    "requirement": "Either History or Cre or Ire or Hre",
-                    "alternatives": [
-                        { "name": "History", "minGrade": "C-" },
-                        { "name": "CRE", "minGrade": "C-" },
-                        { "name": "IRE", "minGrade": "C-" },
-                        { "name": "HRE", "minGrade": "C-" }
+                "campuses": ["NAIROBI", "MOMBASA"]
+            },
+            {
+                "name": "DIPLOMA IN HEALTH COUNSELLING",
+                "requirements": {
+                    "meanGrade": "C",
+                    "compulsorySubjects": [
+                        { 
+                            "requirement": "Either English or Kiswahili",
+                            "alternatives": [
+                                { "name": "english", "minGrade": "C" },
+                                { "name": "kiswahili", "minGrade": "C" }
+                            ]  
+                        },
+                        { 
+                            "requirement": "Either History or Cre or Ire or Hre",
+                            "alternatives": [
+                                { "name": "history", "minGrade": "C-" },
+                                { "name": "cre", "minGrade": "C-" },
+                                { "name": "ire", "minGrade": "C-" },
+                                { "name": "hre", "minGrade": "C-" }
+                            ]
+                        },
+                        { "name": "biology", "minGrade": "D+" }
                     ]
                 },
-                { "name": "Biology", "minGrade": "D+" }
-            ]
-        },
-        "campuses": ["NAIROBI", "KISUMU"]
-    },
-    {
-        "name": "DIPLOMA IN HEALTH INSURANCE MANAGEMENT",
-        "requirements": {
-            "meanGrade": "C",
-            "compulsorySubjects": [
-                { 
-                    "requirement": "Either English or Kiswahili",
-                    "alternatives": [
-                        { "name": "English", "minGrade": "C" },
-                        { "name": "Kiswahili", "minGrade": "C" }
+                "campuses": ["NAIROBI", "KISUMU"]
+            },
+            {
+                "name": "DIPLOMA IN HEALTH INSURANCE MANAGEMENT",
+                "requirements": {
+                    "meanGrade": "C",
+                    "compulsorySubjects": [
+                        { 
+                            "requirement": "Either English or Kiswahili",
+                            "alternatives": [
+                                { "name": "english", "minGrade": "C" },
+                                { "name": "kiswahili", "minGrade": "C" }
+                            ]
+                        },
+                        { 
+                            "requirement": "Either Physics or Chemistry or Geography or Agriculture or Computer or Business",
+                            "alternatives": [
+                                { "name": "physics", "minGrade": "D+" },
+                                { "name": "chemistry", "minGrade": "D+" },
+                                { "name": "geography", "minGrade": "D+" },
+                                { "name": "agriculture", "minGrade": "D+" },
+                                { "name": "computer", "minGrade": "D+" },
+                                { "name": "business", "minGrade": "D+" }
+                            ]
+                        },
+                        { "name": "maths", "minGrade": "D+" },
+                        { "name": "biology", "minGrade": "D+" }
                     ]
                 },
-                { 
-                    "requirement": "Either Physics or Chemistry or Geography or Agriculture or Computer or Business",
-                    "alternatives": [
-                        { "name": "Physics", "minGrade": "D+" },
-                        { "name": "Chemistry", "minGrade": "D+" },
-                        { "name": "Geography", "minGrade": "D+" },
-                        { "name": "Agriculture", "minGrade": "D+" },
-                        { "name": "Computer", "minGrade": "D+" },
-                        { "name": "Business", "minGrade": "D+" }
+                "campuses": ["NAIROBI", "MOMBASA"]
+            },
+            {
+                "name": "DIPLOMA IN HEALTH PROMOTION",
+                "requirements": {
+                    "meanGrade": "C",
+                    "compulsorySubjects": [
+                        { 
+                            "requirement": "Either English or Kiswahili",
+                            "alternatives": [
+                                { "name": "english", "minGrade": "C" },
+                                { "name": "kiswahili", "minGrade": "C" }
+                            ]
+                        },
+                        { 
+                            "requirement": "Either Mathematics or Physics or Chemistry",
+                            "alternatives": [
+                                { "name": "maths", "minGrade": "C" },
+                                { "name": "physics", "minGrade": "C" },
+                                { "name": "chemistry", "minGrade": "C" }
+                            ]
+                        },
+                        { "name": "biology", "minGrade": "C-" }
                     ]
                 },
-                { "name": "Mathematics", "minGrade": "D+" },
-                { "name": "Biology", "minGrade": "D+" }
-            ]
-        },
-        "campuses": ["NAIROBI", "MOMBASA"]
-    },
-    {
-        "name": "DIPLOMA IN HEALTH PROMOTION",
-        "requirements": {
-            "meanGrade": "C",
-            "compulsorySubjects": [
-                { 
-                    "requirement": "Either English or Kiswahili",
-                    "alternatives": [
-                        { "name": "English", "minGrade": "C" },
-                        { "name": "Kiswahili", "minGrade": "C" }
+                "campuses": ["NAIROBI", "KISUMU", "NAKURU"]
+            },
+            {
+                "name": "DIPLOMA IN HEALTH RECORDS AND INFORMATION TECHNOLOGY",
+                "requirements": {
+                    "meanGrade": "C",
+                    "compulsorySubjects": [
+                        { 
+                            "requirement": "Either English or Kiswahili",
+                            "alternatives": [
+                                { "name": "english", "minGrade": "C" },
+                                { "name": "kiswahili", "minGrade": "C" }
+                            ]
+                        },
+                        { 
+                            "requirement": "Either Physics or Chemistry or Geography or History or Agriculture or Computer or Business",
+                            "alternatives": [
+                                { "name": "physics", "minGrade": "C-" },
+                                { "name": "chemistry", "minGrade": "C-" },
+                                { "name": "geography", "minGrade": "C-" },
+                                { "name": "history", "minGrade": "C-" },
+                                { "name": "agriculture", "minGrade": "C-" },
+                                { "name": "computer", "minGrade": "C-" },
+                                { "name": "business", "minGrade": "C-" }
+                            ]
+                        },
+                        { "name": "maths", "minGrade": "C-" },
+                        { "name": "biology", "minGrade": "D+" }
                     ]
                 },
-                { 
-                    "requirement": "Either Mathematics or Physics or Chemistry",
-                    "alternatives": [
-                        { "name": "Mathematics", "minGrade": "C" },
-                        { "name": "Physics", "minGrade": "C" },
-                        { "name": "Chemistry", "minGrade": "C" }
+                "campuses": ["NAIROBI", "MOMBASA", "ISIOLO", "MERU"]
+            },
+            {
+                "name": "DIPLOMA IN MEDICAL ENGINEERING",
+                "requirements": {
+                    "meanGrade": "C",
+                    "compulsorySubjects": [
+                        { 
+                            "requirement": "Either English or Kiswahili",
+                            "alternatives": [
+                                { "name": "english", "minGrade": "C" },
+                                { "name": "kiswahili", "minGrade": "C" }
+                            ]
+                        },
+                        { 
+                            "requirement": "Either Biology or Chemistry",
+                            "alternatives": [
+                                { "name": "biology", "minGrade": "D+" },
+                                { "name": "chemistry", "minGrade": "D+" }
+                            ]
+                        },
+                        { "name": "physics", "minGrade": "C-" },
+                        { "name": "maths", "minGrade": "C-" }
                     ]
                 },
-                { "name": "Biology", "minGrade": "C-" }
-            ]
-        },
-        "campuses": ["NAIROBI", "KISUMU", "NAKURU"]
-    },
-    {
-        "name": "DIPLOMA IN HEALTH RECORDS AND INFORMATION TECHNOLOGY",
-        "requirements": {
-            "meanGrade": "C",
-            "compulsorySubjects": [
-                { 
-                    "requirement": "Either English or Kiswahili",
-                    "alternatives": [
-                        { "name": "English", "minGrade": "C" },
-                        { "name": "Kiswahili", "minGrade": "C" }
+                "campuses": ["NAIROBI"]
+            },
+            {
+                "name": "DIPLOMA IN MEDICAL LABORATORY SCIENCES",
+                "requirements": {
+                    "meanGrade": "C",
+                    "compulsorySubjects": [
+                        { 
+                            "requirement": "Either English or Kiswahili",
+                            "alternatives": [
+                                { "name": "english", "minGrade": "C" },
+                                { "name": "kiswahili", "minGrade": "C" }
+                            ]
+                        },
+                        { 
+                            "requirement": "Either Mathematics or Physics",
+                            "alternatives": [
+                                { "name": "maths", "minGrade": "C" },
+                                { "name": "physics", "minGrade": "C" }
+                            ]
+                        },
+                        { "name": "biology", "minGrade": "C" },
+                        { "name": "chemistry", "minGrade": "C" }
                     ]
                 },
-                { 
-                    "requirement": "Either Physics or Chemistry or Geography or History or Agriculture or Computer or Business",
-                    "alternatives": [
-                        { "name": "Physics", "minGrade": "C-" },
-                        { "name": "Chemistry", "minGrade": "C-" },
-                        { "name": "Geography", "minGrade": "C-" },
-                        { "name": "History", "minGrade": "C-" },
-                        { "name": "Agriculture", "minGrade": "C-" },
-                        { "name": "Computer", "minGrade": "C-" },
-                        { "name": "Business", "minGrade": "C-" }
+                "campuses": ["NAIROBI", "MOMBASA", "KISUMU"]
+            },
+            {
+                "name": "DIPLOMA IN MEDICAL SOCIAL WORK",
+                "requirements": {
+                    "meanGrade": "C",
+                    "compulsorySubjects": [
+                        { 
+                            "requirement": "Either English or Kiswahili",
+                            "alternatives": [
+                                { "name": "english", "minGrade": "C" },
+                                { "name": "kiswahili", "minGrade": "C" }
+                            ]  
+                        },
+                        { 
+                            "requirement": "Either Mathematics or Physics or Chemistry or History or Geography or Cre or Ire or Agriculture or Business",
+                            "alternatives": [
+                                { "name": "maths", "minGrade": "C-" },
+                                { "name": "physics", "minGrade": "C-" },
+                                { "name": "chemistry", "minGrade": "C-" },
+                                { "name": "history", "minGrade": "C-" },
+                                { "name": "geography", "minGrade": "C-" },
+                                { "name": "cre", "minGrade": "C-" },
+                                { "name": "ire", "minGrade": "C-" },
+                                { "name": "agriculture", "minGrade": "C-" },
+                                { "name": "business", "minGrade": "C-" }
+                            ]
+                        },
+                        { "name": "biology", "minGrade": "D+" }
                     ]
                 },
-                { "name": "Mathematics", "minGrade": "C-" },
-                { "name": "Biology", "minGrade": "D+" }
-            ]
-        },
-        "campuses": ["NAIROBI", "MOMBASA", "ISIOLO", "MERU"]
-    },
-    {
-        "name": "DIPLOMA IN MEDICAL ENGINEERING",
-        "requirements": {
-            "meanGrade": "C",
-            "compulsorySubjects": [
-                { 
-                    "requirement": "Either English or Kiswahili",
-                    "alternatives": [
-                        { "name": "English", "minGrade": "C" },
-                        { "name": "Kiswahili", "minGrade": "C" }
+                "campuses": ["NAIROBI", "KISUMU"]
+            },
+            {
+                "name": "DIPLOMA IN MORTUARY SCIENCE",
+                "requirements": {
+                    "meanGrade": "C-",
+                    "compulsorySubjects": [
+                        { 
+                            "requirement": "Either English or Kiswahili",
+                            "alternatives": [
+                                { "name": "english", "minGrade": "C-" },
+                                { "name": "kiswahili", "minGrade": "C-" }
+                            ]
+                        },
+                        { "name": "biology", "minGrade": "D+" }
                     ]
                 },
-                { 
-                    "requirement": "Either Biology or Chemistry",
-                    "alternatives": [
-                        { "name": "Biology", "minGrade": "D+" },
-                        { "name": "Chemistry", "minGrade": "D+" }
+                "campuses": ["NAIROBI"]
+            },
+            {
+                "name": "DIPLOMA IN NUTRITION AND DIETETICS",
+                "requirements": {
+                    "meanGrade": "C-",
+                    "compulsorySubjects": [
+                        { 
+                            "requirement": "Either Mathematics or Physics or Agriculture",
+                            "alternatives": [
+                                { "name": "maths", "minGrade": "D" },
+                                { "name": "physics", "minGrade": "D" },
+                                { "name": "agriculture", "minGrade": "D" }
+                            ]
+                        },
+                        { "name": "biology", "minGrade": "D+" },
+                        { "name": "chemistry", "minGrade": "D+" },
+                        { "name": "english", "minGrade": "D+" }
                     ]
                 },
-                { "name": "Physics", "minGrade": "C-" },
-                { "name": "Mathematics", "minGrade": "C-" }
-            ]
-        },
-        "campuses": ["NAIROBI"]
-    },
-    {
-        "name": "DIPLOMA IN MEDICAL LABORATORY SCIENCES",
-        "requirements": {
-            "meanGrade": "C",
-            "compulsorySubjects": [
-                { 
-                    "requirement": "Either English or Kiswahili",
-                    "alternatives": [
-                        { "name": "English", "minGrade": "C" },
-                        { "name": "Kiswahili", "minGrade": "C" }
+                "campuses": ["NAIROBI", "MOMBASA", "KISUMU", "NAKURU"]
+            },
+            {
+                "name": "DIPLOMA IN OCCUPATIONAL THERAPY",
+                "requirements": {
+                    "meanGrade": "C",
+                    "compulsorySubjects": [
+                        { 
+                            "requirement": "Either English or Kiswahili",
+                            "alternatives": [
+                                { "name": "english", "minGrade": "C" },
+                                { "name": "kiswahili", "minGrade": "C" }
+                            ]
+                        },
+                        { 
+                            "requirement": "Either Mathematics or Physics or Chemistry or Agriculture",
+                            "alternatives": [
+                                { "name": "maths", "minGrade": "C-" },
+                                { "name": "physics", "minGrade": "C-" },
+                                { "name": "chemistry", "minGrade": "C-" },
+                                { "name": "agriculture", "minGrade": "C-" }
+                            ]
+                        },
+                        { "name": "biology", "minGrade": "C-" }
                     ]
                 },
-                { 
-                    "requirement": "Either Mathematics or Physics",
-                    "alternatives": [
-                        { "name": "Mathematics", "minGrade": "C" },
-                        { "name": "Physics", "minGrade": "C" }
+                "campuses": ["NAIROBI", "MOMBASA"]
+            },
+            {
+                "name": "DIPLOMA IN ORTHOPAEDIC TECHNOLOGY",
+                "requirements": {
+                    "meanGrade": "C",
+                    "compulsorySubjects": [
+                        { 
+                            "requirement": "Either English or Kiswahili",
+                            "alternatives": [
+                                { "name": "english", "minGrade": "C" },
+                                { "name": "kiswahili", "minGrade": "C" }
+                            ]
+                        },
+                        { 
+                            "requirement": "Either Physics or Mathematics or Chemistry",
+                            "alternatives": [
+                                { "name": "physics", "minGrade": "C-" },
+                                { "name": "maths", "minGrade": "C-" },
+                                { "name": "chemistry", "minGrade": "C-" }
+                            ]
+                        },
+                        { "name": "biology", "minGrade": "C" }
                     ]
                 },
-                { "name": "Biology", "minGrade": "C" },
-                { "name": "Chemistry", "minGrade": "C" }
-            ]
-        },
-        "campuses": ["NAIROBI", "MOMBASA", "KISUMU"]
-    },
-    {
-        "name": "DIPLOMA IN MEDICAL SOCIAL WORK",
-        "requirements": {
-            "meanGrade": "C",
-            "compulsorySubjects": [
-                { 
-                    "requirement": "Either English or Kiswahili",
-                    "alternatives": [
-                        { "name": "English", "minGrade": "C" },
-                        { "name": "Kiswahili", "minGrade": "C" }
-                    ]  
-                },
-                { 
-                    "requirement": "Either Mathematics or Physics or Chemistry or History or Geography or Cre or Ire or Agriculture or Business",
-                    "alternatives": [
-                        { "name": "Mathematics", "minGrade": "C-" },
-                        { "name": "Physics", "minGrade": "C-" },
-                        { "name": "Chemistry", "minGrade": "C-" },
-                        { "name": "History", "minGrade": "C-" },
-                        { "name": "Geography", "minGrade": "C-" },
-                        { "name": "CRE", "minGrade": "C-" },
-                        { "name": "IRE", "minGrade": "C-" },
-                        { "name": "Agriculture", "minGrade": "C-" },
-                        { "name": "Business", "minGrade": "C-" }
+                "campuses": ["NAIROBI"]
+            },
+            {
+                "name": "DIPLOMA IN ORTHOPAEDIC AND TRAUMA MEDICINE",
+                "requirements": {
+                    "meanGrade": "C",
+                    "compulsorySubjects": [
+                        { 
+                            "requirement": "Either English or Kiswahili",
+                            "alternatives": [
+                                { "name": "english", "minGrade": "C" },
+                                { "name": "kiswahili", "minGrade": "C" }
+                            ]
+                        },
+                        { 
+                            "requirement": "Either Physics or Mathematics or Chemistry",
+                            "alternatives": [
+                                { "name": "physics", "minGrade": "C-" },
+                                { "name": "maths", "minGrade": "C-" },
+                                { "name": "chemistry", "minGrade": "C-" }
+                            ]
+                        },
+                        { "name": "biology", "minGrade": "C" }
                     ]
                 },
-                { "name": "Biology", "minGrade": "D+" }
-            ]
-        },
-        "campuses": ["NAIROBI", "KISUMU"]
-    },
-    {
-        "name": "DIPLOMA IN MORTUARY SCIENCE",
-        "requirements": {
-            "meanGrade": "C-"
-        },
-        "campuses": ["NAIROBI"]
-    },
-    {
-        "name": "DIPLOMA IN NUTRITION AND DIETETICS",
-        "requirements": {
-            "meanGrade": "C-",
-            "compulsorySubjects": [
-                { 
-                    "requirement": "Either Mathematics or Physics or Agriculture",
-                    "alternatives": [
-                        { "name": "Mathematics", "minGrade": "D" },
-                        { "name": "Physics", "minGrade": "D" },
-                        { "name": "Agriculture", "minGrade": "D" }
+                "campuses": ["NAIROBI"]
+            },
+            {
+                "name": "DIPLOMA IN PHARMACY",
+                "requirements": {
+                    "meanGrade": "C",
+                    "compulsorySubjects": [
+                        { 
+                            "requirement": "Either English or Kiswahili",
+                            "alternatives": [
+                                { "name": "english", "minGrade": "C" },
+                                { "name": "kiswahili", "minGrade": "C" }
+                            ]
+                        },
+                        { 
+                            "requirement": "Either Mathematics or Physics",
+                            "alternatives": [
+                                { "name": "maths", "minGrade": "C" },
+                                { "name": "physics", "minGrade": "C" }
+                            ]
+                        },
+                        { "name": "biology", "minGrade": "C" },
+                        { "name": "chemistry", "minGrade": "C" }
                     ]
                 },
-                { "name": "Biology", "minGrade": "D+" },
-                { "name": "Chemistry", "minGrade": "D+" },
-                { "name": "English", "minGrade": "D+" }
-            ]
-        },
-        "campuses": ["NAIROBI", "MOMBASA", "KISUMU", "NAKURU"]
-    },
-    {
-        "name": "DIPLOMA IN OCCUPATIONAL THERAPY",
-        "requirements": {
-            "meanGrade": "C",
-            "compulsorySubjects": [
-                { 
-                    "requirement": "Either English or Kiswahili",
-                    "alternatives": [
-                        { "name": "English", "minGrade": "C" },
-                        { "name": "Kiswahili", "minGrade": "C" }
+                "campuses": ["NAIROBI", "MOMBASA"]
+            },
+            {
+                "name": "DIPLOMA IN PHYSIOTHERAPY",
+                "requirements": {
+                    "meanGrade": "C",
+                    "compulsorySubjects": [
+                        { 
+                            "requirement": "Either English or Kiswahili",
+                            "alternatives": [
+                                { "name": "english", "minGrade": "C" },
+                                { "name": "kiswahili", "minGrade": "C" }
+                            ]
+                        },
+                        { 
+                            "requirement": "Either Physics or Chemistry or Mathematics",
+                            "alternatives": [
+                                { "name": "physics", "minGrade": "C-" },
+                                { "name": "chemistry", "minGrade": "C-" },
+                                { "name": "maths", "minGrade": "C-" }
+                            ]
+                        },
+                        { "name": "biology", "minGrade": "C-" }
                     ]
                 },
-                { 
-                    "requirement": "Either Mathematics or Physics or Chemistry or Agriculture",
-                    "alternatives": [
-                        { "name": "Mathematics", "minGrade": "C-" },
-                        { "name": "Physics", "minGrade": "C-" },
-                        { "name": "Chemistry", "minGrade": "C-" },
-                        { "name": "Agriculture", "minGrade": "C-" }
+                "campuses": ["NAIROBI", "MOMBASA"]
+            },
+            {
+                "name": "DIPLOMA IN PUBLIC HEALTH",
+                "requirements": {
+                    "meanGrade": "C",
+                    "compulsorySubjects": [
+                        { 
+                            "requirement": "Either English or Kiswahili",
+                            "alternatives": [
+                                { "name": "english", "minGrade": "C" },
+                                { "name": "kiswahili", "minGrade": "C" }
+                            ]
+                        },
+                        { 
+                            "requirement": "Either Physics or Chemistry",
+                            "alternatives": [
+                                { "name": "physics", "minGrade": "C-" },
+                                { "name": "chemistry", "minGrade": "C-" }
+                            ]
+                        },
+                        { "name": "maths", "minGrade": "C-" },
+                        { "name": "biology", "minGrade": "C" }
                     ]
                 },
-                { "name": "Biology", "minGrade": "C-" }
-            ]
-        },
-        "campuses": ["NAIROBI", "MOMBASA"]
-    },
-    {
-        "name": "DIPLOMA IN ORTHOPAEDIC TECHNOLOGY",
-        "requirements": {
-            "meanGrade": "C",
-            "compulsorySubjects": [
-                { 
-                    "requirement": "Either English or Kiswahili",
-                    "alternatives": [
-                        { "name": "English", "minGrade": "C" },
-                        { "name": "Kiswahili", "minGrade": "C" }
+                "campuses": ["NAIROBI", "MOMBASA", "KISUMU", "NAKURU"]
+            },
+            {
+                "name": "DIPLOMA IN RADIOGRAPHY AND IMAGING",
+                "requirements": {
+                    "meanGrade": "C",
+                    "compulsorySubjects": [
+                        { 
+                            "requirement": "Either English or Kiswahili",
+                            "alternatives": [
+                                { "name": "english", "minGrade": "C" },
+                                { "name": "kiswahili", "minGrade": "C" }
+                            ]
+                        },
+                        { "name": "physics", "minGrade": "C" },
+                        { "name": "biology", "minGrade": "C" },
+                        { 
+                            "requirement": "Either Mathematics or Chemistry",
+                            "alternatives": [
+                                { "name": "maths", "minGrade": "C-" },
+                                { "name": "chemistry", "minGrade": "C-" }
+                            ]
+                        }
                     ]
                 },
-                { 
-                    "requirement": "Either Physics or Mathematics or Chemistry",
-                    "alternatives": [
-                        { "name": "Physics", "minGrade": "C-" },
-                        { "name": "Mathematics", "minGrade": "C-" },
-                        { "name": "Chemistry", "minGrade": "C-" }
+                "campuses": ["NAIROBI", "KISUMU"]
+            },
+            {
+                "name": "DIPLOMA IN SPEECH AND LANGUAGE THERAPY",
+                "requirements": {
+                    "meanGrade": "C",
+                    "compulsorySubjects": [
+                        { 
+                            "requirement": "Either English or Kiswahili",
+                            "alternatives": [
+                                { "name": "english", "minGrade": "C-" },
+                                { "name": "kiswahili", "minGrade": "C-" }
+                            ]
+                        },
+                        { 
+                            "requirement": "Either Mathematics or Physics or Chemistry",
+                            "alternatives": [
+                                { "name": "maths", "minGrade": "C-" },
+                                { "name": "physics", "minGrade": "C-" },
+                                { "name": "chemistry", "minGrade": "C-" }
+                            ]
+                        },
+                        { "name": "biology", "minGrade": "C-" }
                     ]
                 },
-                { "name": "Biology", "minGrade": "C" }
-            ]
-        },
-        "campuses": ["NAIROBI"]
-    },
-    {
-        "name": "DIPLOMA IN ORTHOPAEDIC AND TRAUMA MEDICINE",
-        "requirements": {
-            "meanGrade": "C",
-            "compulsorySubjects": [
-                { 
-                    "requirement": "Either English or Kiswahili",
-                    "alternatives": [
-                        { "name": "English", "minGrade": "C" },
-                        { "name": "Kiswahili", "minGrade": "C" }
-                    ]
-                },
-                { 
-                    "requirement": "Either Physics or Mathematics or Chemistry",
-                    "alternatives": [
-                        { "name": "Physics", "minGrade": "C-" },
-                        { "name": "Mathematics", "minGrade": "C-" },
-                        { "name": "Chemistry", "minGrade": "C-" }
-                    ]
-                },
-                { "name": "Biology", "minGrade": "C" }
-            ]
-        },
-        "campuses": ["NAIROBI"]
-    },
-    {
-        "name": "DIPLOMA IN PHARMACY",
-        "requirements": {
-            "meanGrade": "C",
-            "compulsorySubjects": [
-                { 
-                    "requirement": "Either English or Kiswahili",
-                    "alternatives": [
-                        { "name": "English", "minGrade": "C" },
-                        { "name": "Kiswahili", "minGrade": "C" }
-                    ]
-                },
-                { 
-                    "requirement": "Either Mathematics or Physics",
-                    "alternatives": [
-                        { "name": "Mathematics", "minGrade": "C" },
-                        { "name": "Physics", "minGrade": "C" }
-                    ]
-                },
-                { "name": "Biology", "minGrade": "C" },
-                { "name": "Chemistry", "minGrade": "C" }
-            ]
-        },
-        "campuses": ["NAIROBI", "MOMBASA"]
-    },
-    {
-        "name": "DIPLOMA IN PHYSIOTHERAPY",
-        "requirements": {
-            "meanGrade": "C",
-            "compulsorySubjects": [
-                { 
-                    "requirement": "Either English or Kiswahili",
-                    "alternatives": [
-                        { "name": "English", "minGrade": "C" },
-                        { "name": "Kiswahili", "minGrade": "C" }
-                    ]
-                },
-                { 
-                    "requirement": "Either Physics or Chemistry or Mathematics",
-                    "alternatives": [
-                        { "name": "Physics", "minGrade": "C-" },
-                        { "name": "Chemistry", "minGrade": "C-" },
-                        { "name": "Mathematics", "minGrade": "C-" }
-                    ]
-                },
-                { "name": "Biology", "minGrade": "C-" }
-            ]
-        },
-        "campuses": ["NAIROBI", "MOMBASA"]
-    },
-    {
-        "name": "DIPLOMA IN PUBLIC HEALTH",
-        "requirements": {
-            "meanGrade": "C",
-            "compulsorySubjects": [
-                { 
-                    "requirement": "Either English or Kiswahili",
-                    "alternatives": [
-                        { "name": "English", "minGrade": "C" },
-                        { "name": "Kiswahili", "minGrade": "C" }
-                    ]
-                },
-                { 
-                    "requirement": "Either Physics or Chemistry",
-                    "alternatives": [
-                        { "name": "Physics", "minGrade": "C-" },
-                        { "name": "Chemistry", "minGrade": "C-" }
-                    ]
-                },
-                { "name": "Mathematics", "minGrade": "C-" },
-                { "name": "Biology", "minGrade": "C" }
-            ]
-        },
-        "campuses": ["NAIROBI", "MOMBASA", "KISUMU", "NAKURU"]
-    },
-    {
-        "name": "DIPLOMA IN RADIOGRAPHY AND IMAGING",
-        "requirements": {
-            "meanGrade": "C",
-            "compulsorySubjects": [
-                { 
-                    "requirement": "Either English or Kiswahili",
-                    "alternatives": [
-                        { "name": "English", "minGrade": "C" },
-                        { "name": "Kiswahili", "minGrade": "C" }
-                    ]
-                },
-                { "name": "Physics", "minGrade": "C" },
-                { "name": "Biology", "minGrade": "C" },
-                { 
-                    "requirement": "Either Mathematics or Chemistry",
-                    "alternatives": [
-                        { "name": "Mathematics", "minGrade": "C-" },
-                        { "name": "Chemistry", "minGrade": "C-" }
-                    ]
-                }
-            ]
-        },
-        "campuses": ["NAIROBI", "KISUMU"]
-    },
-    {
-        "name": "DIPLOMA IN SPEECH AND LANGUAGE THERAPY",
-        "requirements": {
-            "meanGrade": "C",
-            "compulsorySubjects": [
-                { 
-                    "requirement": "Either English or Kiswahili",
-                    "alternatives": [
-                        { "name": "English", "minGrade": "C-" },
-                        { "name": "Kiswahili", "minGrade": "C-" }
-                    ]
-                },
-                { 
-                    "requirement": "Either Mathematics or Physics or Chemistry",
-                    "alternatives": [
-                        { "name": "Mathematics", "minGrade": "C-" },
-                        { "name": "Physics", "minGrade": "C-" },
-                        { "name": "Chemistry", "minGrade": "C-" }
-                    ]
-                },
-                { "name": "Biology", "minGrade": "C-" }
-            ]
-        },
-        "campuses": ["NAIROBI"]
-    }
-       ];
+                "campuses": ["NAIROBI"]
+            }
+        ];
         
         // Grade comparison function
         function isGradeSufficient(studentGrade, requiredGrade) {
+            if (!studentGrade || !requiredGrade) return false;
+            
             const gradeOrder = ["A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "E"];
             const studentIndex = gradeOrder.indexOf(studentGrade);
             const requiredIndex = gradeOrder.indexOf(requiredGrade);
+            
+            // Handle invalid grades
+            if (studentIndex === -1 || requiredIndex === -1) return false;
             
             return studentIndex <= requiredIndex; // Lower index means better grade
         }
@@ -2568,164 +2583,177 @@
         });
 
         function checkAllQualifications() {
-            // Get all grades
-            const grades = {
-                english: document.getElementById('english').value,
-                kiswahili: document.getElementById('kiswahili').value,
-                maths: document.getElementById('maths').value,
-                biology: document.getElementById('biology').value,
-                chemistry: document.getElementById('chemistry').value,
-                physics: document.getElementById('physics').value,
-                geography: document.getElementById('geography').value,
-                history: document.getElementById('history').value,
-                cre: document.getElementById('cre').value,
-                ire: document.getElementById('ire').value,
-                hre: document.getElementById('hre').value,
-                agriculture: document.getElementById('agriculture').value,
-                computer: document.getElementById('computer').value,
-                art: document.getElementById('art').value,
-                business: document.getElementById('business').value,
-                music: document.getElementById('music').value,
-                building: document.getElementById('building').value,
-                electricity: document.getElementById('electricity').value,
-                woodwork: document.getElementById('woodwork').value,
-                metalwork: document.getElementById('metalwork').value,
-                homescience: document.getElementById('homescience').value
-            };
-            
-            const meanGrade = document.getElementById('meanGrade').value;
-            
-            // Validate inputs
-            if (!meanGrade) {
-                alert("PLEASE SELECT YOUR MEAN GRADE");
-                return;
-            }
-            
-            // Check qualification for each course
-            const qualifiedCourses = [];
-            
-            for (const course of kmtcCourses) {
-                if (checkCourseQualification(course, meanGrade, grades)) {
-                    qualifiedCourses.push(course);
+            try {
+                // Get all grades
+                const grades = {
+                    english: document.getElementById('english').value,
+                    kiswahili: document.getElementById('kiswahili').value,
+                    maths: document.getElementById('maths').value,
+                    biology: document.getElementById('biology').value,
+                    chemistry: document.getElementById('chemistry').value,
+                    physics: document.getElementById('physics').value,
+                    geography: document.getElementById('geography').value,
+                    history: document.getElementById('history').value,
+                    cre: document.getElementById('cre').value,
+                    ire: document.getElementById('ire').value,
+                    hre: document.getElementById('hre').value,
+                    agriculture: document.getElementById('agriculture').value,
+                    computer: document.getElementById('computer').value,
+                    art: document.getElementById('art').value,
+                    business: document.getElementById('business').value,
+                    music: document.getElementById('music').value,
+                    building: document.getElementById('building').value,
+                    electricity: document.getElementById('electricity').value,
+                    woodwork: document.getElementById('woodwork').value,
+                    metalwork: document.getElementById('metalwork').value,
+                    homescience: document.getElementById('homescience').value
+                };
+                
+                const meanGrade = document.getElementById('meanGrade').value;
+                
+                // Validate inputs
+                if (!meanGrade) {
+                    alert("PLEASE SELECT YOUR MEAN GRADE");
+                    return;
                 }
+                
+                // Check if at least some subjects are selected
+                const hasSubjects = Object.values(grades).some(grade => grade);
+                if (!hasSubjects) {
+                    alert("PLEASE ENTER GRADES FOR AT LEAST SOME SUBJECTS");
+                    return;
+                }
+                
+                // Check qualification for each course
+                const qualifiedCourses = [];
+                
+                for (const course of kmtcCourses) {
+                    if (checkCourseQualification(course, meanGrade, grades)) {
+                        qualifiedCourses.push(course);
+                    }
+                }
+                
+                // Display results
+                displayQualifiedCourses(qualifiedCourses, 'auto');
+            } catch (error) {
+                console.error("Error checking qualifications:", error);
+                alert("An error occurred while checking qualifications. Please try again.");
             }
-            
-            // Display results
-            displayQualifiedCourses(qualifiedCourses, 'auto');
         }
 
         function checkManualQualification() {
-            const courseName = document.getElementById('manualCourseSelect').value;
-            const meanGrade = document.getElementById('manualMeanGrade').value;
-            
-            if (!courseName) {
-                alert("PLEASE SELECT A KMTC COURSE");
-                return;
-            }
-            
-            if (!meanGrade) {
-                alert("PLEASE SELECT YOUR MEAN GRADE");
-                return;
-            }
-            
-            // Get all grades
-            const grades = {
-                english: document.getElementById('manualEnglish').value,
-                kiswahili: document.getElementById('manualKiswahili').value,
-                maths: document.getElementById('manualMaths').value,
-                biology: document.getElementById('manualBiology').value,
-                chemistry: document.getElementById('manualChemistry').value,
-                physics: document.getElementById('manualPhysics').value,
-                geography: document.getElementById('manualGeography').value,
-                history: document.getElementById('manualHistory').value,
-                cre: document.getElementById('manualCre').value,
-                ire: document.getElementById('manualIre').value,
-                hre: document.getElementById('manualHre').value,
-                agriculture: document.getElementById('manualAgriculture').value,
-                computer: document.getElementById('manualComputer').value,
-                art: document.getElementById('manualArt').value,
-                business: document.getElementById('manualBusiness').value,
-                music: document.getElementById('manualMusic').value,
-                building: document.getElementById('manualBuilding').value,
-                electricity: document.getElementById('manualElectricity').value,
-                woodwork: document.getElementById('manualWoodwork').value,
-                metalwork: document.getElementById('manualMetalwork').value,
-                homescience: document.getElementById('manualHomescience').value
-            };
-            
-            // Find the selected course
-            const selectedCourse = kmtcCourses.find(c => c.name === courseName);
-            
-            // Display course information
-            document.getElementById('selectedCourseName').textContent = selectedCourse.name;
-            
-            // Display requirements
-            const requirementsList = document.getElementById('requirementsList');
-            requirementsList.innerHTML = '';
-            
-            // Add mean grade requirement
-            const meanGradeItem = document.createElement('div');
-            meanGradeItem.className = 'requirement-item';
-            meanGradeItem.innerHTML = `<strong>MINIMUM MEAN GRADE:</strong> ${selectedCourse.requirements.meanGrade}+`;
-            requirementsList.appendChild(meanGradeItem);
-            
-            // Add compulsory subjects
-            selectedCourse.requirements.compulsorySubjects.forEach(req => {
-                const reqItem = document.createElement('div');
-                reqItem.className = 'requirement-item';
+            try {
+                const courseName = document.getElementById('manualCourseSelect').value;
+                const meanGrade = document.getElementById('manualMeanGrade').value;
                 
-                if (req.alternatives) {
-                    const alternatives = req.alternatives.map(a => `${a.name} (${a.minGrade}+)`).join(' OR ');
-                    reqItem.innerHTML = `<strong>${req.requirement.toUpperCase()}:</strong> ${alternatives}`;
-                } else {
-                    reqItem.innerHTML = `<strong>${req.name.toUpperCase()}:</strong> ${req.minGrade}+`;
+                if (!courseName) {
+                    alert("PLEASE SELECT A KMTC COURSE");
+                    return;
                 }
                 
-                requirementsList.appendChild(reqItem);
-            });
-            
-            // Add campuses
-            const campusesItem = document.createElement('div');
-            campusesItem.className = 'requirement-item';
-            campusesItem.innerHTML = `<strong>AVAILABLE CAMPUSES:</strong> ${selectedCourse.campuses.join(", ")}`;
-            requirementsList.appendChild(campusesItem);
-            
-            // Check qualification
-            const qualificationStatus = document.getElementById('qualificationStatus');
-            qualificationStatus.innerHTML = '';
-            
-            // Check mean grade first
-            if (!isGradeSufficient(meanGrade, selectedCourse.requirements.meanGrade)) {
-                const statusDiv = document.createElement('div');
-                statusDiv.className = 'course-item';
-                statusDiv.innerHTML = `
-                    ❌ YOU DO NOT MEET THE MINIMUM MEAN GRADE REQUIREMENT FOR THIS COURSE.
-                    <br>REQUIRED: <span class="highlight">${selectedCourse.requirements.meanGrade}+</span>
-                    <br>YOUR GRADE: <span class="highlight">${meanGrade}</span>
-                `;
-                qualificationStatus.appendChild(statusDiv);
-                document.getElementById('manualResults').style.display = 'block';
-                return;
-            }
-            
-            // Check compulsory subjects
-            const missingRequirements = [];
-            
-            for (const subjectReq of selectedCourse.requirements.compulsorySubjects) {
-                if (subjectReq.alternatives) {
-                    // For either/or subjects
-                    let anyAlternativeMet = false;
+                if (!meanGrade) {
+                    alert("PLEASE SELECT YOUR MEAN GRADE");
+                    return;
+                }
+                
+                // Get all grades
+                const grades = {
+                    english: document.getElementById('manualEnglish').value,
+                    kiswahili: document.getElementById('manualKiswahili').value,
+                    maths: document.getElementById('manualMaths').value,
+                    biology: document.getElementById('manualBiology').value,
+                    chemistry: document.getElementById('manualChemistry').value,
+                    physics: document.getElementById('manualPhysics').value,
+                    geography: document.getElementById('manualGeography').value,
+                    history: document.getElementById('manualHistory').value,
+                    cre: document.getElementById('manualCre').value,
+                    ire: document.getElementById('manualIre').value,
+                    hre: document.getElementById('manualHre').value,
+                    agriculture: document.getElementById('manualAgriculture').value,
+                    computer: document.getElementById('manualComputer').value,
+                    art: document.getElementById('manualArt').value,
+                    business: document.getElementById('manualBusiness').value,
+                    music: document.getElementById('manualMusic').value,
+                    building: document.getElementById('manualBuilding').value,
+                    electricity: document.getElementById('manualElectricity').value,
+                    woodwork: document.getElementById('manualWoodwork').value,
+                    metalwork: document.getElementById('manualMetalwork').value,
+                    homescience: document.getElementById('manualHomescience').value
+                };
+                
+                // Find the selected course
+                const selectedCourse = kmtcCourses.find(c => c.name === courseName);
+                
+                // Display course information
+                document.getElementById('selectedCourseName').textContent = selectedCourse.name;
+                
+                // Display requirements
+                const requirementsList = document.getElementById('requirementsList');
+                requirementsList.innerHTML = '';
+                
+                // Add mean grade requirement
+                const meanGradeItem = document.createElement('div');
+                meanGradeItem.className = 'requirement-item';
+                meanGradeItem.innerHTML = `<strong>MINIMUM MEAN GRADE:</strong> ${selectedCourse.requirements.meanGrade}+`;
+                requirementsList.appendChild(meanGradeItem);
+                
+                // Add compulsory subjects
+                selectedCourse.requirements.compulsorySubjects.forEach(req => {
+                    const reqItem = document.createElement('div');
+                    reqItem.className = 'requirement-item';
                     
-                    for (const alternative of subjectReq.alternatives) {
-                        const studentGrade = grades[alternative.name.toLowerCase()];
-                        if (studentGrade && isGradeSufficient(studentGrade, alternative.minGrade)) {
-                            anyAlternativeMet = true;
-                            break;
-                        }
+                    if (req.alternatives) {
+                        const alternatives = req.alternatives.map(a => `${a.name.toUpperCase()} (${a.minGrade}+)`).join(' OR ');
+                        reqItem.innerHTML = `<strong>${req.requirement.toUpperCase()}:</strong> ${alternatives}`;
+                    } else {
+                        reqItem.innerHTML = `<strong>${req.name.toUpperCase()}:</strong> ${req.minGrade}+`;
                     }
                     
-                    if (!anyAlternativeMet) {
-                        const alternatives = subjectReq.alternatives.map(a => `${a.name} (${a.minGrade}+)`).join(' OR ');
+                    requirementsList.appendChild(reqItem);
+                });
+                
+                // Add campuses
+                const campusesItem = document.createElement('div');
+                campusesItem.className = 'requirement-item';
+                campusesItem.innerHTML = `<strong>AVAILABLE CAMPUSES:</strong> ${selectedCourse.campuses.join(", ")}`;
+                requirementsList.appendChild(campusesItem);
+                
+                // Check qualification
+                const qualificationStatus = document.getElementById('qualificationStatus');
+                qualificationStatus.innerHTML = '';
+                
+                // Check mean grade first
+                if (!isGradeSufficient(meanGrade, selectedCourse.requirements.meanGrade)) {
+                    const statusDiv = document.createElement('div');
+                    statusDiv.className = 'course-item';
+                    statusDiv.innerHTML = `
+                        ❌ YOU DO NOT MEET THE MINIMUM MEAN GRADE REQUIREMENT FOR THIS COURSE.
+                        <br>REQUIRED: <span class="highlight">${selectedCourse.requirements.meanGrade}+</span>
+                        <br>YOUR GRADE: <span class="highlight">${meanGrade}</span>
+                    `;
+                    qualificationStatus.appendChild(statusDiv);
+                    document.getElementById('manualResults').style.display = 'block';
+                    return;
+                }
+                
+                // Check compulsory subjects
+                const missingRequirements = [];
+                
+                for (const subjectReq of selectedCourse.requirements.compulsorySubjects) {
+                    if (subjectReq.alternatives) {
+                        // For either/or subjects
+                        let anyAlternativeMet = false;
+                        
+                        for (const alternative of subjectReq.alternatives) {
+                            const studentGrade = grades[alternative.name.toLowerCase()];
+                            if (studentGrade && isGradeSufficient(studentGrade, alternative.minGrade)) {
+                                anyAlternativeMet = true;
+                                break;
+                            }
+                        }
+                        
+                        if (!anyAlternativeMet) {
+                            const alternatives = subjectReq.alternatives.map(a => `${a.name} (${a.minGrade}+)`).join(' OR ');
                         missingRequirements.push(`${subjectReq.requirement.toUpperCase()}: ${alternatives}`);
                     }
                 } else {
