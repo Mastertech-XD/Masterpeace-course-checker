@@ -2524,86 +2524,95 @@
        ];
         
         // Grade comparison function
-        function checkAllQualifications() {
-        // Get all grades
-        const grades = {
-            english: document.getElementById('english').value,
-            kiswahili: document.getElementById('kiswahili').value,
-            maths: document.getElementById('maths').value,
-            biology: document.getElementById('biology').value,
-            chemistry: document.getElementById('chemistry').value,
-            physics: document.getElementById('physics').value,
-            geography: document.getElementById('geography').value,
-            history: document.getElementById('history').value,
-            cre: document.getElementById('cre').value,
-            ire: document.getElementById('ire').value,
-            hre: document.getElementById('hre').value,
-            agriculture: document.getElementById('agriculture').value,
-            computer: document.getElementById('computer').value,
-            art: document.getElementById('art').value,
-            business: document.getElementById('business').value,
-            music: document.getElementById('music').value,
-            building: document.getElementById('building').value,
-            electricity: document.getElementById('electricity').value,
-            woodwork: document.getElementById('woodwork').value,
-            metalwork: document.getElementById('metalwork').value,
-            homescience: document.getElementById('homescience').value
-        };
-        
-        const meanGrade = document.getElementById('meanGrade').value;
-        
-        // Validate inputs
-        if (!meanGrade) {
-            alert("PLEASE SELECT YOUR MEAN GRADE");
-            return;
+        function isGradeSufficient(studentGrade, requiredGrade) {
+            const gradeOrder = ["A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "E"];
+            const studentIndex = gradeOrder.indexOf(studentGrade);
+            const requiredIndex = gradeOrder.indexOf(requiredGrade);
+            
+            return studentIndex <= requiredIndex; // Lower index means better grade
         }
-        
-        // Check qualification for each course
-        const qualifiedCourses = [];
-        
-        for (const course of kmtcCourses) {
-            // Check if mean grade meets requirement first
-            if (isGradeSufficient(meanGrade, course.requirements.meanGrade)) {
-                // Then check subject requirements
-                let meetsAllRequirements = true;
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up mode switching
+            const autoModeBtn = document.getElementById('autoModeBtn');
+            const manualModeBtn = document.getElementById('manualModeBtn');
+            const autoModeContent = document.getElementById('autoModeContent');
+            const manualModeContent = document.getElementById('manualModeContent');
+            
+            autoModeBtn.addEventListener('click', function() {
+                autoModeBtn.classList.add('active');
+                manualModeBtn.classList.remove('active');
+                autoModeContent.style.display = 'block';
+                manualModeContent.style.display = 'none';
+            });
+            
+            manualModeBtn.addEventListener('click', function() {
+                manualModeBtn.classList.add('active');
+                autoModeBtn.classList.remove('active');
+                manualModeContent.style.display = 'block';
+                autoModeContent.style.display = 'none';
                 
-                for (const subjectReq of course.requirements.compulsorySubjects) {
-                    if (subjectReq.alternatives) {
-                        // For either/or subjects
-                        let anyAlternativeMet = false;
-                        
-                        for (const alternative of subjectReq.alternatives) {
-                            const subjectKey = alternative.name.toLowerCase().replace(/ /g, '');
-                            const studentGrade = grades[subjectKey];
-                            if (studentGrade && isGradeSufficient(studentGrade, alternative.minGrade)) {
-                                anyAlternativeMet = true;
-                                break;
-                            }
-                        }
-                        
-                        if (!anyAlternativeMet) {
-                            meetsAllRequirements = false;
-                            break;
-                        }
-                    } else {
-                        // For regular compulsory subjects
-                        const subjectKey = subjectReq.name.toLowerCase().replace(/ /g, '');
-                        const studentGrade = grades[subjectKey];
-                        if (!studentGrade || !isGradeSufficient(studentGrade, subjectReq.minGrade)) {
-                            meetsAllRequirements = false;
-                            break;
-                        }
-                    }
+                // Populate manual course select if not already done
+                const manualCourseSelect = document.getElementById('manualCourseSelect');
+                if (manualCourseSelect.options.length <= 1) {
+                    manualCourseSelect.innerHTML = '<option value="">-- Select a course --</option>';
+                    kmtcCourses.forEach(course => {
+                        const option = document.createElement('option');
+                        option.value = course.name;
+                        option.textContent = course.name;
+                        manualCourseSelect.appendChild(option);
+                    });
                 }
-                
-                if (meetsAllRequirements) {
+            });
+        });
+
+        function checkAllQualifications() {
+            // Get all grades
+            const grades = {
+                english: document.getElementById('english').value,
+                kiswahili: document.getElementById('kiswahili').value,
+                maths: document.getElementById('maths').value,
+                biology: document.getElementById('biology').value,
+                chemistry: document.getElementById('chemistry').value,
+                physics: document.getElementById('physics').value,
+                geography: document.getElementById('geography').value,
+                history: document.getElementById('history').value,
+                cre: document.getElementById('cre').value,
+                ire: document.getElementById('ire').value,
+                hre: document.getElementById('hre').value,
+                agriculture: document.getElementById('agriculture').value,
+                computer: document.getElementById('computer').value,
+                art: document.getElementById('art').value,
+                business: document.getElementById('business').value,
+                music: document.getElementById('music').value,
+                building: document.getElementById('building').value,
+                electricity: document.getElementById('electricity').value,
+                woodwork: document.getElementById('woodwork').value,
+                metalwork: document.getElementById('metalwork').value,
+                homescience: document.getElementById('homescience').value
+            };
+            
+            const meanGrade = document.getElementById('meanGrade').value;
+            
+            // Validate inputs
+            if (!meanGrade) {
+                alert("PLEASE SELECT YOUR MEAN GRADE");
+                return;
+            }
+            
+            // Check qualification for each course
+            const qualifiedCourses = [];
+            
+            for (const course of kmtcCourses) {
+                if (checkCourseQualification(course, meanGrade, grades)) {
                     qualifiedCourses.push(course);
                 }
             }
+            
+            // Display results
+            displayQualifiedCourses(qualifiedCourses, 'auto');
         }
-        // Display results
-        displayQualifiedCourses(qualifiedCourses, 'auto');
-    }
 
         function checkManualQualification() {
             const courseName = document.getElementById('manualCourseSelect').value;
