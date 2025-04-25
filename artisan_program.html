@@ -17,8 +17,6 @@
             --card-bg: rgba(15, 15, 25, 0.98);
             --text-light: #f0f0ff;
             --text-dim: #b0b0c0;
-            --glow-intensity: 1.9;
-            --transition-base: cubic-bezier(0.16, 1, 0.3, 1);
         }
         
         * {
@@ -29,912 +27,117 @@
         
         body {
             background-color: var(--dark-bg);
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(255, 15, 123, 0.03) 0%, transparent 25%),
-                radial-gradient(circle at 90% 80%, rgba(245, 211, 0, 0.03) 0%, transparent 25%),
-                linear-gradient(to bottom, rgba(10, 10, 18, 0.9), rgba(5, 5, 15, 0.95));
             color: var(--text-light);
             font-family: 'Inter', sans-serif;
             margin: 0;
-            padding: 0;
+            padding: 2rem;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
-            line-height: 1.6;
         }
 
         h1 {
             color: var(--neon-orange);
-            text-shadow: 0 0 15px var(--neon-orange);
-            margin: 2.5rem 0 3.5rem;
+            margin: 1rem 0 2rem;
             text-align: center;
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-family: 'Orbitron', sans-serif;
             font-weight: 700;
-            letter-spacing: 1.5px;
-            position: relative;
-            animation: titleGlow 8s infinite alternate;
-            background: linear-gradient(90deg, var(--neon-orange), var(--neon-yellow), var(--neon-pink));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            padding: 0 1.5rem;
-            line-height: 1.2;
             text-transform: uppercase;
-        }
-
-        @keyframes titleGlow {
-            0% { 
-                text-shadow: 0 0 15px var(--neon-orange), 
-                            0 0 30px rgba(255, 107, 0, 0.6); 
-            }
-            25% { 
-                text-shadow: 0 0 20px var(--neon-yellow), 
-                            0 0 40px rgba(245, 211, 0, 0.7); 
-            }
-            50% { 
-                text-shadow: 0 0 20px var(--neon-pink), 
-                            0 0 40px rgba(255, 15, 123, 0.7); 
-            }
-            75% { 
-                text-shadow: 0 0 20px var(--neon-blue), 
-                            0 0 40px rgba(0, 240, 255, 0.7); 
-            }
-            100% { 
-                text-shadow: 0 0 15px var(--neon-green), 
-                            0 0 30px rgba(0, 255, 136, 0.6); 
-            }
-        }
-
-        .main-container {
-            width: 100%;
-            max-width: 1300px;
-            padding: 0 3rem;
-            margin-bottom: 4rem;
-            position: relative;
-            z-index: 10;
         }
 
         .container {
             background: var(--card-bg);
-            border-radius: 20px;
-            padding: 3rem;
+            border-radius: 15px;
+            padding: 2rem;
             width: 100%;
-            box-shadow: 0 0 60px rgba(255, 107, 0, 0.2);
-            border: 1px solid rgba(255, 107, 0, 0.25);
-            margin-bottom: 3rem;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.6s var(--transition-base), 
-                        box-shadow 0.6s ease;
-            backdrop-filter: blur(12px);
-            z-index: 2;
-            transform-style: preserve-3d;
-        }
-
-        .container::before {
-            content: '';
-            position: absolute;
-            top: -3px;
-            left: -3px;
-            right: -3px;
-            bottom: -3px;
-            background: conic-gradient(
-                from 0deg at 50% 50%,
-                var(--neon-orange),
-                var(--neon-yellow),
-                var(--neon-pink),
-                var(--neon-blue),
-                var(--neon-orange)
-            );
-            z-index: -1;
-            border-radius: 22px;
-            animation: borderGlow 10s linear infinite;
-            background-size: 300% 300%;
-            opacity: 0.8;
-            filter: blur(4px);
-            transform: translateZ(-1px);
-        }
-
-        @keyframes borderGlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .container:hover {
-            transform: translateY(-12px) scale(1.01) rotateX(1deg);
-            box-shadow: 0 25px 80px rgba(255, 107, 0, 0.35);
-        }
-
-        .mode-selector {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 3rem;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-        }
-
-        .mode-btn {
-            background-color: transparent;
-            color: var(--neon-orange);
-            border: 2px solid var(--neon-orange);
-            padding: 1.2rem 2.5rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.5s var(--transition-base);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            border-radius: 12px;
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 0.8px;
-            min-width: 240px;
-            text-align: center;
-            transform-style: preserve-3d;
-            text-transform: uppercase;
-        }
-
-        .mode-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, var(--neon-orange), var(--neon-yellow));
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            transform: translateZ(-1px);
-        }
-
-        .mode-btn::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 300%;
-            height: 300%;
-            background: rgba(255, 255, 255, 0.1);
-            transform: translate(-50%, -50%) rotate(45deg);
-            transition: all 0.6s ease;
-            z-index: -2;
-            opacity: 0;
-        }
-
-        .mode-btn.active {
-            color: var(--dark-bg);
-            border-color: transparent;
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 10px 40px rgba(255, 107, 0, 0.5);
-        }
-
-        .mode-btn.active::before {
-            opacity: 1;
-        }
-
-        .mode-btn:hover:not(.active) {
-            background-color: rgba(255, 107, 0, 0.15);
-            box-shadow: 0 0 30px rgba(255, 107, 0, 0.4);
-            color: var(--neon-yellow);
-            border-color: var(--neon-yellow);
-        }
-
-        .mode-btn:active::after {
-            opacity: 1;
-            width: 0;
-            height: 0;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2.5rem;
+            max-width: 1000px;
+            box-shadow: 0 0 30px rgba(255, 107, 0, 0.2);
+            margin-bottom: 2rem;
         }
 
         .form-group {
-            margin-bottom: 0;
-            position: relative;
-            transform-style: preserve-3d;
+            margin-bottom: 1.5rem;
         }
 
-        .form-group label {
+        label {
             display: block;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
             color: var(--neon-orange);
             font-weight: 500;
-            font-size: 1.1rem;
-            letter-spacing: 0.5px;
-            transform: translateZ(20px);
         }
 
         select {
             width: 100%;
-            padding: 1.2rem 1.5rem;
-            border-radius: 12px;
-            border: 2px solid rgba(255, 107, 0, 0.5);
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid var(--neon-orange);
             background-color: rgba(20, 25, 40, 0.8);
             color: var(--text-light);
-            font-size: 1.1rem;
-            transition: all 0.4s var(--transition-base);
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff6b00'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 1.2rem center;
-            background-size: 1.5rem;
-            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.4);
-            transform: translateZ(30px);
-        }
-
-        select:focus {
-            outline: none;
-            box-shadow: 0 0 30px var(--neon-orange),
-                        inset 0 0 15px rgba(0, 0, 0, 0.4);
-            border-color: var(--neon-yellow);
-            background-color: rgba(30, 35, 50, 0.95);
-            transform: translateZ(30px) scale(1.02);
-        }
-
-        select:hover {
-            border-color: rgba(255, 107, 0, 0.8);
-            box-shadow: inset 0 0 20px rgba(255, 107, 0, 0.1);
-        }
-
-        .subject-category {
-            margin-bottom: 3.5rem;
-            padding-bottom: 2rem;
-            position: relative;
-        }
-
-        .subject-category::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--neon-orange), var(--neon-yellow), transparent 90%);
-            opacity: 0.6;
-        }
-
-        .subject-category h3 {
-            color: var(--neon-yellow);
-            margin-bottom: 2rem;
-            font-size: 1.6rem;
-            display: flex;
-            align-items: center;
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 0.8px;
-            text-shadow: 0 0 10px var(--neon-yellow);
-            text-transform: uppercase;
-        }
-
-        .subject-category h3::before {
-            content: '';
-            display: inline-block;
-            width: 14px;
-            height: 14px;
-            background: var(--neon-orange);
-            margin-right: 15px;
-            border-radius: 50%;
-            box-shadow: 0 0 15px var(--neon-orange);
-            animation: pulseDot 2.5s infinite;
-        }
-
-        @keyframes pulseDot {
-            0% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(255, 107, 0, 0.7); }
-            50% { transform: scale(1.3); opacity: 0.9; box-shadow: 0 0 0 10px rgba(255, 107, 0, 0); }
-            100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(255, 107, 0, 0); }
-        }
-
-        .subject-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .subject-input {
-            margin-bottom: 1rem;
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 3.5rem;
-            perspective: 1000px;
+            font-size: 1rem;
         }
 
         button {
-            background: linear-gradient(45deg, var(--neon-orange), var(--neon-yellow));
+            background: var(--neon-orange);
             color: var(--dark-bg);
             border: none;
-            padding: 1.5rem 4rem;
-            font-size: 1.2rem;
-            font-weight: 700;
-            border-radius: 15px;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
             cursor: pointer;
-            transition: all 0.6s var(--transition-base);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            min-width: 320px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-family: 'Orbitron', sans-serif;
-            box-shadow: 0 10px 40px rgba(255, 107, 0, 0.5);
-            transform-style: preserve-3d;
-        }
-
-        button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
+            margin-top: 1rem;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, var(--neon-yellow), var(--neon-orange));
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.6s ease;
-        }
-
-        button::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                to bottom right,
-                rgba(255, 255, 255, 0.3),
-                rgba(255, 255, 255, 0)
-            );
-            transform: rotate(30deg) translate(-20%, -50%);
-            transition: all 1s ease;
-            z-index: -2;
-        }
-
-        button:hover {
-            transform: translateY(-8px) scale(1.05) rotateX(5deg);
-            box-shadow: 0 20px 60px rgba(255, 107, 0, 0.6);
-            background: linear-gradient(45deg, var(--neon-yellow), var(--neon-orange));
-        }
-
-        button:hover::before {
-            opacity: 1;
-        }
-
-        button:hover::after {
-            left: 100%;
-        }
-
-        button:active {
-            transform: translateY(3px) scale(0.98);
-            box-shadow: 0 5px 20px rgba(255, 107, 0, 0.4);
-        }
-
-        .results-container {
-            margin-top: 4rem;
-            animation: fadeIn 0.8s var(--transition-base) forwards;
-            opacity: 0;
-            transform: translateY(30px);
-            perspective: 1000px;
-        }
-
-        @keyframes fadeIn {
-            to { opacity: 1; transform: translateY(0); }
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
         }
 
         .results {
-            padding: 3rem;
-            background: rgba(10, 15, 25, 0.8);
-            border-radius: 18px;
-            border-left: 5px solid var(--neon-orange);
-            backdrop-filter: blur(15px);
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
-            border-top: 1px solid rgba(255, 107, 0, 0.3);
-            border-right: 1px solid rgba(255, 107, 0, 0.2);
-            border-bottom: 1px solid rgba(255, 107, 0, 0.1);
-            transform-style: preserve-3d;
-        }
-
-        .course-header {
-            color: var(--neon-orange);
-            font-size: 1.8rem;
-            margin-bottom: 2rem;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 1px;
-            transform: translateZ(40px);
-            text-transform: uppercase;
-        }
-
-        .course-header::before {
-            content: '✦';
-            color: var(--neon-yellow);
-            font-size: 2.2rem;
-            animation: spin 6s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .course-list {
             margin-top: 2rem;
-            display: grid;
-            gap: 1.8rem;
-        }
-
-        .course-item {
-            padding: 2rem;
-            background: rgba(30, 15, 0, 0.5);
-            border-radius: 15px;
-            border-left: 5px solid var(--neon-yellow);
-            transition: all 0.6s var(--transition-base);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            transform-style: preserve-3d;
-        }
-
-        .course-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: linear-gradient(to bottom, var(--neon-orange), var(--neon-yellow));
-            z-index: 1;
-        }
-
-        .course-item::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                135deg,
-                rgba(255, 107, 0, 0.05),
-                rgba(245, 211, 0, 0.02)
-            );
-            z-index: -1;
-        }
-
-        .course-item:hover {
-            transform: translateX(15px) rotateY(5deg);
-            box-shadow: 10px 15px 40px rgba(255, 107, 0, 0.4);
-            background: rgba(40, 20, 0, 0.6);
-        }
-
-        .course-name {
-            font-weight: 700;
-            color: var(--neon-yellow);
-            margin-bottom: 1rem;
-            font-size: 1.4rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 0.5px;
-            transform: translateZ(30px);
-            text-transform: uppercase;
-        }
-
-        .course-name::before {
-            content: '→';
-            color: var(--neon-orange);
-            font-size: 1.8rem;
-            transition: all 0.4s ease;
-        }
-
-        .course-item:hover .course-name::before {
-            transform: translateX(5px);
-            color: var(--neon-pink);
-        }
-
-        .course-details {
-            margin-top: 1rem;
-            font-size: 1.05rem;
-            color: var(--text-dim);
-            line-height: 1.6;
-            transform: translateZ(20px);
-        }
-
-        .course-campuses {
-            font-style: italic;
-            color: var(--neon-green);
-            margin-top: 1rem;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transform: translateZ(20px);
-        }
-
-        .course-campuses::before {
-            content: '📍';
-            font-size: 1.2rem;
-        }
-
-        .campuses-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
-        }
-
-        .campus-item {
-            background: rgba(255, 107, 0, 0.1);
-            padding: 0.3rem 0.8rem;
-            border-radius: 5px;
-            border: 1px solid rgba(255, 107, 0, 0.3);
-        }
-
-        .qualified-count {
-            margin-top: 3rem;
-            color: var(--neon-yellow);
-            text-align: center;
-            font-size: 1.4rem;
-            animation: pulse 3s infinite;
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 1.5px;
-            text-shadow: 0 0 10px var(--neon-yellow);
-            transform: translateZ(30px);
-        }
-
-        .total-courses {
-            display: block;
-            font-size: 1rem;
-            color: var(--text-dim);
-            margin-top: 0.5rem;
-        }
-
-        @keyframes pulse {
-            0% { 
-                opacity: 0.9; 
-                text-shadow: 0 0 10px var(--neon-yellow);
-            }
-            50% { 
-                opacity: 1; 
-                text-shadow: 0 0 25px var(--neon-yellow);
-            }
-            100% { 
-                opacity: 0.9; 
-                text-shadow: 0 0 10px var(--neon-yellow);
-            }
-        }
-
-        .requirements {
-            margin-top: 3rem;
-            padding: 2rem;
-            background: rgba(30, 15, 0, 0.4);
-            border-radius: 15px;
-            border-left: 5px solid var(--neon-yellow);
-            animation: fadeIn 0.8s 0.3s var(--transition-base) forwards;
-            opacity: 0;
-            transform-style: preserve-3d;
-        }
-
-        .requirements-title {
-            color: var(--neon-yellow);
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            font-family: 'Orbitron', sans-serif;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            letter-spacing: 1px;
-            transform: translateZ(30px);
-        }
-
-        .requirements-title::before {
-            content: 'ℹ️';
-            font-size: 1.8rem;
-        }
-
-        .requirement-item {
-            margin-bottom: 1rem;
-            position: relative;
-            padding-left: 2.2rem;
-            line-height: 1.6;
-            font-size: 1.05rem;
-            transform: translateZ(20px);
-        }
-
-        .requirement-item::before {
-            content: '▹';
-            color: var(--neon-orange);
-            font-size: 1.5rem;
-            position: absolute;
-            left: 0;
-            top: 0;
-        }
-
-        .highlight {
-            color: var(--neon-green);
-            font-weight: 600;
-        }
-
-        .optional-subjects, .subject-alternatives {
-            margin: 1rem 0;
-            padding-left: 1rem;
-            border-left: 2px solid var(--neon-yellow);
-        }
-
-        .view-details-btn {
-            background: rgba(255, 107, 0, 0.1);
-            color: var(--neon-orange);
-            border: 1px solid var(--neon-orange);
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            margin-top: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.9rem;
-        }
-
-        .view-details-btn:hover {
-            background: rgba(255, 107, 0, 0.2);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.3);
-        }
-
-        .no-courses {
-            border-left-color: var(--neon-yellow);
-        }
-
-        .no-courses .course-name {
-            color: var(--neon-yellow);
-        }
-
-        /* Floating particles background */
-        .particles-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .particle {
-            position: absolute;
-            background: rgba(255, 107, 0, 0.15);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: -1;
-            filter: blur(1px);
-            transform: translateZ(0);
-        }
-
-        /* Loading animation */
-        .loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(10, 10, 18, 0.9);
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            opacity: 0;
-            transition: opacity 0.5s ease;
             display: none;
         }
 
-        .loader.active {
-            opacity: 1;
-            display: flex;
-        }
-
-        .loader-spinner {
-            width: 80px;
-            height: 80px;
-            border: 8px solid rgba(255, 107, 0, 0.2);
-            border-top: 8px solid var(--neon-orange);
-            border-radius: 50%;
-            animation: spin 1.5s linear infinite;
+        .course-category {
             margin-bottom: 2rem;
         }
 
-        .loader-text {
-            color: var(--neon-orange);
+        .category-title {
+            color: var(--neon-yellow);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--neon-orange);
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px var(--neon-orange);
-            animation: pulse 2s infinite;
         }
 
-        /* Tooltip styles */
-        .tooltip {
-            position: relative;
-            display: inline-block;
-            cursor: help;
-        }
-
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 280px;
-            background-color: rgba(10, 15, 25, 0.95);
-            color: var(--text-light);
-            text-align: center;
-            border-radius: 10px;
+        .course-item {
+            background: rgba(30, 15, 0, 0.3);
             padding: 1rem;
-            position: absolute;
-            z-index: 100;
-            bottom: 125%;
-            left: 50%;
-            transform: translateX(-50%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            border: 1px solid var(--neon-orange);
-            box-shadow: 0 0 20px rgba(255, 107, 0, 0.3);
-            font-size: 0.95rem;
-            line-height: 1.5;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 3px solid var(--neon-orange);
         }
 
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
+        .course-name {
+            font-weight: 600;
+            color: var(--neon-yellow);
+            margin-bottom: 0.5rem;
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 1200px) {
-            .main-container {
-                padding: 0 2rem;
-            }
-            
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            .container {
-                padding: 2.5rem;
-            }
+        .institutions {
+            font-style: italic;
+            color: var(--text-dim);
         }
 
-        @media (max-width: 992px) {
-            h1 {
-                font-size: 2.2rem;
-                margin: 2rem 0 3rem;
-            }
-            
-            .container {
-                padding: 2rem;
-            }
-            
-            .form-grid {
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                gap: 1.5rem;
-            }
-            
-            button {
-                min-width: 280px;
-                padding: 1.3rem 3rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-                margin: 1.5rem 0 2.5rem;
-            }
-            
-            .main-container {
-                padding: 0 1.5rem;
-            }
-            
-            .container {
-                padding: 1.8rem;
-                border-radius: 18px;
-            }
-            
-            .mode-btn {
-                min-width: 200px;
-                padding: 1rem 1.5rem;
-                font-size: 1rem;
-            }
-            
-            .subject-category h3 {
-                font-size: 1.4rem;
-            }
-            
-            .results {
-                padding: 2rem;
-            }
-            
-            .course-item {
-                padding: 1.5rem;
-            }
-        }
-
-        @media (max-width: 576px) {
-            h1 {
-                font-size: 1.8rem;
-                margin: 1.5rem 0 2rem;
-                padding: 0 1rem;
-            }
-            
-            .main-container {
-                padding: 0 1rem;
-            }
-            
-            .container {
-                padding: 1.5rem;
-                border-radius: 16px;
-            }
-            
-            .mode-selector {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .mode-btn {
-                width: 100%;
-                max-width: 300px;
-            }
-            
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            button {
-                width: 100%;
-                max-width: 300px;
-                padding: 1.2rem;
-            }
-            
-            .course-header {
-                font-size: 1.6rem;
-            }
-            
-            .course-name {
-                font-size: 1.2rem;
-            }
-            
-            .requirements {
-                padding: 1.5rem;
-            }
-        }
-
-        /* Scrollbar styling */
-        ::-webkit-scrollbar {
-            width: 12px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(10, 10, 20, 0.9);
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(var(--neon-orange), var(--neon-yellow));
-            border-radius: 10px;
-            border: 2px solid rgba(10, 10, 20, 0.9);
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(var(--neon-yellow), var(--neon-orange));
+        .institution-item {
+            display: inline-block;
+            background: rgba(255, 107, 0, 0.1);
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
         }
     </style>
 </head>
@@ -942,1238 +145,136 @@
     <h1>ARTISAN COURSE QUALIFICATION CHECKER</h1>
     
     <div class="container">
-        <div class="mode-selector">
-            <button class="mode-btn active" id="autoModeBtn">CHECK ALL COURSES</button>
-            <button class="mode-btn" id="manualModeBtn">CHECK SPECIFIC COURSE</button>
+        <div class="form-group">
+            <label for="meanGrade">SELECT YOUR KCSE MEAN GRADE:</label>
+            <select id="meanGrade">
+                <option value="E">E (Minimum for Artisan courses)</option>
+                <option value="D-">D-</option>
+                <option value="D">D</option>
+                <option value="D+">D+</option>
+                <option value="C-">C-</option>
+                <option value="C">C</option>
+                <option value="C+">C+</option>
+                <option value="B-">B-</option>
+                <option value="B">B</option>
+                <option value="B+">B+</option>
+                <option value="A-">A-</option>
+                <option value="A">A</option>
+            </select>
         </div>
         
-        <!-- Auto Check Mode Content -->
-        <div id="autoModeContent">
-            <div class="form-group">
-                <label for="meanGrade">ENTER YOUR KCSE MEAN GRADE:</label>
-                <select id="meanGrade">
-                    <option value="">-- Select your mean grade --</option>
-                    <option value="A">A</option>
-                    <option value="A-">A-</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="B-">B-</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="C-">C-</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="D-">D-</option>
-                    <option value="E">E</option>
-                </select>
-            </div>
-            
-            <div class="subject-category">
-                <h3>CORE SUBJECTS</h3>
-                <div class="subject-row">
-                    <div class="subject-input">
-                        <label for="english">ENGLISH</label>
-                        <select id="english" class="grade-select">
-                            <option value="">Select Grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                    
-                    <div class="subject-input">
-                        <label for="kiswahili">KISWAHILI</label>
-                        <select id="kiswahili" class="grade-select">
-                            <option value="">Select Grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                    
-                    <div class="subject-input">
-                        <label for="maths">MATHEMATICS</label>
-                        <select id="maths" class="grade-select">
-                            <option value="">Select Grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="subject-category">
-                <h3>SCIENCES</h3>
-                <div class="subject-row">
-                    <div class="subject-input">
-                        <label for="biology">BIOLOGY</label>
-                        <select id="biology" class="grade-select">
-                            <option value="">Select Grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                    
-                    <div class="subject-input">
-                        <label for="chemistry">CHEMISTRY</label>
-                        <select id="chemistry" class="grade-select">
-                            <option value="">Select Grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                    
-                    <div class="subject-input">
-                        <label for="physics">PHYSICS</label>
-                        <select id="physics" class="grade-select">
-                            <option value="">Select Grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="subject-category">
-                <h3>TECHNICAL SUBJECTS</h3>
-                <div class="subject-row">
-                    <div class="subject-input">
-                        <label for="building">BUILDING AND CONSTRUCTION</label>
-                        <select id="building" class="grade-select">
-                            <option value="">Select Grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                    
-                    <div class="subject-input">
-                        <label for="electricity">ELECTRICITY AND ELECTRONICS</label>
-                        <select id="electricity" class="grade-select">
-                            <option value="">Select Grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                    
-                    <div class="subject-input">
-                        <label for="woodwork">WOODWORK</label>
-                        <select id="woodwork" class="grade-select">
-                            <option value="">Select Grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="subject-row">
-                    <div class="subject-input">
-                        <label for="metalwork">METALWORK</label>
-                        <select id="metalwork" class="grade-select">
-                            <option value="">Select Grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                    
-                    <div class="subject-input">
-                        <label for="homescience">HOME SCIENCE</label>
-                        <select id="homescience" class="grade-select">
-                            <option value="">Select Grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="subject-category">
-                <h3>OTHER SUBJECTS</h3>
-                <div class="subject-row">
-                    <div class="subject-input">
-                        <label for="agriculture">AGRICULTURE</label>
-                        <select id="agriculture" class="grade-select">
-                            <option value="">Select Grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                    
-                    <div class="subject-input">
-                        <label for="computer">COMPUTER STUDIES</label>
-                        <select id="computer" class="grade-select">
-                            <option value="">Select Grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                    
-                    <div class="subject-input">
-                        <label for="business">BUSINESS STUDIES</label>
-                        <select id="business" class="grade-select">
-                            <option value="">Select Grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="button-container">
-                <button onclick="checkAllQualifications()">CHECK WHICH COURSES I QUALIFY FOR</button>
-            </div>
-            
-            <div class="results" id="autoResults" style="display: none;">
-                <div class="course-header">
-                    ARTISAN COURSES YOU QUALIFY FOR:
-                </div>
-                
-                <div class="course-list" id="autoCourseList"></div>
-                
-                <div class="qualified-count" id="autoQualifiedCount"></div>
-            </div>
-        </div>
+        <button onclick="showAllCourses()">SHOW ALL ARTISAN COURSES</button>
         
-        <!-- Manual Check Mode Content -->
-        <div id="manualModeContent" style="display: none;">
-            <div class="form-group">
-                <label for="manualCourseSelect">SELECT ARTISAN COURSE:</label>
-                <select id="manualCourseSelect">
-                    <option value="">-- Select a course --</option>
-                    <!-- Courses will be populated by JavaScript -->
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label for="manualMeanGrade">ENTER YOUR KCSE MEAN GRADE:</label>
-                <select id="manualMeanGrade">
-                    <option value="">-- Select your mean grade --</option>
-                    <option value="A">A</option>
-                    <option value="A-">A-</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="B-">B-</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="C-">C-</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="D-">D-</option>
-                    <option value="E">E</option>
-                </select>
-            </div>
-            
-            <!-- Core Subjects -->
-            <div class="subject-category">
-                <h3>CORE SUBJECTS</h3>
-                <div class="subject-row">
-                    <div class="subject-input">
-                        <label for="manualEnglish">ENGLISH</label>
-                        <select id="manualEnglish" class="grade-select">
-                            <option value="">Select Grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                    
-                    <div class="subject-input">
-                        <label for="manualKiswahili">KISWAHILI</label>
-                        <select id="manualKiswahili" class="grade-select">
-                            <option value="">Select Grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                    
-                    <div class="subject-input">
-                        <label for="manualMaths">MATHEMATICS</label>
-                        <select id="manualMaths" class="grade-select">
-                            <option value="">Select Grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Technical Subjects -->
-            <div class="subject-category">
-                <h3>TECHNICAL SUBJECTS</h3>
-                <div class="subject-row">
-                    <div class="subject-input">
-                        <label for="manualBuilding">BUILDING AND CONSTRUCTION</label>
-                        <select id="manualBuilding" class="grade-select">
-                            <option value="">Select Grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                    
-                    <div class="subject-input">
-                        <label for="manualElectricity">ELECTRICITY AND ELECTRONICS</label>
-                        <select id="manualElectricity" class="grade-select">
-                            <option value="">Select Grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                    
-                    <div class="subject-input">
-                        <label for="manualWoodwork">WOODWORK</label>
-                        <select id="manualWoodwork" class="grade-select">
-                            <option value="">Select Grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="subject-row">
-                    <div class="subject-input">
-                        <label for="manualMetalwork">METALWORK</label>
-                        <select id="manualMetalwork" class="grade-select">
-                            <option value="">Select Grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                    
-                    <div class="subject-input">
-                        <label for="manualHomescience">HOME SCIENCE</label>
-                        <select id="manualHomescience" class="grade-select">
-                            <option value="">Select Grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Other Subjects -->
-            <div class="subject-category">
-                <h3>OTHER SUBJECTS</h3>
-                <div class="subject-row">
-                    <div class="subject-input">
-                        <label for="manualAgriculture">AGRICULTURE</label>
-                        <select id="manualAgriculture" class="grade-select">
-                            <option value="">Select Grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                    
-                    <div class="subject-input">
-                        <label for="manualComputer">COMPUTER STUDIES</label>
-                        <select id="manualComputer" class="grade-select">
-                            <option value="">Select Grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                    
-                    <div class="subject-input">
-                        <label for="manualBusiness">BUSINESS STUDIES</label>
-                        <select id="manualBusiness" class="grade-select">
-                            <option value="">Select Grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="button-container">
-                <button onclick="checkManualQualification()">CHECK QUALIFICATION</button>
-            </div>
-            
-            <div class="results" id="manualResults" style="display: none;">
-                <div class="course-header">
-                    <span id="selectedCourseName"></span>
-                </div>
-                
-                <div class="requirements" id="requirements">
-                    <h3 class="requirements-title">COURSE REQUIREMENTS:</h3>
-                    <div id="requirementsList"></div>
-                </div>
-                
-                <div id="qualificationStatus"></div>
-            </div>
+        <div class="results" id="results">
+            <!-- Results will be displayed here -->
         </div>
     </div>
-    
-    <footer>
-        &copy; 2025 CREATED BY SIR. MASTERPEACE ELITE
-    </footer>
 
     <script>
-        // Artisan course data with subject requirements
+        // Artisan course data with institutions
         const artisanCourses = [
             {
-                "name": "ARTISAN IN BUILDING CONSTRUCTION",
-                "requirements": {
-                    "meanGrade": "D",
-                    "compulsorySubjects": [
-                        { 
-                            "requirement": "Either English or Kiswahili",
-                            "alternatives": [
-                                { "name": "english", "minGrade": "D" },
-                                { "name": "kiswahili", "minGrade": "D" }
-                            ]
-                        },
-                        { 
-                            "requirement": "Either Mathematics or Physics",
-                            "alternatives": [
-                                { "name": "maths", "minGrade": "D" },
-                                { "name": "physics", "minGrade": "D" }
-                            ]
-                        },
-                        { "name": "building", "minGrade": "D" }
-                    ]
-                },
-                "campuses": ["NAIROBI", "NAKURU", "MOMBASA", "KISUMU"]
+                "category": "Building, Construction & Related",
+                "courses": [
+                    {
+                        "name": "Artisan in Masonry",
+                        "institutions": ["Nairobi Technical Training Institute", "Eldoret Polytechnic", "Mombasa Technical Training Institute"]
+                    },
+                    {
+                        "name": "Artisan in Plumbing",
+                        "institutions": ["Kisumu National Polytechnic", "Nyeri Technical Training Institute", "Meru Technical Training Institute"]
+                    }
+                    // Add more building/construction courses...
+                ]
             },
             {
-                "name": "ARTISAN IN ELECTRICAL INSTALLATION",
-                "requirements": {
-                    "meanGrade": "D",
-                    "compulsorySubjects": [
-                        { 
-                            "requirement": "Either English or Kiswahili",
-                            "alternatives": [
-                                { "name": "english", "minGrade": "D" },
-                                { "name": "kiswahili", "minGrade": "D" }
-                            ]
-                        },
-                        { "name": "maths", "minGrade": "D" },
-                        { "name": "physics", "minGrade": "D" },
-                        { "name": "electricity", "minGrade": "D" }
-                    ]
-                },
-                "campuses": ["NAIROBI", "MOMBASA", "ELDORET"]
+                "category": "Engineering & Technology",
+                "courses": [
+                    {
+                        "name": "Artisan in Electrical Installation",
+                        "institutions": ["Nairobi Technical Training Institute", "Eldoret Polytechnic", "Kitale Technical Training Institute"]
+                    },
+                    {
+                        "name": "Artisan in Motor Vehicle Mechanics",
+                        "institutions": ["Mombasa Technical Training Institute", "Kisumu National Polytechnic", "Nakuru Vocational Training Centre"]
+                    }
+                    // Add more engineering courses...
+                ]
             },
             {
-                "name": "ARTISAN IN PLUMBING",
-                "requirements": {
-                    "meanGrade": "D",
-                    "compulsorySubjects": [
-                        { 
-                            "requirement": "Either English or Kiswahili",
-                            "alternatives": [
-                                { "name": "english", "minGrade": "D" },
-                                { "name": "kiswahili", "minGrade": "D" }
-                            ]
-                        },
-                        { "name": "maths", "minGrade": "D" },
-                        { "name": "building", "minGrade": "D" }
-                    ]
-                },
-                "campuses": ["NAIROBI", "NAKURU", "MOMBASA"]
+                "category": "Business & Related",
+                "courses": [
+                    {
+                        "name": "Artisan in Business Management",
+                        "institutions": ["Nairobi Technical Training Institute", "Kiambu Institute of Science and Technology", "Machakos Technical Training Institute"]
+                    }
+                    // Add more business courses...
+                ]
             },
             {
-                "name": "ARTISAN IN CARPENTRY",
-                "requirements": {
-                    "meanGrade": "D",
-                    "compulsorySubjects": [
-                        { 
-                            "requirement": "Either English or Kiswahili",
-                            "alternatives": [
-                                { "name": "english", "minGrade": "D" },
-                                { "name": "kiswahili", "minGrade": "D" }
-                            ]
-                        },
-                        { "name": "maths", "minGrade": "D" },
-                        { "name": "woodwork", "minGrade": "D" }
-                    ]
-                },
-                "campuses": ["NAIROBI", "KISUMU", "THIKA"]
+                "category": "Food Science & Related",
+                "courses": [
+                    {
+                        "name": "Artisan in Food and Beverage Production",
+                        "institutions": ["Kenya Utalii College", "Mombasa Technical Training Institute", "Nyeri Technical Training Institute"]
+                    }
+                    // Add more food science courses...
+                ]
             },
             {
-                "name": "ARTISAN IN METALWORK",
-                "requirements": {
-                    "meanGrade": "D",
-                    "compulsorySubjects": [
-                        { 
-                            "requirement": "Either English or Kiswahili",
-                            "alternatives": [
-                                { "name": "english", "minGrade": "D" },
-                                { "name": "kiswahili", "minGrade": "D" }
-                            ]
-                        },
-                        { "name": "maths", "minGrade": "D" },
-                        { "name": "metalwork", "minGrade": "D" }
-                    ]
-                },
-                "campuses": ["NAIROBI", "MOMBASA", "NAKURU"]
-            },
-            {
-                "name": "ARTISAN IN MOTOR VEHICLE MECHANICS",
-                "requirements": {
-                    "meanGrade": "D",
-                    "compulsorySubjects": [
-                        { 
-                            "requirement": "Either English or Kiswahili",
-                            "alternatives": [
-                                { "name": "english", "minGrade": "D" },
-                                { "name": "kiswahili", "minGrade": "D" }
-                            ]
-                        },
-                        { "name": "maths", "minGrade": "D" },
-                        { "name": "physics", "minGrade": "D" }
-                    ]
-                },
-                "campuses": ["NAIROBI", "MOMBASA", "KISUMU", "NAKURU"]
-            },
-            {
-                "name": "ARTISAN IN WELDING",
-                "requirements": {
-                    "meanGrade": "D",
-                    "compulsorySubjects": [
-                        { 
-                            "requirement": "Either English or Kiswahili",
-                            "alternatives": [
-                                { "name": "english", "minGrade": "D" },
-                                { "name": "kiswahili", "minGrade": "D" }
-                            ]
-                        },
-                        { "name": "maths", "minGrade": "D" },
-                        { "name": "metalwork", "minGrade": "D" }
-                    ]
-                },
-                "campuses": ["NAIROBI", "MOMBASA", "ELDORET"]
-            },
-            {
-                "name": "ARTISAN IN FOOD AND BEVERAGE",
-                "requirements": {
-                    "meanGrade": "D",
-                    "compulsorySubjects": [
-                        { 
-                            "requirement": "Either English or Kiswahili",
-                            "alternatives": [
-                                { "name": "english", "minGrade": "D" },
-                                { "name": "kiswahili", "minGrade": "D" }
-                            ]
-                        },
-                        { "name": "homescience", "minGrade": "D" }
-                    ]
-                },
-                "campuses": ["NAIROBI", "MOMBASA", "NAKURU"]
-            },
-            {
-                "name": "ARTISAN IN HAIRDRESSING",
-                "requirements": {
-                    "meanGrade": "D",
-                    "compulsorySubjects": [
-                        { 
-                            "requirement": "Either English or Kiswahili",
-                            "alternatives": [
-                                { "name": "english", "minGrade": "D" },
-                                { "name": "kiswahili", "minGrade": "D" }
-                            ]
-                        },
-                        { "name": "homescience", "minGrade": "D" }
-                    ]
-                },
-                "campuses": ["NAIROBI", "MOMBASA", "KISUMU"]
-            },
-            {
-                "name": "ARTISAN IN TAILORING",
-                "requirements": {
-                    "meanGrade": "D",
-                    "compulsorySubjects": [
-                        { 
-                            "requirement": "Either English or Kiswahili",
-                            "alternatives": [
-                                { "name": "english", "minGrade": "D" },
-                                { "name": "kiswahili", "minGrade": "D" }
-                            ]
-                        },
-                        { "name": "homescience", "minGrade": "D" }
-                    ]
-                },
-                "campuses": ["NAIROBI", "MOMBASA", "NAKURU", "KISUMU"]
-            },
-            {
-                "name": "ARTISAN IN COMPUTER REPAIR",
-                "requirements": {
-                    "meanGrade": "D",
-                    "compulsorySubjects": [
-                        { 
-                            "requirement": "Either English or Kiswahili",
-                            "alternatives": [
-                                { "name": "english", "minGrade": "D" },
-                                { "name": "kiswahili", "minGrade": "D" }
-                            ]
-                        },
-                        { "name": "maths", "minGrade": "D" },
-                        { "name": "computer", "minGrade": "D" }
-                    ]
-                },
-                "campuses": ["NAIROBI", "MOMBASA", "THIKA"]
-            },
-            {
-                "name": "ARTISAN IN AGRICULTURAL MECHANICS",
-                "requirements": {
-                    "meanGrade": "D",
-                    "compulsorySubjects": [
-                        { 
-                            "requirement": "Either English or Kiswahili",
-                            "alternatives": [
-                                { "name": "english", "minGrade": "D" },
-                                { "name": "kiswahili", "minGrade": "D" }
-                            ]
-                        },
-                        { "name": "maths", "minGrade": "D" },
-                        { "name": "agriculture", "minGrade": "D" }
-                    ]
-                },
-                "campuses": ["NAKURU", "KISUMU", "ELDORET"]
-            },
-            {
-                "name": "ARTISAN IN REFRIGERATION",
-                "requirements": {
-                    "meanGrade": "D",
-                    "compulsorySubjects": [
-                        { 
-                            "requirement": "Either English or Kiswahili",
-                            "alternatives": [
-                                { "name": "english", "minGrade": "D" },
-                                { "name": "kiswahili", "minGrade": "D" }
-                            ]
-                        },
-                        { "name": "maths", "minGrade": "D" },
-                        { "name": "physics", "minGrade": "D" }
-                    ]
-                },
-                "campuses": ["NAIROBI", "MOMBASA"]
-            },
-            {
-                "name": "ARTISAN IN MASONRY",
-                "requirements": {
-                    "meanGrade": "D",
-                    "compulsorySubjects": [
-                        { 
-                            "requirement": "Either English or Kiswahili",
-                            "alternatives": [
-                                { "name": "english", "minGrade": "D" },
-                                { "name": "kiswahili", "minGrade": "D" }
-                            ]
-                        },
-                        { "name": "maths", "minGrade": "D" },
-                        { "name": "building", "minGrade": "D" }
-                    ]
-                },
-                "campuses": ["NAIROBI", "MOMBASA", "NAKURU"]
+                "category": "Hair Dressing & Beauty Therapy",
+                "courses": [
+                    {
+                        "name": "Artisan in Hairdressing",
+                        "institutions": ["Nairobi Technical Training Institute", "Eldoret Polytechnic", "Kisumu National Polytechnic"]
+                    }
+                    // Add more beauty courses...
+                ]
             }
+            // Add more categories...
         ];
-        
-        // Grade comparison function
-        function isGradeSufficient(studentGrade, requiredGrade) {
-            if (!studentGrade || !requiredGrade) return false;
+
+        function showAllCourses() {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+            resultsDiv.style.display = 'block';
             
-            const gradeOrder = ["A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "E"];
-            const studentIndex = gradeOrder.indexOf(studentGrade);
-            const requiredIndex = gradeOrder.indexOf(requiredGrade);
-            
-            // Handle invalid grades
-            if (studentIndex === -1 || requiredIndex === -1) return false;
-            
-            return studentIndex <= requiredIndex; // Lower index means better grade
-        }
-
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set up mode switching
-            const autoModeBtn = document.getElementById('autoModeBtn');
-            const manualModeBtn = document.getElementById('manualModeBtn');
-            const autoModeContent = document.getElementById('autoModeContent');
-            const manualModeContent = document.getElementById('manualModeContent');
-            
-            autoModeBtn.addEventListener('click', function() {
-                autoModeBtn.classList.add('active');
-                manualModeBtn.classList.remove('active');
-                autoModeContent.style.display = 'block';
-                manualModeContent.style.display = 'none';
-            });
-            
-            manualModeBtn.addEventListener('click', function() {
-                manualModeBtn.classList.add('active');
-                autoModeBtn.classList.remove('active');
-                manualModeContent.style.display = 'block';
-                autoModeContent.style.display = 'none';
+            artisanCourses.forEach(category => {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'course-category';
                 
-                // Populate manual course select if not already done
-                const manualCourseSelect = document.getElementById('manualCourseSelect');
-                if (manualCourseSelect.options.length <= 1) {
-                    manualCourseSelect.innerHTML = '<option value="">-- Select a course --</option>';
-                    artisanCourses.forEach(course => {
-                        const option = document.createElement('option');
-                        option.value = course.name;
-                        option.textContent = course.name;
-                        manualCourseSelect.appendChild(option);
-                    });
-                }
-            });
-        });
-
-        function checkAllQualifications() {
-            try {
-                // Get all grades
-                const grades = {
-                    english: document.getElementById('english').value,
-                    kiswahili: document.getElementById('kiswahili').value,
-                    maths: document.getElementById('maths').value,
-                    building: document.getElementById('building').value,
-                    electricity: document.getElementById('electricity').value,
-                    woodwork: document.getElementById('woodwork').value,
-                    metalwork: document.getElementById('metalwork').value,
-                    homescience: document.getElementById('homescience').value,
-                    agriculture: document.getElementById('agriculture').value,
-                    computer: document.getElementById('computer').value,
-                    business: document.getElementById('business').value,
-                    physics: document.getElementById('physics').value
-                };
+                const categoryTitle = document.createElement('h2');
+                categoryTitle.className = 'category-title';
+                categoryTitle.textContent = category.category;
+                categoryDiv.appendChild(categoryTitle);
                 
-                const meanGrade = document.getElementById('meanGrade').value;
-                
-                // Validate inputs
-                if (!meanGrade) {
-                    alert("PLEASE SELECT YOUR MEAN GRADE");
-                    return;
-                }
-                
-                // Check if at least some subjects are selected
-                const hasSubjects = Object.values(grades).some(grade => grade);
-                if (!hasSubjects) {
-                    alert("PLEASE ENTER GRADES FOR AT LEAST SOME SUBJECTS");
-                    return;
-                }
-                
-                // Check qualification for each course
-                const qualifiedCourses = [];
-                
-                for (const course of artisanCourses) {
-                    if (checkCourseQualification(course, meanGrade, grades)) {
-                        qualifiedCourses.push(course);
-                    }
-                }
-                
-                // Display results
-                displayQualifiedCourses(qualifiedCourses, 'auto');
-            } catch (error) {
-                console.error("Error checking qualifications:", error);
-                alert("An error occurred while checking qualifications. Please try again.");
-            }
-        }
-
-        function checkManualQualification() {
-            try {
-                const courseName = document.getElementById('manualCourseSelect').value;
-                const meanGrade = document.getElementById('manualMeanGrade').value;
-                
-                if (!courseName) {
-                    alert("PLEASE SELECT AN ARTISAN COURSE");
-                    return;
-                }
-                
-                if (!meanGrade) {
-                    alert("PLEASE SELECT YOUR MEAN GRADE");
-                    return;
-                }
-                
-                // Get all grades
-                const grades = {
-                    english: document.getElementById('manualEnglish').value,
-                    kiswahili: document.getElementById('manualKiswahili').value,
-                    maths: document.getElementById('manualMaths').value,
-                    building: document.getElementById('manualBuilding').value,
-                    electricity: document.getElementById('manualElectricity').value,
-                    woodwork: document.getElementById('manualWoodwork').value,
-                    metalwork: document.getElementById('manualMetalwork').value,
-                    homescience: document.getElementById('manualHomescience').value,
-                    agriculture: document.getElementById('manualAgriculture').value,
-                    computer: document.getElementById('manualComputer').value,
-                    business: document.getElementById('manualBusiness').value,
-                    physics: document.getElementById('manualPhysics').value
-                };
-                
-                // Find the selected course
-                const selectedCourse = artisanCourses.find(c => c.name === courseName);
-                
-                // Display course information
-                document.getElementById('selectedCourseName').textContent = selectedCourse.name;
-                
-                // Display requirements
-                const requirementsList = document.getElementById('requirementsList');
-                requirementsList.innerHTML = '';
-                
-                // Add mean grade requirement
-                const meanGradeItem = document.createElement('div');
-                meanGradeItem.className = 'requirement-item';
-                meanGradeItem.innerHTML = `<strong>MINIMUM MEAN GRADE:</strong> ${selectedCourse.requirements.meanGrade}+`;
-                requirementsList.appendChild(meanGradeItem);
-                
-                // Add compulsory subjects
-                selectedCourse.requirements.compulsorySubjects.forEach(req => {
-                    const reqItem = document.createElement('div');
-                    reqItem.className = 'requirement-item';
-                    
-                    if (req.alternatives) {
-                        const alternatives = req.alternatives.map(a => `${a.name.toUpperCase()} (${a.minGrade}+)`).join(' OR ');
-                        reqItem.innerHTML = `<strong>${req.requirement.toUpperCase()}:</strong> ${alternatives}`;
-                    } else {
-                        reqItem.innerHTML = `<strong>${req.name.toUpperCase()}:</strong> ${req.minGrade}+`;
-                    }
-                    
-                    requirementsList.appendChild(reqItem);
-                });
-                
-                // Add campuses
-                const campusesItem = document.createElement('div');
-                campusesItem.className = 'requirement-item';
-                campusesItem.innerHTML = `<strong>AVAILABLE CAMPUSES:</strong> ${selectedCourse.campuses.join(", ")}`;
-                requirementsList.appendChild(campusesItem);
-                
-                // Check qualification
-                const qualificationStatus = document.getElementById('qualificationStatus');
-                qualificationStatus.innerHTML = '';
-                
-                // Check mean grade first
-                if (!isGradeSufficient(meanGrade, selectedCourse.requirements.meanGrade)) {
-                    const statusDiv = document.createElement('div');
-                    statusDiv.className = 'course-item';
-                    statusDiv.innerHTML = `
-                        ❌ YOU DO NOT MEET THE MINIMUM MEAN GRADE REQUIREMENT FOR THIS COURSE.
-                        <br>REQUIRED: <span class="highlight">${selectedCourse.requirements.meanGrade}+</span>
-                        <br>YOUR GRADE: <span class="highlight">${meanGrade}</span>
-                    `;
-                    qualificationStatus.appendChild(statusDiv);
-                    document.getElementById('manualResults').style.display = 'block';
-                    return;
-                }
-                
-                // Check compulsory subjects
-                const missingRequirements = [];
-                
-                for (const subjectReq of selectedCourse.requirements.compulsorySubjects) {
-                    if (subjectReq.alternatives) {
-                        // For either/or subjects
-                        let anyAlternativeMet = false;
-                        
-                        for (const alternative of subjectReq.alternatives) {
-                            const studentGrade = grades[alternative.name.toLowerCase()];
-                            if (studentGrade && isGradeSufficient(studentGrade, alternative.minGrade)) {
-                                anyAlternativeMet = true;
-                                break;
-                            }
-                        }
-                        
-                        if (!anyAlternativeMet) {
-                            const alternatives = subjectReq.alternatives.map(a => `${a.name.toUpperCase()} (${a.minGrade}+)`).join(' OR ');
-                            missingRequirements.push(`${subjectReq.requirement.toUpperCase()}: ${alternatives}`);
-                        }
-                    } else {
-                        // For regular compulsory subjects
-                        const studentGrade = grades[subjectReq.name.toLowerCase()];
-                        if (!studentGrade || !isGradeSufficient(studentGrade, subjectReq.minGrade)) {
-                            missingRequirements.push(`${subjectReq.name.toUpperCase()} (${subjectReq.minGrade}+)`);
-                        }
-                    }
-                }
-                
-                if (missingRequirements.length > 0) {
-                    const statusDiv = document.createElement('div');
-                    statusDiv.className = 'course-item';
-                    statusDiv.innerHTML = `
-                        ❌ YOU ARE MISSING REQUIRED SUBJECTS OR DON'T MEET GRADE REQUIREMENTS:
-                        <br><span class="highlight">${missingRequirements.join("<br>")}</span>
-                    `;
-                    qualificationStatus.appendChild(statusDiv);
-                    document.getElementById('manualResults').style.display = 'block';
-                    return;
-                }
-                
-                // If we get here, the student qualifies
-                const statusDiv = document.createElement('div');
-                statusDiv.className = 'course-item';
-                statusDiv.innerHTML = `
-                    ✅ <span class="highlight">YOU QUALIFY FOR THIS COURSE!</span>
-                    <br>YOU MEET ALL THE REQUIREMENTS FOR ${selectedCourse.name}.
-                    <br>THIS COURSE IS OFFERED AT: ${selectedCourse.campuses.join(", ")}
-                `;
-                qualificationStatus.appendChild(statusDiv);
-                
-                // Show results
-                document.getElementById('manualResults').style.display = 'block';
-                
-                // Scroll to results
-                document.getElementById('manualResults').scrollIntoView({ behavior: 'smooth' });
-            } catch (error) {
-                console.error("Error checking manual qualification:", error);
-                alert("An error occurred while checking your qualification. Please try again.");
-            }
-        }
-
-        function checkCourseQualification(course, meanGrade, grades) {
-            // 1. Check mean grade first
-            if (!isGradeSufficient(meanGrade, course.requirements.meanGrade)) {
-                return false;
-            }
-
-            // 2. Check if compulsorySubjects exists
-            if (!course.requirements.compulsorySubjects) {
-                return true; // If no specific subject requirements, only mean grade matters
-            }
-
-            // 3. Check compulsory subjects (with alternatives)
-            for (const subjectReq of course.requirements.compulsorySubjects) {
-                if (subjectReq.alternatives) {
-                    // For either/or subjects
-                    let anyAlternativeMet = false;
-                    
-                    for (const alternative of subjectReq.alternatives) {
-                        const subjectKey = alternative.name.toLowerCase();
-                        const studentGrade = grades[subjectKey];
-                        if (studentGrade && isGradeSufficient(studentGrade, alternative.minGrade)) {
-                            anyAlternativeMet = true;
-                            break;
-                        }
-                    }
-                    
-                    if (!anyAlternativeMet) return false;
-                } else {
-                    // For regular compulsory subjects
-                    const subjectKey = subjectReq.name.toLowerCase();
-                    const studentGrade = grades[subjectKey];
-                    if (!studentGrade || !isGradeSufficient(studentGrade, subjectReq.minGrade)) {
-                        return false;
-                    }
-                }
-            }
-
-            return true;
-        }
-
-        function displayQualifiedCourses(qualifiedCourses, mode) {
-            const courseListDiv = document.getElementById(`${mode}CourseList`);
-            const qualifiedCountDiv = document.getElementById(`${mode}QualifiedCount`);
-            const resultsDiv = document.getElementById(`${mode}Results`);
-            
-            courseListDiv.innerHTML = '';
-            
-            if (qualifiedCourses.length === 0) {
-                courseListDiv.innerHTML = `
-                    <div class="course-item no-courses">
-                        <div class="course-name">NO QUALIFIED COURSES</div>
-                        <div class="course-details">
-                            YOU DO NOT QUALIFY FOR ANY ARTISAN COURSES WITH YOUR CURRENT GRADES.
-                            CONSIDER IMPROVING YOUR GRADES IN THE REQUIRED SUBJECTS.
-                        </div>
-                    </div>
-                `;
-                qualifiedCountDiv.textContent = '';
-            } else {
-                qualifiedCourses.forEach(course => {
+                category.courses.forEach(course => {
                     const courseDiv = document.createElement('div');
                     courseDiv.className = 'course-item';
                     
-                    // Format campuses with bullet points
-                    const campusesList = course.campuses.map(campus => 
-                        `<span class="campus-item">${campus}</span>`
-                    ).join('');
+                    const courseName = document.createElement('div');
+                    courseName.className = 'course-name';
+                    courseName.textContent = course.name;
+                    courseDiv.appendChild(courseName);
                     
-                    // Format compulsory subjects
-                    const requirementsList = course.requirements.compulsorySubjects.map(req => {
-                        if (req.alternatives) {
-                            return `${req.requirement.toUpperCase()}: ${req.alternatives.map(a => 
-                                `${a.name.toUpperCase()} (${a.minGrade}+)`
-                            ).join(' OR ')}`;
-                        }
-                        return `${req.name.toUpperCase()} (${req.minGrade}+)`;
-                    }).join('<br>');
+                    const institutionsLabel = document.createElement('div');
+                    institutionsLabel.className = 'institutions';
+                    institutionsLabel.textContent = 'Offered at:';
+                    courseDiv.appendChild(institutionsLabel);
                     
-                    courseDiv.innerHTML = `
-                        <div class="course-name">${course.name}</div>
-                        <div class="course-requirements">
-                            <div class="requirement-item">
-                                <strong>MINIMUM MEAN GRADE:</strong> ${course.requirements.meanGrade}+
-                            </div>
-                            <div class="requirement-item">
-                                <strong>REQUIRED SUBJECTS:</strong><br>${requirementsList}
-                            </div>
-                        </div>
-                        <div class="course-campuses">
-                            <strong>AVAILABLE AT:</strong>
-                            <div class="campuses-container">${campusesList}</div>
-                        </div>
-                        <button class="view-details-btn" data-course="${course.name}">VIEW DETAILS</button>
-                    `;
+                    const institutionsContainer = document.createElement('div');
+                    course.institutions.forEach(institution => {
+                        const institutionSpan = document.createElement('span');
+                        institutionSpan.className = 'institution-item';
+                        institutionSpan.textContent = institution;
+                        institutionsContainer.appendChild(institutionSpan);
+                    });
+                    courseDiv.appendChild(institutionsContainer);
                     
-                    courseListDiv.appendChild(courseDiv);
+                    categoryDiv.appendChild(courseDiv);
                 });
                 
-                qualifiedCountDiv.innerHTML = `
-                    <span class="qualified-count">YOU QUALIFY FOR ${qualifiedCourses.length}</span>
-                    <span class="total-courses">OUT OF ${artisanCourses.length} ARTISAN COURSES</span>
-                `;
-            }
-            
-            // Show results
-            resultsDiv.style.display = 'block';
-            
-            // Add click handlers for detail buttons
-            document.querySelectorAll('.view-details-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const courseName = this.getAttribute('data-course');
-                    // Implement your detail view logic here
-                    alert(`SHOWING DETAILS FOR: ${courseName}`);
-                });
+                resultsDiv.appendChild(categoryDiv);
             });
             
             // Scroll to results
