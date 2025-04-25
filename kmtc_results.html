@@ -2694,7 +2694,7 @@
                 // Add mean grade requirement
                 const meanGradeItem = document.createElement('div');
                 meanGradeItem.className = 'requirement-item';
-                meanGradeItem.innerHTML = `<strong>MINIMUM MEAN GRADE:</strong> ${selectedCourse.requirements.meanGrade}+`;
+                meanGradeItem.innerHTML = `<strong>MINIMUM MEAN GRADE:</strong> ${selectedCourse.requirements.meanGrade}`;
                 requirementsList.appendChild(meanGradeItem);
                 
                 // Add compulsory subjects
@@ -2753,14 +2753,14 @@
                         }
                         
                         if (!anyAlternativeMet) {
-                            const alternatives = subjectReq.alternatives.map(a => `${a.name.toUpperCase()} (${a.minGrade}+)`).join(' OR ');
+                            const alternatives = subjectReq.alternatives.map(a => `${a.name.toUpperCase()} (${a.minGrade})`).join(' OR ');
                             missingRequirements.push(`${subjectReq.requirement.toUpperCase()}: ${alternatives}`);
                         }
                     } else {
                         // For regular compulsory subjects
                         const studentGrade = grades[subjectReq.name.toLowerCase()];
                         if (!studentGrade || !isGradeSufficient(studentGrade, subjectReq.minGrade)) {
-                            missingRequirements.push(`${subjectReq.name.toUpperCase()} (${subjectReq.minGrade}+)`);
+                            missingRequirements.push(`${subjectReq.name.toUpperCase()} (${subjectReq.minGrade})`);
                         }
                     }
                 }
@@ -2880,7 +2880,7 @@
                         <div class="course-name">${course.name}</div>
                         <div class="course-requirements">
                             <div class="requirement-item">
-                                <strong>MINIMUM MEAN GRADE:</strong> ${course.requirements.meanGrade}+
+                                <strong>MINIMUM MEAN GRADE:</strong> ${course.requirements.meanGrade}
                             </div>
                             <div class="requirement-item">
                                 <strong>REQUIRED SUBJECTS:</strong><br>${requirementsList}
