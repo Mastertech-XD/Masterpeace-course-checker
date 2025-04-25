@@ -48,19 +48,19 @@
       left: 0;
       right: 0;
       bottom: 0;
-      border: 4px solid transparent;
+      border: 20px solid transparent;
       background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink), var(--neon-purple), var(--neon-blue)) border-box;
       -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: destination-out;
       mask-composite: exclude;
       z-index: -1;
-      animation: borderRotate 20s linear infinite;
+      animation: borderRotate 80s linear infinite;
       pointer-events: none;
     }
 
     @keyframes borderRotate {
-      0% { border-image: linear-gradient(0deg, var(--neon-blue), var(--neon-pink), var(--neon-purple), var(--neon-blue)) 1; }
-      25% { border-image: linear-gradient(90deg, var(--neon-blue), var(--neon-pink), var(--neon-purple), var(--neon-blue)) 1; }
+      12% { border-image: linear-gradient(0deg, var(--neon-blue), var(--neon-pink), var(--neon-purple), var(--neon-blue)) 1; }
+      45% { border-image: linear-gradient(90deg, var(--neon-blue), var(--neon-pink), var(--neon-purple), var(--neon-blue)) 1; }
       50% { border-image: linear-gradient(180deg, var(--neon-blue), var(--neon-pink), var(--neon-purple), var(--neon-blue)) 1; }
       75% { border-image: linear-gradient(270deg, var(--neon-blue), var(--neon-pink), var(--neon-purple), var(--neon-blue)) 1; }
       100% { border-image: linear-gradient(360deg, var(--neon-blue), var(--neon-pink), var(--neon-purple), var(--neon-blue)) 1; }
