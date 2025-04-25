@@ -2042,146 +2042,464 @@
                         },
                         { name: "Mathematics", minGrade: "C-" }
                         { name: "Biology", minGrade: "D+" }
-                        {
-                            requirement: "Either Physics or Chemistry or Geography or Agriculture or Computer or Business",
-                            alternatives: [
-                                { name: "Physics", minGrade: "C-" },
-                                { name: "Chemistry", minGrade: "C-" },
-                                { name: "Geography", minGrade: "C-" },
-                                { name: "Agriculture", minGrade: "C-" },
-                                { name: "Computer", minGrade: "C-" },
-                                { name: "Business", minGrade: "C-" }
-                            ]
-                        }
+[
+    /* CERTIFICATE COURSES */
+    {
+        "name": "CERTIFICATE IN COMMUNITY HEALTH ASSISTANT",
+        "requirements": {
+            "meanGrade": "D",
+            "compulsorySubjects": [
+                { 
+                    "requirement": "Either English or Kiswahili",
+                    "alternatives": [
+                        { "name": "English", "minGrade": "D" },
+                        { "name": "Kiswahili", "minGrade": "D" }
                     ]
                 },
-                campuses: ["NAIROBI", "MOMBASA", "ISIOLO", "MERU", "SIAYA", "KISUMU"]
-            },
-            {
-                name: "DIPLOMA IN DENTAL TECHNOLOGY",
-                requirements: {
-                    meanGrade: "C",
-                    compulsorySubjects: [
-                        { 
-                            requirement: "Either English or Kiswahili",
-                            alternatives: [
-                                { name: "English", minGrade: "C" },
-                                { name: "Kiswahili", minGrade: "C" }
-                            ]
-                        },
-                        { name: "Biology", minGrade: "C" },
-                        { name: "Chemistry", minGrade: "C" },
-                        { 
-                            requirement: "Either Mathematics or Physics",
-                            alternatives: [
-                                { name: "Mathematics", minGrade: "C" },
-                                { name: "Physics", minGrade: "C" }
-                            ]
-                        }
-                    ]
-                },
-                campuses: ["NAIROBI"]
-            },
-            {
-                name: "DIPLOMA IN PHYSIOTHERAPY",
-                requirements: {
-                    meanGrade: "C",
-                    compulsorySubjects: [
-                        { 
-                            requirement: "Either English or Kiswahili",
-                            alternatives: [
-                                { name: "English", minGrade: "C" },
-                                { name: "Kiswahili", minGrade: "C" }
-                            ]
-                        },
-                        { name: "Biology", minGrade: "C" },
-                        { 
-                            requirement: "Either Chemistry or Physics or Mathematics",
-                            alternatives: [
-                                { name: "Chemistry", minGrade: "C" },
-                                { name: "Physics", minGrade: "C" },
-                                { name: "Mathematics", minGrade: "C" }
-                            ]
-                        }
-                    ]
-                },
-                campuses: ["NAIROBI", "MOMBASA"]
-            },
-            {
-                name: "DIPLOMA IN MEDICAL IMAGING SCIENCES",
-                requirements: {
-                    meanGrade: "C",
-                    compulsorySubjects: [
-                        { 
-                            requirement: "Either English or Kiswahili",
-                            alternatives: [
-                                { name: "English", minGrade: "C" },
-                                { name: "Kiswahili", minGrade: "C" }
-                            ]
-                        },
-                        { name: "Biology", minGrade: "C" },
-                        { name: "Physics", minGrade: "C" },
-                        { 
-                            requirement: "Either Chemistry or Mathematics",
-                            alternatives: [
-                                { name: "Chemistry", minGrade: "C" },
-                                { name: "Mathematics", minGrade: "C" }
-                            ]
-                        }
-                    ]
-                },
-                campuses: ["NAIROBI", "KISUMU"]
-            },
-            {
-    name: "DIPLOMA IN HEALTH RECORDS AND INFORMATION",
-    requirements: {
-        meanGrade: "C",
-        compulsorySubjects: [
-            { 
-                requirement: "Either English or Kiswahili",
-                alternatives: [
-                    { name: "English", minGrade: "C" },
-                    { name: "Kiswahili", minGrade: "C" }
-                ]
-            },
-            { name: "Mathematics", minGrade: "C-" }, // Added comma here
-            { name: "Biology", minGrade: "D+" }, // Added comma here
-            {
-                requirement: "Either Physics or Chemistry or Geography or Agriculture or Computer or Business",
-                alternatives: [
-                    { name: "Physics", minGrade: "C-" },
-                    { name: "Chemistry", minGrade: "C-" },
-                    { name: "Geography", minGrade: "C-" },
-                    { name: "Agriculture", minGrade: "C-" },
-                    { name: "Computer", minGrade: "C-" },
-                    { name: "Business", minGrade: "C-" }
-                ]
-            }
-        ]
+                { "name": "Biology", "minGrade": "D" }
+            ]
+        },
+        "campuses": ["NAIROBI", "KISUMU", "NAKURU", "ELDORET"]
     },
-    campuses: ["NAIROBI", "MOMBASA", "ISIOLO", "MERU", "SIAYA", "KISUMU"]
-            },
-            {
-                name: "DIPLOMA IN NUTRITION AND DIETETICS",
-                requirements: {
-                    meanGrade: "C-",
-                    compulsorySubjects: [
-                        { 
-                            requirement: "Either English or Kiswahili",
-                            alternatives: [
-                                { name: "English", minGrade: "D+" },
-                                { name: "Kiswahili", minGrade: "D+" }
-                            ]
-                        },
-                        { name: "Biology", minGrade: "D+" },
-                        { name: "Chemistry", minGrade: "D+" },
-                        { name: "Mathematics", minGrade: "D" }
+    {
+        "name": "CERTIFICATE IN HEALTH RECORDS AND INFORMATION TECHNOLOGY",
+        "requirements": {
+            "meanGrade": "D",
+            "compulsorySubjects": [
+                { 
+                    "requirement": "Either English or Kiswahili",
+                    "alternatives": [
+                        { "name": "English", "minGrade": "D" },
+                        { "name": "Kiswahili", "minGrade": "D" }
                     ]
                 },
-                campuses: ["NAIROBI", "MOMBASA", "NYANDARUA", "KIAMBU", "HOMABAY", "TURKANA", "MAKUENI", "NAKURU", "KISUMU", "NAKURU"]
-            }
-        ];
+                { "name": "Mathematics", "minGrade": "D" }
+            ]
+        },
+        "campuses": ["NAIROBI", "MOMBASA", "ISIOLO"]
+    },
+    {
+        "name": "CERTIFICATE IN MEDICAL EMERGENCY TECHNICIAN",
+        "requirements": {
+            "meanGrade": "D+",
+            "compulsorySubjects": [
+                { 
+                    "requirement": "Either English or Kiswahili",
+                    "alternatives": [
+                        { "name": "English", "minGrade": "D+" },
+                        { "name": "Kiswahili", "minGrade": "D+" }
+                    ]
+                },
+                { "name": "Biology", "minGrade": "D+" }
+            ]
+        },
+        "campuses": ["NAIROBI", "MOMBASA"]
+    },
+    {
+        "name": "CERTIFICATE IN MEDICAL ENGINEERING",
+        "requirements": {
+            "meanGrade": "D+",
+            "compulsorySubjects": [
+                { 
+                    "requirement": "Either English or Kiswahili",
+                    "alternatives": [
+                        { "name": "English", "minGrade": "D+" },
+                        { "name": "Kiswahili", "minGrade": "D+" }
+                    ]
+                },
+                { "name": "Physics", "minGrade": "D+" },
+                { "name": "Mathematics", "minGrade": "D+" }
+            ]
+        },
+        "campuses": ["NAIROBI"]
+    },
+    {
+        "name": "CERTIFICATE IN NUTRITION AND DIETETICS",
+        "requirements": {
+            "meanGrade": "D",
+            "compulsorySubjects": [
+                { 
+                    "requirement": "Either English or Kiswahili",
+                    "alternatives": [
+                        { "name": "English", "minGrade": "D" },
+                        { "name": "Kiswahili", "minGrade": "D" }
+                    ]
+                },
+                { "name": "Biology", "minGrade": "D" }
+            ]
+        },
+        "campuses": ["NAIROBI", "MOMBASA", "KISUMU"]
+    },
+    {
+        "name": "CERTIFICATE IN ORTHOPAEDIC TRAUMA MEDICINE",
+        "requirements": {
+            "meanGrade": "D+",
+            "compulsorySubjects": [
+                { 
+                    "requirement": "Either English or Kiswahili",
+                    "alternatives": [
+                        { "name": "English", "minGrade": "D+" },
+                        { "name": "Kiswahili", "minGrade": "D+" }
+                    ]
+                },
+                { "name": "Biology", "minGrade": "D+" }
+            ]
+        },
+        "campuses": ["NAIROBI"]
+    },
+    {
+        "name": "CERTIFICATE IN PUBLIC HEALTH",
+        "requirements": {
+            "meanGrade": "D",
+            "compulsorySubjects": [
+                { 
+                    "requirement": "Either English or Kiswahili",
+                    "alternatives": [
+                        { "name": "English", "minGrade": "D" },
+                        { "name": "Kiswahili", "minGrade": "D" }
+                    ]
+                }
+            ]
+        },
+        "campuses": ["NAIROBI", "MOMBASA", "KISUMU", "NAKURU"]
+    },
 
+    /* DIPLOMA COURSES */
+    {
+        "name": "DIPLOMA IN COMMUNITY HEALTH",
+        "requirements": {
+            "meanGrade": "C-",
+            "compulsorySubjects": [
+                { 
+                    "requirement": "Either English or Kiswahili",
+                    "alternatives": [
+                        { "name": "English", "minGrade": "C-" },
+                        { "name": "Kiswahili", "minGrade": "C-" }
+                    ]
+                },
+                { "name": "Biology", "minGrade": "C-" }
+            ]
+        },
+        "campuses": ["NAIROBI", "KISUMU", "NAKURU", "ELDORET"]
+    },
+    {
+        "name": "DIPLOMA IN EMERGENCY MEDICAL TECHNOLOGY",
+        "requirements": {
+            "meanGrade": "C",
+            "compulsorySubjects": [
+                { 
+                    "requirement": "Either English or Kiswahili",
+                    "alternatives": [
+                        { "name": "English", "minGrade": "C" },
+                        { "name": "Kiswahili", "minGrade": "C" }
+                    ]
+                },
+                { "name": "Biology", "minGrade": "C" },
+                { "name": "Chemistry", "minGrade": "C" }
+            ]
+        },
+        "campuses": ["NAIROBI", "MOMBASA"]
+    },
+    {
+        "name": "DIPLOMA IN HEALTH COUNSELLING",
+        "requirements": {
+            "meanGrade": "C-",
+            "compulsorySubjects": [
+                { 
+                    "requirement": "Either English or Kiswahili",
+                    "alternatives": [
+                        { "name": "English", "minGrade": "C-" },
+                        { "name": "Kiswahili", "minGrade": "C-" }
+                    ]
+                },
+                { "name": "Biology", "minGrade": "C-" }
+            ]
+        },
+        "campuses": ["NAIROBI", "KISUMU"]
+    },
+    {
+        "name": "DIPLOMA IN HEALTH INSURANCE MANAGEMENT",
+        "requirements": {
+            "meanGrade": "C-",
+            "compulsorySubjects": [
+                { 
+                    "requirement": "Either English or Kiswahili",
+                    "alternatives": [
+                        { "name": "English", "minGrade": "C-" },
+                        { "name": "Kiswahili", "minGrade": "C-" }
+                    ]
+                },
+                { "name": "Mathematics", "minGrade": "C-" }
+            ]
+        },
+        "campuses": ["NAIROBI", "MOMBASA"]
+    },
+    {
+        "name": "DIPLOMA IN HEALTH PROMOTION",
+        "requirements": {
+            "meanGrade": "C-",
+            "compulsorySubjects": [
+                { 
+                    "requirement": "Either English or Kiswahili",
+                    "alternatives": [
+                        { "name": "English", "minGrade": "C-" },
+                        { "name": "Kiswahili", "minGrade": "C-" }
+                    ]
+                },
+                { "name": "Biology", "minGrade": "C-" }
+            ]
+        },
+        "campuses": ["NAIROBI", "KISUMU", "NAKURU"]
+    },
+    {
+        "name": "DIPLOMA IN HEALTH RECORDS AND INFORMATION TECHNOLOGY",
+        "requirements": {
+            "meanGrade": "C-",
+            "compulsorySubjects": [
+                { 
+                    "requirement": "Either English or Kiswahili",
+                    "alternatives": [
+                        { "name": "English", "minGrade": "C-" },
+                        { "name": "Kiswahili", "minGrade": "C-" }
+                    ]
+                },
+                { "name": "Mathematics", "minGrade": "C-" }
+            ]
+        },
+        "campuses": ["NAIROBI", "MOMBASA", "ISIOLO", "MERU"]
+    },
+    {
+        "name": "DIPLOMA IN MEDICAL ENGINEERING",
+        "requirements": {
+            "meanGrade": "C",
+            "compulsorySubjects": [
+                { 
+                    "requirement": "Either English or Kiswahili",
+                    "alternatives": [
+                        { "name": "English", "minGrade": "C" },
+                        { "name": "Kiswahili", "minGrade": "C" }
+                    ]
+                },
+                { "name": "Physics", "minGrade": "C" },
+                { "name": "Mathematics", "minGrade": "C" }
+            ]
+        },
+        "campuses": ["NAIROBI"]
+    },
+    {
+        "name": "DIPLOMA IN MEDICAL LABORATORY SCIENCES",
+        "requirements": {
+            "meanGrade": "C",
+            "compulsorySubjects": [
+                { 
+                    "requirement": "Either English or Kiswahili",
+                    "alternatives": [
+                        { "name": "English", "minGrade": "C" },
+                        { "name": "Kiswahili", "minGrade": "C" }
+                    ]
+                },
+                { "name": "Biology", "minGrade": "C" },
+                { "name": "Chemistry", "minGrade": "C" }
+            ]
+        },
+        "campuses": ["NAIROBI", "MOMBASA", "KISUMU"]
+    },
+    {
+        "name": "DIPLOMA IN MEDICAL SOCIAL WORK",
+        "requirements": {
+            "meanGrade": "C-",
+            "compulsorySubjects": [
+                { 
+                    "requirement": "Either English or Kiswahili",
+                    "alternatives": [
+                        { "name": "English", "minGrade": "C-" },
+                        { "name": "Kiswahili", "minGrade": "C-" }
+                    ]
+                }
+            ]
+        },
+        "campuses": ["NAIROBI", "KISUMU"]
+    },
+    {
+        "name": "DIPLOMA IN MORTUARY SCIENCE",
+        "requirements": {
+            "meanGrade": "C",
+            "compulsorySubjects": [
+                { 
+                    "requirement": "Either English or Kiswahili",
+                    "alternatives": [
+                        { "name": "English", "minGrade": "C" },
+                        { "name": "Kiswahili", "minGrade": "C" }
+                    ]
+                },
+                { "name": "Biology", "minGrade": "C" },
+                { "name": "Chemistry", "minGrade": "C" }
+            ]
+        },
+        "campuses": ["NAIROBI"]
+    },
+    {
+        "name": "DIPLOMA IN NUTRITION AND DIETETICS",
+        "requirements": {
+            "meanGrade": "C-",
+            "compulsorySubjects": [
+                { 
+                    "requirement": "Either English or Kiswahili",
+                    "alternatives": [
+                        { "name": "English", "minGrade": "C-" },
+                        { "name": "Kiswahili", "minGrade": "C-" }
+                    ]
+                },
+                { "name": "Biology", "minGrade": "C-" },
+                { "name": "Chemistry", "minGrade": "C-" }
+            ]
+        },
+        "campuses": ["NAIROBI", "MOMBASA", "KISUMU", "NAKURU"]
+    },
+    {
+        "name": "DIPLOMA IN OCCUPATIONAL THERAPY",
+        "requirements": {
+            "meanGrade": "C",
+            "compulsorySubjects": [
+                { 
+                    "requirement": "Either English or Kiswahili",
+                    "alternatives": [
+                        { "name": "English", "minGrade": "C" },
+                        { "name": "Kiswahili", "minGrade": "C" }
+                    ]
+                },
+                { "name": "Biology", "minGrade": "C" }
+            ]
+        },
+        "campuses": ["NAIROBI", "MOMBASA"]
+    },
+    {
+        "name": "DIPLOMA IN ORTHOPAEDIC TECHNOLOGY",
+        "requirements": {
+            "meanGrade": "C",
+            "compulsorySubjects": [
+                { 
+                    "requirement": "Either English or Kiswahili",
+                    "alternatives": [
+                        { "name": "English", "minGrade": "C" },
+                        { "name": "Kiswahili", "minGrade": "C" }
+                    ]
+                },
+                { "name": "Biology", "minGrade": "C" },
+                { "name": "Physics", "minGrade": "C" }
+            ]
+        },
+        "campuses": ["NAIROBI"]
+    },
+    {
+        "name": "DIPLOMA IN ORTHOPAEDIC AND TRAUMA MEDICINE",
+        "requirements": {
+            "meanGrade": "C",
+            "compulsorySubjects": [
+                { 
+                    "requirement": "Either English or Kiswahili",
+                    "alternatives": [
+                        { "name": "English", "minGrade": "C" },
+                        { "name": "Kiswahili", "minGrade": "C" }
+                    ]
+                },
+                { "name": "Biology", "minGrade": "C" },
+                { "name": "Chemistry", "minGrade": "C" }
+            ]
+        },
+        "campuses": ["NAIROBI"]
+    },
+    {
+        "name": "DIPLOMA IN PHARMACY",
+        "requirements": {
+            "meanGrade": "C",
+            "compulsorySubjects": [
+                { 
+                    "requirement": "Either English or Kiswahili",
+                    "alternatives": [
+                        { "name": "English", "minGrade": "C" },
+                        { "name": "Kiswahili", "minGrade": "C" }
+                    ]
+                },
+                { "name": "Biology", "minGrade": "C" },
+                { "name": "Chemistry", "minGrade": "C" },
+                { "name": "Mathematics", "minGrade": "C" }
+            ]
+        },
+        "campuses": ["NAIROBI", "MOMBASA"]
+    },
+    {
+        "name": "DIPLOMA IN PHYSIOTHERAPY",
+        "requirements": {
+            "meanGrade": "C",
+            "compulsorySubjects": [
+                { 
+                    "requirement": "Either English or Kiswahili",
+                    "alternatives": [
+                        { "name": "English", "minGrade": "C" },
+                        { "name": "Kiswahili", "minGrade": "C" }
+                    ]
+                },
+                { "name": "Biology", "minGrade": "C" },
+                { "name": "Physics", "minGrade": "C" }
+            ]
+        },
+        "campuses": ["NAIROBI", "MOMBASA"]
+    },
+    {
+        "name": "DIPLOMA IN PUBLIC HEALTH",
+        "requirements": {
+            "meanGrade": "C-",
+            "compulsorySubjects": [
+                { 
+                    "requirement": "Either English or Kiswahili",
+                    "alternatives": [
+                        { "name": "English", "minGrade": "C-" },
+                        { "name": "Kiswahili", "minGrade": "C-" }
+                    ]
+                },
+                { "name": "Biology", "minGrade": "C-" }
+            ]
+        },
+        "campuses": ["NAIROBI", "MOMBASA", "KISUMU", "NAKURU"]
+    },
+    {
+        "name": "DIPLOMA IN RADIOGRAPHY AND IMAGING",
+        "requirements": {
+            "meanGrade": "C",
+            "compulsorySubjects": [
+                { 
+                    "requirement": "Either English or Kiswahili",
+                    "alternatives": [
+                        { "name": "English", "minGrade": "C" },
+                        { "name": "Kiswahili", "minGrade": "C" }
+                    ]
+                },
+                { "name": "Physics", "minGrade": "C" },
+                { "name": "Biology", "minGrade": "C" }
+            ]
+        },
+        "campuses": ["NAIROBI", "KISUMU"]
+    },
+    {
+        "name": "DIPLOMA IN SPEECH AND LANGUAGE THERAPY",
+        "requirements": {
+            "meanGrade": "C",
+            "compulsorySubjects": [
+                { 
+                    "requirement": "Either English or Kiswahili",
+                    "alternatives": [
+                        { "name": "English", "minGrade": "C" },
+                        { "name": "Kiswahili", "minGrade": "C" }
+                    ]
+                },
+                { "name": "Biology", "minGrade": "C" }
+            ]
+        },
+        "campuses": ["NAIROBI"]
+    }
+]
+                        
         // Grade comparison function
         function isGradeSufficient(studentGrade, requiredGrade) {
             const gradeOrder = ["A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "E"];
