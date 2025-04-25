@@ -2870,10 +2870,10 @@
                     const requirementsList = course.requirements.compulsorySubjects.map(req => {
                         if (req.alternatives) {
                             return `${req.requirement.toUpperCase()}: ${req.alternatives.map(a => 
-                                `${a.name.toUpperCase()} (${a.minGrade}+)`
+                                `${a.name.toUpperCase()} (${a.minGrade})`
                             ).join(' OR ')}`;
                         }
-                        return `${req.name.toUpperCase()} (${req.minGrade}+)`;
+                        return `${req.name.toUpperCase()} (${req.minGrade})`;
                     }).join('<br>');
                     
                     courseDiv.innerHTML = `
