@@ -1902,7 +1902,7 @@
 
     <script>
         // KMTC course data with subject requirements
-        const kmtcCourses = [
+       const kmtcCourses = [
     /* CERTIFICATE COURSES */
     {
         "name": "CERTIFICATE IN COMMUNITY HEALTH ASSISTANT",
@@ -1954,8 +1954,7 @@
                     ]
                 },
                 { "name": "Mathematics", "minGrade": "D" },
-                { "name": "Biology", "minGrade": "D-" },
-                
+                { "name": "Biology", "minGrade": "D-" }
             ]
         },
         "campuses": ["NAIROBI", "MOMBASA", "ISIOLO"]
@@ -2041,7 +2040,7 @@
                         { "name": "Chemistry", "minGrade": "C-" },
                         { "name": "Wood work", "minGrade": "C-" },
                         { "name": "Computer", "minGrade": "C-" },
-                        { "name": "Agriculture", "minGrade": "C-" },
+                        { "name": "Agriculture", "minGrade": "C-" }
                     ]
                 },
                 { "name": "Biology", "minGrade": "C-" }
@@ -2098,7 +2097,7 @@
         "requirements": {
             "meanGrade": "C",
             "compulsorySubjects": [
-                { "name": "Biology", "minGrade": "D+" },
+                { "name": "Biology", "minGrade": "D+" }
             ]
         },
         "campuses": ["NAIROBI", "MOMBASA"]
@@ -2142,7 +2141,7 @@
                     ]
                 },
                 { 
-                    "requirement": "Either Physics or Chemistry or Geography or Agriculture  or Computer or Business",
+                    "requirement": "Either Physics or Chemistry or Geography or Agriculture or Computer or Business",
                     "alternatives": [
                         { "name": "Physics", "minGrade": "D+" },
                         { "name": "Chemistry", "minGrade": "D+" },
@@ -2286,11 +2285,11 @@
                         { "name": "CRE", "minGrade": "C-" },
                         { "name": "IRE", "minGrade": "C-" },
                         { "name": "Agriculture", "minGrade": "C-" },
-                        { "name": "Business", " minGrade": "C-" }
+                        { "name": "Business", "minGrade": "C-" }
                     ]
                 },
                 { "name": "Biology", "minGrade": "D+" }
-                ]
+            ]
         },
         "campuses": ["NAIROBI", "KISUMU"]
     },
@@ -2298,9 +2297,9 @@
         "name": "DIPLOMA IN MORTUARY SCIENCE",
         "requirements": {
             "meanGrade": "C-"
+        },
         "campuses": ["NAIROBI"]
-        }
-    }
+    },
     {
         "name": "DIPLOMA IN NUTRITION AND DIETETICS",
         "requirements": {
@@ -2369,8 +2368,8 @@
                 },
                 { "name": "Biology", "minGrade": "C" }
             ]
-    },
-    "campuses": ["NAIROBI"]
+        },
+        "campuses": ["NAIROBI"]
     },
     {
         "name": "DIPLOMA IN ORTHOPAEDIC AND TRAUMA MEDICINE",
@@ -2392,7 +2391,7 @@
                         { "name": "Chemistry", "minGrade": "C-" }
                     ]
                 },
-                { "name": "Biology", "minGrade": "C" },
+                { "name": "Biology", "minGrade": "C" }
             ]
         },
         "campuses": ["NAIROBI"]
@@ -2417,7 +2416,7 @@
                     ]
                 },
                 { "name": "Biology", "minGrade": "C" },
-                { "name": "Chemistry", "minGrade": "C" },
+                { "name": "Chemistry", "minGrade": "C" }
             ]
         },
         "campuses": ["NAIROBI", "MOMBASA"]
@@ -2437,12 +2436,12 @@
                 { 
                     "requirement": "Either Physics or Chemistry or Mathematics",
                     "alternatives": [
-                        { "name": "English", "minGrade": "C-" },
+                        { "name": "Physics", "minGrade": "C-" },
                         { "name": "Chemistry", "minGrade": "C-" },
                         { "name": "Mathematics", "minGrade": "C-" }
                     ]
                 },
-                { "name": "Biology", "minGrade": "C-" },
+                { "name": "Biology", "minGrade": "C-" }
             ]
         },
         "campuses": ["NAIROBI", "MOMBASA"]
@@ -2469,11 +2468,11 @@
                 { "name": "Mathematics", "minGrade": "C-" },
                 { "name": "Biology", "minGrade": "C" }
             ]
-    },
+        },
         "campuses": ["NAIROBI", "MOMBASA", "KISUMU", "NAKURU"]
     },
     {
-          "name": "DIPLOMA IN RADIOGRAPHY AND IMAGING",
+        "name": "DIPLOMA IN RADIOGRAPHY AND IMAGING",
         "requirements": {
             "meanGrade": "C",
             "compulsorySubjects": [
@@ -2485,19 +2484,19 @@
                     ]
                 },
                 { "name": "Physics", "minGrade": "C" },
-                { "name": "Biology", "minGrade": "C" }
-            ]
-        },
-        { 
+                { "name": "Biology", "minGrade": "C" },
+                { 
                     "requirement": "Either Mathematics or Chemistry",
                     "alternatives": [
                         { "name": "Mathematics", "minGrade": "C-" },
                         { "name": "Chemistry", "minGrade": "C-" }
                     ]
+                }
+            ]
         },
         "campuses": ["NAIROBI", "KISUMU"]
-        },
-        {
+    },
+    {
         "name": "DIPLOMA IN SPEECH AND LANGUAGE THERAPY",
         "requirements": {
             "meanGrade": "C",
@@ -2522,7 +2521,7 @@
         },
         "campuses": ["NAIROBI"]
     }
-        ];
+    ];
 
         // Grade comparison function
         function isGradeSufficient(studentGrade, requiredGrade) {
