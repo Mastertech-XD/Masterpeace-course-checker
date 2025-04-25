@@ -2753,45 +2753,49 @@
                         }
                         
                         if (!anyAlternativeMet) {
-                            const alternatives = subjectReq.alternatives.map(a => `${a.name} (${a.minGrade}+)`).join(' OR ');
-                        missingRequirements.push(`${subjectReq.requirement.toUpperCase()}: ${alternatives}`);
-                    }
-                } else {
-                    // For regular compulsory subjects
-                    const studentGrade = grades[subjectReq.name.toLowerCase()];
-                    if (!studentGrade || !isGradeSufficient(studentGrade, subjectReq.minGrade)) {
-                        missingRequirements.push(`${subjectReq.name.toUpperCase()} (${subjectReq.minGrade}+)`);
+                            const alternatives = subjectReq.alternatives.map(a => `${a.name.toUpperCase()} (${a.minGrade}+)`).join(' OR ');
+                            missingRequirements.push(`${subjectReq.requirement.toUpperCase()}: ${alternatives}`);
+                        }
+                    } else {
+                        // For regular compulsory subjects
+                        const studentGrade = grades[subjectReq.name.toLowerCase()];
+                        if (!studentGrade || !isGradeSufficient(studentGrade, subjectReq.minGrade)) {
+                            missingRequirements.push(`${subjectReq.name.toUpperCase()} (${subjectReq.minGrade}+)`);
+                        }
                     }
                 }
-            }
-            
-            if (missingRequirements.length > 0) {
+                
+                if (missingRequirements.length > 0) {
+                    const statusDiv = document.createElement('div');
+                    statusDiv.className = 'course-item';
+                    statusDiv.innerHTML = `
+                        ❌ YOU ARE MISSING REQUIRED SUBJECTS OR DON'T MEET GRADE REQUIREMENTS:
+                        <br><span class="highlight">${missingRequirements.join("<br>")}</span>
+                    `;
+                    qualificationStatus.appendChild(statusDiv);
+                    document.getElementById('manualResults').style.display = 'block';
+                    return;
+                }
+                
+                // If we get here, the student qualifies
                 const statusDiv = document.createElement('div');
                 statusDiv.className = 'course-item';
                 statusDiv.innerHTML = `
-                    ❌ YOU ARE MISSING REQUIRED SUBJECTS OR DON'T MEET GRADE REQUIREMENTS:
-                    <br><span class="highlight">${missingRequirements.join("<br>")}</span>
+                    ✅ <span class="highlight">YOU QUALIFY FOR THIS COURSE!</span>
+                    <br>YOU MEET ALL THE REQUIREMENTS FOR ${selectedCourse.name}.
+                    <br>THIS COURSE IS OFFERED AT: ${selectedCourse.campuses.join(", ")}
                 `;
                 qualificationStatus.appendChild(statusDiv);
+                
+                // Show results
                 document.getElementById('manualResults').style.display = 'block';
-                return;
+                
+                // Scroll to results
+                document.getElementById('manualResults').scrollIntoView({ behavior: 'smooth' });
+            } catch (error) {
+                console.error("Error checking manual qualification:", error);
+                alert("An error occurred while checking your qualification. Please try again.");
             }
-            
-            // If we get here, the student qualifies
-            const statusDiv = document.createElement('div');
-            statusDiv.className = 'course-item';
-            statusDiv.innerHTML = `
-                ✅ <span class="highlight">YOU QUALIFY FOR THIS COURSE!</span>
-                <br>YOU MEET ALL THE REQUIREMENTS FOR ${selectedCourse.name}.
-                <br>THIS COURSE IS OFFERED AT: ${selectedCourse.campuses.join(", ")}
-            `;
-            qualificationStatus.appendChild(statusDiv);
-            
-            // Show results
-            document.getElementById('manualResults').style.display = 'block';
-            
-            // Scroll to results
-            document.getElementById('manualResults').scrollIntoView({ behavior: 'smooth' });
         }
 
         function checkCourseQualification(course, meanGrade, grades) {
@@ -2800,14 +2804,20 @@
                 return false;
             }
 
-            // 2. Check compulsory subjects (with alternatives)
+            // 2. Check if compulsorySubjects exists
+            if (!course.requirements.compulsorySubjects) {
+                return true; // If no specific subject requirements, only mean grade matters
+            }
+
+            // 3. Check compulsory subjects (with alternatives)
             for (const subjectReq of course.requirements.compulsorySubjects) {
                 if (subjectReq.alternatives) {
                     // For either/or subjects
                     let anyAlternativeMet = false;
                     
                     for (const alternative of subjectReq.alternatives) {
-                        const studentGrade = grades[alternative.name.toLowerCase()];
+                        const subjectKey = alternative.name.toLowerCase();
+                        const studentGrade = grades[subjectKey];
                         if (studentGrade && isGradeSufficient(studentGrade, alternative.minGrade)) {
                             anyAlternativeMet = true;
                             break;
@@ -2817,7 +2827,8 @@
                     if (!anyAlternativeMet) return false;
                 } else {
                     // For regular compulsory subjects
-                    const studentGrade = grades[subjectReq.name.toLowerCase()];
+                    const subjectKey = subjectReq.name.toLowerCase();
+                    const studentGrade = grades[subjectKey];
                     if (!studentGrade || !isGradeSufficient(studentGrade, subjectReq.minGrade)) {
                         return false;
                     }
@@ -2859,7 +2870,7 @@
                     const requirementsList = course.requirements.compulsorySubjects.map(req => {
                         if (req.alternatives) {
                             return `${req.requirement.toUpperCase()}: ${req.alternatives.map(a => 
-                                `${a.name} (${a.minGrade}+)`
+                                `${a.name.toUpperCase()} (${a.minGrade}+)`
                             ).join(' OR ')}`;
                         }
                         return `${req.name.toUpperCase()} (${req.minGrade}+)`;
