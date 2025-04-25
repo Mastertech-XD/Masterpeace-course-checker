@@ -2703,10 +2703,10 @@
                     reqItem.className = 'requirement-item';
                     
                     if (req.alternatives) {
-                        const alternatives = req.alternatives.map(a => `${a.name.toUpperCase()} (${a.minGrade}+)`).join(' OR ');
+                        const alternatives = req.alternatives.map(a => `${a.name.toUpperCase()} (${a.minGrade})`).join(' OR ');
                         reqItem.innerHTML = `<strong>${req.requirement.toUpperCase()}:</strong> ${alternatives}`;
                     } else {
-                        reqItem.innerHTML = `<strong>${req.name.toUpperCase()}:</strong> ${req.minGrade}+`;
+                        reqItem.innerHTML = `<strong>${req.name.toUpperCase()}:</strong> ${req.minGrade}`;
                     }
                     
                     requirementsList.appendChild(reqItem);
