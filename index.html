@@ -3,123 +3,264 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account Access</title>
+    <title>Account Access | Your Brand</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --secondary: #3f37c9;
+            --dark: #1b263b;
+            --light: #f8f9fa;
+            --success: #4cc9f0;
+            --danger: #f72585;
+            --warning: #f8961e;
+            --gray: #adb5bd;
+            --white: #ffffff;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
-            background-color: #f5f5f5;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            color: var(--dark);
+            line-height: 1.6;
         }
-        
+
         .container {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            padding: 40px;
+            background-color: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            animation: fadeIn 0.6s ease;
         }
-        
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
         h1 {
-            color: #333;
-            margin-bottom: 10px;
+            color: var(--dark);
+            margin-bottom: 0.75rem;
+            font-size: 1.8rem;
+            font-weight: 700;
         }
-        
+
         .subtitle {
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
         }
-        
+
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 1.25rem;
             text-align: left;
+            position: relative;
         }
-        
+
         label {
             display: block;
-            margin-bottom: 8px;
-            color: #555;
-            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 0.9rem;
         }
-        
+
+        .input-wrapper {
+            position: relative;
+        }
+
         input {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
+            padding: 0.85rem 1rem 0.85rem 2.8rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
         }
-        
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            background-color: var(--white);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            font-size: 1rem;
+        }
+
         button {
-            background-color: #4CAF50;
-            color: white;
+            background-color: var(--primary);
+            color: var(--white);
             border: none;
-            padding: 12px 20px;
-            border-radius: 5px;
+            padding: 0.9rem;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 1rem;
+            font-weight: 600;
             width: 100%;
-            margin-top: 10px;
-            transition: background-color 0.3s;
+            margin-top: 0.5rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
-        
+
         button:hover {
-            background-color: #45a049;
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
         }
-        
+
+        button:active {
+            transform: translateY(0);
+        }
+
         .toggle-link {
-            margin-top: 20px;
-            color: #666;
-            font-size: 14px;
+            margin-top: 1.5rem;
+            color: var(--gray);
+            font-size: 0.9rem;
         }
-        
+
         .toggle-link a {
-            color: #4CAF50;
+            color: var(--primary);
             text-decoration: none;
+            font-weight: 600;
             cursor: pointer;
+            transition: all 0.2s ease;
         }
-        
+
+        .toggle-link a:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+
         /* Hide forms by default */
         #login-form, #signup-form {
             display: none;
+            animation: fadeIn 0.4s ease;
         }
-        
+
         /* Show active form */
         .active-form {
             display: block !important;
+        }
+
+        /* Error states */
+        .error {
+            color: var(--danger);
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        input.error-border {
+            border-color: var(--danger);
+        }
+
+        /* Loading state */
+        .btn-loading {
+            position: relative;
+            pointer-events: none;
+        }
+
+        .btn-loading::after {
+            content: "";
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            border: 3px solid transparent;
+            border-top-color: var(--white);
+            border-radius: 50%;
+            animation: button-loading-spinner 1s ease infinite;
+        }
+
+        @keyframes button-loading-spinner {
+            from { transform: rotate(0turn); }
+            to { transform: rotate(1turn); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem;
+                margin: 0 1rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="logo">YourBrand</div>
+        
         <!-- Login Form -->
         <div id="login-form" class="active-form">
-            <h1>WELCOME BACK!</h1>
-            <p class="subtitle">Looking to learn a place we cannot contact us or not, and you can help us.</p>
+            <h1>Welcome Back!</h1>
+            <p class="subtitle">Sign in to access your personalized dashboard</p>
             
             <form id="loginForm">
                 <div class="form-group">
-                    <label for="login-username">Username</label>
-                    <input type="text" id="login-username" required>
+                    <label for="login-username">Username or Email</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="login-username" placeholder="Enter your username or email" required>
+                    </div>
+                    <span class="error" id="login-username-error">Please enter a valid username or email</span>
                 </div>
                 
                 <div class="form-group">
                     <label for="login-password">Password</label>
-                    <input type="password" id="login-password" required>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="login-password" placeholder="Enter your password" required>
+                    </div>
+                    <span class="error" id="login-password-error">Password must be at least 6 characters</span>
                 </div>
                 
-                <button type="submit">Login</button>
+                <button type="submit" id="login-btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>Login</span>
+                </button>
             </form>
             
             <p class="toggle-link">Don't have an account? <a id="show-signup">Sign up</a></p>
@@ -127,26 +268,41 @@
         
         <!-- Signup Form -->
         <div id="signup-form">
-            <h1>WELCOME BACK!</h1>
-            <p class="subtitle">Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+            <h1>Create Account</h1>
+            <p class="subtitle">Join us today to get started</p>
             
             <form id="signupForm">
                 <div class="form-group">
                     <label for="signup-username">Username</label>
-                    <input type="text" id="signup-username" required>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="signup-username" placeholder="Choose a username" required>
+                    </div>
+                    <span class="error" id="signup-username-error">Username must be 4-20 characters</span>
                 </div>
                 
                 <div class="form-group">
                     <label for="signup-email">Email</label>
-                    <input type="email" id="signup-email" required>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" id="signup-email" placeholder="Enter your email" required>
+                    </div>
+                    <span class="error" id="signup-email-error">Please enter a valid email</span>
                 </div>
                 
                 <div class="form-group">
                     <label for="signup-password">Password</label>
-                    <input type="password" id="signup-password" required>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="signup-password" placeholder="Create a password" required>
+                    </div>
+                    <span class="error" id="signup-password-error">Password must be at least 8 characters</span>
                 </div>
                 
-                <button type="submit">Sign Up</button>
+                <button type="submit" id="signup-btn">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Sign Up</span>
+                </button>
             </form>
             
             <p class="toggle-link">Already have an account? <a id="show-login">Login</a></p>
@@ -155,44 +311,147 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
             const loginForm = document.getElementById('login-form');
             const signupForm = document.getElementById('signup-form');
             const showLogin = document.getElementById('show-login');
             const showSignup = document.getElementById('show-signup');
             const loginSubmit = document.getElementById('loginForm');
             const signupSubmit = document.getElementById('signupForm');
-            
+            const loginBtn = document.getElementById('login-btn');
+            const signupBtn = document.getElementById('signup-btn');
+
             // Replace these with your actual URLs
-            const AFTER_LOGIN_URL = 'dasboard.html';    // Change to your post-login URL
-            const AFTER_SIGNUP_URL = 'index.html';   // Change to your post-signup URL
-            
-            // Toggle between forms
+            const AFTER_LOGIN_URL = 'dashboard.html';    // Change to your post-login URL
+            const AFTER_SIGNUP_URL = 'welcome.html';    // Change to your post-signup URL
+
+            // Toggle between forms with animation
             showSignup.addEventListener('click', function(e) {
                 e.preventDefault();
-                loginForm.classList.remove('active-form');
-                signupForm.classList.add('active-form');
+                loginForm.style.animation = 'fadeIn 0.4s ease reverse';
+                setTimeout(() => {
+                    loginForm.classList.remove('active-form');
+                    signupForm.classList.add('active-form');
+                }, 200);
             });
             
             showLogin.addEventListener('click', function(e) {
                 e.preventDefault();
-                signupForm.classList.remove('active-form');
-                loginForm.classList.add('active-form');
+                signupForm.style.animation = 'fadeIn 0.4s ease reverse';
+                setTimeout(() => {
+                    signupForm.classList.remove('active-form');
+                    loginForm.classList.add('active-form');
+                }, 200);
             });
-            
+
+            // Form validation functions
+            function validateLoginForm() {
+                let isValid = true;
+                const username = document.getElementById('login-username').value.trim();
+                const password = document.getElementById('login-password').value;
+                
+                // Validate username/email
+                if (username === '') {
+                    document.getElementById('login-username-error').style.display = 'block';
+                    document.getElementById('login-username').classList.add('error-border');
+                    isValid = false;
+                } else {
+                    document.getElementById('login-username-error').style.display = 'none';
+                    document.getElementById('login-username').classList.remove('error-border');
+                }
+                
+                // Validate password
+                if (password.length < 6) {
+                    document.getElementById('login-password-error').style.display = 'block';
+                    document.getElementById('login-password').classList.add('error-border');
+                    isValid = false;
+                } else {
+                    document.getElementById('login-password-error').style.display = 'none';
+                    document.getElementById('login-password').classList.remove('error-border');
+                }
+                
+                return isValid;
+            }
+
+            function validateSignupForm() {
+                let isValid = true;
+                const username = document.getElementById('signup-username').value.trim();
+                const email = document.getElementById('signup-email').value.trim();
+                const password = document.getElementById('signup-password').value;
+                
+                // Validate username
+                if (username.length < 4 || username.length > 20) {
+                    document.getElementById('signup-username-error').style.display = 'block';
+                    document.getElementById('signup-username').classList.add('error-border');
+                    isValid = false;
+                } else {
+                    document.getElementById('signup-username-error').style.display = 'none';
+                    document.getElementById('signup-username').classList.remove('error-border');
+                }
+                
+                // Validate email
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    document.getElementById('signup-email-error').style.display = 'block';
+                    document.getElementById('signup-email').classList.add('error-border');
+                    isValid = false;
+                } else {
+                    document.getElementById('signup-email-error').style.display = 'none';
+                    document.getElementById('signup-email').classList.remove('error-border');
+                }
+                
+                // Validate password
+                if (password.length < 8) {
+                    document.getElementById('signup-password-error').style.display = 'block';
+                    document.getElementById('signup-password').classList.add('error-border');
+                    isValid = false;
+                } else {
+                    document.getElementById('signup-password-error').style.display = 'none';
+                    document.getElementById('signup-password').classList.remove('error-border');
+                }
+                
+                return isValid;
+            }
+
             // Handle form submissions
             loginSubmit.addEventListener('submit', function(e) {
                 e.preventDefault();
-                // Here you would typically validate credentials
-                // For demo, we'll just redirect
-                window.location.href = AFTER_LOGIN_URL;
+                
+                if (validateLoginForm()) {
+                    // Show loading state
+                    loginBtn.classList.add('btn-loading');
+                    loginBtn.querySelector('span').style.visibility = 'hidden';
+                    
+                    // Simulate API call with timeout
+                    setTimeout(() => {
+                        // Redirect after successful login
+                        window.location.href = AFTER_LOGIN_URL;
+                    }, 1500);
+                }
             });
             
             signupSubmit.addEventListener('submit', function(e) {
                 e.preventDefault();
-                // Here you would typically process signup
-                // For demo, we'll just redirect
-                window.location.href = AFTER_SIGNUP_URL;
+                
+                if (validateSignupForm()) {
+                    // Show loading state
+                    signupBtn.classList.add('btn-loading');
+                    signupBtn.querySelector('span').style.visibility = 'hidden';
+                    
+                    // Simulate API call with timeout
+                    setTimeout(() => {
+                        // Redirect after successful signup
+                        window.location.href = AFTER_SIGNUP_URL;
+                    }, 1500);
+                }
             });
+
+            // Input field validation on blur
+            document.getElementById('login-username').addEventListener('blur', validateLoginForm);
+            document.getElementById('login-password').addEventListener('blur', validateLoginForm);
+            document.getElementById('signup-username').addEventListener('blur', validateSignupForm);
+            document.getElementById('signup-email').addEventListener('blur', validateSignupForm);
+            document.getElementById('signup-password').addEventListener('blur', validateSignupForm);
         });
     </script>
 </body>
