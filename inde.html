@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Access</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: bold;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        .toggle-link {
+            margin-top: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .toggle-link a {
+            color: #4CAF50;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        /* Hide forms by default */
+        #login-form, #signup-form {
+            display: none;
+        }
+        
+        /* Show active form */
+        .active-form {
+            display: block !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Form -->
+        <div id="login-form" class="active-form">
+            <h1>WELCOME BACK!</h1>
+            <p class="subtitle">Looking to learn a place we cannot contact us or not, and you can help us.</p>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="login-username">Username</label>
+                    <input type="text" id="login-username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                
+                <button type="submit">Login</button>
+            </form>
+            
+            <p class="toggle-link">Don't have an account? <a id="show-signup">Sign up</a></p>
+        </div>
+        
+        <!-- Signup Form -->
+        <div id="signup-form">
+            <h1>WELCOME BACK!</h1>
+            <p class="subtitle">Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+            
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="signup-username">Username</label>
+                    <input type="text" id="signup-username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required>
+                </div>
+                
+                <button type="submit">Sign Up</button>
+            </form>
+            
+            <p class="toggle-link">Already have an account? <a id="show-login">Login</a></p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            const showLogin = document.getElementById('show-login');
+            const showSignup = document.getElementById('show-signup');
+            const loginSubmit = document.getElementById('loginForm');
+            const signupSubmit = document.getElementById('signupForm');
+            
+            // Replace these with your actual URLs
+            const AFTER_LOGIN_URL = 'dashboard.html';    // Change to your post-login URL
+            const AFTER_SIGNUP_URL = 'welcome.html';   // Change to your post-signup URL
+            
+            // Toggle between forms
+            showSignup.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginForm.classList.remove('active-form');
+                signupForm.classList.add('active-form');
+            });
+            
+            showLogin.addEventListener('click', function(e) {
+                e.preventDefault();
+                signupForm.classList.remove('active-form');
+                loginForm.classList.add('active-form');
+            });
+            
+            // Handle form submissions
+            loginSubmit.addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Here you would typically validate credentials
+                // For demo, we'll just redirect
+                window.location.href = AFTER_LOGIN_URL;
+            });
+            
+            signupSubmit.addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Here you would typically process signup
+                // For demo, we'll just redirect
+                window.location.href = AFTER_SIGNUP_URL;
+            });
+        });
+    </script>
+</body>
+</html>
