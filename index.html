@@ -3,95 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KUCCPS TrackMaster - Course Qualification Checker</title>
+    <title>KUCCPS TrackMaster - Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #e63946;
-            --primary-light: #f1faee;
-            --secondary: #1d3557;
-            --accent: #457b9d;
             --kuccps-green: #2a7f62;
             --kuccps-yellow: #ffd700;
             --dark: #0d1b2a;
             --light: #f8f9fa;
-            --track-red: #e63946;
-            --track-steel: #a8dadc;
-            --track-dark: #1d3557;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Railway', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        @font-face {
-            font-family: 'Railway';
-            src: url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap');
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background: 
-                linear-gradient(rgba(29, 53, 87, 0.85), rgba(29, 53, 87, 0.85)),
-                url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
+            background: linear-gradient(rgba(42, 127, 98, 0.9), rgba(42, 127, 98, 0.9)),
+                        url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
             background-size: cover;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             color: var(--light);
-            line-height: 1.6;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Train track animation with KUCCPS colors */
-        body::before {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 200%;
-            height: 60px;
-            background: 
-                linear-gradient(90deg, 
-                    var(--kuccps-green) 0%, 
-                    var(--kuccps-green) 25%, 
-                    var(--kuccps-yellow) 25%, 
-                    var(--kuccps-yellow) 30%, 
-                    var(--track-steel) 30%, 
-                    var(--track-steel) 35%,
-                    var(--kuccps-green) 35%,
-                    var(--kuccps-green) 100%);
-            animation: trackMove 20s linear infinite;
-            z-index: -1;
-        }
-
-        @keyframes trackMove {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
         }
 
         .container {
             background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(13, 27, 42, 0.3);
-            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 2rem;
             width: 100%;
-            max-width: 420px;
+            max-width: 450px;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s ease;
-            animation: fadeIn 0.6s ease;
-            border: 2px solid var(--kuccps-green);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .logo {
@@ -105,41 +53,19 @@
             gap: 0.5rem;
         }
 
-        .logo i {
-            color: var(--secondary);
-        }
-
         h1 {
             color: var(--kuccps-green);
-            margin-bottom: 0.75rem;
-            font-size: 1.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
         }
 
         .subtitle {
             color: var(--dark);
-            margin-bottom: 2rem;
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-
-        .kuccps-badge {
-            background-color: var(--kuccps-green);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            display: inline-block;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .form-group {
             margin-bottom: 1.25rem;
             text-align: left;
-            position: relative;
         }
 
         label {
@@ -147,101 +73,39 @@
             margin-bottom: 0.5rem;
             color: var(--kuccps-green);
             font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .input-wrapper {
-            position: relative;
         }
 
         input {
             width: 100%;
-            padding: 0.85rem 1rem 0.85rem 2.8rem;
-            border: 2px solid #a8dadc;
+            padding: 0.8rem 1rem;
+            border: 2px solid #ddd;
             border-radius: 6px;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            background-color: var(--primary-light);
-            color: var(--dark);
+            font-size: 1rem;
         }
 
         input:focus {
             outline: none;
             border-color: var(--kuccps-green);
-            background-color: white;
-            box-shadow: 0 0 0 3px rgba(42, 127, 98, 0.2);
-        }
-
-        .input-icon {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--kuccps-green);
-            font-size: 1rem;
         }
 
         button {
             background-color: var(--kuccps-green);
-            color: var(--light);
+            color: white;
             border: none;
-            padding: 0.9rem;
+            padding: 0.8rem;
             border-radius: 6px;
             cursor: pointer;
             font-size: 1rem;
             font-weight: 600;
             width: 100%;
             margin-top: 0.5rem;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            transition: all 0.3s;
         }
 
         button:hover {
-            background-color: var(--secondary);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(42, 127, 98, 0.3);
+            background-color: #1f5e48;
         }
 
-        button:active {
-            transform: translateY(0);
-        }
-
-        .toggle-link {
-            margin-top: 1.5rem;
-            color: var(--dark);
-            font-size: 0.9rem;
-        }
-
-        .toggle-link a {
-            color: var(--kuccps-green);
-            text-decoration: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .toggle-link a:hover {
-            color: var(--secondary);
-            text-decoration: underline;
-        }
-
-        /* Hide forms by default */
-        #login-form, #signup-form {
-            display: none;
-            animation: fadeIn 0.4s ease;
-        }
-
-        /* Show active form */
-        .active-form {
-            display: block !important;
-        }
-
-        /* Error states */
         .error {
             color: var(--primary);
             font-size: 0.8rem;
@@ -249,14 +113,8 @@
             display: none;
         }
 
-        input.error-border {
-            border-color: var(--primary);
-        }
-
-        /* Loading state */
         .btn-loading {
             position: relative;
-            pointer-events: none;
         }
 
         .btn-loading::after {
@@ -264,295 +122,116 @@
             position: absolute;
             width: 16px;
             height: 16px;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            margin: auto;
             border: 3px solid transparent;
-            border-top-color: var(--light);
+            border-top-color: white;
             border-radius: 50%;
-            animation: button-loading-spinner 1s ease infinite;
+            animation: spin 1s linear infinite;
         }
 
-        @keyframes button-loading-spinner {
-            from { transform: rotate(0turn); }
-            to { transform: rotate(1turn); }
-        }
-
-        /* Train whistle animation */
-        .whistle {
-            position: absolute;
-            bottom: 20px;
-            right: -100px;
-            font-size: 2rem;
-            color: var(--kuccps-green);
-            animation: whistleMove 15s linear infinite;
-            opacity: 0.7;
-        }
-
-        @keyframes whistleMove {
-            0% { transform: translateX(0) rotate(0deg); }
-            100% { transform: translateX(-150vw) rotate(360deg); }
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 480px) {
-            .container {
-                padding: 1.5rem;
-                margin: 0 1rem;
-            }
-            
-            h1 {
-                font-size: 1.5rem;
-            }
-
-            body::before {
-                height: 40px;
-            }
+        @keyframes spin {
+            0% { transform: rotate(0turn); }
+            100% { transform: rotate(1turn); }
         }
     </style>
 </head>
 <body>
-    <div class="whistle">
-        <i class="fas fa-graduation-cap"></i>
-    </div>
-
     <div class="container">
         <div class="logo">
             <i class="fas fa-graduation-cap"></i>
             <span>KUCCPS TrackMaster</span>
         </div>
         
-        <div class="kuccps-badge">Official Course Qualification Checker</div>
+        <h1>Course Qualification Checker</h1>
+        <p class="subtitle">Sign in to check your course eligibility</p>
         
-        <!-- Login Form -->
-        <div id="login-form" class="active-form">
-            <h1>Check Your Eligibility</h1>
-            <p class="subtitle">Sign in to verify your course qualifications</p>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">KCSE Index Number</label>
+                <input type="text" id="username" placeholder="e.g. 123456/7890" required>
+                <span class="error" id="username-error">Please enter a valid index number</span>
+            </div>
             
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="login-username">KCSE Index Number</label>
-                    <div class="input-wrapper">
-                        <i class="fas fa-id-card input-icon"></i>
-                        <input type="text" id="login-username" placeholder="Enter your KCSE index number" required>
-                    </div>
-                    <span class="error" id="login-username-error">Please enter a valid index number</span>
-                </div>
-                
-                <div class="form-group">
-                    <label for="login-password">Password</label>
-                    <div class="input-wrapper">
-                        <i class="fas fa-lock input-icon"></i>
-                        <input type="password" id="login-password" placeholder="Enter your password" required>
-                    </div>
-                    <span class="error" id="login-password-error">Password must be at least 6 characters</span>
-                </div>
-                
-                <button type="submit" id="login-btn">
-                    <i class="fas fa-search"></i>
-                    <span>Check Qualifications</span>
-                </button>
-            </form>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" required>
+                <span class="error" id="password-error">Password must be at least 6 characters</span>
+            </div>
             
-            <p class="toggle-link">New to KUCCPS? <a id="show-signup">Register Here</a></p>
-        </div>
-        
-        <!-- Signup Form -->
-        <div id="signup-form">
-            <h1>Create Account</h1>
-            <p class="subtitle">Register to check course qualifications</p>
-            
-            <form id="signupForm">
-                <div class="form-group">
-                    <label for="signup-username">KCSE Index Number</label>
-                    <div class="input-wrapper">
-                        <i class="fas fa-id-card input-icon"></i>
-                        <input type="text" id="signup-username" placeholder="Enter your KCSE index number" required>
-                    </div>
-                    <span class="error" id="signup-username-error">Please enter a valid index number</span>
-                </div>
-                
-                <div class="form-group">
-                    <label for="signup-email">Email Address</label>
-                    <div class="input-wrapper">
-                        <i class="fas fa-envelope input-icon"></i>
-                        <input type="email" id="signup-email" placeholder="Enter your email" required>
-                    </div>
-                    <span class="error" id="signup-email-error">Please enter a valid email</span>
-                </div>
-                
-                <div class="form-group">
-                    <label for="signup-password">Create Password</label>
-                    <div class="input-wrapper">
-                        <i class="fas fa-lock input-icon"></i>
-                        <input type="password" id="signup-password" placeholder="Create a password" required>
-                    </div>
-                    <span class="error" id="signup-password-error">Password must be at least 8 characters</span>
-                </div>
-                
-                <button type="submit" id="signup-btn">
-                    <i class="fas fa-user-plus"></i>
-                    <span>Register Account</span>
-                </button>
-            </form>
-            
-            <p class="toggle-link">Already registered? <a id="show-login">Login Here</a></p>
-        </div>
+            <button type="submit" id="loginBtn">
+                <span>Sign In</span>
+            </button>
+        </form>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // DOM Elements
-            const loginForm = document.getElementById('login-form');
-            const signupForm = document.getElementById('signup-form');
-            const showLogin = document.getElementById('show-login');
-            const showSignup = document.getElementById('show-signup');
-            const loginSubmit = document.getElementById('loginForm');
-            const signupSubmit = document.getElementById('signupForm');
-            const loginBtn = document.getElementById('login-btn');
-            const signupBtn = document.getElementById('signup-btn');
-
-            // Replace these with your actual URLs
-            const AFTER_LOGIN_URL ='dasboard.html';    // Change to your results page
-            const AFTER_SIGNUP_URL = 'dasboard.html';             // Change to your dashboard page
-
-            // Toggle between forms with animation
-            showSignup.addEventListener('click', function(e) {
-                e.preventDefault();
-                loginForm.style.animation = 'fadeIn 0.4s ease reverse';
-                setTimeout(() => {
-                    loginForm.classList.remove('active-form');
-                    signupForm.classList.add('active-form');
-                }, 200);
-            });
+            const loginForm = document.getElementById('loginForm');
+            const loginBtn = document.getElementById('loginBtn');
             
-            showLogin.addEventListener('click', function(e) {
-                e.preventDefault();
-                signupForm.style.animation = 'fadeIn 0.4s ease reverse';
-                setTimeout(() => {
-                    signupForm.classList.remove('active-form');
-                    loginForm.classList.add('active-form');
-                }, 200);
-            });
-
-            // Form validation functions
-            function validateKCSEIndex(index) {
-                // Basic validation for KCSE index number format
-                const regex = /^[0-9]{6}\/[0-9]{4}$/;
-                return regex.test(index);
-            }
-
-            function validateLoginForm() {
+            // Mock user database (in a real app, this would be server-side)
+            const mockUsers = {
+                '123456/7890': { password: 'password123', name: 'John Doe' },
+                '654321/0987': { password: 'securepass', name: 'Jane Smith' }
+            };
+            
+            // Form validation
+            function validateForm() {
                 let isValid = true;
-                const username = document.getElementById('login-username').value.trim();
-                const password = document.getElementById('login-password').value;
+                const username = document.getElementById('username').value.trim();
+                const password = document.getElementById('password').value;
                 
-                // Validate KCSE index number
-                if (!validateKCSEIndex(username)) {
-                    document.getElementById('login-username-error').textContent = 'Please enter a valid KCSE index number (e.g. 123456/7890)';
-                    document.getElementById('login-username-error').style.display = 'block';
-                    document.getElementById('login-username').classList.add('error-border');
+                // Validate KCSE index format (basic check)
+                if (!/^\d{6}\/\d{4}$/.test(username)) {
+                    document.getElementById('username-error').style.display = 'block';
                     isValid = false;
                 } else {
-                    document.getElementById('login-username-error').style.display = 'none';
-                    document.getElementById('login-username').classList.remove('error-border');
+                    document.getElementById('username-error').style.display = 'none';
                 }
                 
-                // Validate password
+                // Validate password length
                 if (password.length < 6) {
-                    document.getElementById('login-password-error').style.display = 'block';
-                    document.getElementById('login-password').classList.add('error-border');
+                    document.getElementById('password-error').style.display = 'block';
                     isValid = false;
                 } else {
-                    document.getElementById('login-password-error').style.display = 'none';
-                    document.getElementById('login-password').classList.remove('error-border');
+                    document.getElementById('password-error').style.display = 'none';
                 }
                 
                 return isValid;
             }
-
-            function validateSignupForm() {
-                let isValid = true;
-                const username = document.getElementById('signup-username').value.trim();
-                const email = document.getElementById('signup-email').value.trim();
-                const password = document.getElementById('signup-password').value;
-                
-                // Validate KCSE index number
-                if (!validateKCSEIndex(username)) {
-                    document.getElementById('signup-username-error').textContent = 'Please enter a valid KCSE index number (e.g. 123456/7890)';
-                    document.getElementById('signup-username-error').style.display = 'block';
-                    document.getElementById('signup-username').classList.add('error-border');
-                    isValid = false;
-                } else {
-                    document.getElementById('signup-username-error').style.display = 'none';
-                    document.getElementById('signup-username').classList.remove('error-border');
-                }
-                
-                // Validate email
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(email)) {
-                    document.getElementById('signup-email-error').style.display = 'block';
-                    document.getElementById('signup-email').classList.add('error-border');
-                    isValid = false;
-                } else {
-                    document.getElementById('signup-email-error').style.display = 'none';
-                    document.getElementById('signup-email').classList.remove('error-border');
-                }
-                
-                // Validate password
-                if (password.length < 8) {
-                    document.getElementById('signup-password-error').style.display = 'block';
-                    document.getElementById('signup-password').classList.add('error-border');
-                    isValid = false;
-                } else {
-                    document.getElementById('signup-password-error').style.display = 'none';
-                    document.getElementById('signup-password').classList.remove('error-border');
-                }
-                
-                return isValid;
-            }
-
-            // Handle form submissions
-            loginSubmit.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                if (validateLoginForm()) {
-                    // Show loading state
-                    loginBtn.classList.add('btn-loading');
-                    loginBtn.querySelector('span').style.visibility = 'hidden';
-                    
-                    // Simulate API call with timeout
-                    setTimeout(() => {
-                        // Redirect to qualification results page
-                        window.location.href = AFTER_LOGIN_URL;
-                    }, 1500);
-                }
-            });
             
-            signupSubmit.addEventListener('submit', function(e) {
+            // Form submission
+            loginForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
-                if (validateSignupForm()) {
+                if (validateForm()) {
                     // Show loading state
-                    signupBtn.classList.add('btn-loading');
-                    signupBtn.querySelector('span').style.visibility = 'hidden';
+                    loginBtn.innerHTML = '';
+                    loginBtn.classList.add('btn-loading');
+                    
+                    const username = document.getElementById('username').value.trim();
+                    const password = document.getElementById('password').value;
                     
                     // Simulate API call with timeout
                     setTimeout(() => {
-                        // Redirect to dashboard after registration
-                        window.location.href = AFTER_SIGNUP_URL;
+                        // Check mock user database
+                        if (mockUsers[username] && mockUsers[username].password === password) {
+                            // Successful login - redirect to dashboard
+                            window.location.href = 'dashboard.html';
+                            
+                            // In a real app, you would:
+                            // 1. Send credentials to your backend
+                            // 2. Receive authentication token
+                            // 3. Store token securely
+                            // 4. Redirect to dashboard
+                        } else {
+                            // Failed login
+                            alert('Invalid credentials. Please try again.');
+                            loginBtn.classList.remove('btn-loading');
+                            loginBtn.innerHTML = '<span>Sign In</span>';
+                        }
                     }, 1500);
                 }
             });
-
-            // Input field validation on blur
-            document.getElementById('login-username').addEventListener('blur', validateLoginForm);
-            document.getElementById('login-password').addEventListener('blur', validateLoginForm);
-            document.getElementById('signup-username').addEventListener('blur', validateSignupForm);
-            document.getElementById('signup-email').addEventListener('blur', validateSignupForm);
-            document.getElementById('signup-password').addEventListener('blur', validateSignupForm);
         });
     </script>
 </body>
