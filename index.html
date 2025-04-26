@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KUCCPS TrackMaster - Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <style>
         :root {
-            --primary: #e63946;
             --kuccps-green: #2a7f62;
-            --kuccps-yellow: #ffd700;
+            --error-red: #e63946;
             --dark: #0d1b2a;
             --light: #f8f9fa;
         }
@@ -37,7 +37,7 @@
             border-radius: 10px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             padding: 2rem;
-            width: 100%;
+            width: 90%;
             max-width: 450px;
             text-align: center;
         }
@@ -106,8 +106,13 @@
             background-color: #1f5e48;
         }
 
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
         .error {
-            color: var(--primary);
+            color: var(--error-red);
             font-size: 0.8rem;
             margin-top: 0.25rem;
             display: none;
@@ -131,6 +136,19 @@
         @keyframes spin {
             0% { transform: rotate(0turn); }
             100% { transform: rotate(1turn); }
+        }
+
+        .g-recaptcha {
+            margin: 1rem 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .recaptcha-error {
+            color: var(--error-red);
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+            display: none;
         }
     </style>
 </head>
@@ -157,7 +175,10 @@
                 <span class="error" id="password-error">Password must be at least 6 characters</span>
             </div>
             
-            <button type="submit" id="loginBtn">
+            <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
+            <div class="recaptcha-error" id="recaptcha-error">Please complete the reCAPTCHA verification</div>
+            
+            <button type="submit" id="loginBtn" disabled>
                 <span>Sign In</span>
             </button>
         </form>
@@ -167,11 +188,20 @@
         document.addEventListener('DOMContentLoaded', function() {
             const loginForm = document.getElementById('loginForm');
             const loginBtn = document.getElementById('loginBtn');
+            const recaptchaError = document.getElementById('recaptcha-error');
+            let recaptchaVerified = false;
             
-            // Mock user database (in a real app, this would be server-side)
+            // For demo purposes - replace with actual user database
             const mockUsers = {
                 '123456/7890': { password: 'password123', name: 'John Doe' },
                 '654321/0987': { password: 'securepass', name: 'Jane Smith' }
+            };
+            
+            // Enable submit button when reCAPTCHA is verified
+            window.enableSubmit = function() {
+                recaptchaVerified = true;
+                loginBtn.disabled = false;
+                recaptchaError.style.display = 'none';
             };
             
             // Form validation
@@ -196,6 +226,12 @@
                     document.getElementById('password-error').style.display = 'none';
                 }
                 
+                // Validate reCAPTCHA
+                if (!recaptchaVerified) {
+                    recaptchaError.style.display = 'block';
+                    isValid = false;
+                }
+                
                 return isValid;
             }
             
@@ -215,23 +251,32 @@
                     setTimeout(() => {
                         // Check mock user database
                         if (mockUsers[username] && mockUsers[username].password === password) {
-                            // Successful login - redirect to dashboard
-                            window.location.href = 'dasboard.html';
+                            // Store user data in sessionStorage (for demo purposes)
+                            sessionStorage.setItem('currentUser', JSON.stringify({
+                                username: username,
+                                name: mockUsers[username].name
+                            }));
                             
-                            // In a real app, you would:
-                            // 1. Send credentials to your backend
-                            // 2. Receive authentication token
-                            // 3. Store token securely
-                            // 4. Redirect to dashboard
+                            // Successful login - redirect to dasboard
+                            window.location.href = 'dasboard.html';
                         } else {
                             // Failed login
                             alert('Invalid credentials. Please try again.');
                             loginBtn.classList.remove('btn-loading');
                             loginBtn.innerHTML = '<span>Sign In</span>';
+                            
+                            // Reset reCAPTCHA
+                            grecaptcha.reset();
+                            recaptchaVerified = false;
+                            loginBtn.disabled = true;
                         }
                     }, 1500);
                 }
             });
+            
+            // Input validation on change
+            document.getElementById('username').addEventListener('input', validateForm);
+            document.getElementById('password').addEventListener('input', validateForm);
         });
     </script>
 </body>
