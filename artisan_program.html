@@ -68,7 +68,7 @@
             font-weight: 500;
         }
 
-        select {
+        select, .multiselect {
             width: 100%;
             padding: 0.8rem;
             border-radius: 8px;
@@ -76,6 +76,30 @@
             background-color: rgba(20, 25, 40, 0.8);
             color: var(--text-light);
             font-size: 1rem;
+        }
+
+        .multiselect-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .multiselect-option {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            background: rgba(255, 107, 0, 0.1);
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .multiselect-option input {
+            margin-right: 0.5rem;
+        }
+
+        .multiselect-option:hover {
+            background: rgba(255, 107, 0, 0.2);
         }
 
         button {
@@ -91,6 +115,18 @@
             width: 100%;
             font-family: 'Orbitron', sans-serif;
             text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: var(--neon-yellow);
+            transform: translateY(-2px);
+        }
+
+        button:disabled {
+            background: #555;
+            cursor: not-allowed;
+            transform: none;
         }
 
         .results {
@@ -139,6 +175,19 @@
             margin-bottom: 0.5rem;
             font-size: 0.9rem;
         }
+
+        .error-message {
+            color: var(--neon-pink);
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .selection-summary {
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: var(--neon-green);
+        }
     </style>
 </head>
 <body>
@@ -163,7 +212,25 @@
             </select>
         </div>
         
-        <button onclick="showAllCourses()">SHOW ALL ARTISAN COURSES</button>
+        <div class="form-group">
+            <label>SELECT PREFERRED COUNTIES (MINIMUM 2):</label>
+            <div class="multiselect-container" id="countySelect">
+                <!-- Counties will be populated by JavaScript -->
+            </div>
+            <div class="error-message" id="countyError">Please select at least 2 counties</div>
+            <div class="selection-summary" id="countySummary"></div>
+        </div>
+        
+        <div class="form-group">
+            <label>SELECT PREFERRED FIELDS (MINIMUM 3):</label>
+            <div class="multiselect-container" id="fieldSelect">
+                <!-- Fields will be populated by JavaScript -->
+            </div>
+            <div class="error-message" id="fieldError">Please select at least 3 fields</div>
+            <div class="selection-summary" id="fieldSummary"></div>
+        </div>
+        
+        <button id="searchBtn" onclick="showFilteredCourses()" disabled>FIND COURSES</button>
         
         <div class="results" id="results">
             <!-- Results will be displayed here -->
@@ -171,75 +238,205 @@
     </div>
 
     <script>
-        // Artisan course data with institutions
+        // Data
+        const counties = [
+            "Baringo", "Bomet", "Bungoma", "Busia", "Elgeyo-Marakwet",
+            "Embu", "Garissa", "Homa Bay", "Isiolo", "Kajiado",
+            "Kakamega", "Kericho", "Kiambu", "Kilifi", "Kirinyaga",
+            "Kisii", "Kisumu", "Kitui", "Kwale", "Laikipia",
+            "Lamu", "Machakos", "Makueni", "Mandera", "Marsabit",
+            "Meru", "Migori", "Mombasa", "Murang'a", "Nairobi",
+            "Nakuru", "Nandi", "Narok", "Nyamira", "Nyandarua",
+            "Nyeri", "Samburu", "Siaya", "Taita-Taveta", "Tana River",
+            "Tharaka-Nithi", "Trans Nzoia", "Turkana", "Uasin Gishu",
+            "Vihiga", "Wajir", "West Pokot"
+        ];
+
+        const fields = [
+            "Engineering and Technology and Related",
+            "Food Science",
+            "Building and Construction Related",
+            "Clothing, Fashion, and Textile",
+            "Technical",
+            "Hair Dressing and Beauty Therapy",
+            "Agriculture Science",
+            "Business",
+            "Hospitality and Tourism",
+            "ICT"
+        ];
+
+        // Artisan course data with institutions and counties
         const artisanCourses = [
             {
-                "category": "Building, Construction & Related",
+                "category": "Building and Construction Related",
                 "courses": [
                     {
                         "name": "Artisan in Masonry",
-                        "institutions": ["Nairobi Technical Training Institute", "Eldoret Polytechnic", "Mombasa Technical Training Institute"]
+                        "institutions": [
+                            {"name": "Nairobi Technical Training Institute", "county": "Nairobi"},
+                            {"name": "Eldoret Polytechnic", "county": "Uasin Gishu"},
+                            {"name": "Mombasa Technical Training Institute", "county": "Mombasa"}
+                        ]
                     },
                     {
                         "name": "Artisan in Plumbing",
-                        "institutions": ["Kisumu National Polytechnic", "Nyeri Technical Training Institute", "Meru Technical Training Institute"]
+                        "institutions": [
+                            {"name": "Kisumu National Polytechnic", "county": "Kisumu"},
+                            {"name": "Nyeri Technical Training Institute", "county": "Nyeri"},
+                            {"name": "Meru Technical Training Institute", "county": "Meru"}
+                        ]
                     }
-                    // Add more building/construction courses...
                 ]
             },
             {
-                "category": "Engineering & Technology",
+                "category": "Engineering and Technology and Related",
                 "courses": [
                     {
                         "name": "Artisan in Electrical Installation",
-                        "institutions": ["Nairobi Technical Training Institute", "Eldoret Polytechnic", "Kitale Technical Training Institute"]
+                        "institutions": [
+                            {"name": "Nairobi Technical Training Institute", "county": "Nairobi"},
+                            {"name": "Eldoret Polytechnic", "county": "Uasin Gishu"},
+                            {"name": "Kitale Technical Training Institute", "county": "Trans Nzoia"}
+                        ]
                     },
                     {
                         "name": "Artisan in Motor Vehicle Mechanics",
-                        "institutions": ["Mombasa Technical Training Institute", "Kisumu National Polytechnic", "Nakuru Vocational Training Centre"]
+                        "institutions": [
+                            {"name": "Mombasa Technical Training Institute", "county": "Mombasa"},
+                            {"name": "Kisumu National Polytechnic", "county": "Kisumu"},
+                            {"name": "Nakuru Vocational Training Centre", "county": "Nakuru"}
+                        ]
                     }
-                    // Add more engineering courses...
                 ]
             },
             {
-                "category": "Business & Related",
+                "category": "Business",
                 "courses": [
                     {
                         "name": "Artisan in Business Management",
-                        "institutions": ["Nairobi Technical Training Institute", "Kiambu Institute of Science and Technology", "Machakos Technical Training Institute"]
+                        "institutions": [
+                            {"name": "Nairobi Technical Training Institute", "county": "Nairobi"},
+                            {"name": "Kiambu Institute of Science and Technology", "county": "Kiambu"},
+                            {"name": "Machakos Technical Training Institute", "county": "Machakos"}
+                        ]
                     }
-                    // Add more business courses...
                 ]
             },
             {
-                "category": "Food Science & Related",
+                "category": "Food Science",
                 "courses": [
                     {
                         "name": "Artisan in Food and Beverage Production",
-                        "institutions": ["Kenya Utalii College", "Mombasa Technical Training Institute", "Nyeri Technical Training Institute"]
+                        "institutions": [
+                            {"name": "Kenya Utalii College", "county": "Nairobi"},
+                            {"name": "Mombasa Technical Training Institute", "county": "Mombasa"},
+                            {"name": "Nyeri Technical Training Institute", "county": "Nyeri"}
+                        ]
                     }
-                    // Add more food science courses...
                 ]
             },
             {
-                "category": "Hair Dressing & Beauty Therapy",
+                "category": "Hair Dressing and Beauty Therapy",
                 "courses": [
                     {
                         "name": "Artisan in Hairdressing",
-                        "institutions": ["Nairobi Technical Training Institute", "Eldoret Polytechnic", "Kisumu National Polytechnic"]
+                        "institutions": [
+                            {"name": "Nairobi Technical Training Institute", "county": "Nairobi"},
+                            {"name": "Eldoret Polytechnic", "county": "Uasin Gishu"},
+                            {"name": "Kisumu National Polytechnic", "county": "Kisumu"}
+                        ]
                     }
-                    // Add more beauty courses...
                 ]
             }
-            // Add more categories...
+            // Add more categories and courses as needed
         ];
 
-        function showAllCourses() {
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Populate counties
+            const countySelect = document.getElementById('countySelect');
+            counties.forEach(county => {
+                const option = document.createElement('div');
+                option.className = 'multiselect-option';
+                option.innerHTML = `
+                    <input type="checkbox" id="county-${county}" value="${county}">
+                    <label for="county-${county}">${county}</label>
+                `;
+                countySelect.appendChild(option);
+            });
+
+            // Populate fields
+            const fieldSelect = document.getElementById('fieldSelect');
+            fields.forEach(field => {
+                const option = document.createElement('div');
+                option.className = 'multiselect-option';
+                option.innerHTML = `
+                    <input type="checkbox" id="field-${field}" value="${field}">
+                    <label for="field-${field}">${field}</label>
+                `;
+                fieldSelect.appendChild(option);
+            });
+
+            // Add event listeners for validation
+            document.querySelectorAll('#countySelect input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', validateSelections);
+            });
+
+            document.querySelectorAll('#fieldSelect input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', validateSelections);
+            });
+        });
+
+        function validateSelections() {
+            const selectedCounties = Array.from(document.querySelectorAll('#countySelect input[type="checkbox"]:checked')).map(cb => cb.value);
+            const selectedFields = Array.from(document.querySelectorAll('#fieldSelect input[type="checkbox"]:checked')).map(cb => cb.value);
+            
+            // Update summaries
+            document.getElementById('countySummary').textContent = selectedCounties.length > 0 ? 
+                `Selected: ${selectedCounties.join(', ')}` : '';
+            document.getElementById('fieldSummary').textContent = selectedFields.length > 0 ? 
+                `Selected: ${selectedFields.join(', ')}` : '';
+            
+            // Validate counties
+            const countyError = document.getElementById('countyError');
+            if (selectedCounties.length < 2) {
+                countyError.style.display = 'block';
+            } else {
+                countyError.style.display = 'none';
+            }
+            
+            // Validate fields
+            const fieldError = document.getElementById('fieldError');
+            if (selectedFields.length < 3) {
+                fieldError.style.display = 'block';
+            } else {
+                fieldError.style.display = 'none';
+            }
+            
+            // Enable/disable search button
+            const searchBtn = document.getElementById('searchBtn');
+            searchBtn.disabled = !(selectedCounties.length >= 2 && selectedFields.length >= 3);
+        }
+
+        function showFilteredCourses() {
+            const selectedCounties = Array.from(document.querySelectorAll('#countySelect input[type="checkbox"]:checked')).map(cb => cb.value);
+            const selectedFields = Array.from(document.querySelectorAll('#fieldSelect input[type="checkbox"]:checked')).map(cb => cb.value);
+            
             const resultsDiv = document.getElementById('results');
             resultsDiv.innerHTML = '';
             resultsDiv.style.display = 'block';
             
-            artisanCourses.forEach(category => {
+            // Filter courses by selected fields
+            const filteredCategories = artisanCourses.filter(category => 
+                selectedFields.includes(category.category)
+            );
+            
+            if (filteredCategories.length === 0) {
+                resultsDiv.innerHTML = '<div class="course-item">No courses match your selected fields</div>';
+                return;
+            }
+            
+            filteredCategories.forEach(category => {
                 const categoryDiv = document.createElement('div');
                 categoryDiv.className = 'course-category';
                 
@@ -248,34 +445,51 @@
                 categoryTitle.textContent = category.category;
                 categoryDiv.appendChild(categoryTitle);
                 
+                let hasCourses = false;
+                
                 category.courses.forEach(course => {
-                    const courseDiv = document.createElement('div');
-                    courseDiv.className = 'course-item';
+                    // Filter institutions by selected counties
+                    const filteredInstitutions = course.institutions.filter(inst => 
+                        selectedCounties.includes(inst.county)
+                    );
                     
-                    const courseName = document.createElement('div');
-                    courseName.className = 'course-name';
-                    courseName.textContent = course.name;
-                    courseDiv.appendChild(courseName);
-                    
-                    const institutionsLabel = document.createElement('div');
-                    institutionsLabel.className = 'institutions';
-                    institutionsLabel.textContent = 'Offered at:';
-                    courseDiv.appendChild(institutionsLabel);
-                    
-                    const institutionsContainer = document.createElement('div');
-                    course.institutions.forEach(institution => {
-                        const institutionSpan = document.createElement('span');
-                        institutionSpan.className = 'institution-item';
-                        institutionSpan.textContent = institution;
-                        institutionsContainer.appendChild(institutionSpan);
-                    });
-                    courseDiv.appendChild(institutionsContainer);
-                    
-                    categoryDiv.appendChild(courseDiv);
+                    if (filteredInstitutions.length > 0) {
+                        hasCourses = true;
+                        
+                        const courseDiv = document.createElement('div');
+                        courseDiv.className = 'course-item';
+                        
+                        const courseName = document.createElement('div');
+                        courseName.className = 'course-name';
+                        courseName.textContent = course.name;
+                        courseDiv.appendChild(courseName);
+                        
+                        const institutionsLabel = document.createElement('div');
+                        institutionsLabel.className = 'institutions';
+                        institutionsLabel.textContent = 'Available in:';
+                        courseDiv.appendChild(institutionsLabel);
+                        
+                        const institutionsContainer = document.createElement('div');
+                        filteredInstitutions.forEach(inst => {
+                            const institutionSpan = document.createElement('span');
+                            institutionSpan.className = 'institution-item';
+                            institutionSpan.textContent = `${inst.name} (${inst.county})`;
+                            institutionsContainer.appendChild(institutionSpan);
+                        });
+                        courseDiv.appendChild(institutionsContainer);
+                        
+                        categoryDiv.appendChild(courseDiv);
+                    }
                 });
                 
-                resultsDiv.appendChild(categoryDiv);
+                if (hasCourses) {
+                    resultsDiv.appendChild(categoryDiv);
+                }
             });
+            
+            if (resultsDiv.children.length === 0) {
+                resultsDiv.innerHTML = '<div class="course-item">No courses available in your selected counties</div>';
+            }
             
             // Scroll to results
             resultsDiv.scrollIntoView({ behavior: 'smooth' });
