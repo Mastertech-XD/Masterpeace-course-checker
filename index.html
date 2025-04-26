@@ -3,43 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account Access | Your Brand</title>
+    <title>TrackMaster - Course Checker</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #4361ee;
-            --primary-light: #4895ef;
-            --secondary: #3f37c9;
-            --dark: #1b263b;
+            --primary: #e63946;
+            --primary-light: #f1faee;
+            --secondary: #1d3557;
+            --accent: #457b9d;
+            --dark: #0d1b2a;
             --light: #f8f9fa;
-            --success: #4cc9f0;
-            --danger: #f72585;
-            --warning: #f8961e;
-            --gray: #adb5bd;
-            --white: #ffffff;
+            --track-red: #e63946;
+            --track-steel: #a8dadc;
+            --track-dark: #1d3557;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Railway', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        @font-face {
+            font-family: 'Railway';
+            src: url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap');
         }
 
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: 
+                linear-gradient(rgba(29, 53, 87, 0.85), rgba(29, 53, 87, 0.85)),
+                url('https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
+            background-size: cover;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            color: var(--dark);
+            color: var(--light);
             line-height: 1.6;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Train track animation */
+        body::before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 60px;
+            background: 
+                linear-gradient(90deg, 
+                    var(--track-dark) 0%, 
+                    var(--track-dark) 25%, 
+                    var(--track-red) 25%, 
+                    var(--track-red) 30%, 
+                    var(--track-steel) 30%, 
+                    var(--track-steel) 35%,
+                    var(--track-dark) 35%,
+                    var(--track-dark) 100%);
+            animation: trackMove 20s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes trackMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         .container {
-            background-color: var(--white);
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(13, 27, 42, 0.3);
             padding: 2.5rem;
             width: 100%;
             max-width: 420px;
@@ -48,6 +84,7 @@
             overflow: hidden;
             transition: all 0.4s ease;
             animation: fadeIn 0.6s ease;
+            border: 2px solid var(--accent);
         }
 
         @keyframes fadeIn {
@@ -58,21 +95,32 @@
         .logo {
             margin-bottom: 1.5rem;
             color: var(--primary);
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            color: var(--secondary);
         }
 
         h1 {
-            color: var(--dark);
+            color: var(--secondary);
             margin-bottom: 0.75rem;
             font-size: 1.8rem;
             font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .subtitle {
-            color: var(--gray);
+            color: var(--dark);
             margin-bottom: 2rem;
             font-size: 0.95rem;
+            font-weight: 500;
         }
 
         .form-group {
@@ -84,8 +132,8 @@
         label {
             display: block;
             margin-bottom: 0.5rem;
-            color: var(--dark);
-            font-weight: 500;
+            color: var(--secondary);
+            font-weight: 600;
             font-size: 0.9rem;
         }
 
@@ -96,18 +144,19 @@
         input {
             width: 100%;
             padding: 0.85rem 1rem 0.85rem 2.8rem;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
+            border: 2px solid #a8dadc;
+            border-radius: 6px;
             font-size: 0.95rem;
             transition: all 0.3s ease;
-            background-color: #f8f9fa;
+            background-color: var(--primary-light);
+            color: var(--dark);
         }
 
         input:focus {
             outline: none;
-            border-color: var(--primary-light);
-            background-color: var(--white);
-            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+            border-color: var(--accent);
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(69, 123, 157, 0.2);
         }
 
         .input-icon {
@@ -115,16 +164,16 @@
             left: 1rem;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--gray);
+            color: var(--accent);
             font-size: 1rem;
         }
 
         button {
             background-color: var(--primary);
-            color: var(--white);
+            color: var(--light);
             border: none;
             padding: 0.9rem;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 1rem;
             font-weight: 600;
@@ -135,12 +184,14 @@
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         button:hover {
             background-color: var(--secondary);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
         }
 
         button:active {
@@ -149,7 +200,7 @@
 
         .toggle-link {
             margin-top: 1.5rem;
-            color: var(--gray);
+            color: var(--dark);
             font-size: 0.9rem;
         }
 
@@ -179,14 +230,14 @@
 
         /* Error states */
         .error {
-            color: var(--danger);
+            color: var(--primary);
             font-size: 0.8rem;
             margin-top: 0.25rem;
             display: none;
         }
 
         input.error-border {
-            border-color: var(--danger);
+            border-color: var(--primary);
         }
 
         /* Loading state */
@@ -206,7 +257,7 @@
             bottom: 0;
             margin: auto;
             border: 3px solid transparent;
-            border-top-color: var(--white);
+            border-top-color: var(--light);
             border-radius: 50%;
             animation: button-loading-spinner 1s ease infinite;
         }
@@ -214,6 +265,22 @@
         @keyframes button-loading-spinner {
             from { transform: rotate(0turn); }
             to { transform: rotate(1turn); }
+        }
+
+        /* Train whistle animation */
+        .whistle {
+            position: absolute;
+            bottom: 20px;
+            right: -100px;
+            font-size: 2rem;
+            color: var(--primary);
+            animation: whistleMove 15s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes whistleMove {
+            0% { transform: translateX(0) rotate(0deg); }
+            100% { transform: translateX(-150vw) rotate(360deg); }
         }
 
         /* Responsive adjustments */
@@ -226,17 +293,28 @@
             h1 {
                 font-size: 1.5rem;
             }
+
+            body::before {
+                height: 40px;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="whistle">
+        <i class="fas fa-train"></i>
+    </div>
+
     <div class="container">
-        <div class="logo">YourBrand</div>
+        <div class="logo">
+            <i class="fas fa-train"></i>
+            <span>TrackMaster</span>
+        </div>
         
         <!-- Login Form -->
         <div id="login-form" class="active-form">
-            <h1>Welcome Back!</h1>
-            <p class="subtitle">Sign in to access your personalized dashboard</p>
+            <h1>All Aboard!</h1>
+            <p class="subtitle">Sign in to check your course progress</p>
             
             <form id="loginForm">
                 <div class="form-group">
@@ -263,13 +341,13 @@
                 </button>
             </form>
             
-            <p class="toggle-link">Don't have an account? <a id="show-signup">Sign up</a></p>
+            <p class="toggle-link">Don't have a ticket? <a id="show-signup">Register</a></p>
         </div>
         
         <!-- Signup Form -->
         <div id="signup-form">
-            <h1>Create Account</h1>
-            <p class="subtitle">Join us today to get started</p>
+            <h1>Get Your Ticket</h1>
+            <p class="subtitle">Register to track your courses</p>
             
             <form id="signupForm">
                 <div class="form-group">
@@ -300,12 +378,12 @@
                 </div>
                 
                 <button type="submit" id="signup-btn">
-                    <i class="fas fa-user-plus"></i>
-                    <span>Sign Up</span>
+                    <i class="fas fa-ticket-alt"></i>
+                    <span>Register</span>
                 </button>
             </form>
             
-            <p class="toggle-link">Already have an account? <a id="show-login">Login</a></p>
+            <p class="toggle-link">Already have a ticket? <a id="show-login">Login</a></p>
         </div>
     </div>
 
@@ -322,8 +400,8 @@
             const signupBtn = document.getElementById('signup-btn');
 
             // Replace these with your actual URLs
-            const AFTER_LOGIN_URL = 'dashboard.html';    // Change to your post-login URL
-            const AFTER_SIGNUP_URL = 'welcome.html';    // Change to your post-signup URL
+            const AFTER_LOGIN_URL = 'dashboard.html';    // Change to your course dashboard URL
+            const AFTER_SIGNUP_URL = 'welcome.html';     // Change to your welcome page URL
 
             // Toggle between forms with animation
             showSignup.addEventListener('click', function(e) {
@@ -425,7 +503,7 @@
                     // Simulate API call with timeout
                     setTimeout(() => {
                         // Redirect after successful login
-                        window.location.href = 'dasboard.html';
+                        window.location.href = AFTER_LOGIN_URL;
                     }, 1500);
                 }
             });
@@ -441,7 +519,7 @@
                     // Simulate API call with timeout
                     setTimeout(() => {
                         // Redirect after successful signup
-                        window.location.href = 'index.html';
+                        window.location.href = AFTER_SIGNUP_URL;
                     }, 1500);
                 }
             });
