@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TrackMaster - Course Checker</title>
+    <title>KUCCPS TrackMaster - Course Qualification Checker</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -11,6 +11,8 @@
             --primary-light: #f1faee;
             --secondary: #1d3557;
             --accent: #457b9d;
+            --kuccps-green: #2a7f62;
+            --kuccps-yellow: #ffd700;
             --dark: #0d1b2a;
             --light: #f8f9fa;
             --track-red: #e63946;
@@ -33,7 +35,7 @@
         body {
             background: 
                 linear-gradient(rgba(29, 53, 87, 0.85), rgba(29, 53, 87, 0.85)),
-                url('https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
+                url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
             background-size: cover;
             display: flex;
             justify-content: center;
@@ -45,7 +47,7 @@
             overflow: hidden;
         }
 
-        /* Train track animation */
+        /* Train track animation with KUCCPS colors */
         body::before {
             content: "";
             position: absolute;
@@ -55,14 +57,14 @@
             height: 60px;
             background: 
                 linear-gradient(90deg, 
-                    var(--track-dark) 0%, 
-                    var(--track-dark) 25%, 
-                    var(--track-red) 25%, 
-                    var(--track-red) 30%, 
+                    var(--kuccps-green) 0%, 
+                    var(--kuccps-green) 25%, 
+                    var(--kuccps-yellow) 25%, 
+                    var(--kuccps-yellow) 30%, 
                     var(--track-steel) 30%, 
                     var(--track-steel) 35%,
-                    var(--track-dark) 35%,
-                    var(--track-dark) 100%);
+                    var(--kuccps-green) 35%,
+                    var(--kuccps-green) 100%);
             animation: trackMove 20s linear infinite;
             z-index: -1;
         }
@@ -84,7 +86,7 @@
             overflow: hidden;
             transition: all 0.4s ease;
             animation: fadeIn 0.6s ease;
-            border: 2px solid var(--accent);
+            border: 2px solid var(--kuccps-green);
         }
 
         @keyframes fadeIn {
@@ -94,7 +96,7 @@
 
         .logo {
             margin-bottom: 1.5rem;
-            color: var(--primary);
+            color: var(--kuccps-green);
             font-size: 2.2rem;
             font-weight: 700;
             display: flex;
@@ -108,7 +110,7 @@
         }
 
         h1 {
-            color: var(--secondary);
+            color: var(--kuccps-green);
             margin-bottom: 0.75rem;
             font-size: 1.8rem;
             font-weight: 700;
@@ -123,6 +125,17 @@
             font-weight: 500;
         }
 
+        .kuccps-badge {
+            background-color: var(--kuccps-green);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
         .form-group {
             margin-bottom: 1.25rem;
             text-align: left;
@@ -132,7 +145,7 @@
         label {
             display: block;
             margin-bottom: 0.5rem;
-            color: var(--secondary);
+            color: var(--kuccps-green);
             font-weight: 600;
             font-size: 0.9rem;
         }
@@ -154,9 +167,9 @@
 
         input:focus {
             outline: none;
-            border-color: var(--accent);
+            border-color: var(--kuccps-green);
             background-color: white;
-            box-shadow: 0 0 0 3px rgba(69, 123, 157, 0.2);
+            box-shadow: 0 0 0 3px rgba(42, 127, 98, 0.2);
         }
 
         .input-icon {
@@ -164,12 +177,12 @@
             left: 1rem;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--accent);
+            color: var(--kuccps-green);
             font-size: 1rem;
         }
 
         button {
-            background-color: var(--primary);
+            background-color: var(--kuccps-green);
             color: var(--light);
             border: none;
             padding: 0.9rem;
@@ -191,7 +204,7 @@
         button:hover {
             background-color: var(--secondary);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
+            box-shadow: 0 5px 15px rgba(42, 127, 98, 0.3);
         }
 
         button:active {
@@ -205,7 +218,7 @@
         }
 
         .toggle-link a {
-            color: var(--primary);
+            color: var(--kuccps-green);
             text-decoration: none;
             font-weight: 600;
             cursor: pointer;
@@ -273,7 +286,7 @@
             bottom: 20px;
             right: -100px;
             font-size: 2rem;
-            color: var(--primary);
+            color: var(--kuccps-green);
             animation: whistleMove 15s linear infinite;
             opacity: 0.7;
         }
@@ -302,28 +315,30 @@
 </head>
 <body>
     <div class="whistle">
-        <i class="fas fa-train"></i>
+        <i class="fas fa-graduation-cap"></i>
     </div>
 
     <div class="container">
         <div class="logo">
-            <i class="fas fa-train"></i>
-            <span>TrackMaster</span>
+            <i class="fas fa-graduation-cap"></i>
+            <span>KUCCPS TrackMaster</span>
         </div>
+        
+        <div class="kuccps-badge">Official Course Qualification Checker</div>
         
         <!-- Login Form -->
         <div id="login-form" class="active-form">
-            <h1>All Aboard!</h1>
-            <p class="subtitle">Sign in to check your course progress</p>
+            <h1>Check Your Eligibility</h1>
+            <p class="subtitle">Sign in to verify your course qualifications</p>
             
             <form id="loginForm">
                 <div class="form-group">
-                    <label for="login-username">Username or Email</label>
+                    <label for="login-username">KCSE Index Number</label>
                     <div class="input-wrapper">
-                        <i class="fas fa-user input-icon"></i>
-                        <input type="text" id="login-username" placeholder="Enter your username or email" required>
+                        <i class="fas fa-id-card input-icon"></i>
+                        <input type="text" id="login-username" placeholder="Enter your KCSE index number" required>
                     </div>
-                    <span class="error" id="login-username-error">Please enter a valid username or email</span>
+                    <span class="error" id="login-username-error">Please enter a valid index number</span>
                 </div>
                 
                 <div class="form-group">
@@ -336,31 +351,31 @@
                 </div>
                 
                 <button type="submit" id="login-btn">
-                    <i class="fas fa-sign-in-alt"></i>
-                    <span>Login</span>
+                    <i class="fas fa-search"></i>
+                    <span>Check Qualifications</span>
                 </button>
             </form>
             
-            <p class="toggle-link">Don't have a ticket? <a id="show-signup">Register</a></p>
+            <p class="toggle-link">New to KUCCPS? <a id="show-signup">Register Here</a></p>
         </div>
         
         <!-- Signup Form -->
         <div id="signup-form">
-            <h1>Get Your Ticket</h1>
-            <p class="subtitle">Register to track your courses</p>
+            <h1>Create Account</h1>
+            <p class="subtitle">Register to check course qualifications</p>
             
             <form id="signupForm">
                 <div class="form-group">
-                    <label for="signup-username">Username</label>
+                    <label for="signup-username">KCSE Index Number</label>
                     <div class="input-wrapper">
-                        <i class="fas fa-user input-icon"></i>
-                        <input type="text" id="signup-username" placeholder="Choose a username" required>
+                        <i class="fas fa-id-card input-icon"></i>
+                        <input type="text" id="signup-username" placeholder="Enter your KCSE index number" required>
                     </div>
-                    <span class="error" id="signup-username-error">Username must be 4-20 characters</span>
+                    <span class="error" id="signup-username-error">Please enter a valid index number</span>
                 </div>
                 
                 <div class="form-group">
-                    <label for="signup-email">Email</label>
+                    <label for="signup-email">Email Address</label>
                     <div class="input-wrapper">
                         <i class="fas fa-envelope input-icon"></i>
                         <input type="email" id="signup-email" placeholder="Enter your email" required>
@@ -369,7 +384,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="signup-password">Password</label>
+                    <label for="signup-password">Create Password</label>
                     <div class="input-wrapper">
                         <i class="fas fa-lock input-icon"></i>
                         <input type="password" id="signup-password" placeholder="Create a password" required>
@@ -378,12 +393,12 @@
                 </div>
                 
                 <button type="submit" id="signup-btn">
-                    <i class="fas fa-ticket-alt"></i>
-                    <span>Register</span>
+                    <i class="fas fa-user-plus"></i>
+                    <span>Register Account</span>
                 </button>
             </form>
             
-            <p class="toggle-link">Already have a ticket? <a id="show-login">Login</a></p>
+            <p class="toggle-link">Already registered? <a id="show-login">Login Here</a></p>
         </div>
     </div>
 
@@ -400,8 +415,8 @@
             const signupBtn = document.getElementById('signup-btn');
 
             // Replace these with your actual URLs
-            const AFTER_LOGIN_URL = 'dashboard.html';    // Change to your course dashboard URL
-            const AFTER_SIGNUP_URL = 'welcome.html';     // Change to your welcome page URL
+            const AFTER_LOGIN_URL ='dasboard.html';    // Change to your results page
+            const AFTER_SIGNUP_URL = 'dasboard.html';             // Change to your dashboard page
 
             // Toggle between forms with animation
             showSignup.addEventListener('click', function(e) {
@@ -423,13 +438,20 @@
             });
 
             // Form validation functions
+            function validateKCSEIndex(index) {
+                // Basic validation for KCSE index number format
+                const regex = /^[0-9]{6}\/[0-9]{4}$/;
+                return regex.test(index);
+            }
+
             function validateLoginForm() {
                 let isValid = true;
                 const username = document.getElementById('login-username').value.trim();
                 const password = document.getElementById('login-password').value;
                 
-                // Validate username/email
-                if (username === '') {
+                // Validate KCSE index number
+                if (!validateKCSEIndex(username)) {
+                    document.getElementById('login-username-error').textContent = 'Please enter a valid KCSE index number (e.g. 123456/7890)';
                     document.getElementById('login-username-error').style.display = 'block';
                     document.getElementById('login-username').classList.add('error-border');
                     isValid = false;
@@ -457,8 +479,9 @@
                 const email = document.getElementById('signup-email').value.trim();
                 const password = document.getElementById('signup-password').value;
                 
-                // Validate username
-                if (username.length < 4 || username.length > 20) {
+                // Validate KCSE index number
+                if (!validateKCSEIndex(username)) {
+                    document.getElementById('signup-username-error').textContent = 'Please enter a valid KCSE index number (e.g. 123456/7890)';
                     document.getElementById('signup-username-error').style.display = 'block';
                     document.getElementById('signup-username').classList.add('error-border');
                     isValid = false;
@@ -502,7 +525,7 @@
                     
                     // Simulate API call with timeout
                     setTimeout(() => {
-                        // Redirect after successful login
+                        // Redirect to qualification results page
                         window.location.href = AFTER_LOGIN_URL;
                     }, 1500);
                 }
@@ -518,7 +541,7 @@
                     
                     // Simulate API call with timeout
                     setTimeout(() => {
-                        // Redirect after successful signup
+                        // Redirect to dashboard after registration
                         window.location.href = AFTER_SIGNUP_URL;
                     }, 1500);
                 }
