@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KUCCPS TrackMaster - Login</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>KUCCPS Course Checker</title>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <style>
         :root {
@@ -55,76 +54,61 @@
 
         h1 {
             color: var(--kuccps-green);
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
         }
 
         .subtitle {
             color: var(--dark);
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
 
-        .form-group {
-            margin-bottom: 1.25rem;
-            text-align: left;
+        .g-recaptcha {
+            margin: 1rem 0 2rem;
+            display: flex;
+            justify-content: center;
         }
 
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--kuccps-green);
-            font-weight: 600;
-        }
-
-        input {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            font-size: 1rem;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: var(--kuccps-green);
+        .recaptcha-error {
+            color: var(--error-red);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: none;
         }
 
         button {
             background-color: var(--kuccps-green);
             color: white;
             border: none;
-            padding: 0.8rem;
+            padding: 0.8rem 2rem;
             border-radius: 6px;
             cursor: pointer;
             font-size: 1rem;
             font-weight: 600;
-            width: 100%;
-            margin-top: 0.5rem;
             transition: all 0.3s;
         }
 
         button:hover {
             background-color: #1f5e48;
+            transform: translateY(-2px);
         }
 
         button:disabled {
             background-color: #cccccc;
             cursor: not-allowed;
-        }
-
-        .error {
-            color: var(--error-red);
-            font-size: 0.8rem;
-            margin-top: 0.25rem;
-            display: none;
+            transform: none;
         }
 
         .btn-loading {
             position: relative;
+            padding-left: 2.5rem;
         }
 
         .btn-loading::after {
             content: "";
             position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
             width: 16px;
             height: 16px;
             border: 3px solid transparent;
@@ -134,21 +118,8 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0turn); }
-            100% { transform: rotate(1turn); }
-        }
-
-        .g-recaptcha {
-            margin: 1rem 0;
-            display: flex;
-            justify-content: center;
-        }
-
-        .recaptcha-error {
-            color: var(--error-red);
-            font-size: 0.8rem;
-            margin-bottom: 1rem;
-            display: none;
+            0% { transform: translateY(-50%) rotate(0turn); }
+            100% { transform: translateY(-50%) rotate(1turn); }
         }
     </style>
 </head>
@@ -156,127 +127,50 @@
     <div class="container">
         <div class="logo">
             <i class="fas fa-graduation-cap"></i>
-            <span>KUCCPS TrackMaster</span>
+            <span>KUCCPS Course Checker</span>
         </div>
         
-        <h1>Course Qualification Checker</h1>
-        <p class="subtitle">Sign in to check your course eligibility</p>
+        <h1>Verify Your Eligibility</h1>
+        <p class="subtitle">Complete the verification to check your course qualifications</p>
         
-        <form id="loginForm">
-            <div class="form-group">
-                <label for="username">KCSE Index Number</label>
-                <input type="text" id="username" placeholder="e.g. 123456/7890" required>
-                <span class="error" id="username-error">Please enter a valid index number</span>
-            </div>
-            
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" required>
-                <span class="error" id="password-error">Password must be at least 6 characters</span>
-            </div>
-            
-            <div class="g-recaptcha" data-sitekey="6LfrhyUrAAAAABfzP2mu0MclfgsyUly_D06sgEj9"></div>
-            <div class="recaptcha-error" id="recaptcha-error">Please complete the reCAPTCHA verification</div>
-            
-            <button type="submit" id="loginBtn" disabled>
-                <span>Sign In</span>
-            </button>
-        </form>
+        <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" data-callback="enableSubmit"></div>
+        <div class="recaptcha-error" id="recaptcha-error">Please complete the verification</div>
+        
+        <button id="continueBtn" disabled>
+            Continue to Dashboard
+        </button>
     </div>
 
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const loginForm = document.getElementById('loginForm');
-            const loginBtn = document.getElementById('loginBtn');
+            const continueBtn = document.getElementById('continueBtn');
             const recaptchaError = document.getElementById('recaptcha-error');
             let recaptchaVerified = false;
             
-            // For demo purposes - replace with actual user database
-            const mockUsers = {
-                '123456/7890': { password: 'password123', name: 'John Doe' },
-                '654321/0987': { password: 'securepass', name: 'Jane Smith' }
-            };
-            
-            // Enable submit button when reCAPTCHA is verified
+            // Enable button when reCAPTCHA is verified
             window.enableSubmit = function() {
                 recaptchaVerified = true;
-                loginBtn.disabled = false;
+                continueBtn.disabled = false;
                 recaptchaError.style.display = 'none';
             };
             
-            // Form validation
-            function validateForm() {
-                let isValid = true;
-                const username = document.getElementById('username').value.trim();
-                const password = document.getElementById('password').value;
-                
-                // Validate KCSE index format (basic check)
-                if (!/^\d{6}\/\d{4}$/.test(username)) {
-                    document.getElementById('username-error').style.display = 'block';
-                    isValid = false;
-                } else {
-                    document.getElementById('username-error').style.display = 'none';
-                }
-                
-                // Validate password length
-                if (password.length < 6) {
-                    document.getElementById('password-error').style.display = 'block';
-                    isValid = false;
-                } else {
-                    document.getElementById('password-error').style.display = 'none';
-                }
-                
-                // Validate reCAPTCHA
-                if (!recaptchaVerified) {
-                    recaptchaError.style.display = 'block';
-                    isValid = false;
-                }
-                
-                return isValid;
-            }
-            
-            // Form submission
-            loginForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                if (validateForm()) {
+            // Handle continue button click
+            continueBtn.addEventListener('click', function() {
+                if (recaptchaVerified) {
                     // Show loading state
-                    loginBtn.innerHTML = '';
-                    loginBtn.classList.add('btn-loading');
+                    continueBtn.innerHTML = 'Loading...';
+                    continueBtn.classList.add('btn-loading');
                     
-                    const username = document.getElementById('username').value.trim();
-                    const password = document.getElementById('password').value;
-                    
-                    // Simulate API call with timeout
+                    // Simulate verification process
                     setTimeout(() => {
-                        // Check mock user database
-                        if (mockUsers[username] && mockUsers[username].password === password) {
-                            // Store user data in sessionStorage (for demo purposes)
-                            sessionStorage.setItem('currentUser', JSON.stringify({
-                                username: username,
-                                name: mockUsers[username].name
-                            }));
-                            
-                            // Successful login - redirect to dasboard
-                            window.location.href = 'dasboard.html';
-                        } else {
-                            // Failed login
-                            alert('Invalid credentials. Please try again.');
-                            loginBtn.classList.remove('btn-loading');
-                            loginBtn.innerHTML = '<span>Sign In</span>';
-                            
-                            // Reset reCAPTCHA
-                            grecaptcha.reset();
-                            recaptchaVerified = false;
-                            loginBtn.disabled = true;
-                        }
-                    }, 1500);
+                        // Redirect to dashboard after verification
+                        window.location.href = 'dasboard.html';
+                    }, 1000);
+                } else {
+                    recaptchaError.style.display = 'block';
                 }
             });
-            
-            // Input validation on change
-            document.getElementById('username').addEventListener('input', validateForm);
-            document.getElementById('password').addEventListener('input', validateForm);
         });
     </script>
 </body>
