@@ -1,169 +1,1173 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Career Guidance - CourseChecker Pro</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Career Compass - Personalized Career Guidance</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- PDF Export Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --primary: #4361ee;
+      --secondary: #3f37c9;
+      --accent: #4cc9f0;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --success: #38b000;
+      --warning: #ffaa00;
+      --danger: #ef233c;
+      --gradient-start: #3a0ca3;
+      --gradient-end: #7209b7;
+    }
+
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+    }
+
     body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
-      color: #fff;
-      margin: 0;
-      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      color: var(--light);
+      line-height: 1.6;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      padding: 2.5rem;
+      max-width: 850px;
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: rotate 20s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(to right, var(--accent), #f72585);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(to right, var(--accent), #f72585);
+      border-radius: 3px;
+    }
+
+    label {
+      font-weight: 500;
+      margin-top: 1.2rem;
+      display: block;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .select-wrapper {
+      position: relative;
+      margin-top: 0.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .select-wrapper::after {
+      content: '\f078';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      transform: translateY(-50%);
+      color: rgba(255,255,255,0.7);
+      pointer-events: none;
+    }
+
+    select {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      border: none;
+      background: rgba(255,255,255,0.15);
+      color: var(--light);
+      appearance: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    select:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    select:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(76, 201, 240, 0.3);
+      background: rgba(255,255,255,0.25);
+    }
+
+    select option {
+      color: var(--dark);
+      background: var(--light);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 1.2rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: var(--light);
+      border: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1.5rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-    }.container {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  padding: 2rem;
-  border-radius: 20px;
-  max-width: 800px;
-  width: 90%;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-}
+      gap: 10px;
+      box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+    }
 
-h1 {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-}
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+    }
 
-label {
-  display: block;
-  margin-top: 1rem;
-  font-weight: 600;
-}
+    .btn:active {
+      transform: translateY(1px);
+    }
 
-select, input {
-  width: 100%;
-  padding: 0.75rem;
-  margin-top: 0.5rem;
-  border: none;
-  border-radius: 10px;
-  font-size: 1rem;
-}
+    .btn-secondary {
+      background: linear-gradient(135deg, #7209b7, #560bad);
+      box-shadow: 0 4px 15px rgba(114, 9, 183, 0.3);
+    }
 
-button {
-  background-color: #00dfc0;
-  color: #000;
-  border: none;
-  padding: 1rem;
-  font-size: 1rem;
-  margin-top: 1.5rem;
-  border-radius: 10px;
-  width: 100%;
-  cursor: pointer;
-  font-weight: 600;
-}
+    .btn-secondary:hover {
+      box-shadow: 0 6px 20px rgba(114, 9, 183, 0.4);
+    }
 
-.result {
-  margin-top: 2rem;
-  background-color: rgba(255,255,255,0.2);
-  padding: 1.5rem;
-  border-radius: 10px;
-}
+    .btn i {
+      font-size: 1.2rem;
+    }
 
+    .result-container {
+      margin-top: 2.5rem;
+      background: rgba(255,255,255,0.1);
+      padding: 2rem;
+      border-radius: 15px;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--light);
+      display: none;
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
+    }
+
+    .result-container.show {
+      display: block;
+      animation: fadeInUp 0.6s ease;
+    }
+
+    @keyframes fadeInUp {
+      from { 
+        opacity: 0; 
+        transform: translateY(20px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0); 
+      }
+    }
+
+    .career-header {
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .career-title {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent);
+    }
+
+    .career-description {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      margin: 1.8rem 0 1rem;
+      color: var(--accent);
+      position: relative;
+      padding-left: 15px;
+    }
+
+    .section-title::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 70%;
+      width: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .career-list {
+      margin-top: 1rem;
+      padding-left: 1.2rem;
+    }
+
+    .career-list li {
+      margin-bottom: 0.8rem;
+      position: relative;
+      padding-left: 1.8rem;
+    }
+
+    .career-list li::before {
+      content: '\f054';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.8rem;
+    }
+
+    .highlight-box {
+      background: rgba(76, 201, 240, 0.1);
+      border-left: 4px solid var(--accent);
+      padding: 1.2rem;
+      margin: 1.5rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .highlight-box i {
+      color: var(--accent);
+      margin-right: 8px;
+    }
+
+    .stats-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin: 1.5rem 0;
+    }
+
+    .stat-box {
+      flex: 1 1 200px;
+      background: rgba(255,255,255,0.08);
+      padding: 1rem;
+      border-radius: 10px;
+      text-align: center;
+      min-width: 150px;
+    }
+
+    .stat-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .related-careers {
+      margin-top: 2rem;
+    }
+
+    .pill-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 1rem;
+    }
+
+    .pill {
+      background: rgba(76, 201, 240, 0.2);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      border: 1px solid rgba(76, 201, 240, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .pill:hover {
+      background: rgba(76, 201, 240, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .education-path {
+      margin-top: 1.5rem;
+    }
+
+    .path-step {
+      display: flex;
+      margin-bottom: 1.2rem;
+      position: relative;
+      padding-left: 30px;
+    }
+
+    .path-step::before {
+      content: '';
+      position: absolute;
+      left: 10px;
+      top: 0;
+      height: 100%;
+      width: 2px;
+      background: rgba(76, 201, 240, 0.5);
+    }
+
+    .path-step:last-child::before {
+      height: 20px;
+    }
+
+    .step-icon {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: var(--dark);
+    }
+
+    .step-content {
+      flex: 1;
+    }
+
+    .step-title {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .step-duration {
+      font-size: 0.8rem;
+      opacity: 0.7;
+      margin-bottom: 0.3rem;
+    }
+
+    .step-description {
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    .salary-range {
+      height: 10px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 5px;
+      margin: 1rem 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .salary-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #4cc9f0, #4895ef);
+      border-radius: 5px;
+      position: relative;
+    }
+
+    .salary-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      margin-top: 0.3rem;
+    }
+
+    .resources-list {
+      margin-top: 1rem;
+    }
+
+    .resource-item {
+      margin-bottom: 0.8rem;
+    }
+
+    .resource-item a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .resource-item a:hover {
+      color: #f72585;
+      text-decoration: underline;
+    }
+
+    .resource-item i {
+      font-size: 0.9rem;
+    }
+
+    .no-match {
+      text-align: center;
+      padding: 2rem 0;
+    }
+
+    .no-match-icon {
+      font-size: 3rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    @media(max-width: 768px) {
+      .container {
+        padding: 1.8rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .career-title {
+        font-size: 1.5rem;
+      }
+
+      .stat-box {
+        min-width: 120px;
+      }
+    }
+
+    @media(max-width: 480px) {
+      body {
+        padding: 1rem;
+      }
+
+      .container {
+        padding: 1.5rem;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .btn {
+        padding: 1rem;
+      }
+
+      .result-container {
+        padding: 1.5rem;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Career Guidance Assistant</h1>
-    <label for="name">Full Name</label>
-    <input type="text" id="name" placeholder="Enter your name" /><label for="subject">Strongest Subject</label>
-<select id="subject">
-  <option value="math">Mathematics</option>
-  <option value="biology">Biology</option>
-  <option value="chemistry">Chemistry</option>
-  <option value="physics">Physics</option>
-  <option value="english">English/Literature</option>
-  <option value="geography">Geography</option>
-  <option value="business">Business Studies</option>
-  <option value="computer">Computer Studies</option>
-</select>
+    <h1><i class="fas fa-compass"></i> Career Compass</h1>
 
-<label for="interest">Area of Interest</label>
-<select id="interest">
-  <option value="tech">Technology</option>
-  <option value="finance">Finance</option>
-  <option value="health">Healthcare</option>
-  <option value="law">Law & Advocacy</option>
-  <option value="research">Research</option>
-  <option value="environment">Environment</option>
-</select>
+    <label for="subject"><i class="fas fa-book-open"></i> Your Academic Strength</label>
+    <div class="select-wrapper">
+      <select id="subject">
+        <option value="">-- Select your strongest subject --</option>
+        <option value="math">Mathematics</option>
+        <option value="biology">Biology</option>
+        <option value="chemistry">Chemistry</option>
+        <option value="physics">Physics</option>
+        <option value="english">English/Literature</option>
+        <option value="geography">Geography</option>
+        <option value="business">Business Studies</option>
+        <option value="computer">Computer Studies</option>
+      </select>
+    </div>
 
-<button onclick="generateSuggestion()">Generate Career Path</button>
-<button onclick="downloadPDF()">Download PDF</button>
+    <label for="interest"><i class="fas fa-heart"></i> Your Passion & Interests</label>
+    <div class="select-wrapper">
+      <select id="interest">
+        <option value="">-- Select your primary interest --</option>
+        <option value="tech">Technology & Innovation</option>
+        <option value="research">Research & Analysis</option>
+        <option value="healthcare">Helping People (Healthcare)</option>
+        <option value="design">Building / Designing</option>
+        <option value="law">Speaking, Law, Leadership</option>
+        <option value="finance">Money & Business</option>
+        <option value="environment">Nature & Environment</option>
+      </select>
+    </div>
 
-<div class="result" id="pdf-content"></div>
+    <button class="btn" onclick="suggestCareer()">
+      <i class="fas fa-search"></i> Discover Your Career Path
+    </button>
 
-  </div>  <script>
-    const kuccpsCourses = {
+    <div id="result" class="result-container">
+      <div class="career-header">
+        <h2 id="career-title" class="career-title"></h2>
+        <div id="career-description" class="career-description"></div>
+      </div>
+
+      <div class="stats-container">
+        <div class="stat-box">
+          <div class="stat-value" id="growth-stat">8.5%</div>
+          <div class="stat-label">Job Growth (2022-32)</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" id="salary-stat">$85K</div>
+          <div class="stat-label">Median Salary</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" id="education-stat">Master's</div>
+          <div class="stat-label">Typical Education</div>
+        </div>
+      </div>
+
+      <div class="salary-range">
+        <div class="salary-fill" id="salary-range-bar"></div>
+      </div>
+      <div class="salary-labels">
+        <span>Entry Level: <span id="entry-salary">$45K</span></span>
+        <span>Experienced: <span id="experienced-salary">$120K</span></span>
+      </div>
+
+      <h3 class="section-title"><i class="fas fa-briefcase"></i> Career Opportunities</h3>
+      <ul id="career-list" class="career-list"></ul>
+
+      <div class="highlight-box">
+        <i class="fas fa-lightbulb"></i>
+        <span id="additional-info"></span>
+      </div>
+
+      <h3 class="section-title"><i class="fas fa-graduation-cap"></i> Education Pathway</h3>
+      <div id="education-path" class="education-path"></div>
+
+      <h3 class="section-title"><i class="fas fa-chart-line"></i> Related Career Paths</h3>
+      <div id="related-careers" class="related-careers">
+        <div class="pill-container" id="related-pills"></div>
+      </div>
+
+      <h3 class="section-title"><i class="fas fa-book"></i> Recommended Resources</h3>
+      <div id="resources-list" class="resources-list"></div>
+    </div>
+
+    <button id="download-btn" class="btn btn-secondary" onclick="downloadPDF()">
+      <i class="fas fa-file-pdf"></i> Download Career Report
+    </button>
+  </div>
+
+  <script>
+    const careerDatabase = {
       math: {
         finance: {
-          title: "Actuarial Science",
-          code: "JKUAT BSc 1247",
-          description: "Analyze financial risk using mathematics."
+          title: "Mathematical Finance Professional",
+          description: "Your exceptional mathematical skills combined with financial acumen position you perfectly for careers that require quantitative analysis, risk assessment, and strategic financial decision-making.",
+          careers: [
+            "Actuary - Assess financial risks using mathematics, statistics, and financial theory (Median salary: $113,990)",
+            "Financial Analyst - Evaluate financial data and investment opportunities ($96,220)",
+            "Quantitative Analyst - Develop complex models to guide investment decisions ($133,470)",
+            "Economist - Research economic issues and analyze data ($113,940)",
+            "Investment Banker - Help corporations raise capital and execute mergers ($100,000+)"
+          ],
+          additional: "Professional certifications like the CFA (Chartered Financial Analyst) or ASA (Associate of the Society of Actuaries) can significantly boost your career prospects and earning potential.",
+          growth: "15%",
+          salary: "$105,000",
+          education: "Bachelor's + Certifications",
+          salaryRange: [45000, 105000, 180000],
+          educationPath: [
+            {
+              title: "Bachelor's Degree",
+              duration: "4 years",
+              description: "Mathematics, Statistics, Economics, or Finance major with strong quantitative focus"
+            },
+            {
+              title: "Internships",
+              duration: "1-2 summers",
+              description: "Gain practical experience at financial institutions or insurance companies"
+            },
+            {
+              title: "Professional Certification",
+              duration: "2-4 years",
+              description: "Pursue CFA, FRM, or actuarial exams depending on career path"
+            },
+            {
+              title: "Master's Degree (Optional)",
+              duration: "1-2 years",
+              description: "Consider M.S. in Financial Mathematics or MBA for advancement"
+            }
+          ],
+          related: ["Data Scientist", "Risk Manager", "Portfolio Manager", "Financial Engineer", "Treasury Analyst"],
+          resources: [
+            {
+              name: "Society of Actuaries",
+              url: "https://www.soa.org"
+            },
+            {
+              name: "CFA Institute",
+              url: "https://www.cfainstitute.org"
+            },
+            {
+              name: "Quantitative Finance Stack Exchange",
+              url: "https://quant.stackexchange.com"
+            }
+          ]
         },
         research: {
-          title: "Statistics & Analytics",
-          code: "UoN BSc 1356",
-          description: "Use data to solve real world problems."
+          title: "Mathematical Research Specialist",
+          description: "Your analytical mind and passion for research make you ideal for careers that involve solving complex problems, developing new mathematical theories, or applying advanced mathematics to real-world challenges.",
+          careers: [
+            "Data Scientist - Extract insights from complex datasets ($103,500)",
+            "Operations Research Analyst - Use mathematical modeling to solve business problems ($85,720)",
+            "Cryptographer - Develop algorithms to secure digital information ($145,000)",
+            "Statistician - Design experiments and analyze data ($98,920)",
+            "Mathematician - Conduct research to develop mathematical principles ($112,110)"
+          ],
+          additional: "Many research positions in mathematics require graduate degrees, but the field offers excellent job prospects with growing demand across industries like tech, healthcare, and government.",
+          growth: "31%",
+          salary: "$97,000",
+          education: "Master's or PhD",
+          salaryRange: [60000, 97000, 150000],
+          educationPath: [
+            {
+              title: "Bachelor's Degree",
+              duration: "4 years",
+              description: "Mathematics, Applied Math, or Statistics with computer science coursework"
+            },
+            {
+              title: "Research Experience",
+              duration: "1-2 years",
+              description: "Undergraduate research projects or REU programs"
+            },
+            {
+              title: "Graduate Degree",
+              duration: "2-6 years",
+              description: "Master's or PhD in Mathematics, Statistics, or related field"
+            },
+            {
+              title: "Postdoctoral Research",
+              duration: "2-3 years",
+              description: "For academic or advanced research positions"
+            }
+          ],
+          related: ["Machine Learning Engineer", "Quantitative Researcher", "Biostatistician", "Financial Mathematician", "Cryptanalyst"],
+          resources: [
+            {
+              name: "American Mathematical Society",
+              url: "https://www.ams.org"
+            },
+            {
+              name: "Kaggle - Data Science Competitions",
+              url: "https://www.kaggle.com"
+            },
+            {
+              name: "arXiv - Math Research Papers",
+              url: "https://arxiv.org/archive/math"
+            }
+          ]
         }
       },
       biology: {
-        health: {
-          title: "Bachelor of Medicine",
-          code: "Moi Univ BSc 1012",
-          description: "Become a medical doctor."
+        healthcare: {
+          title: "Biological Healthcare Professional",
+          description: "Your understanding of biological systems combined with a desire to help people makes healthcare an excellent career path where you can apply scientific knowledge to improve lives.",
+          careers: [
+            "Physician - Diagnose and treat medical conditions ($208,000+)",
+            "Surgeon - Perform operations to treat diseases/injuries ($208,000+)",
+            "Pharmacist - Dispense medications and provide expertise ($132,750)",
+            "Physician Assistant - Examine patients and prescribe treatment ($126,010)",
+            "Biomedical Researcher - Conduct studies to improve healthcare ($95,310)"
+          ],
+          additional: "Healthcare careers typically require extensive education but offer high job satisfaction and stability. Specialization can lead to higher earnings and unique opportunities.",
+          growth: "13%",
+          salary: "$120,000",
+          education: "Doctoral/Professional",
+          salaryRange: [60000, 120000, 250000],
+          educationPath: [
+            {
+              title: "Bachelor's Degree",
+              duration: "4 years",
+              description: "Biology, Biochemistry, or Pre-Med track with clinical experience"
+            },
+            {
+              title: "Medical School/PharmD",
+              duration: "4 years",
+              description: "Professional degree program with clinical rotations"
+            },
+            {
+              title: "Residency/Internship",
+              duration: "3-7 years",
+              description: "Specialized training in chosen medical field"
+            },
+            {
+              title: "Board Certification",
+              duration: "1-2 years",
+              description: "Optional for specialization and advancement"
+            }
+          ],
+          related: ["Dentist", "Optometrist", "Genetic Counselor", "Epidemiologist", "Medical Scientist"],
+          resources: [
+            {
+              name: "Association of American Medical Colleges",
+              url: "https://www.aamc.org"
+            },
+            {
+              name: "American Medical Association",
+              url: "https://www.ama-assn.org"
+            },
+            {
+              name: "National Institutes of Health",
+              url: "https://www.nih.gov"
+            }
+          ]
         },
         research: {
-          title: "Biotechnology",
-          code: "Egerton BSc 1182",
-          description: "Apply biology to solve technical problems."
+          title: "Biological Research Scientist",
+          description: "Your curiosity about living organisms and research skills prepare you for exciting careers at the forefront of biological discovery and innovation.",
+          careers: [
+            "Geneticist - Study genes and heredity ($89,990)",
+            "Microbiologist - Research microorganisms ($84,400)",
+            "Biotechnologist - Develop biological products ($103,270)",
+            "Wildlife Biologist - Study animals and ecosystems ($67,760)",
+            "Bioinformatics Specialist - Analyze biological data ($100,910)"
+          ],
+          additional: "Biological research offers diverse opportunities in academia, industry, and government. Emerging fields like synthetic biology and genomics are creating new career possibilities.",
+          growth: "17%",
+          salary: "$85,000",
+          education: "PhD Preferred",
+          salaryRange: [45000, 85000, 140000],
+          educationPath: [
+            {
+              title: "Bachelor's Degree",
+              duration: "4 years",
+              description: "Biology, Molecular Biology, or related field with research experience"
+            },
+            {
+              title: "Research Technician",
+              duration: "1-2 years",
+              description: "Gain hands-on lab experience before graduate school"
+            },
+            {
+              title: "Graduate Degree",
+              duration: "5-7 years",
+              description: "PhD in specialized biological science field"
+            },
+            {
+              title: "Postdoctoral Fellowship",
+              duration: "2-4 years",
+              description: "Advanced research training in specific area"
+            }
+          ],
+          related: ["Biochemist", "Cell Biologist", "Ecologist", "Pharmacologist", "Immunologist"],
+          resources: [
+            {
+              name: "American Society for Microbiology",
+              url: "https://www.asm.org"
+            },
+            {
+              name: "Nature Careers",
+              url: "https://www.nature.com/naturecareers"
+            },
+            {
+              name: "iBiology - Research Techniques",
+              url: "https://www.ibiology.org"
+            }
+          ]
         }
-      }
-      // Add more subject-interest pairs
+      },
+      // Additional combinations follow similar structure
+      chemistry: {
+        research: {
+          title: "Chemical Research Scientist",
+          description: "Your chemistry knowledge and investigative skills prepare you for careers developing new materials, analyzing substances, and advancing chemical science.",
+          careers: [
+            "Chemist - Study substances at atomic level ($83,850)",
+            "Materials Scientist - Develop new materials ($100,090)",
+            "Forensic Chemist - Analyze crime scene evidence ($64,890)",
+            "Pharmaceutical Chemist - Design new drugs ($103,270)",
+            "Environmental Chemist - Study chemical pollution ($76,530)"
+          ],
+          additional: "Chemical research offers opportunities in diverse industries including pharmaceuticals, energy, manufacturing, and environmental protection.",
+          growth: "6%",
+          salary: "$82,000",
+          education: "Master's/PhD",
+          salaryRange: [50000, 82000, 130000],
+          educationPath: [
+            {
+              title: "Bachelor's Degree",
+              duration: "4 years",
+              description: "Chemistry or related field with laboratory coursework"
+            },
+            {
+              title: "Undergraduate Research",
+              duration: "1-2 years",
+              description: "Gain hands-on experience in academic or industrial labs"
+            },
+            {
+              title: "Graduate Degree",
+              duration: "2-5 years",
+              description: "Master's or PhD in specialized chemistry field"
+            },
+            {
+              title: "Postdoctoral Research",
+              duration: "2-3 years",
+              description: "For academic or advanced industry positions"
+            }
+          ],
+          related: ["Polymer Chemist", "Analytical Chemist", "Toxicologist", "Petroleum Chemist", "Flavor Chemist"],
+          resources: [
+            {
+              name: "American Chemical Society",
+              url: "https://www.acs.org"
+            },
+            {
+              name: "Royal Society of Chemistry",
+              url: "https://www.rsc.org"
+            },
+            {
+              name: "Chemistry World",
+              url: "https://www.chemistryworld.com"
+            }
+          ]
+        },
+        design: {
+          title: "Chemical Engineering Professional",
+          description: "Your chemistry knowledge combined with design/build interests leads to careers creating industrial processes and developing chemical products.",
+          careers: [
+            "Chemical Engineer - Design production processes ($117,090)",
+            "Process Engineer - Optimize manufacturing ($94,100)",
+            "Petroleum Engineer - Develop oil/gas extraction ($137,720)",
+            "Nanotechnologist - Work with nanoscale materials ($99,040)",
+            "Food Scientist - Improve food products ($74,160)"
+          ],
+          additional: "Chemical engineering offers high earning potential with strong demand across energy, pharmaceuticals, consumer products, and materials industries.",
+          growth: "8%",
+          salary: "$110,000",
+          education: "Bachelor's Required",
+          salaryRange: [65000, 110000, 170000],
+          educationPath: [
+            {
+              title: "Bachelor's Degree",
+              duration: "4 years",
+              description: "Chemical Engineering or related ABET-accredited program"
+            },
+            {
+              title: "Internships",
+              duration: "1-2 summers",
+              description: "Gain industry experience through co-op programs"
+            },
+            {
+              title: "Professional Engineer License",
+              duration: "4+ years",
+              description: "Optional but valuable for career advancement"
+            },
+            {
+              title: "Graduate Degree",
+              duration: "1-2 years",
+              description: "Master's for specialization or management roles"
+            }
+          ],
+          related: ["Biochemical Engineer", "Nuclear Engineer", "Materials Engineer", "Safety Engineer", "Quality Engineer"],
+          resources: [
+            {
+              name: "American Institute of Chemical Engineers",
+              url: "https://www.aiche.org"
+            },
+            {
+              name: "Engineering.com",
+              url: "https://www.engineering.com"
+            },
+            {
+              name: "Chemical Engineering World",
+              url: "https://chemicalengineeringworld.com"
+            }
+          ]
+        }
+      },
+      // Additional combinations would continue here...
+      // For brevity, I've included just a few main combinations
     };
 
-    function generateSuggestion() {
-      const name = document.getElementById("name").value.trim();
+    function suggestCareer() {
       const subject = document.getElementById("subject").value;
       const interest = document.getElementById("interest").value;
+      const resultBox = document.getElementById("result");
+      const downloadBtn = document.getElementById("download-btn");
 
-      const resultBox = document.getElementById("pdf-content");
-
-      if (!name || !subject || !interest) {
-        resultBox.innerHTML = "Please fill in all fields.";
+      if (subject === "" || interest === "") {
+        alert("Please select both your strongest subject and primary interest to get personalized career suggestions.");
         return;
       }
 
-      const course = kuccpsCourses[subject]?.[interest];
-
-      if (!course) {
-        resultBox.innerHTML = "No direct match found. Please try other combinations.";
-        return;
+      if (careerDatabase[subject] && careerDatabase[subject][interest]) {
+        const careerData = careerDatabase[subject][interest];
+        
+        // Set main career information
+        document.getElementById("career-title").textContent = careerData.title;
+        document.getElementById("career-description").textContent = careerData.description;
+        
+        // Set stats
+        document.getElementById("growth-stat").textContent = careerData.growth;
+        document.getElementById("salary-stat").textContent = careerData.salary;
+        document.getElementById("education-stat").textContent = careerData.education;
+        
+        // Set salary range
+        const salaryRange = careerData.salaryRange;
+        document.getElementById("entry-salary").textContent = `$${salaryRange[0].toLocaleString()}`;
+        document.getElementById("experienced-salary").textContent = `$${salaryRange[2].toLocaleString()}`;
+        
+        // Calculate salary range bar percentage
+        const minSalary = 30000; // Assume minimum for visualization
+        const maxSalary = 200000; // Assume maximum for visualization
+        const rangeStart = ((salaryRange[0] - minSalary) / (maxSalary - minSalary)) * 100;
+        const rangeEnd = ((salaryRange[2] - minSalary) / (maxSalary - minSalary)) * 100;
+        const rangeWidth = rangeEnd - rangeStart;
+        document.getElementById("salary-range-bar").style.width = `${rangeWidth}%`;
+        document.getElementById("salary-range-bar").style.left = `${rangeStart}%`;
+        
+        // Set career list
+        const careerList = document.getElementById("career-list");
+        careerList.innerHTML = "";
+        careerData.careers.forEach(career => {
+          const li = document.createElement("li");
+          li.textContent = career;
+          careerList.appendChild(li);
+        });
+        
+        // Set additional info
+        document.getElementById("additional-info").textContent = careerData.additional;
+        
+        // Set education path
+        const educationPath = document.getElementById("education-path");
+        educationPath.innerHTML = "";
+        careerData.educationPath.forEach(step => {
+          const stepElement = document.createElement("div");
+          stepElement.className = "path-step";
+          stepElement.innerHTML = `
+            <div class="step-icon"><i class="fas fa-check"></i></div>
+            <div class="step-content">
+              <div class="step-title">${step.title}</div>
+              <div class="step-duration">${step.duration}</div>
+              <div class="step-description">${step.description}</div>
+            </div>
+          `;
+          educationPath.appendChild(stepElement);
+        });
+        
+        // Set related careers
+        const relatedPills = document.getElementById("related-pills");
+        relatedPills.innerHTML = "";
+        careerData.related.forEach(career => {
+          const pill = document.createElement("div");
+          pill.className = "pill";
+          pill.textContent = career;
+          relatedPills.appendChild(pill);
+        });
+        
+        // Set resources
+        const resourcesList = document.getElementById("resources-list");
+        resourcesList.innerHTML = "";
+        careerData.resources.forEach(resource => {
+          const resourceItem = document.createElement("div");
+          resourceItem.className = "resource-item";
+          resourceItem.innerHTML = `
+            <a href="${resource.url}" target="_blank"><i class="fas fa-external-link-alt"></i> ${resource.name}</a>
+          `;
+          resourcesList.appendChild(resourceItem);
+        });
+        
+        resultBox.classList.add("show");
+        downloadBtn.style.display = "flex";
+      } else {
+        // Handle no direct match found
+        document.getElementById("career-title").textContent = "Unique Career Path Ahead";
+        document.getElementById("career-description").innerHTML = `
+          <div class="no-match">
+            <div class="no-match-icon"><i class="fas fa-lightbulb"></i></div>
+            <p>Your unique combination of skills and interests doesn't match our standard career profiles, but that means you have the potential to forge your own path!</p>
+            <p>Consider these strategies for your distinctive skill set:</p>
+          </div>
+        `;
+        
+        const careerList = document.getElementById("career-list");
+        careerList.innerHTML = "";
+        const suggestions = [
+          "Explore interdisciplinary fields that combine multiple disciplines",
+          "Look for emerging careers in technology and science",
+          "Consider entrepreneurship to create your own opportunity",
+          "Consult with a career counselor for personalized guidance",
+          "Research hybrid roles that value diverse skill sets"
+        ];
+        suggestions.forEach(item => {
+          const li = document.createElement("li");
+          li.textContent = item;
+          careerList.appendChild(li);
+        });
+        
+        document.getElementById("additional-info").innerHTML = `
+          <p>Sometimes the most innovative careers come from unique combinations of skills and interests. Your distinctive profile may be exactly what future employers need!</p>
+        `;
+        
+        // Hide stats and other sections for no-match case
+        document.querySelector(".stats-container").style.display = "none";
+        document.querySelector(".salary-range").style.display = "none";
+        document.getElementById("education-path").innerHTML = `
+          <p>Consider exploring these educational options:</p>
+          <ul class="career-list">
+            <li>Interdisciplinary degree programs</li>
+            <li>Dual majors that combine your interests</li>
+            <li>Custom-designed study plans</li>
+            <li>Continuing education certificates</li>
+          </ul>
+        `;
+        
+        const relatedPills = document.getElementById("related-pills");
+        relatedPills.innerHTML = "";
+        const relatedFields = ["Innovation Management", "Technical Writing", "Science Communication", "Patent Law", "Entrepreneurship"];
+        relatedFields.forEach(field => {
+          const pill = document.createElement("div");
+          pill.className = "pill";
+          pill.textContent = field;
+          relatedPills.appendChild(pill);
+        });
+        
+        const resourcesList = document.getElementById("resources-list");
+        resourcesList.innerHTML = `
+          <div class="resource-item">
+            <a href="https://www.onetonline.org" target="_blank"><i class="fas fa-external-link-alt"></i> O*NET Online - Career Exploration</a>
+          </div>
+          <div class="resource-item">
+            <a href="https://www.bls.gov/ooh" target="_blank"><i class="fas fa-external-link-alt"></i> Bureau of Labor Statistics Occupational Outlook</a>
+          </div>
+          <div class="resource-item">
+            <a href="https://www.roadtripnation.com" target="_blank"><i class="fas fa-external-link-alt"></i> Roadtrip Nation - Career Stories</a>
+          </div>
+        `;
+        
+        resultBox.classList.add("show");
+        downloadBtn.style.display = "flex";
       }
-
-      resultBox.innerHTML = `
-        <h3>Career Report for ${name}</h3>
-        <p><strong>Recommended Course:</strong> ${course.title}</p>
-        <p><strong>KUCCPS Code:</strong> ${course.code}</p>
-        <p><strong>Description:</strong> ${course.description}</p>
-        <p>Generated on: ${new Date().toLocaleDateString()}</p>
-      `;
     }
 
     function downloadPDF() {
-      const resultBox = document.getElementById("pdf-content");
-      if (!resultBox.innerText.trim()) {
-        alert("Generate your report first.");
+      const resultBox = document.getElementById("result");
+
+      if (!resultBox.classList.contains("show")) {
+        alert("Please generate career suggestions first!");
         return;
       }
-      html2pdf().from(resultBox).save();
+
+      // Create a clone of the result box to modify for PDF
+      const element = resultBox.cloneNode(true);
+      
+      // Apply PDF-specific styling
+      element.style.backgroundColor = '#3a0ca3';
+      element.style.color = '#ffffff';
+      element.style.padding = '25px';
+      element.style.width = '800px';
+      element.style.maxWidth = '100%';
+      element.style.boxSizing = 'border-box';
+      
+      // Hide buttons and other interactive elements
+      const buttons = element.querySelectorAll('button, .pill, a');
+      buttons.forEach(btn => {
+        btn.style.display = 'none';
+      });
+      
+      // Add header
+      const header = document.createElement('div');
+      header.style.marginBottom = '20px';
+      header.style.borderBottom = '2px solid #4cc9f0';
+      header.style.paddingBottom = '10px';
+      header.innerHTML = `
+        <h1 style="color: #4cc9f0; font-size: 24px; margin-bottom: 5px;">Career Compass Report</h1>
+        <p style="font-size: 14px;">Generated on ${new Date().toLocaleDateString()}</p>
+      `;
+      element.insertBefore(header, element.firstChild);
+      
+      // Add footer
+      const footer = document.createElement('div');
+      footer.style.marginTop = '20px';
+      footer.style.borderTop = '1px solid #4cc9f0';
+      footer.style.paddingTop = '10px';
+      footer.style.fontSize = '12px';
+      footer.style.textAlign = 'center';
+      footer.textContent = '© Career Compass - Personalized Career Guidance Report';
+      element.appendChild(footer);
+      
+      // Temporarily add to body for PDF generation
+      document.body.appendChild(element);
+      
+      const options = {
+        margin: [0.5, 0.5, 0.5, 0.5],
+        filename: 'Career_Compass_Report.pdf',
+        image: { 
+          type: 'jpeg', 
+          quality: 0.98 
+        },
+        html2canvas: { 
+          scale: 2,
+          backgroundColor: '#3a0ca3',
+          logging: false,
+          useCORS: true
+        },
+        jsPDF: { 
+          unit: 'in', 
+          format: 'letter', 
+          orientation: 'portrait',
+          hotfixes: ["px_scaling"]
+        }
+      };
+
+      html2pdf().set(options).from(element).save().then(() => {
+        // Remove the temporary element after PDF generation
+        document.body.removeChild(element);
+      });
     }
-  </script></body>
+  </script>
+</body>
 </html>
