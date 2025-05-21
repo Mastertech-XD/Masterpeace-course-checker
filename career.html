@@ -1111,8 +1111,8 @@
         downloadBtn.style.display = "flex";
       }
     }
-
-    function downloadPDF() {
+    
+    async function downloadPDF() {
       const resultBox = document.getElementById("result");
 
       if (!resultBox.classList.contains("show")) {
@@ -1120,72 +1120,72 @@
         return;
       }
 
-      // Create a clone of the result box to modify for PDF
-      const element = resultBox.cloneNode(true);
-      
-      // Apply PDF-specific styling
-      element.style.backgroundColor = '#3a0ca3';
-      element.style.color = '#ffffff';
-      element.style.padding = '25px';
-      element.style.width = '800px';
-      element.style.maxWidth = '100%';
-      element.style.boxSizing = 'border-box';
-      
-      // Hide buttons and other interactive elements
-      const buttons = element.querySelectorAll('button, .pill, a');
-      buttons.forEach(btn => {
-        btn.style.display = 'none';
-      });
+      // Create a new div for PDF content
+      const pdfContent = document.createElement("div");
+      pdfContent.className = "pdf-page";
       
       // Add header
-      const header = document.createElement('div');
-      header.style.marginBottom = '20px';
-      header.style.borderBottom = '2px solid #4cc9f0';
-      header.style.paddingBottom = '10px';
+      const header = document.createElement("div");
+      header.className = "pdf-header";
       header.innerHTML = `
         <h1 style="color: #4cc9f0; font-size: 24px; margin-bottom: 5px;">Career Compass Report</h1>
         <p style="font-size: 14px;">Generated on ${new Date().toLocaleDateString()}</p>
       `;
-      element.insertBefore(header, element.firstChild);
+      pdfContent.appendChild(header);
+      
+      // Clone the result content
+      const resultContent = resultBox.cloneNode(true);
+      
+      // Remove buttons and interactive elements
+      const elementsToRemove = resultContent.querySelectorAll("button, .pill, a");
+      elementsToRemove.forEach(el => el.remove());
+      
+      // Add the content
+      pdfContent.appendChild(resultContent);
       
       // Add footer
-      const footer = document.createElement('div');
-      footer.style.marginTop = '20px';
-      footer.style.borderTop = '1px solid #4cc9f0';
-      footer.style.paddingTop = '10px';
-      footer.style.fontSize = '12px';
-      footer.style.textAlign = 'center';
+      const footer = document.createElement("div");
+      footer.className = "pdf-footer";
       footer.textContent = '© Career Compass - Personalized Career Guidance Report';
-      element.appendChild(footer);
+      pdfContent.appendChild(footer);
       
-      // Temporarily add to body for PDF generation
-      document.body.appendChild(element);
+      // Create a temporary container
+      const tempContainer = document.createElement("div");
+      tempContainer.style.position = "fixed";
+      tempContainer.style.left = "-9999px";
+      tempContainer.appendChild(pdfContent);
+      document.body.appendChild(tempContainer);
       
+      // PDF options
       const options = {
-        margin: [0.5, 0.5, 0.5, 0.5],
-        filename: 'Career_Compass_Report.pdf',
-        image: { 
-          type: 'jpeg', 
-          quality: 0.98 
-        },
+        margin: 10,
+        filename: `Career_Compass_Report_${new Date().toISOString().slice(0,10)}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { 
           scale: 2,
-          backgroundColor: '#3a0ca3',
           logging: false,
-          useCORS: true
+          useCORS: true,
+          scrollX: 0,
+          scrollY: 0,
+          windowWidth: document.documentElement.offsetWidth
         },
         jsPDF: { 
-          unit: 'in', 
-          format: 'letter', 
-          orientation: 'portrait',
-          hotfixes: ["px_scaling"]
+          unit: 'mm',
+          format: 'a4',
+          orientation: 'portrait'
         }
       };
 
-      html2pdf().set(options).from(element).save().then(() => {
-        // Remove the temporary element after PDF generation
-        document.body.removeChild(element);
-      });
+      try {
+        // Generate PDF
+        await html2pdf().set(options).from(pdfContent).save();
+      } catch (error) {
+        console.error("PDF generation error:", error);
+        alert("Failed to generate PDF. Please try again.");
+      } finally {
+        // Clean up
+        document.body.removeChild(tempContainer);
+      }
     }
   </script>
 </body>
