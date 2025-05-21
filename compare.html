@@ -1,432 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MASTERTECH-MD | Pair Code Generator</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root {
-      --neon-pink: #ff2a6d;
-      --neon-blue: #05d9e8;
-      --neon-purple: #d300c5;
-      --dark-bg: #0d0221;
-    }
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      font-family: 'Arial', sans-serif;
-      background: var(--dark-bg);
-      color: white;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      position: relative;
-    }
-    
-    /* Animated background */
-    .bg-particles {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      overflow: hidden;
-    }
-    
-    .particle {
-      position: absolute;
-      background: rgba(255, 255, 255, 0.5);
-      border-radius: 50%;
-      animation: float 15s infinite linear;
-    }
-    
-    @keyframes float {
-      0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-1000px) rotate(720deg);
-        opacity: 0;
-      }
-    }
-    
-    .container {
-      width: 100%;
-      max-width: 400px;
-      padding: 1rem;
-      position: relative;
-    }
-    
-    .box {
-      width: 100%;
-      padding: 2rem;
-      position: relative;
-      text-align: center;
-      background-color: rgba(0, 0, 0, 0.8);
-      border-radius: 15px;
-      box-shadow: 0 0 30px rgba(255, 42, 109, 0.5);
-      border: 1px solid rgba(255, 42, 109, 0.3);
-      backdrop-filter: blur(10px);
-      transform-style: preserve-3d;
-      transform: perspective(1000px);
-      transition: all 0.5s ease;
-    }
-    
-    .box:hover {
-      box-shadow: 0 0 40px rgba(5, 217, 232, 0.6);
-      transform: perspective(1000px) rotateY(5deg) rotateX(5deg);
-    }
-    
-    .main-title {
-      text-align: center;
-      margin-bottom: 1rem;
-      font-size: 2rem;
-      background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: glow 2s ease-in-out infinite alternate;
-    }
-    
-    @keyframes glow {
-      from {
-        text-shadow: 0 0 5px var(--neon-pink);
-      }
-      to {
-        text-shadow: 0 0 15px var(--neon-purple);
-      }
-    }
-    
-    .subtitle {
-      text-align: center;
-      margin-bottom: 1.5rem;
-      color: #aaa;
-      font-size: 0.9rem;
-    }
-    
-    .input-container {
-      display: flex;
-      margin-bottom: 1.5rem;
-      position: relative;
-    }
-    
-    .input-container input {
-      flex: 1;
-      padding: 1rem;
-      border: none;
-      border-radius: 8px 0 0 8px;
-      background: rgba(255, 255, 255, 0.1);
-      color: white;
-      font-size: 1rem;
-      outline: none;
-      transition: all 0.3s ease;
-    }
-    
-    .input-container input:focus {
-      background: rgba(255, 255, 255, 0.15);
-      box-shadow: 0 0 10px rgba(5, 217, 232, 0.5);
-    }
-    
-    .input-container button {
-      padding: 0 1.5rem;
-      background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple));
-      border: none;
-      border-radius: 0 8px 8px 0;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    
-    .input-container button:hover {
-      background: linear-gradient(45deg, var(--neon-purple), var(--neon-blue));
-      transform: translateY(-2px);
-    }
-    
-    .result-container {
-      margin-top: 1.5rem;
-      text-align: center;
-      min-height: 60px;
-    }
-    
-    #pair {
-      font-size: 1.2rem;
-      font-weight: bold;
-    }
-    
-    #copy {
-      cursor: pointer;
-      display: inline-block;
-      padding: 0.5rem 1rem;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      transition: all 0.3s ease;
-    }
-    
-    #copy:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-    
-    /* Music Player Styles */
-    .music-player {
-      margin-top: 2rem;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 10px;
-      padding: 1rem;
-      border: 1px solid rgba(255, 42, 109, 0.2);
-    }
-    
-    .player-controls {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 1rem;
-    }
-    
-    .control-btn {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 1.5rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    
-    .control-btn:hover {
-      color: var(--neon-pink);
-      transform: scale(1.1);
-    }
-    
-    .play-pause {
-      font-size: 2rem;
-      background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple));
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    .now-playing {
-      text-align: center;
-      margin-top: 1rem;
-      font-size: 0.9rem;
-      color: var(--neon-blue);
-    }
-    
-    /* Responsive design */
-    @media (max-width: 600px) {
-      .container {
-        padding: 1rem;
-      }
-      
-      .main-title {
-        font-size: 1.8rem;
-      }
-      
-      .input-container {
-        flex-direction: column;
-      }
-      
-      .input-container input {
-        border-radius: 8px;
-        margin-bottom: 0.5rem;
-      }
-      
-      .input-container button {
-        border-radius: 8px;
-        padding: 1rem;
-      }
-    }
-    
-    /* Animations */
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-    
-    .pulse {
-      animation: pulse 2s infinite;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BotHost - Discord Bot Hosting</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <div class="bg-particles" id="particles"></div>
-  
-  <div class="container">
-    <div class="box">
-      <h1 class="main-title">MASTERTECH-MD</h1>
-      <p class="subtitle">WHATSAPP PAIRING CODE GENERATOR</p>
-      
-      <div class="input-container">
-        <input type="text" id="number" placeholder="Enter WhatsApp number with country code">
-        <button id="submit"><i class="fas fa-paper-plane"></i></button>
-      </div>
-      
-      <div class="result-container">
-        <div id="pair"></div>
-      </div>
-      
-      <!-- Drill Music Player -->
-      <div class="music-player">
-        <div class="player-controls">
-          <button class="control-btn" id="prev-btn"><i class="fas fa-step-backward"></i></button>
-          <button class="control-btn play-pause" id="play-btn"><i class="fas fa-play"></i></button>
-          <button class="control-btn" id="next-btn"><i class="fas fa-step-forward"></i></button>
-        </div>
-        <div class="now-playing" id="now-playing">Central Cee Drill Mix</div>
-      </div>
-    </div>
-  </div>
+    <header>
+        <nav>
+            <div class="logo">
+                <i class="fas fa-robot"></i>
+                <span>BotHost</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#" class="btn-login">Login</a></li>
+            </ul>
+        </nav>
+    </header>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
-  <script>
-    // Create particles
-    const particlesContainer = document.getElementById('particles');
-    for (let i = 0; i < 50; i++) {
-      const particle = document.createElement('div');
-      particle.classList.add('particle');
-      particle.style.width = `${Math.random() * 5 + 2}px`;
-      particle.style.height = particle.style.width;
-      particle.style.left = `${Math.random() * 100}%`;
-      particle.style.top = `${Math.random() * 100}%`;
-      particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
-      particle.style.animationDelay = `${Math.random() * 5}s`;
-      particlesContainer.appendChild(particle);
-    }
+    <main>
+        <section class="hero">
+            <h1>Host Your Discord Bot 24/7</h1>
+            <p>Reliable, scalable, and easy-to-use bot hosting with one-click deployment.</p>
+            <a href="#" class="btn-primary">Get Started</a>
+        </section>
 
-    // Pair Code Generator Logic
-    const pairElement = document.getElementById('pair');
-    const submitBtn = document.getElementById('submit');
-    const numberInput = document.getElementById('number');
+        <section id="features" class="features">
+            <h2>Why Choose BotHost?</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Instant Deployment</h3>
+                    <p>Deploy your bot in seconds with our automated system.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>DDoS Protection</h3>
+                    <p>Keep your bot online with enterprise-grade security.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Real-Time Analytics</h3>
+                    <p>Monitor your bot's performance and uptime.</p>
+                </div>
+            </div>
+        </section>
 
-    async function copyToClipboard() {
-      const text = document.getElementById('copy').innerText;
-      const obj = document.getElementById('copy');
-      
-      try {
-        await navigator.clipboard.writeText(obj.innerText.replace('CODE: ', ''));
-        obj.innerText = "COPIED!";
-        obj.style.color = "var(--neon-blue)";
-        
-        setTimeout(() => {
-          obj.innerText = text;
-          obj.style.color = "white";
-        }, 2000);
-      } catch (err) {
-        console.error('Failed to copy: ', err);
-      }
-    }
+        <section id="pricing" class="pricing">
+            <h2>Pricing Plans</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Free</h3>
+                    <p class="price">$0<span>/month</span></p>
+                    <ul>
+                        <li>512MB RAM</li>
+                        <li>1 Bot</li>
+                        <li>Limited Support</li>
+                    </ul>
+                    <a href="#" class="btn-secondary">Sign Up</a>
+                </div>
+                <div class="pricing-card popular">
+                    <div class="popular-badge">Most Popular</div>
+                    <h3>Pro</h3>
+                    <p class="price">$10<span>/month</span></p>
+                    <ul>
+                        <li>2GB RAM</li>
+                        <li>5 Bots</li>
+                        <li>Priority Support</li>
+                    </ul>
+                    <a href="#" class="btn-primary">Get Started</a>
+                </div>
+                <div class="pricing-card">
+                    <h3>Enterprise</h3>
+                    <p class="price">$30<span>/month</span></p>
+                    <ul>
+                        <li>4GB+ RAM</li>
+                        <li>Unlimited Bots</li>
+                        <li>24/7 Support</li>
+                    </ul>
+                    <a href="#" class="btn-secondary">Contact Us</a>
+                </div>
+            </div>
+        </section>
+    </main>
 
-    submitBtn.addEventListener('click', async (e) => {
-      e.preventDefault();
-      
-      if (!numberInput.value) {
-        pairElement.innerHTML = '<div style="color: var(--neon-pink)">Please enter your WhatsApp number</div>';
-        return;
-      }
-      
-      const cleanNumber = numberInput.value.replace(/[^0-9]/g, "");
-      
-      if (cleanNumber.length < 11) {
-        pairElement.innerHTML = '<div style="color: var(--neon-pink)">Invalid number (too short)</div>';
-        return;
-      }
-      
-      // Format number
-      let formattedNumber = `+${cleanNumber.substring(0, 3)} ${cleanNumber.substring(3, 6)} ${cleanNumber.substring(6, 9)} ${cleanNumber.substring(9)}`;
-      numberInput.value = formattedNumber;
-      numberInput.style.color = "var(--neon-blue)";
-      
-      pairElement.innerHTML = '<div class="pulse" style="color: var(--neon-blue)">Generating code...</div>';
-      
-      try {
-        const response = await axios.get(`/code?number=${cleanNumber}`);
-        const code = response.data.code || "Service Unavailable";
-        
-        pairElement.innerHTML = `
-          <div id="copy" onclick="copyToClipboard()" style="cursor: pointer;">
-            <span style="color: var(--neon-pink)">CODE: </span>
-            <span style="color: white; font-weight: bold">${code}</span>
-          </div>
-          <div style="margin-top: 10px; font-size: 0.8rem; color: #aaa">Click to copy</div>
-        `;
-      } catch (error) {
-        pairElement.innerHTML = '<div style="color: var(--neon-pink)">Error generating code</div>';
-        console.error('Error:', error);
-      }
-    });
+    <footer>
+        <p>&copy; 2023 BotHost. All rights reserved.</p>
+    </footer>
 
-    // Drill Music Player
-    const playlist = [
-      { title: "Central Cee - Doja", src: "https://example.com/doja.mp3" },
-      { title: "Central Cee - Let Her Go", src: "https://example.com/let-her-go.mp3" },
-      { title: "Central Cee - Commitment Issues", src: "https://example.com/commitment.mp3" },
-      { title: "Central Cee - Loading", src: "https://example.com/loading.mp3" }
-    ];
-
-    const audio = new Audio();
-    let currentTrackIndex = 0;
-    let isPlaying = false;
-    const playBtn = document.getElementById('play-btn');
-    const nowPlaying = document.getElementById('now-playing');
-
-    function loadTrack(index) {
-      audio.src = playlist[index].src;
-      nowPlaying.textContent = playlist[index].title;
-    }
-
-    function playTrack() {
-      isPlaying = true;
-      audio.play();
-      playBtn.innerHTML = '<i class="fas fa-pause"></i>';
-    }
-
-    function pauseTrack() {
-      isPlaying = false;
-      audio.pause();
-      playBtn.innerHTML = '<i class="fas fa-play"></i>';
-    }
-
-    function nextTrack() {
-      currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
-      loadTrack(currentTrackIndex);
-      if (isPlaying) playTrack();
-    }
-
-    function prevTrack() {
-      currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
-      loadTrack(currentTrackIndex);
-      if (isPlaying) playTrack();
-    }
-
-    playBtn.addEventListener('click', () => {
-      if (isPlaying) {
-        pauseTrack();
-      } else {
-        playTrack();
-      }
-    });
-
-    document.getElementById('next-btn').addEventListener('click', nextTrack);
-    document.getElementById('prev-btn').addEventListener('click', prevTrack);
-
-    audio.addEventListener('ended', nextTrack);
-
-    // Initialize
-    loadTrack(currentTrackIndex);
-  </script>
+    <script src="script.js"></script>
 </body>
 </html>
