@@ -57,6 +57,7 @@
 
     select option {
       color: #000;
+      background: #fff;
     }
 
     button {
@@ -69,12 +70,17 @@
       font-size: 1.1rem;
       border-radius: 10px;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: all 0.3s ease;
       margin-top: 1rem;
     }
 
     button:hover {
       background: #00a58c;
+      transform: translateY(-2px);
+    }
+
+    button:active {
+      transform: translateY(0);
     }
 
     .result, #pdf-content {
@@ -85,11 +91,48 @@
       font-size: 1.1rem;
       line-height: 1.6;
       color: #fff;
+      display: none;
+    }
+
+    .result.show {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .career-list {
+      margin-top: 1rem;
+      padding-left: 1.5rem;
+    }
+
+    .career-list li {
+      margin-bottom: 0.5rem;
+    }
+
+    .highlight {
+      color: #00ffaa;
+      font-weight: bold;
+    }
+
+    #download-btn {
+      display: none;
+      background: #0075ff;
+    }
+
+    #download-btn:hover {
+      background: #005cc8;
     }
 
     @media(max-width: 600px) {
       h1 {
         font-size: 1.5rem;
+      }
+      .container {
+        padding: 1.5rem;
       }
     }
   </style>
@@ -125,67 +168,291 @@
 
     <button onclick="suggestCareer()">𝗚𝗲𝗻𝗲𝗿𝗮𝘁𝗲 𝗖𝗮𝗿𝗲𝗲𝗿 𝗣𝗮𝘁𝗵</button>
 
-    <div id="pdf-content" class="result"></div>
+    <div id="pdf-content" class="result">
+      <h2 id="career-title"></h2>
+      <div id="career-description"></div>
+      <h3>Potential Career Paths:</h3>
+      <ul id="career-list" class="career-list"></ul>
+      <div id="additional-info"></div>
+    </div>
 
-    <button onclick="downloadPDF()" style="background: #0075ff;">𝗗𝗼𝘄𝗻𝗹𝗼𝗮𝗱 𝗮𝘀 𝗣𝗗𝗙</button>
+    <button id="download-btn" onclick="downloadPDF()">𝗗𝗼𝘄𝗻𝗹𝗼𝗮𝗱 𝗮𝘀 𝗣𝗗𝗙</button>
   </div>
 
   <script>
+    const careerDatabase = {
+      math: {
+        finance: {
+          title: "Mathematics + Finance/Business",
+          description: "Your analytical skills and interest in finance make you well-suited for careers that involve numbers, analysis, and financial decision-making.",
+          careers: [
+            "Actuary - Analyze financial risks using mathematics and statistics",
+            "Financial Analyst - Assess financial data to help businesses make decisions",
+            "Economist - Study economic trends and advise on policy",
+            "Accountant - Prepare and examine financial records",
+            "Investment Banker - Help companies raise capital and make acquisitions"
+          ],
+          additional: "Consider pursuing certifications like CFA (Chartered Financial Analyst) or CPA (Certified Public Accountant) to enhance your career prospects."
+        },
+        research: {
+          title: "Mathematics + Research",
+          description: "Your mathematical abilities combined with a passion for research open doors to careers that involve data analysis, modeling, and problem-solving.",
+          careers: [
+            "Statistician - Collect and analyze data to solve real-world problems",
+            "Data Analyst/Scientist - Extract insights from complex datasets",
+            "Quantitative Researcher - Develop mathematical models for finance or science",
+            "Operations Research Analyst - Help organizations solve operational problems",
+            "Cryptographer - Develop algorithms to secure information"
+          ],
+          additional: "Advanced degrees (Master's or PhD) are often required for research positions in mathematics."
+        }
+      },
+      biology: {
+        healthcare: {
+          title: "Biology + Healthcare",
+          description: "Your understanding of biological systems and desire to help people make healthcare professions a natural fit for your skills and interests.",
+          careers: [
+            "Doctor (MD/DO) - Diagnose and treat medical conditions",
+            "Nurse - Provide patient care and support",
+            "Pharmacist - Dispense medications and advise on their use",
+            "Clinical Officer - Provide primary healthcare services",
+            "Dentist - Diagnose and treat dental issues"
+          ],
+          additional: "Healthcare careers typically require extensive education and training, but offer rewarding opportunities to make a difference in people's lives."
+        },
+        research: {
+          title: "Biology + Research",
+          description: "Your biological knowledge and research orientation prepare you for careers at the cutting edge of life sciences.",
+          careers: [
+            "Biotechnologist - Develop products using biological processes",
+            "Geneticist - Study genes and heredity",
+            "Lab Technician - Conduct scientific tests and analyses",
+            "Microbiologist - Study microorganisms like bacteria and viruses",
+            "Wildlife Biologist - Study animals and their ecosystems"
+          ],
+          additional: "Research positions often require at least a Bachelor's degree, with many preferring Master's or PhD qualifications."
+        }
+      },
+      // Other combinations follow similar structure
+      chemistry: {
+        research: {
+          title: "Chemistry + Research",
+          description: "Your chemistry knowledge and research skills prepare you for scientific careers that involve analysis and discovery.",
+          careers: [
+            "Chemist - Study substances and develop new products",
+            "Pharmacologist - Research drug effects on biological systems",
+            "Forensic Scientist - Analyze evidence for legal cases",
+            "Materials Scientist - Develop and study new materials",
+            "Food Scientist - Improve food safety and quality"
+          ],
+          additional: "Many chemistry research positions require advanced degrees and laboratory experience."
+        },
+        design: {
+          title: "Chemistry + Design/Building",
+          description: "Your chemistry background combined with design interests leads to careers in applied chemistry and engineering.",
+          careers: [
+            "Chemical Engineer - Design chemical manufacturing processes",
+            "Industrial Chemist - Develop and improve chemical products",
+            "Process Engineer - Optimize production processes",
+            "Petroleum Engineer - Develop methods for extracting oil and gas",
+            "Polymer Chemist - Develop new plastic and polymer materials"
+          ],
+          additional: "Engineering positions typically require a Bachelor's degree in chemical engineering or related field."
+        }
+      },
+      physics: {
+        tech: {
+          title: "Physics + Technology",
+          description: "Your physics knowledge and interest in technology prepare you for careers that involve applying physical principles to technological solutions.",
+          careers: [
+            "Electrical Engineer - Design electrical systems and equipment",
+            "Robotics Engineer - Build and program robots",
+            "Astronomer - Study celestial objects and phenomena",
+            "Optics Engineer - Work with light and optical systems",
+            "Renewable Energy Engineer - Develop sustainable energy solutions"
+          ],
+          additional: "Many technology careers in physics require strong programming skills and engineering knowledge."
+        },
+        research: {
+          title: "Physics + Research",
+          description: "Your physics background and research orientation prepare you for careers pushing the boundaries of physical knowledge.",
+          careers: [
+            "Theoretical Physicist - Develop models to explain physical phenomena",
+            "Nuclear Scientist - Research nuclear energy and radiation",
+            "Particle Physicist - Study fundamental particles and forces",
+            "Astrophysicist - Research the physics of the universe",
+            "Condensed Matter Physicist - Study properties of solid and liquid matter"
+          ],
+          additional: "Research physics careers almost always require a PhD and postdoctoral experience."
+        }
+      },
+      english: {
+        law: {
+          title: "English/Literature + Law/Leadership",
+          description: "Your communication skills and interest in law/leadership prepare you for careers that involve persuasion, argumentation, and public service.",
+          careers: [
+            "Lawyer - Practice law and represent clients",
+            "Politician - Serve in government and create policy",
+            "Human Rights Officer - Advocate for human rights",
+            "Journalist - Research and report news stories",
+            "Public Relations Specialist - Manage public image for organizations"
+          ],
+          additional: "Law careers require a law degree, while other paths may benefit from communications or political science education."
+        },
+        healthcare: {
+          title: "English + Healthcare",
+          description: "Your communication skills combined with healthcare interest lead to careers that involve helping people through counseling and therapy.",
+          careers: [
+            "Therapist/Counselor - Provide mental health support",
+            "Social Worker - Help people cope with life challenges",
+            "Speech-Language Pathologist - Treat communication disorders",
+            "Health Educator - Teach people about healthy behaviors",
+            "Medical Writer - Create healthcare-related content"
+          ],
+          additional: "Many therapy and counseling careers require specific certifications or graduate degrees."
+        }
+      },
+      geography: {
+        environment: {
+          title: "Geography + Environment",
+          description: "Your geographical knowledge and environmental interest prepare you for careers focused on our planet and its systems.",
+          careers: [
+            "Environmental Scientist - Study and solve environmental problems",
+            "Geologist - Study Earth's physical structure and processes",
+            "Meteorologist - Study weather and climate patterns",
+            "Conservation Scientist - Manage natural resources",
+            "Hydrologist - Study water distribution and movement"
+          ],
+          additional: "Fieldwork is often an important component of environmental and geographical careers."
+        },
+        research: {
+          title: "Geography + Research",
+          description: "Your geographical knowledge and research skills prepare you for analytical careers involving spatial data.",
+          careers: [
+            "Urban Planner - Develop land use plans and programs",
+            "GIS Analyst - Work with geographic information systems",
+            "Cartographer - Create and update maps",
+            "Demographer - Study population characteristics",
+            "Transportation Planner - Develop transportation systems"
+          ],
+          additional: "GIS (Geographic Information Systems) skills are highly valuable in many geography-related careers."
+        }
+      },
+      business: {
+        finance: {
+          title: "Business + Finance",
+          description: "Your business knowledge and financial interest prepare you for careers in the corporate and financial sectors.",
+          careers: [
+            "Entrepreneur - Start and run your own business",
+            "Auditor - Examine financial records for accuracy",
+            "Banker - Provide financial services to clients",
+            "Insurance Analyst - Assess risk and determine coverage",
+            "Financial Planner - Help individuals manage finances"
+          ],
+          additional: "Professional certifications like MBA, CFA, or CPA can enhance career opportunities."
+        },
+        law: {
+          title: "Business + Law",
+          description: "Your business background and legal interest prepare you for careers at the intersection of commerce and law.",
+          careers: [
+            "Business Lawyer - Specialize in corporate legal matters",
+            "Corporate Consultant - Advise businesses on strategy",
+            "Compliance Officer - Ensure regulatory compliance",
+            "Contract Manager - Oversee business agreements",
+            "Human Resources Manager - Handle employment legal matters"
+          ],
+          additional: "Corporate law careers require a law degree, while other paths may benefit from business certifications."
+        }
+      },
+      computer: {
+        tech: {
+          title: "Computer Studies + Technology",
+          description: "Your computer skills and technological interest prepare you for careers at the forefront of digital innovation.",
+          careers: [
+            "Software Developer - Design and build computer programs",
+            "AI Specialist - Develop artificial intelligence systems",
+            "Web Designer/Developer - Create websites and applications",
+            "Cybersecurity Expert - Protect systems from digital attacks",
+            "Data Engineer - Build systems for data collection and analysis"
+          ],
+          additional: "Continuous learning is essential in tech careers as technologies evolve rapidly."
+        },
+        finance: {
+          title: "Computer Studies + Finance",
+          description: "Your technical skills and financial interest prepare you for careers in the growing field of financial technology.",
+          careers: [
+            "FinTech Engineer - Develop financial technology solutions",
+            "Data Analyst - Analyze financial data for insights",
+            "Blockchain Developer - Work with cryptocurrency systems",
+            "Quantitative Analyst - Apply mathematical models to finance",
+            "Systems Analyst - Improve business IT systems"
+          ],
+          additional: "FinTech is one of the fastest growing sectors combining technology and finance expertise."
+        }
+      }
+    };
+
     function suggestCareer() {
       const subject = document.getElementById("subject").value;
       const interest = document.getElementById("interest").value;
-      let suggestion = "";
+      const resultBox = document.getElementById("pdf-content");
+      const downloadBtn = document.getElementById("download-btn");
 
-      const suggestions = {
-        math: {
-          finance: "Careers: Actuary, Financial Analyst, Economist, Accountant.",
-          research: "Careers: Statistician, Data Analyst, Quantitative Researcher."
-        },
-        biology: {
-          healthcare: "Careers: Doctor, Nurse, Pharmacist, Clinical Officer.",
-          research: "Careers: Biotechnologist, Geneticist, Lab Technician."
-        },
-        chemistry: {
-          research: "Careers: Chemist, Pharmacologist, Forensic Scientist.",
-          design: "Careers: Chemical Engineer, Industrial Chemist."
-        },
-        physics: {
-          tech: "Careers: Electrical Engineer, Robotics Engineer, Astronomer.",
-          research: "Careers: Theoretical Physicist, Nuclear Scientist."
-        },
-        english: {
-          law: "Careers: Lawyer, Politician, Human Rights Officer, Journalist.",
-          healthcare: "Careers: Therapist, Counselor, Social Worker."
-        },
-        geography: {
-          environment: "Careers: Environmental Scientist, Geologist, Meteorologist.",
-          research: "Careers: Urban Planner, GIS Analyst."
-        },
-        business: {
-          finance: "Careers: Entrepreneur, Auditor, Banker, Insurance Analyst.",
-          law: "Careers: Business Lawyer, Corporate Consultant."
-        },
-        computer: {
-          tech: "Careers: Software Developer, AI Specialist, Web Designer, Cybersecurity Expert.",
-          finance: "Careers: FinTech Engineer, Data Analyst, Blockchain Developer."
-        }
-      };
-
-      if (suggestions[subject] && suggestions[subject][interest]) {
-        suggestion = `𝗬𝗼𝘂𝗿 𝗿𝗲𝗰𝗼𝗺𝗺𝗲𝗻𝗱𝗲𝗱 𝗰𝗮𝗿𝗲𝗲𝗿 𝗽𝗮𝘁𝗵 𝗯𝗮𝘀𝗲𝗱 𝗼𝗻 𝘆𝗼𝘂𝗿 𝗽𝗿𝗲𝗳𝗲𝗿𝗲𝗻𝗰𝗲𝘀:<br><br><strong>${suggestions[subject][interest]}</strong>`;
-      } else if (subject === "" || interest === "") {
-        suggestion = "𝗣𝗹𝗲𝗮𝘀𝗲 𝘀𝗲𝗹𝗲𝗰𝘁 𝗯𝗼𝘁𝗵 𝗮 𝘀𝘂𝗯𝗷𝗲𝗰𝘁 𝗮𝗻𝗱 𝗮𝗻 𝗶𝗻𝘁𝗲𝗿𝗲𝘀𝘁 𝘁𝗼 𝗴𝗲𝘁 𝗮 𝗰𝗮𝗿𝗲𝗲𝗿 𝘀𝘂𝗴𝗴𝗲𝘀𝘁𝗶𝗼𝗻.";
-      } else {
-        suggestion = "𝗡𝗼 𝗱𝗶𝗿𝗲𝗰𝘁 𝗺𝗮𝘁𝗰𝗵 𝗳𝗼𝘂𝗻𝗱. 𝗧𝗿𝘆 𝗮 𝗱𝗶𝗳𝗳𝗲𝗿𝗲𝗻𝘁 𝗰𝗼𝗺𝗯𝗶𝗻𝗮𝘁𝗶𝗼𝗻.";
+      if (subject === "" || interest === "") {
+        alert("Please select both a subject and an interest to get a career suggestion.");
+        return;
       }
 
-      document.getElementById("pdf-content").innerHTML = suggestion;
+      if (careerDatabase[subject] && careerDatabase[subject][interest]) {
+        const careerData = careerDatabase[subject][interest];
+        
+        document.getElementById("career-title").textContent = careerData.title;
+        document.getElementById("career-description").innerHTML = `<p>${careerData.description}</p>`;
+        
+        const careerList = document.getElementById("career-list");
+        careerList.innerHTML = "";
+        careerData.careers.forEach(career => {
+          const li = document.createElement("li");
+          li.textContent = career;
+          careerList.appendChild(li);
+        });
+        
+        document.getElementById("additional-info").innerHTML = `<p class="highlight">${careerData.additional}</p>`;
+        
+        resultBox.classList.add("show");
+        downloadBtn.style.display = "block";
+      } else {
+        document.getElementById("career-title").textContent = "Career Combination Not Found";
+        document.getElementById("career-description").innerHTML = 
+          "<p>Your unique combination of skills and interests doesn't match our current database, but that doesn't mean there aren't great opportunities for you!</p>" +
+          "<p>Consider exploring interdisciplinary fields or combining your strengths in innovative ways. Many exciting careers exist at the intersection of different disciplines.</p>";
+        
+        const careerList = document.getElementById("career-list");
+        careerList.innerHTML = "";
+        const suggestions = [
+          "Look for emerging fields that combine multiple disciplines",
+          "Consider consulting with a career counselor for personalized advice",
+          "Research careers that value diverse skill sets",
+          "Explore entrepreneurship opportunities"
+        ];
+        suggestions.forEach(item => {
+          const li = document.createElement("li");
+          li.textContent = item;
+          careerList.appendChild(li);
+        });
+        
+        document.getElementById("additional-info").innerHTML = 
+          `<p class="highlight">Sometimes the most innovative careers come from unique combinations of skills and interests.</p>`;
+        
+        resultBox.classList.add("show");
+        downloadBtn.style.display = "block";
+      }
     }
 
     function downloadPDF() {
       const resultBox = document.getElementById("pdf-content");
 
-      if (!resultBox.innerText.trim()) {
+      if (!resultBox.classList.contains("show")) {
         alert("Please generate a career suggestion first!");
         return;
       }
@@ -194,11 +461,32 @@
         margin: 0.5,
         filename: 'Career_Suggestion.pdf',
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        html2canvas: { 
+          scale: 2,
+          backgroundColor: '#1f4037'
+        },
+        jsPDF: { 
+          unit: 'in', 
+          format: 'letter', 
+          orientation: 'portrait',
+          hotfixes: ["px_scaling"]
+        }
       };
 
-      html2pdf().set(options).from(resultBox).save();
+      // Create a clone of the result box to modify for PDF
+      const element = resultBox.cloneNode(true);
+      element.style.backgroundColor = '#1f4037';
+      element.style.color = '#ffffff';
+      element.style.padding = '20px';
+      element.style.width = '100%';
+      
+      // Temporarily add to body for PDF generation
+      document.body.appendChild(element);
+      
+      html2pdf().set(options).from(element).save().then(() => {
+        // Remove the temporary element after PDF generation
+        document.body.removeChild(element);
+      });
     }
   </script>
 </body>
