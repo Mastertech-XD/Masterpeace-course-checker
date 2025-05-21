@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Career Guidance - CourseChecker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- PDF Export Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #1f4037, #99f2c8);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(12px);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      padding: 2rem;
+      max-width: 700px;
+      width: 100%;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      font-weight: bold;
+      margin-top: 1rem;
+      display: block;
+    }
+
+    select {
+      width: 100%;
+      padding: 0.8rem;
+      border-radius: 10px;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      border: none;
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+    }
+
+    select option {
+      color: #000;
+    }
+
+    button {
+      width: 100%;
+      padding: 1rem;
+      background: #00c9a7;
+      color: #fff;
+      border: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin-top: 1rem;
+    }
+
+    button:hover {
+      background: #00a58c;
+    }
+
+    .result, #pdf-content {
+      margin-top: 2rem;
+      background: rgba(255,255,255,0.15);
+      padding: 1.5rem;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #fff;
+    }
+
+    @media(max-width: 600px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>𝗖𝗮𝗿𝗲𝗲𝗿 𝗚𝘂𝗶𝗱𝗮𝗻𝗰𝗲 𝗔𝘀𝘀𝗶𝘀𝘁𝗮𝗻𝘁</h1>
+
+    <label for="subject">Your Strongest Subject</label>
+    <select id="subject">
+      <option value="">-- Select a subject --</option>
+      <option value="math">Mathematics</option>
+      <option value="biology">Biology</option>
+      <option value="chemistry">Chemistry</option>
+      <option value="physics">Physics</option>
+      <option value="english">English/Literature</option>
+      <option value="geography">Geography</option>
+      <option value="business">Business Studies</option>
+      <option value="computer">Computer Studies</option>
+    </select>
+
+    <label for="interest">Your Passion / Interest Area</label>
+    <select id="interest">
+      <option value="">-- Select an interest --</option>
+      <option value="tech">Technology & Innovation</option>
+      <option value="research">Research & Analysis</option>
+      <option value="healthcare">Helping People (Healthcare)</option>
+      <option value="design">Building / Designing</option>
+      <option value="law">Speaking, Law, Leadership</option>
+      <option value="finance">Money & Business</option>
+      <option value="environment">Nature & Environment</option>
+    </select>
+
+    <button onclick="suggestCareer()">𝗚𝗲𝗻𝗲𝗿𝗮𝘁𝗲 𝗖𝗮𝗿𝗲𝗲𝗿 𝗣𝗮𝘁𝗵</button>
+
+    <div id="pdf-content" class="result"></div>
+
+    <button onclick="downloadPDF()" style="background: #0075ff;">𝗗𝗼𝘄𝗻𝗹𝗼𝗮𝗱 𝗮𝘀 𝗣𝗗𝗙</button>
+  </div>
+
+  <script>
+    function suggestCareer() {
+      const subject = document.getElementById("subject").value;
+      const interest = document.getElementById("interest").value;
+      let suggestion = "";
+
+      const suggestions = {
+        math: {
+          finance: "Careers: Actuary, Financial Analyst, Economist, Accountant.",
+          research: "Careers: Statistician, Data Analyst, Quantitative Researcher."
+        },
+        biology: {
+          healthcare: "Careers: Doctor, Nurse, Pharmacist, Clinical Officer.",
+          research: "Careers: Biotechnologist, Geneticist, Lab Technician."
+        },
+        chemistry: {
+          research: "Careers: Chemist, Pharmacologist, Forensic Scientist.",
+          design: "Careers: Chemical Engineer, Industrial Chemist."
+        },
+        physics: {
+          tech: "Careers: Electrical Engineer, Robotics Engineer, Astronomer.",
+          research: "Careers: Theoretical Physicist, Nuclear Scientist."
+        },
+        english: {
+          law: "Careers: Lawyer, Politician, Human Rights Officer, Journalist.",
+          healthcare: "Careers: Therapist, Counselor, Social Worker."
+        },
+        geography: {
+          environment: "Careers: Environmental Scientist, Geologist, Meteorologist.",
+          research: "Careers: Urban Planner, GIS Analyst."
+        },
+        business: {
+          finance: "Careers: Entrepreneur, Auditor, Banker, Insurance Analyst.",
+          law: "Careers: Business Lawyer, Corporate Consultant."
+        },
+        computer: {
+          tech: "Careers: Software Developer, AI Specialist, Web Designer, Cybersecurity Expert.",
+          finance: "Careers: FinTech Engineer, Data Analyst, Blockchain Developer."
+        }
+      };
+
+      if (suggestions[subject] && suggestions[subject][interest]) {
+        suggestion = `𝗬𝗼𝘂𝗿 𝗿𝗲𝗰𝗼𝗺𝗺𝗲𝗻𝗱𝗲𝗱 𝗰𝗮𝗿𝗲𝗲𝗿 𝗽𝗮𝘁𝗵 𝗯𝗮𝘀𝗲𝗱 𝗼𝗻 𝘆𝗼𝘂𝗿 𝗽𝗿𝗲𝗳𝗲𝗿𝗲𝗻𝗰𝗲𝘀:<br><br><strong>${suggestions[subject][interest]}</strong>`;
+      } else if (subject === "" || interest === "") {
+        suggestion = "𝗣𝗹𝗲𝗮𝘀𝗲 𝘀𝗲𝗹𝗲𝗰𝘁 𝗯𝗼𝘁𝗵 𝗮 𝘀𝘂𝗯𝗷𝗲𝗰𝘁 𝗮𝗻𝗱 𝗮𝗻 𝗶𝗻𝘁𝗲𝗿𝗲𝘀𝘁 𝘁𝗼 𝗴𝗲𝘁 𝗮 𝗰𝗮𝗿𝗲𝗲𝗿 𝘀𝘂𝗴𝗴𝗲𝘀𝘁𝗶𝗼𝗻.";
+      } else {
+        suggestion = "𝗡𝗼 𝗱𝗶𝗿𝗲𝗰𝘁 𝗺𝗮𝘁𝗰𝗵 𝗳𝗼𝘂𝗻𝗱. 𝗧𝗿𝘆 𝗮 𝗱𝗶𝗳𝗳𝗲𝗿𝗲𝗻𝘁 𝗰𝗼𝗺𝗯𝗶𝗻𝗮𝘁𝗶𝗼𝗻.";
+      }
+
+      document.getElementById("pdf-content").innerHTML = suggestion;
+    }
+
+    function downloadPDF() {
+      const resultBox = document.getElementById("pdf-content");
+
+      if (!resultBox.innerText.trim()) {
+        alert("Please generate a career suggestion first!");
+        return;
+      }
+
+      const options = {
+        margin: 0.5,
+        filename: 'Career_Suggestion.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+
+      html2pdf().set(options).from(resultBox).save();
+    }
+  </script>
+</body>
+</html>
