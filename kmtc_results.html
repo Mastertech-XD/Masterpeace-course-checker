@@ -2913,5 +2913,43 @@
             resultsDiv.scrollIntoView({ behavior: 'smooth' });
         }
     </script>
+    <!-- Place this button near your results -->
+<button id="download-pdf">Download Results as PDF</button>
+
+<!-- Include jsPDF library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+  // Initialize jsPDF
+  const { jsPDF } = window.jspdf;
+  
+  document.getElementById('download-pdf').addEventListener('click', () => {
+    // Create new PDF document
+    const doc = new jsPDF();
+    
+    // Get the current date for filename
+    const today = new Date();
+    const dateString = `${today.getFullYear()}-${(today.getMonth()+1).toString().padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
+    
+    // Add title to PDF
+    doc.setFontSize(18);
+    doc.text('Course Matching Results', 105, 20, { align: 'center' });
+    
+    // Add generation date
+    doc.setFontSize(10);
+    doc.text(`Generated on: ${dateString}`, 105, 28, { align: 'center' });
+    
+    // Get all text content from your results (adjust selector as needed)
+    const resultsText = document.querySelector('#results').innerText;
+    
+    // Add results content with proper formatting
+    doc.setFontSize(12);
+    const splitText = doc.splitTextToSize(resultsText, 180); // Wrap text to fit page width
+    doc.text(splitText, 15, 40);
+    
+    // Save the PDF
+    doc.save(`Course_Results_${dateString}.pdf`);
+  });
+</script>
 </body>
 </html>
