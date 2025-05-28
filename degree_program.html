@@ -4538,75 +4538,27 @@
             }
         }
     </script>
-        <!-- Download PDF button -->
-    <button id="download-pdf">Download Results as PDF</button>
-    
-    <!-- Include jsPDF library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    
-    <script>
-        // Initialize jsPDF
-        const { jsPDF } = window.jspdf;
-        
-        document.getElementById('download-pdf').addEventListener('click', () => {
-            const doc = new jsPDF();
-            
-            // Set document properties
-            doc.setProperties({
-                title: 'Course Matching Results',
-                subject: 'Course recommendations based on your qualifications',
-                author: 'Course Checker',
-                keywords: 'courses, education, Kenya, university',
-                creator: 'Course Checker'
-            });
-            
-            // Add title
-            doc.setFontSize(18);
-            doc.text('Course Matching Results', 105, 15, { align: 'center' });
-            
-            // Add date
-            doc.setFontSize(10);
-            const today = new Date();
-            doc.text(`Generated on: ${today.toLocaleDateString()}`, 105, 22, { align: 'center' });
-            
-            // Get all result items
-            const resultItems = document.querySelectorAll('.result-item');
-            let yPosition = 35; // Starting Y position after title
-            
-            // Loop through each result item and add to PDF
-            resultItems.forEach((item, index) => {
-                const title = item.querySelector('h2').textContent;
-                const details = Array.from(item.querySelectorAll('p')).map(p => p.textContent);
-                
-                // Add course title
-                doc.setFontSize(14);
-                doc.text(title, 14, yPosition);
-                yPosition += 8;
-                
-                // Add course details
-                doc.setFontSize(11);
-                details.forEach(detail => {
-                    // Check if we need a new page
-                    if (yPosition > 270) {
-                        doc.addPage();
-                        yPosition = 20;
-                    }
-                    doc.text(detail, 16, yPosition);
-                    yPosition += 7;
-                });
-                
-                // Add space between items, but not after the last one
-                if (index < resultItems.length - 1) {
-                    yPosition += 5;
-                    // Add a line separator
-                    doc.line(10, yPosition, 200, yPosition);
-                    yPosition += 10;
-                }
-            });
-            
-            // Save the PDF with a custom filename
-            doc.save(`CourseChecker_Results_${today.getFullYear()}${(today.getMonth()+1).toString().padStart(2, '0')}${today.getDate().toString().padStart(2, '0')}.pdf`);
-        });
-    </script>
+<!-- Download Button -->
+<button id="download-pdf">Download Results as PDF</button>
+
+<!-- Include jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+  const { jsPDF } = window.jspdf;
+
+  document.getElementById('download-pdf').addEventListener('click', () => {
+    const doc = new jsPDF();
+
+    // Get the content from the results container
+    const resultsContent = document.getElementById('results').innerText;
+
+    // Add it to the PDF
+    doc.text(resultsContent, 10, 10);
+
+    // Save the PDF
+    doc.save('CourseChecker_Results.pdf');
+  });
+</script>
 </body>
 </html>
