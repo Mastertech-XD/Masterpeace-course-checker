@@ -814,60 +814,66 @@
             </div>
         </div>
         
-        <button id="check-courses">Proceed to Payment</button>
-    </div>
-    
-    <footer>
-        © 2025 Masterpeace Elite. All rights reserved. | Empowering Students Through Technology.
-    </footer>
-    
+    <button id="check-courses">Proceed to Payment</button>
+
     <script>
         document.getElementById('check-courses').addEventListener('click', function(e) {
-            e.preventDefault(); // Prevent immediate redirect
+            // Prevent form submission if this were in a form
+            e.preventDefault();
             
-            // Validate required fields
-            const meanGrade = document.getElementById('mean-grade').value;
-            const english = document.getElementById('english').value;
-            const mathematics = document.getElementById('mathematics').value;
-            const kiswahili = document.getElementById('kiswahili').value;
+            // 1. Validate required fields
+            const requiredFields = [
+                'mean-grade',
+                'english',
+                'mathematics',
+                'kiswahili'
+            ];
             
-            if (!meanGrade || !english || !mathematics || !kiswahili) {
-                alert('Please fill in all required fields (Mean Grade, English, Mathematics, and Kiswahili)');
+            let missingRequiredFields = [];
+            
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (!field.value) {
+                    missingRequiredFields.push(fieldId.replace('-', ' '));
+                }
+            });
+            
+            if (missingRequiredFields.length > 0) {
+                alert(`Please fill in these required fields: ${missingRequiredFields.join(', ')}`);
                 return;
             }
             
-            // Count selected subjects (excluding empty values)
-            const subjectSelects = document.querySelectorAll('select[id!="mean-grade"]');
+            // 2. Count selected subjects (minimum 8)
+            const subjectSelects = document.querySelectorAll('select:not(#mean-grade)');
             let selectedSubjects = 0;
             
             subjectSelects.forEach(select => {
-                if (select.value && select.value !== "") {
+                if (select.value) {
                     selectedSubjects++;
                 }
             });
             
-            // Count filled cluster points
+            if (selectedSubjects < 8) {
+                alert(`Please select grades for at least 8 subjects (you've selected ${selectedSubjects}).`);
+                return;
+            }
+            
+            // 3. Count filled clusters (minimum 5)
             const clusterInputs = document.querySelectorAll('input[name^="cluster"]');
             let filledClusters = 0;
             
             clusterInputs.forEach(input => {
-                if (input.value && input.value !== "") {
+                if (input.value) {
                     filledClusters++;
                 }
             });
-            
-            // Validation checks
-            if (selectedSubjects < 8) {
-                alert(`Please enter grades for at least 8 subjects (you've entered ${selectedSubjects}).`);
-                return;
-            }
             
             if (filledClusters < 5) {
                 alert(`Please enter cutoff points for at least 5 clusters (you've entered ${filledClusters}).`);
                 return;
             }
             
-            // If validation passes, proceed to payment
+            // 4. If all validations pass, redirect to payment
             window.location.href = 'https://coursechecker.co.ke/payment.php';
         });
     </script>
