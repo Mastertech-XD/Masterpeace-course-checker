@@ -3,355 +3,873 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BotHost - Discord Bot Hosting</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>KCSE Grades and Cluster Points</title>
     <style>
-    --primary: #5865F2;
-    --dark: #23272A;
-    --light: #FFFFFF;
-    --gray: #99AAB5;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-    background-color: #f9f9f9;
-    color: var(--dark);
-    line-height: 1.6;
-}
-
-/* Header & Navigation */
-header {
-    background-color: var(--light);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 5%;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary);
-}
-
-.nav-links {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: var(--dark);
-    font-weight: 500;
-    transition: color 0.3s;
-}
-
-.nav-links a:hover {
-    color: var(--primary);
-}
-
-.btn-login {
-    background-color: var(--primary);
-    color: white;
-    padding: 0.5rem 1.5rem;
-    border-radius: 4px;
-}
-
-.btn-login:hover {
-    opacity: 0.9;
-}
-
-/* Hero Section */
-.hero {
-    text-align: center;
-    padding: 5rem 1rem;
-    background: linear-gradient(135deg, #5865F2 0%, #3BA55C 100%);
-    color: white;
-}
-
-.hero h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-}
-
-.hero p {
-    font-size: 1.2rem;
-    max-width: 700px;
-    margin: 0 auto 2rem;
-}
-
-/* Buttons */
-.btn-primary {
-    background-color: var(--light);
-    color: var(--primary);
-    padding: 0.8rem 2rem;
-    border-radius: 4px;
-    text-decoration: none;
-    font-weight: 600;
-    display: inline-block;
-    transition: all 0.3s;
-}
-
-.btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-.btn-secondary {
-    border: 2px solid var(--primary);
-    color: var(--primary);
-    padding: 0.8rem 2rem;
-    border-radius: 4px;
-    text-decoration: none;
-    font-weight: 600;
-    display: inline-block;
-    transition: all 0.3s;
-}
-
-.btn-secondary:hover {
-    background-color: var(--primary);
-    color: white;
-}
-
-/* Features Section */
-.features {
-    padding: 5rem 1rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.features h2 {
-    text-align: center;
-    margin-bottom: 3rem;
-    font-size: 2.5rem;
-}
-
-.feature-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-}
-
-.feature-card {
-    background-color: var(--light);
-    padding: 2rem;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s;
-}
-
-.feature-card:hover {
-    transform: translateY(-10px);
-}
-
-.feature-card i {
-    font-size: 3rem;
-    color: var(--primary);
-    margin-bottom: 1.5rem;
-}
-
-.feature-card h3 {
-    margin-bottom: 1rem;
-}
-
-/* Pricing Section */
-.pricing {
-    padding: 5rem 1rem;
-    background-color: #f0f2f5;
-}
-
-.pricing h2 {
-    text-align: center;
-    margin-bottom: 3rem;
-    font-size: 2.5rem;
-}
-
-.pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.pricing-card {
-    background-color: var(--light);
-    padding: 2rem;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    position: relative;
-}
-
-.pricing-card.popular {
-    border: 2px solid var(--primary);
-}
-
-.popular-badge {
-    position: absolute;
-    top: -15px;
-    right: 20px;
-    background-color: var(--primary);
-    color: white;
-    padding: 0.3rem 1rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
-}
-
-.pricing-card h3 {
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-}
-
-.pricing-card .price {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    color: var(--primary);
-}
-
-.pricing-card .price span {
-    font-size: 1rem;
-    color: var(--gray);
-}
-
-.pricing-card ul {
-    list-style: none;
-    margin-bottom: 2rem;
-}
-
-.pricing-card ul li {
-    margin-bottom: 0.5rem;
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    padding: 2rem;
-    background-color: var(--dark);
-    color: var(--light);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .nav-links {
-        display: none; /* Replace with mobile menu in practice */
-    }
-
-    .hero h1 {
-        font-size: 2.5rem;
-    }
-}
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-pink: #ff00f7;
+            --neon-green: #00ff9d;
+            --neon-purple: #9d00ff;
+            --dark-bg: #0a0a14;
+            --light-text: #f0f0ff;
+            --glow: 0 0 10px;
+            --electric-blue: #00e1ff;
+        }
+        
+        body {
+            font-family: 'Rajdhani', 'Segoe UI', sans-serif;
+            line-height: 1.7;
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 20px;
+            color: var(--light-text);
+            background-color: var(--dark-bg);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 227, 255, 0.08) 0%, transparent 25%),
+                radial-gradient(circle at 90% 80%, rgba(157, 0, 255, 0.1) 0%, transparent 30%),
+                linear-gradient(to bottom, #0a0a14, #14141f);
+            background-attachment: fixed;
+        }
+        
+        h1, h2, h3 {
+            color: var(--electric-blue);
+            text-shadow: var(--glow) var(--electric-blue);
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite alternate;
+            background: linear-gradient(90deg, var(--neon-green), var(--electric-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px rgba(0, 225, 255, 0.5);
+        }
+        
+        @keyframes pulse {
+            0% { text-shadow: 0 0 10px var(--electric-blue); }
+            50% { text-shadow: 0 0 25px var(--electric-blue); }
+            100% { text-shadow: 0 0 10px var(--electric-blue), 0 0 40px var(--neon-purple); }
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+            padding: 30px;
+            border: 1px solid var(--neon-purple);
+            border-radius: 12px;
+            background-color: rgba(20, 15, 40, 0.6);
+            box-shadow: 0 0 25px rgba(157, 0, 255, 0.2);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(8px);
+        }
+        
+        .form-section:hover {
+            box-shadow: 0 0 35px rgba(157, 0, 255, 0.4);
+            border-color: var(--electric-blue);
+            transform: translateY(-3px);
+        }
+        
+        select, input {
+            padding: 12px 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid var(--neon-blue);
+            background-color: rgba(0, 30, 60, 0.5);
+            color: var(--light-text);
+            font-size: 16px;
+            transition: all 0.3s;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 500;
+            width: 240px;
+            box-shadow: inset 0 0 10px rgba(0, 195, 255, 0.1);
+        }
+        
+        select {
+            background-image: linear-gradient(to bottom, rgba(0, 60, 100, 0.6), rgba(0, 30, 60, 0.7));
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300e1ff'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 20px;
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--neon-green);
+            box-shadow: 0 0 15px var(--neon-green),
+                        inset 0 0 10px rgba(0, 255, 157, 0.2);
+        }
+        
+        .subject-group {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-left: 3px solid var(--neon-pink);
+            background-color: rgba(60, 0, 80, 0.15);
+            transition: all 0.4s;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .subject-group:hover {
+            background-color: rgba(80, 0, 100, 0.25);
+            border-left-width: 5px;
+            transform: translateX(5px);
+        }
+        
+        label {
+            display: inline-block;
+            width: 260px;
+            color: var(--electric-blue);
+            font-weight: bold;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            text-shadow: 0 0 8px rgba(0, 225, 255, 0.3);
+        }
+        
+        .required::after {
+            content: " *";
+            color: var(--neon-pink);
+            text-shadow: 0 0 8px var(--neon-pink);
+        }
+        
+        button {
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin: 40px auto;
+            display: block;
+            transition: all 0.4s;
+            box-shadow: 0 5px 25px rgba(0, 225, 255, 0.4);
+            font-family: 'Rajdhani', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: -1;
+        }
+        
+        button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 35px rgba(0, 225, 255, 0.6);
+        }
+        
+        button:hover::before {
+            opacity: 1;
+        }
+        
+        button:active {
+            transform: translateY(2px);
+        }
+        
+        footer {
+            margin-top: 80px;
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid var(--neon-purple);
+            color: #aaa;
+            font-size: 0.9rem;
+            text-shadow: 0 0 5px rgba(157, 0, 255, 0.3);
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .section-title h2 {
+            margin: 0;
+            background: linear-gradient(90deg, var(--neon-pink), var(--electric-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .section-icon {
+            margin-right: 15px;
+            font-size: 1.8rem;
+            color: var(--electric-blue);
+            filter: drop-shadow(0 0 5px var(--electric-blue));
+        }
+        
+        /* Cluster input styles */
+        .cluster-input {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        
+        .cluster-input label {
+            display: block;
+            width: 100%;
+            margin-bottom: 8px;
+        }
+        
+        .cluster-input input {
+            width: 100%;
+            max-width: 100%;
+        }
+        
+        .text-2xl {
+            font-size: 1.5rem;
+        }
+        
+        .font-bold {
+            font-weight: bold;
+        }
+        
+        .text-white {
+            color: white;
+        }
+        
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .grid {
+            display: grid;
+        }
+        
+        .gap-4 {
+            gap: 1rem;
+        }
+        
+        .block {
+            display: block;
+        }
+        
+        .font-semibold {
+            font-weight: 600;
+        }
+        
+        .mb-1 {
+            margin-bottom: 0.25rem;
+        }
+        
+        .w-full {
+            width: 100%;
+        }
+        
+        .px-3 {
+            padding-left: 0.75rem;
+            padding-right: 0.75rem;
+        }
+        
+        .py-2 {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+        
+        .rounded-md {
+            border-radius: 0.375rem;
+        }
+        
+        .bg-gray-800 {
+            background-color: rgba(31, 41, 55, 0.8);
+        }
+        
+        .border {
+            border-width: 1px;
+        }
+        
+        .border-gray-600 {
+            border-color: rgba(75, 85, 99, 0.6);
+        }
+        
+        .focus\:outline-none:focus {
+            outline: none;
+        }
+        
+        .focus\:ring-2:focus {
+            box-shadow: 0 0 0 2px var(--neon-blue);
+        }
+        
+        .focus\:ring-teal-500:focus {
+            box-shadow: 0 0 0 2px var(--neon-green);
+        }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                <i class="fas fa-robot"></i>
-                <span>BotHost</span>
+    <h1>KCSE Course Checker</h1>
+    
+    <div class="form-section">
+        <div class="section-title">
+            <div class="section-icon">📊</div>
+            <h2>Enter Your KCSE Grades</h2>
+        </div>
+        
+        <div class="subject-group">
+            <label for="mean-grade" class="required">Mean Grade:</label>
+            <select id="mean-grade" required>
+                <option value="" selected disabled>Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <h3>Core Subjects</h3>
+        <div class="subject-group">
+            <label for="english" class="required">English:</label>
+            <select id="english" required>
+                <option value="" selected disabled>Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="mathematics" class="required">Mathematics:</label>
+            <select id="mathematics" required>
+                <option value="" selected disabled>Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="kiswahili" class="required">Kiswahili:</label>
+            <select id="kiswahili" required>
+                <option value="" selected disabled>Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <h3>Sciences</h3>
+        <div class="subject-group">
+            <label for="biology">Biology:</label>
+            <select id="biology">
+                <option value="" selected disabled>Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="chemistry">Chemistry:</label>
+            <select id="chemistry">
+                <option value="" selected disabled>Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="physics">Physics:</label>
+            <select id="physics">
+                <option value="" selected disabled>Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <h3>Technical Subjects</h3>
+        <div class="subject-group">
+            <label for="building">Building and Construction:</label>
+            <select id="building">
+                <option value="" selected disabled>Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="woodwork">Woodwork:</label>
+            <select id="woodwork">
+                <option value="" selected disabled>Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="computer">Computer Studies:</label>
+            <select id="computer">
+                <option value="" selected disabled>Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="agriculture">Agriculture:</label>
+            <select id="agriculture">
+                <option value="" selected disabled>Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="business">Business Studies:</label>
+            <select id="business">
+                <option value="" selected disabled>Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <h3>Humanities</h3>
+        <div class="subject-group">
+            <label for="history">History and Government:</label>
+            <select id="history">
+                <option value="" selected disabled>Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="geography">Geography:</label>
+            <select id="geography">
+                <option value="" selected disabled>Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <h3>Religious Education</h3>
+        <div class="subject-group">
+            <label for="cre">Christian Religious Education (CRE):</label>
+            <select id="cre">
+                <option value="" selected disabled>Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="ire">Islamic Religious Education (IRE):</label>
+            <select id="ire">
+                <option value="" selected disabled>Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="hre">Hindu Religious Education (HRE):</label>
+            <select id="hre">
+                <option value="" selected disabled>Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <h3>Arts</h3>
+        <div class="subject-group">
+            <label for="music">Music:</label>
+            <select id="music">
+                <option value="" selected disabled>Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="aviation">Aviation:</label>
+            <select id="aviation">
+                <option value="" selected disabled>Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="home-science">Home Science:</label>
+            <select id="home-science">
+                <option value="" selected disabled>Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <div class="subject-group">
+            <label for="arabic">Arabic:</label>
+            <select id="arabic">
+                <option value="" selected disabled>Select Grade</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="E">E</option>
+            </select>
+        </div>
+        
+        <h2 class="text-2xl font-bold text-white mb-6 text-center">Enter Cluster Cutoff Points</h2>
+        
+        <div class="grid grid-cols-1 gap-4">
+            <div class="cluster-input">
+                <label class="block font-semibold mb-1">Cluster 1 – Law:</label>
+                <input name="cluster1" type="number" step="0.01" class="w-full px-3 py-2 rounded-md bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="Enter points for Law">
             </div>
-            <ul class="nav-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#" class="btn-login">Login</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main>
-        <section class="hero">
-            <h1>Host Your Discord Bot 24/7</h1>
-            <p>Reliable, scalable, and easy-to-use bot hosting with one-click deployment.</p>
-            <a href="#" class="btn-primary">Get Started</a>
-        </section>
-
-        <section id="features" class="features">
-            <h2>Why Choose BotHost?</h2>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <i class="fas fa-bolt"></i>
-                    <h3>Instant Deployment</h3>
-                    <p>Deploy your bot in seconds with our automated system.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-shield-alt"></i>
-                    <h3>DDoS Protection</h3>
-                    <p>Keep your bot online with enterprise-grade security.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-chart-line"></i>
-                    <h3>Real-Time Analytics</h3>
-                    <p>Monitor your bot's performance and uptime.</p>
-                </div>
+            <div class="cluster-input">
+                <label class="block font-semibold mb-1">Cluster 2 – Business, Hospitality &amp; Related:</label>
+                <input name="cluster2" type="number" step="0.01" placeholder="Enter points for Business" class="w-full px-3 py-2 rounded-md bg-gray-800 text-white border border-gray-600">
             </div>
-        </section>
-
-        <section id="pricing" class="pricing">
-            <h2>Pricing Plans</h2>
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <h3>Free</h3>
-                    <p class="price">$0<span>/month</span></p>
-                    <ul>
-                        <li>512MB RAM</li>
-                        <li>1 Bot</li>
-                        <li>Limited Support</li>
-                    </ul>
-                    <a href="#" class="btn-secondary">Sign Up</a>
-                </div>
-                <div class="pricing-card popular">
-                    <div class="popular-badge">Most Popular</div>
-                    <h3>Pro</h3>
-                    <p class="price">$10<span>/month</span></p>
-                    <ul>
-                        <li>2GB RAM</li>
-                        <li>5 Bots</li>
-                        <li>Priority Support</li>
-                    </ul>
-                    <a href="#" class="btn-primary">Get Started</a>
-                </div>
-                <div class="pricing-card">
-                    <h3>Enterprise</h3>
-                    <p class="price">$30<span>/month</span></p>
-                    <ul>
-                        <li>4GB+ RAM</li>
-                        <li>Unlimited Bots</li>
-                        <li>24/7 Support</li>
-                    </ul>
-                    <a href="#" class="btn-secondary">Contact Us</a>
-                </div>
+            <div class="cluster-input">
+                <label class="block font-semibold mb-1">Cluster 3 – Social Sciences, Media, Fine Arts &amp; Related:</label>
+                <input name="cluster3" type="number" step="0.01" placeholder="Enter points for Social Sciences" class="w-full px-3 py-2 rounded-md bg-gray-800 text-white border border-gray-600">
             </div>
-        </section>
-    </main>
-
+            <div class="cluster-input">
+                <label class="block font-semibold mb-1">Cluster 4 – Geosciences &amp; Related:</label>
+                <input name="cluster4" type="number" step="0.01" placeholder="Enter points for Geosciences" class="w-full px-3 py-2 rounded-md bg-gray-800 text-white border border-gray-600">
+            </div>
+            <div class="cluster-input">
+                <label class="block font-semibold mb-1">Cluster 5 – Engineering &amp; Related:</label>
+                <input name="cluster5" type="number" step="0.01" placeholder="Enter points for Engineering" class="w-full px-3 py-2 rounded-md bg-gray-800 text-white border border-gray-600">
+            </div>
+            <div class="cluster-input">
+                <label class="block font-semibold mb-1">Cluster 6 – Architecture &amp; Related:</label>
+                <input name="cluster6" type="number" step="0.01" placeholder="Enter points for Architecture" class="w-full px-3 py-2 rounded-md bg-gray-800 text-white border border-gray-600">
+            </div>
+            <div class="cluster-input">
+                <label class="block font-semibold mb-1">Cluster 7 – Computing, IT &amp; Related:</label>
+                <input name="cluster7" type="number" step="0.01" placeholder="Enter points for Computing" class="w-full px-3 py-2 rounded-md bg-gray-800 text-white border border-gray-600">
+            </div>
+            <div class="cluster-input">
+                <label class="block font-semibold mb-1">Cluster 8 – Agribusiness &amp; Related:</label>
+                <input name="cluster8" type="number" step="0.01" placeholder="Enter points for Agribusiness" class="w-full px-3 py-2 rounded-md bg-gray-800 text-white border border-gray-600">
+            </div>
+            <div class="cluster-input">
+                <label class="block font-semibold mb-1">Cluster 9 – General Sciences &amp; Related:</label>
+                <input name="cluster9" type="number" step="0.01" placeholder="Enter points for General Sciences" class="w-full px-3 py-2 rounded-md bg-gray-800 text-white border border-gray-600">
+            </div>
+            <div class="cluster-input">
+                <label class="block font-semibold mb-1">Cluster 10 – Actuarial Science &amp; Related:</label>
+                <input name="cluster10" type="number" step="0.01" placeholder="Enter points for Actuarial Science" class="w-full px-3 py-2 rounded-md bg-gray-800 text-white border border-gray-600">
+            </div>
+            <div class="cluster-input">
+                <label class="block font-semibold mb-1">Cluster 11 – Interior Design &amp; Related:</label>
+                <input name="cluster11" type="number" step="0.01" placeholder="Enter points for Interior Design" class="w-full px-3 py-2 rounded-md bg-gray-800 text-white border border-gray-600">
+            </div>
+            <div class="cluster-input">
+                <label class="block font-semibold mb-1">Cluster 12 – Sports Science &amp; Related:</label>
+                <input name="cluster12" type="number" step="0.01" placeholder="Enter points for Sports Science" class="w-full px-3 py-2 rounded-md bg-gray-800 text-white border border-gray-600">
+            </div>
+            <div class="cluster-input">
+                <label class="block font-semibold mb-1">Cluster 13 – Medicine, Health &amp; Related:</label>
+                <input name="cluster13" type="number" step="0.01" placeholder="Enter points for Medicine" class="w-full px-3 py-2 rounded-md bg-gray-800 text-white border border-gray-600">
+            </div>
+            <div class="cluster-input">
+                <label class="block font-semibold mb-1">Cluster 14 – History &amp; Archeology:</label>
+                <input name="cluster14" type="number" step="0.01" placeholder="Enter points for History &amp; Archeology" class="w-full px-3 py-2 rounded-md bg-gray-800 text-white border border-gray-600">
+            </div>
+            <div class="cluster-input">
+                <label class="block font-semibold mb-1">Cluster 15 – Environmental Science &amp; Related:</label>
+                <input name="cluster15" type="number" step="0.01" placeholder="Enter points for Environmental Science" class="w-full px-3 py-2 rounded-md bg-gray-800 text-white border border-gray-600">
+            </div>
+            <div class="cluster-input">
+                <label class="block font-semibold mb-1">Cluster 16 – Geography and Related:</label>
+                <input name="cluster16" type="number" step="0.01" placeholder="Enter points for Geography" class="w-full px-3 py-2 rounded-md bg-gray-800 text-white border border-gray-600">
+            </div>
+            <div class="cluster-input">
+                <label class="block font-semibold mb-1">Cluster 17 – French and German:</label>
+                <input name="cluster17" type="number" step="0.01" placeholder="Enter points for French and German" class="w-full px-3 py-2 rounded-md bg-gray-800 text-white border border-gray-600">
+            </div>
+            <div class="cluster-input">
+                <label class="block font-semibold mb-1">Cluster 18 – Music and Related:</label>
+                <input name="cluster18" type="number" step="0.01" placeholder="Enter points for Music and Related" class="w-full px-3 py-2 rounded-md bg-gray-800 text-white border border-gray-600">
+            </div>
+            <div class="cluster-input">
+                <label class="block font-semibold mb-1">Cluster 19 – Education and Related:</label>
+                <input name="cluster19" type="number" step="0.01" placeholder="Enter points for Education and Related" class="w-full px-3 py-2 rounded-md bg-gray-800 text-white border border-gray-600">
+            </div>
+            <div class="cluster-input">
+                <label class="block font-semibold mb-1">Cluster 20 – Religious Studies, Theology, Islamic Studies and Related:</label>
+                <input name="cluster20" type="number" step="0.01" placeholder="Enter points for Religious Studies and Related" class="w-full px-3 py-2 rounded-md bg-gray-800 text-white border border-gray-600">
+            </div>
+        </div>
+        
+        <button id="check-courses">Proceed to Payment</button>
+    </div>
+    
     <footer>
-        <p>&copy; 2023 BotHost. All rights reserved.</p>
+        © 2025 Masterpeace Elite. All rights reserved. | Empowering Students Through Technology.
     </footer>
-
-    <script src="script.js"></script>
+    
+    <script>
+        document.getElementById('check-courses').addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent immediate redirect
+            
+            // Validate required fields
+            const meanGrade = document.getElementById('mean-grade').value;
+            const english = document.getElementById('english').value;
+            const mathematics = document.getElementById('mathematics').value;
+            const kiswahili = document.getElementById('kiswahili').value;
+            
+            if (!meanGrade || !english || !mathematics || !kiswahili) {
+                alert('Please fill in all required fields (Mean Grade, English, Mathematics, and Kiswahili)');
+                return;
+            }
+            
+            // Count selected subjects (excluding empty values)
+            const subjectSelects = document.querySelectorAll('select[id!="mean-grade"]');
+            let selectedSubjects = 0;
+            
+            subjectSelects.forEach(select => {
+                if (select.value && select.value !== "") {
+                    selectedSubjects++;
+                }
+            });
+            
+            // Count filled cluster points
+            const clusterInputs = document.querySelectorAll('input[name^="cluster"]');
+            let filledClusters = 0;
+            
+            clusterInputs.forEach(input => {
+                if (input.value && input.value !== "") {
+                    filledClusters++;
+                }
+            });
+            
+            // Validation checks
+            if (selectedSubjects < 8) {
+                alert(`Please enter grades for at least 8 subjects (you've entered ${selectedSubjects}).`);
+                return;
+            }
+            
+            if (filledClusters < 5) {
+                alert(`Please enter cutoff points for at least 5 clusters (you've entered ${filledClusters}).`);
+                return;
+            }
+            
+            // If validation passes, proceed to payment
+            window.location.href = 'https://coursechecker.co.ke/payment.php';
+        });
+    </script>
 </body>
 </html>
