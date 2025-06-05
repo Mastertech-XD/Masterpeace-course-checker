@@ -711,10 +711,39 @@
         </div>
     </div>
     
-    <button id="find-courses">Proceed to payment</button>
+    <div class="footer">
+            Copyright © 2025 All rights reserved.<br>
+            Designed by SIR. Masterpeace Elite 
+        </div>
+    </div>
 
-    <footer>
-        Copyright &copy; 2025 by Masterpeace Elite. All rights reserved.
-    </footer>
+    <script>
+        function proceedToPayment() {
+            // Validate that at least one subject is selected
+            const allSelects = document.querySelectorAll('select');
+            let atLeastOneSelected = false;
+            
+            allSelects.forEach(select => {
+                if (select.value !== "") {
+                    atLeastOneSelected = true;
+                }
+            });
+            
+            if (!atLeastOneSelected) {
+                alert("Please select grades for at least one subject");
+                return;
+            }
+            
+            // Validate that at least one county is selected
+            const selectedCounties = document.querySelectorAll('input[type="checkbox"]:checked');
+            if (selectedCounties.length === 0) {
+                alert("Please select at least one preferred county");
+                return;
+            }
+            
+            // In a real application, this would redirect to payment
+            alert("Payment functionality would be implemented here. This is a demo.");
+        }
+    </script>
 </body>
 </html>
