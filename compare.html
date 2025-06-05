@@ -56,6 +56,37 @@
             50% { text-shadow: 0 0 25px var(--electric-blue); }
             100% { text-shadow: 0 0 10px var(--electric-blue), 0 0 40px var(--neon-purple); }
         }
+                .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: rgba(20, 15, 40, 0.3);
+            transition: all 0.3s;
+        }
+        
+        .checkbox-item:hover {
+            background-color: rgba(20, 15, 40, 0.6);
+            transform: translateY(-2px);
+        }
+        
+        .checkbox-item input {
+            margin-right: 10px;
+            accent-color: var(--neon-green);
+        }
+        
+        .checkbox-item label {
+            color: var(--light-text);
+            font-weight: 500;
+            cursor: pointer;
+        }
         
         .form-section {
             margin-bottom: 30px;
