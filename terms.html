@@ -3,471 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diploma Course Selection</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Course Category Selection</title>
     <style>
-        :root {
-            --primary: #3498db;
-            --secondary: #2980b9;
-            --accent: #e74c3c;
-            --dark: #2c3e50;
-            --light: #ecf0f1;
-            --success: #27ae60;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #dfe6e9 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-        
-        header {
-            background: var(--primary);
-            color: white;
-            padding: 20px 30px;
-            text-align: center;
-        }
-        
-        header h1 {
-            font-size: 28px;
-            margin-bottom: 5px;
-        }
-        
-        header p {
-            opacity: 0.9;
-        }
-        
-        .content {
-            padding: 30px;
-        }
-        
-        .section {
-            margin-bottom: 30px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 20px;
-        }
-        
-        .section:last-child {
-            border-bottom: none;
-        }
-        
-        .section-title {
-            color: var(--dark);
-            margin-bottom: 15px;
-            font-size: 22px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .section-title i {
-            margin-right: 10px;
-            color: var(--primary);
-        }
-        
-        .subject-group {
-            margin-bottom: 20px;
-        }
-        
-        .subject-label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--dark);
-        }
-        
-        select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            font-size: 16px;
-            background-color: white;
-            transition: all 0.3s;
-        }
-        
-        select:focus {
-            border-color: var(--primary);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-        }
-        
-        .checkbox-group {
+        .category-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 10px;
-            margin-top: 15px;
+            gap: 15px;
+            padding: 20px;
         }
-        
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            padding: 8px 0;
+        .category-group {
+            margin-bottom: 20px;
         }
-        
-        .checkbox-item input {
-            margin-right: 10px;
-            width: 18px;
-            height: 18px;
+        .category-item {
+            margin: 5px 0;
         }
-        
-        .btn-container {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 30px;
+        h2 {
+            margin-top: 0;
         }
-        
-        .btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 6px;
-            cursor: pointer;
+        button {
+            padding: 10px 20px;
+            margin: 20px;
             font-size: 16px;
-            font-weight: 600;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-        }
-        
-        .btn i {
-            margin-left: 8px;
-        }
-        
-        .btn:hover {
-            background: var(--secondary);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(41, 128, 185, 0.3);
-        }
-        
-        .required-field::after {
-            content: " *";
-            color: var(--accent);
-        }
-        
-        @media (max-width: 768px) {
-            .checkbox-group {
-                grid-template-columns: 1fr;
-            }
-            
-            .content {
-                padding: 20px;
-            }
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Diploma Course Selection Portal</h1>
-            <p>Select your subjects and preferred fields of study</p>
-        </header>
-        
-        <div class="content">
-            <form id="courseSelectionForm">
-                <div class="section">
-                    <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Academic Information</h2>
-                    
-                    <div class="subject-group">
-                        <label class="subject-label required-field">Mean Grade</label>
-                        <select required>
-                            <option value="">Select your mean grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="section">
-                    <h2 class="section-title"><i class="fas fa-book"></i> Core Subjects</h2>
-                    
-                    <div class="subject-group">
-                        <label class="subject-label required-field">English</label>
-                        <select required>
-                            <option value="">Select grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                    
-                    <div class="subject-group">
-                        <label class="subject-label required-field">Mathematics</label>
-                        <select required>
-                            <option value="">Select grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                    
-                    <div class="subject-group">
-                        <label class="subject-label required-field">Kiswahili</label>
-                        <select required>
-                            <option value="">Select grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="section">
-                    <h2 class="section-title"><i class="fas fa-flask"></i> Sciences</h2>
-                    
-                    <div class="subject-group">
-                        <label class="subject-label">Biology</label>
-                        <select>
-                            <option value="">Select grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                    
-                    <div class="subject-group">
-                        <label class="subject-label">Chemistry</label>
-                        <select>
-                            <option value="">Select grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                    
-                    <div class="subject-group">
-                        <label class="subject-label">Physics</label>
-                        <select>
-                            <option value="">Select grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="section">
-                    <h2 class="section-title"><i class="fas fa-briefcase"></i> Technical Subjects</h2>
-                    
-                    <div class="subject-group">
-                        <label class="subject-label">Computer Studies</label>
-                        <select>
-                            <option value="">Select grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                    
-                    <div class="subject-group">
-                        <label class="subject-label">Business Studies</label>
-                        <select>
-                            <option value="">Select grade</option>
-                            <option value="A">A</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B">B</option>
-                            <option value="B-">B-</option>
-                            <option value="C+">C+</option>
-                            <option value="C">C</option>
-                            <option value="C-">C-</option>
-                            <option value="D+">D+</option>
-                            <option value="D">D</option>
-                            <option value="D-">D-</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="section">
-                    <h2 class="section-title"><i class="fas fa-map-marker-alt"></i> Preferred Counties (Select minimum 2)</h2>
-                    
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="county1" name="county" value="Baringo">
-                            <label for="county1">Baringo</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="county2" name="county" value="Bomet">
-                            <label for="county2">Bomet</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="county3" name="county" value="Bungoma">
-                            <label for="county3">Bungoma</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="county4" name="county" value="Busia">
-                            <label for="county4">Busia</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="county5" name="county" value="Nairobi">
-                            <label for="county5">Nairobi</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="county6" name="county" value="Mombasa">
-                            <label for="county6">Mombasa</label>
-                        </div>
-                        <!-- More counties would be added here -->
-                    </div>
-                </div>
-                
-                <div class="section">
-                    <h2 class="section-title"><i class="fas fa-cogs"></i> Preferred Fields (Select minimum 3)</h2>
-                    
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="field1" name="field" value="Engineering">
-                            <label for="field1">Engineering and Technology</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="field2" name="field" value="Food Science">
-                            <label for="field2">Food Science</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="field3" name="field" value="Construction">
-                            <label for="field3">Building and Construction</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="field4" name="field" value="Fashion">
-                            <label for="field4">Clothing, Fashion, and Textile</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="field5" name="field" value="Beauty">
-                            <label for="field5">Hair Dressing and Beauty Therapy</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="field6" name="field" value="Business">
-                            <label for="field6">Business</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="field7" name="field" value="Agriculture">
-                            <label for="field7">Agriculture Science</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="field8" name="field" value="Hospitality">
-                            <label for="field8">Hospitality and Tourism</label>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="btn-container">
-                    <button type="submit" class="btn">Submit Application <i class="fas fa-arrow-right"></i></button>
-                </div>
-            </form>
+    <h1>Select Your Course Categories</h1>
+    
+    <div class="category-container">
+        <div class="category-group">
+            <h2>Professional Fields</h2>
+            <div class="category-item">
+                <input type="checkbox" id="law" name="category" value="Law">
+                <label for="law">Law (268)</label>
+            </div>
+            <div class="category-item">
+                <input type="checkbox" id="business" name="category" value="Business">
+                <label for="business">Business & Related (98)</label>
+            </div>
+            <div class="category-item">
+                <input type="checkbox" id="health" name="category" value="Health">
+                <label for="health">Health Sciences & Related (78)</label>
+            </div>
+            <div class="category-item">
+                <input type="checkbox" id="social" name="category" value="Social">
+                <label for="social">Social Sciences (33)</label>
+            </div>
+            <div class="category-item">
+                <input type="checkbox" id="tax" name="category" value="Tax">
+                <label for="tax">Tax & Custom Administration (3)</label>
+            </div>
+        </div>
+
+        <div class="category-group">
+            <h2>Engineering & Technology</h2>
+            <div class="category-item">
+                <input type="checkbox" id="building" name="category" value="Building">
+                <label for="building">Building, Construction & Related (23)</label>
+            </div>
+            <div class="category-item">
+                <input type="checkbox" id="engineering" name="category" value="Engineering">
+                <label for="engineering">Engineering, Technology & Related (79)</label>
+            </div>
+            <div class="category-item">
+                <input type="checkbox" id="computing" name="category" value="Computing">
+                <label for="computing">Computing, IT & Related (30)</label>
+            </div>
+            <div class="category-item">
+                <input type="checkbox" id="technical" name="category" value="Technical">
+                <label for="technical">Technical Courses (20)</label>
+            </div>
+        </div>
+
+        <div class="category-group">
+            <h2>Sciences</h2>
+            <div class="category-item">
+                <input type="checkbox" id="environmental" name="category" value="Environmental">
+                <label for="environmental">Environmental Sciences (9)</label>
+            </div>
+            <div class="category-item">
+                <input type="checkbox" id="applied" name="category" value="Applied">
+                <label for="applied">Applied Sciences (13)</label>
+            </div>
+            <div class="category-item">
+                <input type="checkbox" id="food" name="category" value="Food">
+                <label for="food">Food Science & Related (23)</label>
+            </div>
+            <div class="category-item">
+                <input type="checkbox" id="nutrition" name="category" value="Nutrition">
+                <label for="nutrition">Nutrition & Dietetics (3)</label>
+            </div>
+            <div class="category-item">
+                <input type="checkbox" id="natural" name="category" value="Natural">
+                <label for="natural">Natural Sciences & Related (8)</label>
+            </div>
+            <div class="category-item">
+                <input type="checkbox" id="agricultural" name="category" value="Agricultural">
+                <label for="agricultural">Agricultural Sciences & Related (29)</label>
+            </div>
+            <div class="category-item">
+                <input type="checkbox" id="animal" name="category" value="Animal">
+                <label for="animal">Animal Health and Related (2)</label>
+            </div>
+        </div>
+
+        <div class="category-group">
+            <h2>Creative & Service Industries</h2>
+            <div class="category-item">
+                <input type="checkbox" id="clothing" name="category" value="Clothing">
+                <label for="clothing">Clothing, Fashion & Textile (11)</label>
+            </div>
+            <div class="category-item">
+                <input type="checkbox" id="graphics" name="category" value="Graphics">
+                <label for="graphics">Graphics, Media Studies, Media Production & Related (24)</label>
+            </div>
+            <div class="category-item">
+                <input type="checkbox" id="hospitality" name="category" value="Hospitality">
+                <label for="hospitality">Hospitality, Hotel, Tourism & Related (13)</label>
+            </div>
+            <div class="category-item">
+                <input type="checkbox" id="hairdressing" name="category" value="Hairdressing">
+                <label for="hairdressing">Hair Dressing & Beauty Therapy (4)</label>
+            </div>
+            <div class="category-item">
+                <input type="checkbox" id="library" name="category" value="Library">
+                <label for="library">Library & Information Science (10)</label>
+            </div>
+            <div class="category-item">
+                <input type="checkbox" id="music" name="category" value="Music">
+                <label for="music">Music and Related</label>
+            </div>
+        </div>
+
+        <div class="category-group">
+            <h2>Education</h2>
+            <div class="category-item">
+                <input type="checkbox" id="education" name="category" value="Education">
+                <label for="education">Education & Related (268)</label>
+            </div>
+            <div class="category-item">
+                <input type="checkbox" id="teacher" name="category" value="Teacher">
+                <label for="teacher">Primary Teacher Education (2)</label>
+            </div>
         </div>
     </div>
-    
+
+    <button onclick="getSelectedCategories()">Submit Selection</button>
+
     <script>
-        // Form validation would be added here
-        document.getElementById('courseSelectionForm').addEventListener('submit', function(e) {
-            // Validate minimum selections
-            const countyCheckboxes = document.querySelectorAll('input[name="county"]:checked');
-            const fieldCheckboxes = document.querySelectorAll('input[name="field"]:checked');
+        function getSelectedCategories() {
+            const checkboxes = document.querySelectorAll('input[name="category"]:checked');
+            const selectedCategories = Array.from(checkboxes).map(cb => cb.value);
             
-            if (countyCheckboxes.length < 2) {
-                alert('Please select at least 2 preferred counties');
-                e.preventDefault();
-                return;
-            }
-            
-            if (fieldCheckboxes.length < 3) {
-                alert('Please select at least 3 preferred fields');
-                e.preventDefault();
-                return;
-            }
-            
-            // Form is valid, proceed with submission
-            alert('Form submitted successfully!');
-        });
+            alert(`You selected: ${selectedCategories.join(', ')}`);
+            // You can replace this with your actual form submission logic
+            console.log('Selected categories:', selectedCategories);
+        }
     </script>
 </body>
 </html>
