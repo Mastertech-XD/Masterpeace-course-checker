@@ -5,6 +5,175 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Course Category Selection</title>
     <style>
+        /* Base Styles */
+.course-categories {
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    color: #333;
+}
+
+/* Section Headings */
+.course-categories h1 {
+    font-size: 2.2rem;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #3498db;
+}
+
+.course-categories h2 {
+    font-size: 1.8rem;
+    color: #34495e;
+    margin: 1.8rem 0 1rem;
+    padding-left: 10px;
+    border-left: 4px solid #3498db;
+}
+
+/* Category Lists */
+.category-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.category-item {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border-left: 4px solid #3498db;
+}
+
+.category-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.category-item h3 {
+    font-size: 1.2rem;
+    margin: 0 0 10px 0;
+    color: #2c3e50;
+}
+
+.category-item ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.category-item li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category-item li:last-child {
+    border-bottom: none;
+}
+
+/* Count Badges */
+.count-badge {
+    background-color: #3498db;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* Checkbox Styles for Selectable Categories */
+.checkbox-category {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    background: white;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.checkbox-category:hover {
+    background: #f8f9fa;
+}
+
+.checkbox-category input[type="checkbox"] {
+    margin-right: 12px;
+    width: 18px;
+    height: 18px;
+    accent-color: #3498db;
+}
+
+.checkbox-category label {
+    flex-grow: 1;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .course-categories h1 {
+        font-size: 1.8rem;
+    }
+    
+    .course-categories h2 {
+        font-size: 1.5rem;
+    }
+    
+    .category-group {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Color Variations for Different Sections */
+.professional-fields .category-item {
+    border-left-color: #9b59b6;
+}
+
+.professional-fields .count-badge {
+    background-color: #9b59b6;
+}
+
+.engineering-technology .category-item {
+    border-left-color: #e74c3c;
+}
+
+.engineering-technology .count-badge {
+    background-color: #e74c3c;
+}
+
+.sciences .category-item {
+    border-left-color: #2ecc71;
+}
+
+.sciences .count-badge {
+    background-color: #2ecc71;
+}
+
+.creative-service .category-item {
+    border-left-color: #f39c12;
+}
+
+.creative-service .count-badge {
+    background-color: #f39c12;
+}
+
+.education .category-item {
+    border-left-color: #1abc9c;
+}
+
+.education .count-badge {
+    background-color: #1abc9c;
+}
         .category-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
