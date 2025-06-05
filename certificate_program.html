@@ -717,33 +717,55 @@
         </div>
     </div>
 
+    <button id="check-courses">Proceed to Payment</button>
+
     <script>
-        function proceedToPayment() {
-            // Validate that at least one subject is selected
-            const allSelects = document.querySelectorAll('select');
-            let atLeastOneSelected = false;
+        document.getElementById('check-courses').addEventListener('click', function(e) {
+            e.preventDefault();
             
-            allSelects.forEach(select => {
-                if (select.value !== "") {
-                    atLeastOneSelected = true;
+            // Prevent form submission if this were in a form
+            e.preventDefault();
+            
+            // 1. Validate required fields
+            const requiredFields = [
+                'mean-grade',
+                'english',
+                'mathematics',
+                'kiswahili'
+            ];
+            
+            let missingRequiredFields = [];
+            
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (!field.value) {
+                    missingRequiredFields.push(fieldId.replace('-', ' '));
                 }
             });
             
-            if (!atLeastOneSelected) {
-                alert("Please select grades for at least one subject");
+            if (missingRequiredFields.length > 0) {
+                alert(`Please fill in these required fields: ${missingRequiredFields.join(', ')}`);
                 return;
             }
             
-            // Validate that at least one county is selected
-            const selectedCounties = document.querySelectorAll('input[type="checkbox"]:checked');
-            if (selectedCounties.length === 0) {
-                alert("Please select at least one preferred county");
+            // 2. Count selected subjects (minimum 8)
+            const subjectSelects = document.querySelectorAll('select:not(#mean-grade)');
+            let selectedSubjects = 0;
+            
+            subjectSelects.forEach(select => {
+                if (select.value) {
+                    selectedSubjects++;
+                }
+            });
+            
+            if (selectedSubjects < 8) {
+                alert(`Please select grades for at least 8 subjects (you've selected ${selectedSubjects}).`);
                 return;
             }
             
-            // In a real application, this would redirect to payment
-            alert("Payment functionality would be implemented here. This is a demo.");
-        }
+            // 4. If all validations pass, redirect to payment
+            window.location.href = 'https://coursechecker.co.ke/payment.php';
+        });
     </script>
 </body>
 </html>
