@@ -897,52 +897,7 @@
             <div class="checkbox-item">
                 <input type="checkbox" id="county-narok" name="counties" value="Narok">
                 <label for="county-narok">Narok</label>
-            </div>
-            <div class="checkbox-item">
-                <input type="checkbox" id="county-nyamira" name="counties" value="Nyamira">
-                <label for="county-nyamira">Nyamira</label>
-            </div>
-            <div class="checkbox-item">
-                <input type="checkbox" id="county-nyandarua" name="counties" value="Nyandarua">
-                <label for="county-nyandarua">Nyandarua</label>
-            </div>
-            <div class="checkbox-item">
-                <input type="checkbox" id="county-nyeri" name="counties" value="Nyeri">
-                <label for="county-nyeri">Nyeri</label>
-            </div>
-            <div class="checkbox-item">
-                <input type="checkbox" id="county-samburu" name="counties" value="Samburu">
-                <label for="county-samburu">Samburu</label>
-            </div>
-            <div class="checkbox-item">
-                <input type="checkbox" id="county-slay" name="counties" value="Slaya">
-                <label for="county-slay">Slaya</label>
-            </div>
-            <div class="checkbox-item">
-                <input type="checkbox" id="county-taita" name="counties" value="Taita-Taveta">
-                <label for="county-taita">Taita-Taveta</label>
-            </div>
-            <div class="checkbox-item">
-                <input type="checkbox" id="county-tana" name="counties" value="Tana River">
-                <label for="county-tana">Tana River</label>
-            </div>
-            <div class="checkbox-item">
-                <input type="checkbox" id="county-tharaka" name="counties" value="Tharaka-Nithi">
-                <label for="county-tharaka">Tharaka-Nithi</label>
-            </div>
-            <div class="checkbox-item">
-                <input type="checkbox" id="county-trans" name="counties" value="Trans Nzoia">
-                <label for="county-trans">Trans Nzoia</label>
-            </div>
-            <div class="checkbox-item">
-                <input type="checkbox" id="county-turkana" name="counties" value="Turkana">
-                <label for="county-turkana">Turkana</label>
-            </div>
-            <div class="checkbox-item">
-                <input type="checkbox" id="county-uasin" name="counties" value="Uasin Gishu">
-                <label for="county-uasin">Uasin Gishu</label>
-            </div>
-            <div class="checkbox-item">
+
                 <input type="checkbox" id="county-vihiga" name="counties" value="Vihiga">
                 <label for="county-vihiga">Vihiga</label>
             </div>
@@ -972,35 +927,6 @@
                 <input type="checkbox" id="field-building" name="fields" value="Building and Construction Related">
                 <label for="field-building">Building and Construction Related</label>
             </div>
-            <div class="checkbox-item">
-                <input type="checkbox" id="field-technical" name="fields" value="Technical">
-                <label for="field-technical">Technical</label>
-            </div>
-            <div class="checkbox-item">
-                <input type="checkbox" id="field-agriculture" name="fields" value="Agriculture Science">
-                <label for="field-agriculture">Agriculture Science</label>
-            </div>
-            <div class="checkbox-item">
-                <input type="checkbox" id="field-hospitality" name="fields" value="Hospitality and Tourism">
-                <label for="field-hospitality">Hospitality and Tourism</label>
-            </div>
-            <div class="checkbox-item">
-                <input type="checkbox" id="field-food" name="fields" value="Food Science">
-                <label for="field-food">Food Science</label>
-            </div>
-            <div class="checkbox-item">
-                <input type="checkbox" id="field-clothing" name="fields" value="Clothing, Fashion, and Textile">
-                <label for="field-clothing">Clothing, Fashion, and Textile</label>
-            </div>
-            <div class="checkbox-item">
-                <input type="checkbox" id="field-hair" name="fields" value="Hair Dressing and Beauty Therapy">
-                <label for="field-hair">Hair Dressing and Beauty Therapy</label>
-            </div>
-            <div class="checkbox-item">
-                <input type="checkbox" id="field-business" name="fields" value="Business">
-                <label for="field-business">Business</label>
-            </div>
-        </div>
     </div>
     
     <button id="check-courses">Proceed to Payment</button>
@@ -1009,20 +935,6 @@
         document.getElementById('check-courses').addEventListener('click', function(e) {
             e.preventDefault();
             
-            // New validation for counties (minimum 2)
-            const selectedCounties = document.querySelectorAll('input[name="counties"]:checked').length;
-            if (selectedCounties < 2) {
-                alert('Please select at least 2 preferred counties');
-                return;
-            }
-            
-            // New validation for fields (minimum 3)
-            const selectedFields = document.querySelectorAll('input[name="fields"]:checked').length;
-            if (selectedFields < 3) {
-                alert('Please select at least 3 preferred fields of study');
-                return;
-            }
-
             // Prevent form submission if this were in a form
             e.preventDefault();
             
